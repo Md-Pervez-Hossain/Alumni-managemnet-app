@@ -1,9 +1,8 @@
-// <<<<<<< HEAD
 import React from "react";
 import { MdNavigateNext } from "react-icons/md";
 
-const SuccessStories = () => {
-  const storiesData = [
+const NewsCard = () => {
+  const newsData = [
     {
       _id: 1,
       image: "https://i.ibb.co/bRS24RD/github.webp",
@@ -23,9 +22,9 @@ const SuccessStories = () => {
   ];
   return (
     <div className="mt-3 max-w-5xl mx-auto relative">
-      <h1 className="my-7 text-3xl font-semibold">Successful Stories</h1>
+      <h1 className="mt-[3.75rem] mb-[1rem] text-3xl font-semibold">News</h1>
       <div className="flex gap-3 items-center mb-4">
-        {storiesData.map((data) => (
+        {newsData.map((data) => (
           <div
             key={data._id}
             className="w-full bg-[#2D6B5A] rounded-tl-3xl rounded-br-3xl"
@@ -34,10 +33,11 @@ const SuccessStories = () => {
           </div>
         ))}
       </div>
-      <div className="absolute bottom-0-0 right-0 text-white mb-6">
+      <div className="absolute bottom-0-0 right-0 text-white">
         <button className="text-right bg-[#2D6B5A] p-2 rounded-tl-lg rounded-br-lg">
           <span>
-            More Stories <MdNavigateNext className="inline-block" color="white" />
+            More
+            <MdNavigateNext className="inline-block" color="white" />
           </span>
         </button>
       </div>
@@ -45,4 +45,4 @@ const SuccessStories = () => {
   );
 };
 
-export default SuccessStories;
+export default NewsCard;

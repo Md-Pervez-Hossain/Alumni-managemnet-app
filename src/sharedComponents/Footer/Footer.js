@@ -7,9 +7,9 @@ const Footer = () => {
         <div>
           <h2 className="text-4xl font-bold mb-2">Alumni</h2>
           <p className="mb-5">
-            There are many company Lorem ipsm dolor sitg amet, csetur adipicing
-            elit, sed do eiusmod tempor dncint ut labore et dolore magna alis
-            enim ad minim veniam, quis
+            There are many company Lorem ipsm dolor sitg amet, csetur adipicing elit, sed
+            do eiusmod tempor dncint ut labore et dolore magna alis enim ad minim veniam,
+            quis
           </p>
           <input
             className="py-2 px-4 rounded-tl-lg font-semibold rounded-br-lg"
