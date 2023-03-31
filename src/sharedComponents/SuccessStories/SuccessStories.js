@@ -5,19 +5,19 @@ const SuccessStories = () => {
   const storiesData = [
     {
       _id: 1,
-      image: "https://i.ibb.co/bRS24RD/github.webp",
+      image: "https://i.ibb.co/KGpRmcC/desktop.jpg",
     },
     {
       _id: 2,
-      image: "https://i.ibb.co/bRS24RD/github.webp",
+      image: "https://i.ibb.co/KGpRmcC/desktop.jpg",
     },
     {
       _id: 3,
-      image: "https://i.ibb.co/bRS24RD/github.webp",
+      image: "https://i.ibb.co/KGpRmcC/desktop.jpg",
     },
     {
       _id: 4,
-      image: "https://i.ibb.co/bRS24RD/github.webp",
+      image: "https://i.ibb.co/KGpRmcC/desktop.jpg",
     },
   ];
   return (
@@ -29,7 +29,7 @@ const SuccessStories = () => {
             key={data._id}
             className="w-full bg-[#2D6B5A] rounded-tl-3xl rounded-br-3xl"
           >
-            <img src={data.image} alt="demo" />
+            <img className="rounded-tl-3xl rounded-br-3xl" src={data.image} alt="demo" />
           </div>
         ))}
       </div>
