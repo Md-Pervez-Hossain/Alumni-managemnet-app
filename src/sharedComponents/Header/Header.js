@@ -12,6 +12,7 @@ const Header = () => {
           <li>Events</li>
           <li>News</li>
           <li>Gallery</li>
+          <li>Gallery</li>
         </div>
       </div>
     </nav>
