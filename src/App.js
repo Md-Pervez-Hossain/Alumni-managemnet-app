@@ -5,11 +5,9 @@ import "./App.css";
 
 
 function App() {
-  return (
-    <div>
-     
-    </div>
-  );
+
+  return <div className="w-9/12 mx-auto"></div>;
+
 }
 
 export default App;
