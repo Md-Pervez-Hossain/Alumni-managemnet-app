@@ -1,5 +1,4 @@
 import React from "react";
-import { GrFormNext } from "react-icons/gr";
 import { MdNavigateNext } from "react-icons/md";
 
 const UpComingEvents = () => {
@@ -47,12 +46,6 @@ const UpComingEvents = () => {
         you can share your skills for the next generation. We respect your time. To
         explore the event Join Now.
       </p>
-
-      <button className="btn bg-white p-2 mt-4 ">
-        <span className="text-[#2D6B5A] font-bold">
-          Join Now <GrFormNext className="inline-block text-[#2D6B5A]" />
-        </span>
-      </button>
     </>
   );
 };
