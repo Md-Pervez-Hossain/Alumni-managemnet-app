@@ -1,11 +1,13 @@
 import React from "react";
 import "./App.css";
-import UpComingEvents from "./Components/UpComingEvents/UpComingEvents";
+import SuccessStories from "./sharedComponents/SuccessStories/SuccessStories";
+import UpComingEvents from "./sharedComponents/UpComingEvents/UpComingEvents";
 
 function App() {
   return (
     <div>
-      <UpComingEvents/>
+      <UpComingEvents />
+      <SuccessStories/>
     </div>
   );
 }
