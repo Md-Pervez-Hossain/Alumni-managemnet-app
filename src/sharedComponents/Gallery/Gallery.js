@@ -1,11 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Gallery = () => {
+  const [galleries, setGalleries] = useState([]);
+  const [gellary, setGellary] = useState([]);
+
+  useEffect(() => {
+    fetch(`http://localhost:5000/galleries`)
+      .then((res) => res.json())
+      .then((data) => {
+        setGalleries(data);
+      });
+  }, []);
+
+  if (!galleries) {
+    return <p>Loading....</p>;
+  }
+
+  const handleButtonClick = (id) => {
+    fetch(`http://localhost:5000/galleries/${id}`, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setGellary(data);
+      });
+  };
+
   return (
     <div className="mt-3 max-w-5xl mx-auto relative">
       <div className="mt-10">
         <p className="text-4xl lg:text-5xl font-semibold my-3">Our Gallery</p>
-
         <div>
           <button className="px-5 py-6 w-full md:w-auto mt-4 text-xl rounded-tl-3xl rounded-br-3xl font-semibold bg-gray-300 focus:bg-green-800 focus:text-white hover:bg-green-600 hover:text-white">
             Old Memory
@@ -23,7 +48,6 @@ const Gallery = () => {
             Convocations
           </button>
         </div>
-
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3 mt-4">
           <img
             className="rounded-tl-3xl rounded-br-3xl mt-3"
