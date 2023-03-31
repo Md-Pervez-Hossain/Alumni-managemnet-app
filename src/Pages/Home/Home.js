@@ -7,6 +7,8 @@ import SuccessStories from "../../sharedComponents/SuccessStories/SuccessStories
 import UpComingEvents from "../../sharedComponents/UpComingEvents/UpComingEvents";
 import NewsCard from "../../sharedComponents/NewsCards/NewsCards";
 import EmailSubScribe from "../../sharedComponents/EmailSubScribe/EmailSubScribe";
+import AlumniDirectory from "../../sharedComponents/AlumniDirectory/AlumniDirectory";
+import MissionHeading from "../../sharedComponents/MissionHeading/MissionHeading";
 
 const Home = () => {
   return (
@@ -14,6 +16,8 @@ const Home = () => {
       <Slider />
       <UpComingEvents></UpComingEvents>
       <FundsForCause />
+      <MissionHeading />
+      <AlumniDirectory />
       <Gallery></Gallery>
       <MembersStat />
       <SuccessStories />
