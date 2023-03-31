@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
-import Main from "../Layout/Main";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
 import Rakib from "../Pages/TestingPage/Rakib";
+import Main from "../../src/layout/Main";
 
 const routes = createBrowserRouter([
   {
