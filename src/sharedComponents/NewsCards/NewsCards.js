@@ -33,11 +33,10 @@ const NewsCard = () => {
           </div>
         ))}
       </div>
-      <div className="absolute bottom-0-0 right-0 text-white">
+      <div className="right-0 text-white mb-5 text-right">
         <button className="text-right bg-[#2D6B5A] p-2 rounded-tl-lg rounded-br-lg">
           <span>
-            More
-            <MdNavigateNext className="inline-block" color="white" />
+            More Stories <MdNavigateNext className="inline-block" color="white" />
           </span>
         </button>
       </div>
