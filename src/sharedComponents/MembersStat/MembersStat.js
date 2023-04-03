@@ -1,6 +1,6 @@
 import React from "react";
 
-const MembersForm = () => {
+const MembersStat = () => {
   return (
     <div className="md:w-9/12 mx-auto my-16">
       <div className="bg-gray-100 flex justify-around items-center py-16">
@@ -25,4 +25,4 @@ const MembersForm = () => {
   );
 };
 
-export default MembersForm;
+export default MembersStat;
