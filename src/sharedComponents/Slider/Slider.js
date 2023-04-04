@@ -1,5 +1,5 @@
 import React from "react";
-import banner from "../../assets/herobanner.jpg";
+import banner from "../../assets/heroBanner.jpg";
 
 const Slider = () => {
   return (
