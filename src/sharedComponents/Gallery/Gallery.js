@@ -30,7 +30,7 @@ const Gallery = () => {
   return (
     <div className="mt-3 max-w-5xl mx-auto relative">
       <div className="mt-10">
-        <p className="text-4xl lg:text-5xl font-semibold my-3">Our Gallery</p>
+        <h2 className="text-2xl lg:text-2xl font-semibold my-3">Our Gallery</h2>
         <div>
           <button className="px-5 py-6 w-full md:w-auto mt-4 text-xl rounded-tl-3xl rounded-br-3xl font-semibold bg-gray-300 focus:bg-green-800 focus:text-white hover:bg-green-600 hover:text-white">
             Old Memory
