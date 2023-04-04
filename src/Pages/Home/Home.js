@@ -18,14 +18,27 @@ const Home = () => {
       <Slider />
       <div className="max-w-5xl mx-auto">
         <UpComingEvents />
-        <h1 class="text-3xl font-bold underline">Hello world!</h1>
         <FundsForCause />
-        <div className="bg-accent">
+      </div>
+
+      <div className=" bg-accent py-10 my-20">
+        <div className="max-w-5xl mx-auto">
           <MissionHeading />
           <AlumniDirectory />
         </div>
+      </div>
+
+      <div className="max-w-5xl mx-auto my-20">
         <Gallery></Gallery>
-        <MembersStat />
+      </div>
+
+      <div className=" bg-accent py-10 my-20">
+        <div className="max-w-5xl mx-auto">
+          <MembersStat />
+        </div>
+      </div>
+
+      <div className="max-w-5xl mx-auto my-20">
         <SuccessStories />
         <NewsCard />
         <Contact />

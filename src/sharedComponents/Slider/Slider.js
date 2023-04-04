@@ -4,9 +4,9 @@ import banner from "../../assets/heroBanner.jpg";
 
 const Slider = () => {
   return (
-    <div className="md:w-9/12 mx-auto">
+    <div className="w-full mx-auto mb-20">
       <div className="relative">
-        <img src={banner} alt="Hero Banner" />
+        <img src={banner} className="w-full" alt="Hero Banner" />
         <div className="absolute w-full md:w-1/2 px-2 mb-2  text-center     top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ">
           <h2 className="md:text-5xl text-2xl font-semibold  text-white md:mb-2">
             We Are Proud
