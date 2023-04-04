@@ -18,7 +18,7 @@ module.exports = {
       colors: {
         primary: "#1B3764",
         secondary: "#FFCA42",
-        git: "#F6F8FC",
+        accent: "#F6F8FC",
       },
     },
   },
