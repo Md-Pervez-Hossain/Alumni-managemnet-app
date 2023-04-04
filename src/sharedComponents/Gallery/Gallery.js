@@ -6,7 +6,7 @@ const Gallery = () => {
   const [gellary, setGellary] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/galleries`)
+    fetch(`https://server-eight-tau.vercel.app/galleries`)
       .then((res) => res.json())
       .then((data) => {
         setGalleries(data);
@@ -18,7 +18,7 @@ const Gallery = () => {
   }
 
   const handleButtonClick = (id) => {
-    fetch(`http://localhost:5000/galleries/${id}`, {
+    fetch(`https://server-eight-tau.vercel.app/galleries/${id}`, {
       method: "GET",
     })
       .then((res) => res.json())

@@ -33,7 +33,7 @@ const UpComingEvents = () => {
             time. To explore the event Join Now.
           </p>
 
-          <button className="btn bg-secondary p-2 mt-4 ">
+          <button className="btn bg-secondary px-8 py-4 mt-4 ">
             <span className="text-primary font-bold">
               Join Now <MdNavigateNext className="inline-block text-primary" />
             </span>

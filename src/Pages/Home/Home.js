@@ -18,9 +18,12 @@ const Home = () => {
       <Slider />
       <div className="max-w-5xl mx-auto">
         <UpComingEvents />
+        <h1 class="text-3xl font-bold underline">Hello world!</h1>
         <FundsForCause />
-        <MissionHeading />
-        <AlumniDirectory />
+        <div className="bg-accent">
+          <MissionHeading />
+          <AlumniDirectory />
+        </div>
         <Gallery></Gallery>
         <MembersStat />
         <SuccessStories />
