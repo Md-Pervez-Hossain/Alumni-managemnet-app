@@ -27,7 +27,7 @@ const Footer = () => {
             placeholder="Email"
           />
           <button className="bg-white text-gray-400 font-semibold rounded-tl-lg rounded-br-lg py-2 px-4 md:ml-4 mt-4">
-            Submit
+            Submit alumni
           </button>
         </div>
         <div>
