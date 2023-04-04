@@ -9,19 +9,40 @@ import NewsCard from "../../sharedComponents/NewsCards/NewsCards";
 import EmailSubScribe from "../../sharedComponents/EmailSubScribe/EmailSubScribe";
 import AlumniDirectory from "../../sharedComponents/AlumniDirectory/AlumniDirectory";
 import MissionHeading from "../../sharedComponents/MissionHeading/MissionHeading";
+import SingleEvents from "../../sharedComponents/Events/SingleEvents/SingleEvents";
+import Contact from "../../sharedComponents/Contact/Contact";
 
 const Home = () => {
   return (
     <>
       <Slider />
-      <UpComingEvents></UpComingEvents>
-      <FundsForCause />
-      <MissionHeading />
-      <AlumniDirectory />
-      <Gallery></Gallery>
-      <MembersStat />
-      <SuccessStories />
-      <NewsCard />
+      <div className="max-w-5xl mx-auto">
+        <UpComingEvents />
+        <FundsForCause />
+      </div>
+
+      <div className=" bg-accent py-10 my-20">
+        <div className="max-w-5xl mx-auto">
+          <MissionHeading />
+          <AlumniDirectory />
+        </div>
+      </div>
+
+      <div className="max-w-5xl mx-auto my-20">
+        <Gallery></Gallery>
+      </div>
+
+      <div className=" bg-accent py-10 my-20">
+        <div className="max-w-5xl mx-auto">
+          <MembersStat />
+        </div>
+      </div>
+
+      <div className="max-w-5xl mx-auto my-20">
+        <SuccessStories />
+        <NewsCard />
+        <Contact />
+      </div>
       <EmailSubScribe />
     </>
   );
