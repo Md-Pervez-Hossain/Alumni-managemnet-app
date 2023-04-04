@@ -15,15 +15,15 @@ const UpComingEvents = () => {
           <div className="flex gap-4">
             <div>
               <span className="text-white text-sm text-center">Days</span>
-              <div className="w-8 h-8 bg-white text-center rounded-full">2</div>
+              <div className="w-8 h-8 bg-white text-center rounded-full flex justify-center items-center text-lg font-semibold"> <span>3</span> </div>
             </div>
             <div>
               <span className="text-white text-sm text-center">Hours</span>
-              <div className="w-8 h-8 bg-white text-center rounded-full">21</div>
+              <div className="w-8 h-8 bg-white text-center rounded-full flex justify-center items-center text-lg font-semibold"> <span>23</span></div>
             </div>
             <div>
               <span className="text-white text-sm text-center">Min</span>
-              <div className="w-8 h-8 bg-white text-center rounded-full">22</div>
+              <div className="w-8 h-8 bg-white text-center rounded-full flex justify-center items-center text-lg font-semibold"> <span>30</span></div>
             </div>
             <span className="text-white mt-6">Remaining</span>
           </div>
