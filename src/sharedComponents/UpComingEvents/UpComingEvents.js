@@ -4,9 +4,9 @@ import { MdNavigateNext } from "react-icons/md";
 const UpComingEvents = () => {
   return (
     <>
-      <div className="sm:flex justify-between items-center sm:w-full max-w-5xl mx-auto bg-[#2D6B5A] px-5 py-7 mt-8 gap-4 relative">
+      <div className="sm:flex justify-between items-center sm:w-full max-w-5xl mx-auto bg-primary px-5 py-7 mt-8 gap-4 relative">
         <div className="absolute bg-white text-gray-900 -top-[24px] right-[2.5rem] shadow-md px-4">
-          <h1 className="text-3xl font-semibold">UpComing Events</h1>
+          <h1 className="text-xl font-semibold">UpComing Events</h1>
         </div>
         {/* images */}
         <div className="sm:w-1/2 w-full rounded-tl-3xl rounded-br-3xl">

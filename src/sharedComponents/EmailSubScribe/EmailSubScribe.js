@@ -6,7 +6,7 @@ const EmailSubScribe = () => {
       className="relative bg-[url(https://i.ibb.co/5M3bCB1/meeting.jpg)] bg-cover bg-center bg-no-repeat h-[400px]"
     >
       <div
-        className="absolute inset-0 bg-[#2D6B5A]/75 sm:bg-transparent sm:bg-gradient-to-r sm:from-[#2D6B5A]/70 sm:to-[#2D6B5A]/70"
+        className="absolute inset-0 bg-primary/75 sm:bg-transparent sm:bg-gradient-to-r sm:from-primary/70 sm:to-primary/70"
       >
 
       </div>

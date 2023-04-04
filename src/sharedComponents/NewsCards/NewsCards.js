@@ -105,7 +105,7 @@ const NewsCard = () => {
                 </p>
                 <button
                   type="button"
-                  className="bg-blue-600 text-white font-semibold border rounded-md p-2 hover:bg-white hover:text-neutral-700">
+                  className="bg-primary text-white font-semibold border rounded-md p-2 hover:bg-white hover:text-neutral-700">
                   Read More
                 </button>
               </div>
@@ -114,7 +114,7 @@ const NewsCard = () => {
         }
       </div>
       <div className="right-0 text-white mb-5 text-right mt-5">
-        <button className="text-right bg-[#2D6B5A] p-2 rounded-tl-lg rounded-br-lg">
+        <button className="text-right bg-primary p-2 rounded-tl-lg rounded-br-lg">
           <span>
             More<MdNavigateNext className="inline-block" color="white" />
           </span>

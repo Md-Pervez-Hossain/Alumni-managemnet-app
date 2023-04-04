@@ -70,9 +70,9 @@ const SuccessStories = () => {
         ))}
       </div>
       <div className="absolute bottom-0-0 right-0 text-white mb-6">
-        <button className=" py-4 px-8 text-right text-primary font-bold bg-secondary">
+        <button className=" py-3 px-7 text-right text-white font-bold bg-primary">
           <span>
-            More Stories <MdNavigateNext className="inline-block" color="blue" />
+            More Stories <MdNavigateNext className="inline-block" color="white" />
           </span>
         </button>
       </div>

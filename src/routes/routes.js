@@ -18,6 +18,10 @@ const routes = createBrowserRouter([
       { path: "/", element: <Home></Home> },
       { path: "/rakib", element: <Rakib /> },
       {
+        path: "/uhai",
+        element:<Uhai/>
+      },
+      {
         path: "/alumni-directory",
         loader: () => {
           return fetch("https://course-data-server.vercel.app/courses");
