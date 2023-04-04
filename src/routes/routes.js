@@ -3,6 +3,10 @@ import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
 import Rakib from "../Pages/TestingPage/Rakib";
 import Main from "../../src/layout/Main";
+import Nakib from "../Pages/TestingPage/Nakib";
+import Rony from "../Pages/TestingPage/Rony";
+import Pervez from "../Pages/TestingPage/Pervez";
+import Uhai from "../Pages/TestingPage/Uhai";
 
 const routes = createBrowserRouter([
   {
@@ -11,6 +15,10 @@ const routes = createBrowserRouter([
     children: [
       { path: "/", element: <Home></Home> },
       { path: "/rakib", element: <Rakib /> },
+      { path: "/nakib", element: <Nakib /> },
+      { path: "/rony", element: <Rony /> },
+      { path: "/pervez", element: <Pervez /> },
+      { path: "/uhai", element: <Uhai /> },
       {
         path: "/alumni-directory",
         loader: () => {
