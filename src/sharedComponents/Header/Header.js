@@ -7,7 +7,9 @@ import logo from "../../assets/logo.png";
 const Header = () => {
   const [open, setOpen] = useState(false);
   return (
-    <nav className="text-white bg-primary">
+
+    <nav className="bg-primary text-white ">
+
       <div className="w-9/12 mx-auto flex flex-wrap  list-none justify-between items-center py-5 text-xl font-bold">
         <div>
           <img src={logo} alt="" className="h-16" />
