@@ -12,25 +12,25 @@ const FundsForCause = () => {
         <div className="md:flex md:justify-center">
           
 
-          <button className="px-8 py-4 w-full  md:w-auto mt-3   font-semibold border-2 border-black bg-white focus:bg-yellow-400 ">
+          <button className="px-8 py-4 w-full  md:w-auto mt-3   font-semibold bg-gray-400  focus:bg-primary focus:text-secondary hover:bg-primary hover:text-secondary ">
             $20
           </button>
 
-          <button className="px-8 py-4 w-full  md:w-auto md:ml-4 mt-3   font-semibold border-2 border-black bg-white focus:bg-yellow-400 ">
+          <button className="px-8 py-4 w-full  md:w-auto md:ml-4 mt-3   font-semibold bg-gray-400   focus:bg-primary focus:text-secondary hover:bg-primary hover:text-secondary ">
             $50
           </button>
-          <button className="px-8 py-4 w-full  md:w-auto md:ml-4 mt-3   font-semibold border-2 border-black bg-white focus:bg-yellow-400 ">
+          <button className="px-8 py-4 w-full  md:w-auto md:ml-4 mt-3   font-semibold bg-gray-400   focus:bg-primary focus:text-secondary hover:bg-primary hover:text-secondary ">
             $100
           </button>
-          <button className="px-8 py-4 w-full  md:w-auto md:ml-4 mt-3   font-semibold border-2 border-black bg-white focus:bg-yellow-400 ">
+          <button className="px-8 py-4 w-full  md:w-auto md:ml-4 mt-3   font-semibold bg-gray-400   focus:bg-primary focus:text-secondary hover:bg-primary hover:text-secondary ">
             $500
           </button>
-          <button className="px-8 py-4 w-full  md:w-auto md:ml-4 mt-3   font-semibold border-2 border-black bg-white focus:bg-yellow-400 focus:">
+          <button className="px-8 py-4 w-full  md:w-auto md:ml-4 mt-3   font-semibold bg-gray-400   focus:bg-primary focus:text-secondary hover:bg-primary hover:text-secondary">
             $1000
           </button>
 
           <input
-          className="px-8 py-4 w-full text-sm lg:w-auto md:ml-4 mt-3 font-semibold border-2 border-black bg-white "
+          className="px-8 py-4 w-full text-sm lg:w-auto md:ml-4 mt-3 font-semibold bg-gray-300  "
           type="text"
           placeholder="Others"
         />

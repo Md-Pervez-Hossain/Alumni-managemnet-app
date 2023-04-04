@@ -9,6 +9,8 @@ import Nakib from "../Pages/TestingPage/Nakib";
 import Rony from "../Pages/TestingPage/Rony";
 import Pervez from "../Pages/TestingPage/Pervez";
 import Uhai from "../Pages/TestingPage/Uhai";
+import LogIn from "../sharedComponents/LogIn.js/LogIn";
+import SignUp from "../sharedComponents/SignUp/SignUp";
 
 const routes = createBrowserRouter([
   {
@@ -32,6 +34,16 @@ const routes = createBrowserRouter([
         },
         element: <ErrorPage></ErrorPage>,
       },
+
+      {
+        path: '/login',
+        element: <LogIn></LogIn>
+      },
+
+      {
+        path: '/signup',
+        element: <SignUp></SignUp>
+      }
     ],
     errorElement: <ErrorPage></ErrorPage>,
   },
