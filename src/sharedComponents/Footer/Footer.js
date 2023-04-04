@@ -20,6 +20,7 @@ const Footer = () => {
             id=""
             placeholder="Email"
           />
+
           <button className="bg-secondary text-primary font-semibold py-2 px-4 md:ml-4 mt-4">
             Submit
           </button>

@@ -17,10 +17,6 @@ const routes = createBrowserRouter([
     children: [
       { path: "/", element: <Home></Home> },
       { path: "/rakib", element: <Rakib /> },
-      { path: "/nakib", element: <Nakib /> },
-      { path: "/rony", element: <Rony /> },
-      { path: "/pervez", element: <Pervez /> },
-      { path: "/uhai", element: <Uhai /> },
       {
         path: "/alumni-directory",
         loader: () => {
