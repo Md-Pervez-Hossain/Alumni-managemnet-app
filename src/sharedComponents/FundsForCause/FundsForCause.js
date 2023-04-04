@@ -4,7 +4,7 @@ const FundsForCause = () => {
   return (
     <div className="mt-3 max-w-5xl mx-auto relative">
       <div className="m-2">
-        <p className="text-3xl md:text-5xl font-semibold mb-3">Funds for a cause</p>
+        <h2 className="text-2xl md:text-2xl font-semibold mb-3">Funds for a cause</h2>
         <p className="mb-3">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, pariatur velit?
           Ab voluptate sed optio repellendus doloremque odit natus, eligendi voluptatem
