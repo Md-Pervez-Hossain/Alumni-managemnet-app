@@ -39,7 +39,7 @@ const BatchwiseStudent = () => {
                 adipicing elit, sed do eiusmod tempor dncint ut labore et dolore
                 magna alis enim ad minim veniam, quis
               </p>
-              <button className="bg-secondary text-primary px-8 py-4 text-xl font-semibold ">
+              <button className="bg-secondary text-primary px-8 py-2 text-xl font-semibold ">
                 Details
               </button>
             </div>
@@ -59,7 +59,7 @@ const BatchwiseStudent = () => {
                 adipicing elit, sed do eiusmod tempor dncint ut labore et dolore
                 magna alis enim ad minim veniam, quis
               </p>
-              <button className="bg-secondary text-primary px-8 py-4 text-xl font-semibold ">
+              <button className="bg-secondary text-primary px-8 py-2 text-xl font-semibold ">
                 Details
               </button>
             </div>
@@ -79,7 +79,7 @@ const BatchwiseStudent = () => {
                 adipicing elit, sed do eiusmod tempor dncint ut labore et dolore
                 magna alis enim ad minim veniam, quis
               </p>
-              <button className="bg-secondary text-primary px-8 py-4 text-xl font-semibold ">
+              <button className="bg-secondary text-primary px-8 py-2 text-xl font-semibold ">
                 Details
               </button>
             </div>
@@ -99,7 +99,7 @@ const BatchwiseStudent = () => {
                 adipicing elit, sed do eiusmod tempor dncint ut labore et dolore
                 magna alis enim ad minim veniam, quis
               </p>
-              <button className="bg-secondary text-primary px-8 py-4 text-xl font-semibold ">
+              <button className="bg-secondary text-primary px-8 py-2 text-xl font-semibold ">
                 Details
               </button>
             </div>
@@ -119,7 +119,7 @@ const BatchwiseStudent = () => {
                 adipicing elit, sed do eiusmod tempor dncint ut labore et dolore
                 magna alis enim ad minim veniam, quis
               </p>
-              <button className="bg-secondary text-primary px-8 py-4 text-xl font-semibold ">
+              <button className="bg-secondary text-primary px-8 py-2 text-xl font-semibold ">
                 Details
               </button>
             </div>
@@ -139,7 +139,7 @@ const BatchwiseStudent = () => {
                 adipicing elit, sed do eiusmod tempor dncint ut labore et dolore
                 magna alis enim ad minim veniam, quis
               </p>
-              <button className="bg-secondary text-primary px-8 py-4 text-xl font-semibold ">
+              <button className="bg-secondary text-primary px-8 py-2 text-xl font-semibold ">
                 Details
               </button>
             </div>
@@ -159,7 +159,7 @@ const BatchwiseStudent = () => {
                 adipicing elit, sed do eiusmod tempor dncint ut labore et dolore
                 magna alis enim ad minim veniam, quis
               </p>
-              <button className="bg-secondary text-primary px-8 py-4 text-xl font-semibold ">
+              <button className="bg-secondary text-primary px-8 py-2 text-xl font-semibold ">
                 Details
               </button>
             </div>
@@ -179,7 +179,7 @@ const BatchwiseStudent = () => {
                 adipicing elit, sed do eiusmod tempor dncint ut labore et dolore
                 magna alis enim ad minim veniam, quis
               </p>
-              <button className="bg-secondary text-primary px-8 py-4 text-xl font-semibold ">
+              <button className="bg-secondary text-primary px-8 py-2 text-xl font-semibold ">
                 Details
               </button>
             </div>
@@ -199,7 +199,7 @@ const BatchwiseStudent = () => {
                 adipicing elit, sed do eiusmod tempor dncint ut labore et dolore
                 magna alis enim ad minim veniam, quis
               </p>
-              <button className="bg-secondary text-primary px-8 py-4 text-xl font-semibold ">
+              <button className="bg-secondary text-primary px-8 py-2 text-xl font-semibold ">
                 Details
               </button>
             </div>
