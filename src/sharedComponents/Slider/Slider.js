@@ -17,7 +17,7 @@ const Slider = () => {
           <h2 className="md:text-3xl lg:text-5xl text-2xl mb-4">
             We Feel Proude
           </h2>
-          <p className="md:mb-5">
+          <p className="md:mb-5 mb-3">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque
             perspiciatis reprehenderit a, id delectus ut veniam est dolores non
             saepe?
@@ -87,7 +87,7 @@ const Slider = () => {
         />
         <div className="absolute top-1/2 w-full bottom-[-140px] md:bottom-0   -translate-x-1/2 -translate-y-1/2   text-white md:w-1/2 md:left-1/3 left-1/2 md:px-12 px-5">
           <h2 className="md:text-5xl text-2xl mb-4">We Feel Proude</h2>
-          <p className="md:mb-5">
+          <p className="md:mb-5 mb-3">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque
             perspiciatis reprehenderit a, id delectus ut veniam est dolores non
             saepe?
@@ -122,7 +122,7 @@ const Slider = () => {
         />
         <div className="absolute top-1/2 w-full bottom-[-140px] md:bottom-0   -translate-x-1/2 -translate-y-1/2   text-white md:w-1/2 md:left-1/3 left-1/2 md:px-12 px-5">
           <h2 className="md:text-5xl text-2xl mb-4">We Feel Proude</h2>
-          <p className="md:mb-5">
+          <p className="md:mb-5 mb-3">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque
             perspiciatis reprehenderit a, id delectus ut veniam est dolores non
             saepe?

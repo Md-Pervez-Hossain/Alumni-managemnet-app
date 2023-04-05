@@ -1,5 +1,6 @@
 import React from "react";
 import student from "../../assets/batchwiseStudent.jpg";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const BatchwiseStudent = () => {
   return (
@@ -31,7 +32,7 @@ const BatchwiseStudent = () => {
               className="h-80 w-full"
             />
             <div className="p-3">
-              <h2 className="text-2xl font-semibold md:mt-3 mb-2">
+              <h2 className="md:text-2xl text-xl font-semibold md:mt-3 mb-2">
                 Batchwise Student Heading
               </h2>
               <p className="mb-3">
@@ -51,7 +52,7 @@ const BatchwiseStudent = () => {
               className="h-80 w-full"
             />
             <div className="p-3">
-              <h2 className="text-2xl font-semibold md:mt-3 mb-2">
+              <h2 className="md:text-2xl text-xl font-semibold md:mt-3 mb-2">
                 Batchwise Student Heading
               </h2>
               <p className="mb-3">
@@ -71,7 +72,7 @@ const BatchwiseStudent = () => {
               className="h-80 w-full"
             />
             <div className="p-3">
-              <h2 className="text-2xl font-semibold md:mt-3 mb-2">
+              <h2 className="md:text-2xl text-xl font-semibold md:mt-3 mb-2">
                 Batchwise Student Heading
               </h2>
               <p className="mb-3">
@@ -91,7 +92,7 @@ const BatchwiseStudent = () => {
               className="h-80 w-full"
             />
             <div className="p-3">
-              <h2 className="text-2xl font-semibold md:mt-3 mb-2">
+              <h2 className="md:text-2xl text-xl font-semibold md:mt-3 mb-2">
                 Batchwise Student Heading
               </h2>
               <p className="mb-3">
@@ -111,7 +112,7 @@ const BatchwiseStudent = () => {
               className="h-80 w-full"
             />
             <div className="p-3">
-              <h2 className="text-2xl font-semibold md:mt-3 mb-2">
+              <h2 className="md:text-2xl text-xl font-semibold md:mt-3 mb-2">
                 Batchwise Student Heading
               </h2>
               <p className="mb-3">
@@ -131,7 +132,7 @@ const BatchwiseStudent = () => {
               className="h-80 w-full"
             />
             <div className="p-3">
-              <h2 className="text-2xl font-semibold md:mt-3 mb-2">
+              <h2 className="md:text-2xl text-xl font-semibold md:mt-3 mb-2">
                 Batchwise Student Heading
               </h2>
               <p className="mb-3">
@@ -151,7 +152,7 @@ const BatchwiseStudent = () => {
               className="h-80 w-full"
             />
             <div className="p-3">
-              <h2 className="text-2xl font-semibold md:mt-3 mb-2">
+              <h2 className="md:text-2xl text-xl font-semibold md:mt-3 mb-2">
                 Batchwise Student Heading
               </h2>
               <p className="mb-3">
@@ -171,7 +172,7 @@ const BatchwiseStudent = () => {
               className="h-80 w-full"
             />
             <div className="p-3">
-              <h2 className="text-2xl font-semibold md:mt-3 mb-2">
+              <h2 className="md:text-2xl text-xl font-semibold md:mt-3 mb-2">
                 Batchwise Student Heading
               </h2>
               <p className="mb-3">
@@ -191,7 +192,7 @@ const BatchwiseStudent = () => {
               className="h-80 w-full"
             />
             <div className="p-3">
-              <h2 className="text-2xl font-semibold md:mt-3 mb-2">
+              <h2 className="md:text-2xl text-xl font-semibold md:mt-3 mb-2">
                 Batchwise Student Heading
               </h2>
               <p className="mb-3">
@@ -204,6 +205,10 @@ const BatchwiseStudent = () => {
               </button>
             </div>
           </div>
+        </div>
+        <div className="flex items-center justify-end gap-3 mt-5">
+          <FaArrowLeft className="text-primary hover:text-secondary duration-500 ease-in-out cursor-pointer"></FaArrowLeft>
+          <FaArrowRight className="text-primary hover:text-secondary duration-500 ease-in-out cursor-pointer"></FaArrowRight>
         </div>
       </div>
     </div>
