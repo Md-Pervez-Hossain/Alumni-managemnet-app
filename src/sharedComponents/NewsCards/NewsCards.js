@@ -69,8 +69,9 @@ const NewsCard = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-between gap-3">
 
         {
-          newsData.map((data) => (
+          newsData.map((data,i) => (
             <div
+              key={i}
               className="w-full  rounded-tl-3xl rounded-br-3xl shadow-lg">
               <div>
                 <a href="/" data-te-ripple-init data-te-ripple-color="light">
