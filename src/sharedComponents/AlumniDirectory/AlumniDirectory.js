@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const AlumniDirectory = () => {
     return (
@@ -6,7 +7,7 @@ const AlumniDirectory = () => {
             <div className='w-1/2'>
                 <h1 className='mb-6 text-3xl font-semibold'>Alumni Directory</h1>
                 <p>There are many company Lorem ipsm dolor sitg amet, csetur adipicing elit, sed do eiusmod tempor dncint ut labore et dolore magna alis enim ad minim veniam, quis csetur adipicing elit, sed do eiusmod tempor dncint ut labore et dolore magna alis </p>
-                <button className='mt-8 p-6 text-right text-white bg-[#2D6B5A]  rounded-tl-2xl rounded-br-2xl'> Learn More </button>                
+                <Link to="" className='mt-8 p-6 text-right text-white bg-[#2D6B5A]  rounded-tl-2xl rounded-br-2xl' > Learn More </Link>                
             </div>
 
             <div className='ms-10 w-1/2'>
