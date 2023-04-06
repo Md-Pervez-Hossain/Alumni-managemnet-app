@@ -7,7 +7,7 @@ import sliderimg4 from "../../assets/sliderIMG04.jpg";
 const Slider = () => {
   return (
     <div className="carousel w-full ">
-      <div id="slide1" className="carousel-item relative w-full ">
+      <div id="slide1" className="carousel-item relative w-full h-full  ">
         <img
           src={sliderimg1}
           className="w-full h-80 md:h-full brightness-50 "
@@ -44,7 +44,7 @@ const Slider = () => {
           </a>
         </div>
       </div>
-      <div id="slide2" className="carousel-item relative w-full">
+      <div id="slide2" className="carousel-item relative w-full  h-full">
         <img
           src={sliderimg2}
           className="w-full h-80 md:h-full brightness-50 "
@@ -79,7 +79,7 @@ const Slider = () => {
           </a>
         </div>
       </div>
-      <div id="slide3" className="carousel-item relative w-full">
+      <div id="slide3" className="carousel-item relative w-full h-full">
         <img
           src={sliderimg3}
           className="w-full h-80 md:h-full brightness-50 "
@@ -114,7 +114,7 @@ const Slider = () => {
           </a>
         </div>
       </div>
-      <div id="slide4" className="carousel-item relative w-full">
+      <div id="slide4" className="carousel-item relative w-full h-full">
         <img
           src={sliderimg4}
           className="w-full h-80 md:h-full brightness-50 "
