@@ -1,3 +1,5 @@
+import React from "react";
+
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
@@ -7,6 +9,8 @@ import Nakib from "../Pages/TestingPage/Nakib";
 import Rony from "../Pages/TestingPage/Rony";
 import Pervez from "../Pages/TestingPage/Pervez";
 import Uhai from "../Pages/TestingPage/Uhai";
+import LogIn from "../sharedComponents/LogIn.js/LogIn";
+import SignUp from "../sharedComponents/SignUp/SignUp";
 
 const routes = createBrowserRouter([
   {
@@ -15,10 +19,6 @@ const routes = createBrowserRouter([
     children: [
       { path: "/", element: <Home></Home> },
       { path: "/rakib", element: <Rakib /> },
-      { path: "/nakib", element: <Nakib /> },
-      { path: "/rony", element: <Rony /> },
-      { path: "/pervez", element: <Pervez /> },
-      { path: "/uhai", element: <Uhai /> },
       {
         path: "/alumni-directory",
         loader: () => {
@@ -34,6 +34,16 @@ const routes = createBrowserRouter([
         },
         element: <ErrorPage></ErrorPage>,
       },
+
+      {
+        path: '/login',
+        element: <LogIn></LogIn>
+      },
+
+      {
+        path: '/signup',
+        element: <SignUp></SignUp>
+      }
     ],
     errorElement: <ErrorPage></ErrorPage>,
   },
