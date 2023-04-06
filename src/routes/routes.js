@@ -1,5 +1,4 @@
 import React from "react";
-
 import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
@@ -9,8 +8,9 @@ import Nakib from "../Pages/TestingPage/Nakib";
 import Rony from "../Pages/TestingPage/Rony";
 import Pervez from "../Pages/TestingPage/Pervez";
 import Uhai from "../Pages/TestingPage/Uhai";
-import LogIn from "../sharedComponents/LogIn.js/LogIn";
-import SignUp from "../sharedComponents/SignUp/SignUp";
+import BatchwiseStudent from "../Pages/BatchwiseStudent/BatchwiseStudent";
+import LogIn from "../Pages/LogIn.js/LogIn";
+import SignUp from "../Pages/SignUp/SignUp";
 
 const routes = createBrowserRouter([
   {
@@ -32,18 +32,25 @@ const routes = createBrowserRouter([
         loader: ({ params }) => {
           return fetch(`https://course-data-server.vercel.app/${params.year}`);
         },
-        element: <ErrorPage></ErrorPage>,
+        element: <BatchwiseStudent />,
+      },
+      {
+        path: "/alumniyear",
+        loader: ({ params }) => {
+          return fetch(`https://course-data-server.vercel.app/${params.year}`);
+        },
+        element: <BatchwiseStudent />,
       },
 
       {
-        path: '/login',
-        element: <LogIn></LogIn>
+        path: "/login",
+        element: <LogIn></LogIn>,
       },
 
       {
-        path: '/signup',
-        element: <SignUp></SignUp>
-      }
+        path: "/signup",
+        element: <SignUp></SignUp>,
+      },
     ],
     errorElement: <ErrorPage></ErrorPage>,
   },
