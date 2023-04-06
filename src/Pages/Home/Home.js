@@ -9,7 +9,7 @@ import NewsCard from "../../sharedComponents/NewsCards/NewsCards";
 import EmailSubScribe from "../../sharedComponents/EmailSubScribe/EmailSubScribe";
 import AlumniDirectory from "../../sharedComponents/AlumniDirectory/AlumniDirectory";
 import MissionHeading from "../../sharedComponents/MissionHeading/MissionHeading";
-import Contact from "../../sharedComponents/Contact/Contact";
+
 
 const Home = () => {
   return (
