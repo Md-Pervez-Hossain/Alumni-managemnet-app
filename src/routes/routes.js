@@ -8,15 +8,10 @@ import Nakib from "../Pages/TestingPage/Nakib";
 import Rony from "../Pages/TestingPage/Rony";
 import Pervez from "../Pages/TestingPage/Pervez";
 import Uhai from "../Pages/TestingPage/Uhai";
-<<<<<<< HEAD
-import SingleEvent from "../sharedComponents/Events/Category_Wise/SingleEvent";
-import LogIn from "../sharedComponents/LogIn.js/LogIn";
-import SignUp from "../sharedComponents/SignUp/SignUp";
-=======
 import BatchwiseStudent from "../Pages/BatchwiseStudent/BatchwiseStudent";
 import LogIn from "../Pages/LogIn.js/LogIn";
 import SignUp from "../Pages/SignUp/SignUp";
->>>>>>> c4116b0e04c2f2451db54d594f0c149fa32e5e12
+import SingleEvent from "../sharedComponents/Events/Category_Wise/SingleEvent";
 
 const routes = createBrowserRouter([
   {
@@ -27,14 +22,16 @@ const routes = createBrowserRouter([
       { path: "/rakib", element: <Rakib /> },
       {
         path: "/uhai",
-        element: <Uhai />
+        element: <Uhai />,
       },
       {
-        path: '/events/:singleEventId',
+        path: "/events/:singleEventId",
         loader: async ({ params }) => {
-          return fetch(`https://rowopyusay-server.vercel.app/events/${params.singleEventId}`);
+          return fetch(
+            `https://rowopyusay-server.vercel.app/events/${params.singleEventId}`
+          );
         },
-        element: <SingleEvent />
+        element: <SingleEvent />,
       },
       {
         path: "/alumni-directory",
