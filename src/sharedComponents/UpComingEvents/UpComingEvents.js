@@ -6,7 +6,7 @@ const UpComingEvents = () => {
     <>
       <div className="sm:flex justify-between items-center sm:w-full max-w-5xl mx-auto px-5 py-7 bg-primary mt-3 gap-6">
         {/* images */}
-        <div className="sm:w-1/2 w-full">
+        <div className="sm:w-1/2 ">
           <img src="https://i.ibb.co/k50VDVN/events-hall.jpg" alt="events-hall" />
         </div>
         {/* content */}
