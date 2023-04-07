@@ -42,6 +42,7 @@ const CategoryWise = () => {
                 <div className='flex flex-col justify-between p-2'>
                     <div className="flex gap-4 items-center">
                         <div>
+                            <span>Day2</span>
                             <span className="text-sm text-center">Days</span>
                             <div className="w-8 h-8 text-white bg-primary text-center rounded-full flex justify-center items-center text-lg font-semibold"> <span>3</span> </div>
                         </div>
