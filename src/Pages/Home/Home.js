@@ -11,6 +11,7 @@ import AlumniDirectory from "../AlumniDirectory/AlumniDirectory";
 import MissionHeading from "../../sharedComponents/MissionHeading/MissionHeading";
 import Contact from "../../sharedComponents/Contact/Contact";
 
+
 const Home = () => {
   return (
     <>
@@ -27,8 +28,8 @@ const Home = () => {
         </div>
       </div>
 
-      <div className="max-w-9/12 mx-auto my-20">
-        <Gallery></Gallery>
+      <div className="max-w-5xl mx-auto my-20">
+        {/* <Gallery></Gallery> */}
       </div>
 
       <div className=" bg-accent py-10 my-20">
