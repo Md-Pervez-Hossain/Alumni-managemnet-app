@@ -65,14 +65,12 @@ const CategoryWise = () => {
                     <p className="mt-3">
                         {item.description}
                     </p>
-                    {/* <button className="bg-primary p-2 rounded-tl-lg rounded-br-lg w-[130px]"> */}
                     <Link
                         to={`/events/${item._id}`} className="text-white font-bold">
                         <button className="bg-primary p-2 rounded-tl-lg rounded-br-lg w-[130px]">
                             Details
                         </button>
                     </Link>
-                    {/* </button> */}
                 </div>
             </div>
         ))
