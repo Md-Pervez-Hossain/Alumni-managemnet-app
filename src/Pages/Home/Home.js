@@ -7,7 +7,7 @@ import SuccessStories from "../../sharedComponents/SuccessStories/SuccessStories
 import UpComingEvents from "../../sharedComponents/UpComingEvents/UpComingEvents";
 import NewsCard from "../../sharedComponents/NewsCards/NewsCards";
 import EmailSubScribe from "../../sharedComponents/EmailSubScribe/EmailSubScribe";
-import AlumniDirectory from "../../sharedComponents/AlumniDirectory/AlumniDirectory";
+import AlumniDirectory from "../AlumniDirectory/AlumniDirectory";
 import MissionHeading from "../../sharedComponents/MissionHeading/MissionHeading";
 import Contact from "../../sharedComponents/Contact/Contact";
 
@@ -16,13 +16,13 @@ const Home = () => {
   return (
     <>
       <Slider />
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-9/12 mx-auto">
         <UpComingEvents />
         <FundsForCause />
       </div>
 
       <div className=" bg-accent py-10 my-20">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-9/12 mx-auto">
           <MissionHeading />
           <AlumniDirectory />
         </div>
@@ -33,12 +33,12 @@ const Home = () => {
       </div>
 
       <div className=" bg-accent py-10 my-20">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-9/12 mx-auto">
           <MembersStat />
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto my-20">
+      <div className="max-w-9/12 mx-auto my-20">
         <SuccessStories />
         <NewsCard />
         <Contact />
