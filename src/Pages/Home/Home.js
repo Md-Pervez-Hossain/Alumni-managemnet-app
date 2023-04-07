@@ -15,29 +15,29 @@ const Home = () => {
   return (
     <>
       <Slider />
-      <div className="max-w-9/12 mx-auto">
+      <div className="w-9/12 mx-auto">
         <UpComingEvents />
-        <FundsForCause />
       </div>
+      <FundsForCause />
 
       <div className=" bg-accent py-10 my-20">
-        <div className="max-w-9/12 mx-auto">
+        <div className="w-9/12 mx-auto">
           <MissionHeading />
           <AlumniDirectory />
         </div>
       </div>
 
-      <div className="max-w-9/12 mx-auto my-20">
+      <div className="max-w-5xl mx-auto my-20">
         <Gallery></Gallery>
       </div>
 
       <div className=" bg-accent py-10 my-20">
-        <div className="max-w-9/12 mx-auto">
+        <div className="max-w-5xl mx-auto">
           <MembersStat />
         </div>
       </div>
 
-      <div className="max-w-9/12 mx-auto my-20">
+      <div className="max-w-5xl mx-auto my-20">
         <SuccessStories />
         <NewsCard />
         <Contact />
