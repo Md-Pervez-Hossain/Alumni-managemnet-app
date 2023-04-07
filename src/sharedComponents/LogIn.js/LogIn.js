@@ -10,7 +10,7 @@ const LogIn = () => {
   } = useForm();
 
 
-  const handleLogIn = (data) =>{
+  const handleLogIn = (data) => {
     console.log(data)
   }
 
