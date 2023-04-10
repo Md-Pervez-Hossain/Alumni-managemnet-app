@@ -92,6 +92,36 @@ const BatchwiseStudent = () => {
                 </button>
               </div>
             </div>
+            <div className="bg-accent  ">
+              <img src={pervez} alt="" className="h-90 w-full" />
+              <div className="p-3">
+                <h2 className="md:text-2xl text-xl font-semibold md:mt-3 mb-2">
+                  Pervez Hossain
+                </h2>
+                <div className="flex gap-3 my-3">
+                  <div>
+                    <p className="">
+                      SSC Batch : <span className="font-normal ">2013</span>
+                    </p>
+                    <p className="">
+                      Group : <span className="font-normal ">Science</span>
+                    </p>
+                  </div>
+                  <div>
+                    <p className="">
+                      Blood Group : <span className="font-normal ">B+</span>
+                    </p>
+                    <p className="">
+                      Profession :{" "}
+                      <span className="font-normal ">Freelancer</span>
+                    </p>
+                  </div>
+                </div>
+                <button className="bg-secondary text-primary px-4 py-2  font-semibold ">
+                  Details
+                </button>
+              </div>
+            </div>
           </div>
           <div className="flex items-center justify-end gap-3 mt-5">
             <FaArrowLeft className="text-primary hover:text-secondary duration-500 ease-in-out cursor-pointer"></FaArrowLeft>

@@ -31,16 +31,16 @@ const Slider = () => {
         </div>
         <div className="absolute flex md:justify-end    gap-5  transform  md:right-44 md:bottom-10 left-4 bottom-4">
           <a
-            href="#slide4"
-            className="btn btn-circle bg-secondary text-primary hover:text-white "
+            href="#slide2"
+            className="btn btn-circle bg-secondary text-primary hover:text-white"
           >
-            ❮
+            ❯
           </a>
           <a
             href="#slide2"
             className="btn btn-circle bg-secondary text-primary hover:text-white"
           >
-            ❯
+            ❮
           </a>
         </div>
       </div>
