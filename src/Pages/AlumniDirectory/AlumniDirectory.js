@@ -2,7 +2,7 @@ import React from "react";
 
 const AlumniDirectory = () => {
   return (
-    <div className="my-16 flex ">
+    <div className="my-16 flex items-center ">
       <div className="w-1/2">
         <h1 className="mb-6 text-2xl font-semibold">Alumni Directory</h1>
         <p>

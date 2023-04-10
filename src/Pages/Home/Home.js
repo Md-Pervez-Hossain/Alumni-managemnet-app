@@ -7,22 +7,21 @@ import SuccessStories from "../../sharedComponents/SuccessStories/SuccessStories
 import UpComingEvents from "../../sharedComponents/UpComingEvents/UpComingEvents";
 import NewsCard from "../../sharedComponents/NewsCards/NewsCards";
 import EmailSubScribe from "../../sharedComponents/EmailSubScribe/EmailSubScribe";
-import AlumniDirectory from "../../sharedComponents/AlumniDirectory/AlumniDirectory";
+import AlumniDirectory from "../AlumniDirectory/AlumniDirectory";
 import MissionHeading from "../../sharedComponents/MissionHeading/MissionHeading";
-import SingleEvents from "../../sharedComponents/Events/SingleEvents/SingleEvents";
 import Contact from "../../sharedComponents/Contact/Contact";
 
 const Home = () => {
   return (
     <>
       <Slider />
-      <div className="max-w-5xl mx-auto">
+      <div className="w-9/12 mx-auto">
         <UpComingEvents />
-        <FundsForCause />
       </div>
+      <FundsForCause />
 
       <div className=" bg-accent py-10 my-20">
-        <div className="max-w-5xl mx-auto">
+        <div className="w-9/12 mx-auto">
           <MissionHeading />
           <AlumniDirectory />
         </div>
