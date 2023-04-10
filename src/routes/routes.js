@@ -12,6 +12,7 @@ import BatchwiseStudent from "../Pages/BatchwiseStudent/BatchwiseStudent";
 import LogIn from "../Pages/LogIn.js/LogIn";
 import SignUp from "../Pages/SignUp/SignUp";
 import SingleEvent from "../sharedComponents/Events/Category_Wise/SingleEvent";
+import AllEvents from "../sharedComponents/Events/AllEvents/AllEvents";
 
 const routes = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const routes = createBrowserRouter([
       {
         path: "/uhai",
         element: <Uhai />,
+      },
+      {
+        path: "/events",
+        element: <AllEvents />,
       },
       {
         path: "/events/:singleEventId",
