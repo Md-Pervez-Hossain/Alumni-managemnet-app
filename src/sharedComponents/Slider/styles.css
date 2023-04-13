@@ -1,3 +1,38 @@
-:root {
-  --swiper-theme-color: #ffca42;
+.carousel .slide {
+  text-align: left !important;
+}
+
+.carousel.carousel-slider .control-arrow {
+  top: 80% !important;
+  color: #fff !important;
+  font-size: 26px !important;
+  bottom: 0 !important;
+  margin-top: 0 !important;
+  padding: 2px !important;
+
+  height: 60px !important;
+  left: 80% !important;
+}
+.carousel .control-next.control-arrow {
+  width: 45px !important;
+  height: 45px !important;
+  background-color: #ffca42 !important;
+  right: 0px !important;
+  margin-left: 60px !important;
+  border-radius: 50% !important;
+}
+
+.carousel .control-prev.control-arrow {
+  right: 0 !important;
+  width: 45px !important;
+  height: 45px !important;
+  background-color: #ffca42 !important;
+  border-radius: 50% !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .carousel.carousel-slider .control-arrow {
+    left: 68% !important;
+    top: 85% !important;
+  }
 }
