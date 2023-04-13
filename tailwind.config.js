@@ -21,6 +21,11 @@ module.exports = {
         accent: "#F6F8FC",
       },
     },
+    variants: {
+      extend: {
+        display: ["group-hover"],
+      },
+    },
   },
   plugins: [require("daisyui")],
 };

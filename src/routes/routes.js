@@ -11,8 +11,9 @@ import Uhai from "../Pages/TestingPage/Uhai";
 import BatchwiseStudent from "../Pages/BatchwiseStudent/BatchwiseStudent";
 import LogIn from "../Pages/LogIn.js/LogIn";
 import SignUp from "../Pages/SignUp/SignUp";
-import SingleEvent from "../sharedComponents/Events/Category_Wise/SingleEvent";
-import AllEvents from "../sharedComponents/Events/AllEvents/AllEvents";
+// import AllEvents from "../sharedComponents/Events/AllEvents/AllEvents";
+import Events from "../Pages/Events/Events";
+import SingleEvent from "../Pages/SingleEvent/SingleEvent";
 
 const routes = createBrowserRouter([
   {
@@ -27,17 +28,18 @@ const routes = createBrowserRouter([
       },
       {
         path: "/events",
-        element: <AllEvents />,
+        element: <Events />,
       },
       {
         path: "/events/:singleEventId",
         loader: async ({ params }) => {
           return fetch(
-            `https://rowopyusay-server.vercel.app/events/${params.singleEventId}`
+            `https://alumni-managemnet-app-server.vercel.app/events/${params.singleEventId}`
           );
         },
         element: <SingleEvent />,
       },
+
       {
         path: "/alumni-directory",
         loader: () => {

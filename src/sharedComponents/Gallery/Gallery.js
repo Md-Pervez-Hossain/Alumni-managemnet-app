@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 
 const Gallery = () => {
-  const [galleries, setGalleries] = useState([]);
-  const [gallery, setGallery] = useState([]);
+  const [galleryCategory, setGalleryCategory] = useState([]);
+  const [galleryData, setGalleryData] = useState([]);
 
   useEffect(() => {
     fetch(`https://alumni-managemnet-app-server.vercel.app/galleryCategories`)
       .then((res) => res.json())
       .then((data) => {
-        setGalleries(data);
+        setGalleryCategory(data);
       });
   }, []);
 
@@ -17,15 +16,15 @@ const Gallery = () => {
     fetch(`https://alumni-managemnet-app-server.vercel.app/galleries`)
       .then((res) => res.json())
       .then((data) => {
-        setGallery(data);
+        setGalleryData(data);
       });
   }, []);
 
-  if (!galleries) {
+  if (!galleryCategory) {
     return <progress className="progress w-56"></progress>;
   }
 
-  if (!gallery) {
+  if (!galleryData) {
     return <progress className="progress w-56"></progress>;
   }
   const handleButtonClick = (id) => {
@@ -34,7 +33,16 @@ const Gallery = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setGallery(data);
+        setGalleryData(data);
+      });
+  };
+  const handleAllButtonClick = () => {
+    fetch(`https://alumni-managemnet-app-server.vercel.app/galleries`, {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setGalleryData(data);
       });
   };
 
@@ -43,10 +51,16 @@ const Gallery = () => {
       <div className="mt-10">
         <h2 className="text-2xl lg:text-2xl font-semibold my-3">Our Gallery</h2>
         <div>
-          {galleries.map((galcat) => (
+          <button
+            onClick={handleAllButtonClick}
+            className="px-5 py-2 w-full mr-6 md:w-auto mt-4 text-sm font-semibold bg-gray-300 focus:bg-primary focus:text-secondary hover:bg-primary hover:text-secondary"
+          >
+            All{" "}
+          </button>
+          {galleryCategory.map((galcat) => (
             <button
               onClick={() => {
-                handleButtonClick(galcat.id);
+                handleButtonClick(galcat._id);
               }}
               className="px-5 py-2 w-full mr-6 md:w-auto mt-4 text-sm font-semibold bg-gray-300 focus:bg-primary focus:text-secondary hover:bg-primary hover:text-secondary"
             >
@@ -56,7 +70,7 @@ const Gallery = () => {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3 mt-4">
-          {gallery.map((img) => (
+          {galleryData.slice(0, 6).map((img) => (
             <div
               loading="lazy"
               className={`h-80 bg-primary bg-cover`}
