@@ -1,6 +1,9 @@
 import React from "react";
 import { Carousel } from "react-responsive-carousel";
 import "./styles.css";
+import imag1 from "../../assets/sliderIMG01.jpg";
+import imag2 from "../../assets/sliderIMG02.jpg";
+import imag3 from "../../assets/sliderIMG04.jpg";
 
 const SliderTwo = () => {
   return (
@@ -8,7 +11,7 @@ const SliderTwo = () => {
       <div>
         <div className="relative">
           <img
-            src="https://images.pexels.com/photos/3747463/pexels-photo-3747463.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+            src={imag1}
             className="absolute inset-0 object-cover w-full h-full"
             alt=""
           />
@@ -63,7 +66,7 @@ const SliderTwo = () => {
       <div>
         <div className="relative">
           <img
-            src="https://images.pexels.com/photos/3747463/pexels-photo-3747463.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+            src={imag2}
             className="absolute inset-0 object-cover w-full h-full"
             alt=""
           />
@@ -118,7 +121,7 @@ const SliderTwo = () => {
       <div>
         <div className="relative">
           <img
-            src="https://images.pexels.com/photos/3747463/pexels-photo-3747463.jpeg?auto=compress&amp;cs=tinysrgb&amp;dpr=2&amp;h=750&amp;w=1260"
+            src={imag3}
             className="absolute inset-0 object-cover w-full h-full"
             alt=""
           />
