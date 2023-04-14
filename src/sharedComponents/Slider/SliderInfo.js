@@ -8,8 +8,7 @@ export const SliderInfo = [
     id: 1,
     img: image1,
     Tittle: "We Proude To Be Student Of Oxford",
-    description:
-      "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words ",
+    description: "",
   },
   {
     id: 2,

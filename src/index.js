@@ -7,6 +7,7 @@ import reportWebVitals from "./reportWebVitals";
 import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import routes from "./routes/routes";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
