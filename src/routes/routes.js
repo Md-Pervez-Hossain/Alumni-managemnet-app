@@ -14,6 +14,7 @@ import SignUp from "../Pages/SignUp/SignUp";
 // import AllEvents from "../sharedComponents/Events/AllEvents/AllEvents";
 import Events from "../Pages/Events/Events";
 import SingleEvent from "../Pages/SingleEvent/SingleEvent";
+import AlumniDirectory from "../Pages/AlumniDirectory/AlumniDirectory";
 
 const routes = createBrowserRouter([
   {
@@ -43,25 +44,27 @@ const routes = createBrowserRouter([
       {
         path: "/alumni-directory",
         loader: () => {
-          return fetch("https://course-data-server.vercel.app/courses");
+          return fetch("https://alumni-managemnet-app-server.vercel.app/alumni");
         },
-        element: <ErrorPage></ErrorPage>,
+        element: <AlumniDirectory />,
       },
 
       {
-        path: "/alumni/:year",
+        path: "/alumni/batch/:year",
         loader: ({ params }) => {
-          return fetch(`https://course-data-server.vercel.app/${params.year}`);
+          return fetch(
+            `https://alumni-managemnet-app-server.vercel.app/alumni/batch/${params.year}`
+          );
         },
         element: <BatchwiseStudent />,
       },
-      {
-        path: "/alumniyear",
-        loader: ({ params }) => {
-          return fetch(`https://course-data-server.vercel.app/${params.year}`);
-        },
-        element: <BatchwiseStudent />,
-      },
+      // {
+      //   path: "/alumniyear",
+      //   loader: ({ params }) => {
+      //     return fetch(`https://course-data-server.vercel.app/${params.year}`);
+      //   },
+      //   element: <BatchwiseStudent />,
+      // },
 
       {
         path: "/login",
