@@ -14,6 +14,7 @@ const GallerySlider = ({ year }) => {
     fetch(`https://alumni-managemnet-app-server.vercel.app/galleries/batch/${year}`)
       .then((res) => res.json())
       .then((data) => {
+        console.log(data.length);
         setYearWiseGalleryData(data);
       });
   }, [year]);
