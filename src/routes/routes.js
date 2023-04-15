@@ -40,7 +40,7 @@ const routes = createBrowserRouter([
       },
 
       {
-        path: "/alumni-directory",
+        path: "/alumni",
         loader: () => {
           return fetch("https://alumni-managemnet-app-server.vercel.app/alumni");
         },

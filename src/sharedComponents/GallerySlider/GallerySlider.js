@@ -1,18 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Navigation, Autoplay } from "swiper";
-import { GalleryData } from "../TestimonialSlider/TestimonialData";
-const GallerySlider = () => {
+const GallerySlider = ({ year }) => {
+  const [yearWiseGalleryData, setYearWiseGalleryData] = useState([]);
+
+  // /galleries/batch/:batchnumber
+  //
+
+  useEffect(() => {
+    fetch(`https://alumni-managemnet-app-server.vercel.app/galleries/batch/${year}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setYearWiseGalleryData(data);
+      });
+  }, [year]);
+
   return (
     <div className="">
       <h2 className="text-4xl text-center">Gallery</h2>
       <Swiper
         modules={[Autoplay, Navigation]}
         className="mySwiper"
-        slidesPerView={3}
+        slidesPerView={4}
         spaceBetween={0}
         slidesPerGroup={1}
         loop={true}
@@ -34,20 +46,20 @@ const GallerySlider = () => {
             spaceBetween: 0,
           },
           "@1.50": {
-            slidesPerView: 5,
+            slidesPerView: 4,
             spaceBetween: 0,
           },
         }}
       >
-        {GalleryData.map((info) => {
+        {yearWiseGalleryData.map((info) => {
           return (
-            <SwiperSlide key={info.id}>
-              <section className="py-6 dark:bg-gray-800">
-                <div className="container flex flex-col justify-center p-1 mx-auto">
+            <SwiperSlide key={info._id}>
+              <section className="pt-6 dark:bg-gray-800">
+                <div className="container flex flex-col justify-center  mx-auto">
                   <div
-                    className={` bg-cover bg-center bg-no-repeat h-80`}
+                    className={` bg-cover bg-center bg-no-repeat h-40 md:h-80`}
                     style={{
-                      backgroundImage: `url(${info.img})`,
+                      backgroundImage: `url(${info.image_url})`,
                     }}
                   ></div>
                 </div>

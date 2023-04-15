@@ -4,6 +4,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useLoaderData, useParams } from "react-router-dom";
 import AlumniBatchDataCard from "../../sharedComponents/PersonCardDesign/AlumniBatchDataCard";
 import InnerPageHeader from "../../sharedComponents/InnerPageHeader/InnerPageHeader";
+import GallerySlider from "../../sharedComponents/GallerySlider/GallerySlider";
 
 const BatchWiseStudent = () => {
   const studentsOfTheBatch = useLoaderData();
@@ -28,6 +29,7 @@ const BatchWiseStudent = () => {
           <FaArrowRight className="text-primary hover:text-secondary duration-500 ease-in-out cursor-pointer"></FaArrowRight>
         </div>
       </div>
+      <GallerySlider year={year} />
     </div>
   );
 };

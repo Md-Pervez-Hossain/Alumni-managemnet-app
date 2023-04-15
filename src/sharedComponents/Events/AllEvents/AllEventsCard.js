@@ -16,7 +16,7 @@ const AllEventsCard = ({ item }) => {
           backgroundImage: `url(${item.image_url})`,
         }}
       >
-        <div class="invisible group-hover:visible ease-in-out duration-500	 text-white w-full h-full  flex pb-2 justify-center items-end bg-gradient-to-t from-black to-transparent from-10% to-50% px-5">
+        <div className="invisible group-hover:visible ease-in-out duration-500	 text-white w-full h-full  flex pb-2 justify-center items-end bg-gradient-to-t from-black to-transparent from-10% to-50% px-5">
           {/* Time left part */}
           <div className="flex gap-4 items-end">
             <div className="flex flex-col items-center">
