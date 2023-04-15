@@ -14,6 +14,7 @@ import SignUp from "../Pages/SignUp/SignUp";
 // import AllEvents from "../sharedComponents/Events/AllEvents/AllEvents";
 import Events from "../Pages/Events/Events";
 import SingleEvent from "../Pages/SingleEvent/SingleEvent";
+import MembershipForm from "../Pages/MembershipForm/MembershipForm";
 
 const routes = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const routes = createBrowserRouter([
       {
         path: "/uhai",
         element: <Uhai />,
+      },
+      {
+        path: "/rony",
+        element: <MembershipForm></MembershipForm>
       },
       {
         path: "/events",
