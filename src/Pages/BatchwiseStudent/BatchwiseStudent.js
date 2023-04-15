@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
 import student from "../../assets/batchwiseStudent.jpg";
-import pervez from "../../assets/pervez.jpg";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
 import AlumniBatchDataCard from "../../sharedComponents/PersonCardDesign/AlumniBatchDataCard";

@@ -8,17 +8,22 @@ import "./index.css";
 import { RouterProvider } from "react-router-dom";
 import routes from "./routes/routes";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-
+import AuthProvider from "./sharedComponents/UseContext/AuthProvider";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const container = document.getElementById("root");
 const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={routes}>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </RouterProvider>
+    <AuthProvider>
+      <ToastContainer position="top-center" />
+      <RouterProvider router={routes}>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </RouterProvider>
+    </AuthProvider>
   </React.StrictMode>
 );
 
