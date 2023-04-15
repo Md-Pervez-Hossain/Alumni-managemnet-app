@@ -4,17 +4,15 @@ import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
 import Rakib from "../Pages/TestingPage/Rakib";
 import Main from "../../src/layout/Main";
-import Nakib from "../Pages/TestingPage/Nakib";
-import Rony from "../Pages/TestingPage/Rony";
-import Pervez from "../Pages/TestingPage/Pervez";
 import Uhai from "../Pages/TestingPage/Uhai";
-import BatchwiseStudent from "../Pages/BatchwiseStudent/BatchwiseStudent";
 import LogIn from "../Pages/LogIn.js/LogIn";
 import SignUp from "../Pages/SignUp/SignUp";
-// import AllEvents from "../sharedComponents/Events/AllEvents/AllEvents";
 import Events from "../Pages/Events/Events";
+import AboutUs from "../Pages/AboutUs/AboutUs";
 import SingleEvent from "../Pages/SingleEvent/SingleEvent";
 import AlumniDirectory from "../Pages/AlumniDirectory/AlumniDirectory";
+import BatchWiseStudent from "../Pages/BatchWiseStudent/BatchWiseStudent";
+import SinglePerson from "../Pages/SinglePerson/SinglePerson";
 
 const routes = createBrowserRouter([
   {
@@ -56,8 +54,20 @@ const routes = createBrowserRouter([
             `https://alumni-managemnet-app-server.vercel.app/alumni/batch/${params.year}`
           );
         },
-        element: <BatchwiseStudent />,
+        element: <BatchWiseStudent />,
       },
+      {
+        path: "/alumni/:id",
+        // path: "/alumni/:graduation_year/:id",
+        loader: ({ params }) => {
+          console.log(params);
+          return fetch(
+            `https://alumni-managemnet-app-server.vercel.app/alumni/${params.id}`
+          );
+        },
+        element: <SinglePerson />,
+      },
+
       // {
       //   path: "/alumniyear",
       //   loader: ({ params }) => {
@@ -66,6 +76,10 @@ const routes = createBrowserRouter([
       //   element: <BatchwiseStudent />,
       // },
 
+      {
+        path: "/about-us",
+        element: <AboutUs />,
+      },
       {
         path: "/login",
         element: <LogIn></LogIn>,

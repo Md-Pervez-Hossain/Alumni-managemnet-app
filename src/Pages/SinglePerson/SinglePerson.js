@@ -12,7 +12,7 @@ import { useLoaderData } from "react-router-dom";
 const SinglePerson = () => {
   const singleAlumni = useLoaderData();
   const { name, profile_picture, graduation_year } = singleAlumni;
-
+  console.log(singleAlumni);
   const [previous, setPrevious] = useState(0);
   const [next, setNext] = useState(8);
 
@@ -32,7 +32,7 @@ const SinglePerson = () => {
     <div>
       <div className="bg-primary text-center text-white md:py-24 md:px-24 py-16 px-12 ">
         <div className="md:w-1/2 mx-auto ">
-          <h2 className="md:text-4xl text-2xl mb-5">About Student</h2>
+          <h2 className="md:text-4xl text-2xl mb-5">About {name}</h2>
           <hr className="border-2 w-24 mx-auto border-secondary " />
           <p className="mt-5">
             There are many company Lorem ipsm dolor sitg amet, csetur adipicing elit, sed

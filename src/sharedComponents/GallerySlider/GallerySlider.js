@@ -4,7 +4,7 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Navigation, Autoplay } from "swiper";
-import { GalleryData } from "./TestimonialData";
+import { GalleryData } from "../TestimonialSlider/TestimonialData";
 const GallerySlider = () => {
   return (
     <div className="">
@@ -12,8 +12,8 @@ const GallerySlider = () => {
       <Swiper
         modules={[Autoplay, Navigation]}
         className="mySwiper"
-        slidesPerView={5}
-        spaceBetween={10}
+        slidesPerView={3}
+        spaceBetween={0}
         slidesPerGroup={1}
         loop={true}
         autoplay={{
@@ -43,14 +43,13 @@ const GallerySlider = () => {
           return (
             <SwiperSlide key={info.id}>
               <section className="py-6 dark:bg-gray-800">
-                <div className="container flex flex-col justify-center p-2 mx-auto">
-                  <div>
-                    <img
-                      className="object-cover w-full dark:bg-gray-500 aspect-square"
-                      src={info.img}
-                      alt=""
-                    />
-                  </div>
+                <div className="container flex flex-col justify-center p-1 mx-auto">
+                  <div
+                    className={` bg-cover bg-center bg-no-repeat h-80`}
+                    style={{
+                      backgroundImage: `url(${info.img})`,
+                    }}
+                  ></div>
                 </div>
               </section>
             </SwiperSlide>
