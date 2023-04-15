@@ -9,7 +9,10 @@ import EmailSubScribe from "../../sharedComponents/EmailSubScribe/EmailSubScribe
 import AlumniDirectory from "../AlumniDirectory/AlumniDirectory";
 import MissionHeading from "../../sharedComponents/MissionHeading/MissionHeading";
 import Contact from "../../sharedComponents/Contact/Contact";
+<<<<<<< HEAD
 import NewsSection from "../../sharedComponents/NewsCards/NewsSection";
+=======
+>>>>>>> 1bb868742c20713fc3392c1953309566059460c2
 
 const Home = () => {
   return (

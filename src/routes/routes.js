@@ -8,6 +8,7 @@ import Nakib from "../Pages/TestingPage/Nakib";
 import Rony from "../Pages/TestingPage/Rony";
 import Pervez from "../Pages/TestingPage/Pervez";
 import Uhai from "../Pages/TestingPage/Uhai";
+<<<<<<< HEAD
 import BatchwiseStudent from "../Pages/BatchwiseStudent/BatchwiseStudent";
 import LogIn from "../Pages/LogIn.js/LogIn";
 import SignUp from "../Pages/SignUp/SignUp";
@@ -15,6 +16,12 @@ import SignUp from "../Pages/SignUp/SignUp";
 import Events from "../Pages/Events/Events";
 import SingleEvent from "../Pages/SingleEvent/SingleEvent";
 import MembershipForm from "../Pages/MembershipForm/MembershipForm";
+=======
+import AlumniDirectory from "../Pages/AlumniDirectory/AlumniDirectory";
+import LogIn from "../Pages/LogIn.js/LogIn";
+import SignUp from "../Pages/SignUp/SignUp";
+import SingleStudent from "../Pages/SingleStudent/SingleStudent";
+>>>>>>> 1bb868742c20713fc3392c1953309566059460c2
 
 const routes = createBrowserRouter([
   {
@@ -50,7 +57,7 @@ const routes = createBrowserRouter([
         loader: () => {
           return fetch("https://course-data-server.vercel.app/courses");
         },
-        element: <ErrorPage></ErrorPage>,
+        element: <AlumniDirectory />,
       },
 
       {
@@ -69,6 +76,13 @@ const routes = createBrowserRouter([
       },
 
       {
+<<<<<<< HEAD
+=======
+        path: "/person",
+        element: <SingleStudent />,
+      },
+      {
+>>>>>>> 1bb868742c20713fc3392c1953309566059460c2
         path: "/login",
         element: <LogIn></LogIn>,
       },
