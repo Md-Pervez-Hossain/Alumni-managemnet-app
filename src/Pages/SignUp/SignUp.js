@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../sharedComponents/UseContext/AuthProvider";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
+  const { createUser, updateUserProfile, signInWithGoogle } =
+    useContext(AuthContext);
   const {
     register,
     formState: { errors },
@@ -11,14 +15,46 @@ const SignUp = () => {
   } = useForm();
 
   const handleSignUp = (data) => {
+    console.log(data.email, data.password);
     console.log(data);
     reset();
+    createUser(data.email, data.password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        updateUserProfile(`${data.firstName} ${data.lastName}`)
+          .then(() => {
+            toast.success("SuccessFully  Signup");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(error.message);
+      });
+  };
+
+  const handleGoogleSignup = () => {
+    signInWithGoogle()
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        toast.success("SuccessFully  Signup");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(error.message);
+      });
   };
 
   return (
     <div className=" flex justify-center items-center  bg-accent rounded-lg py-20">
       <div className=" lg:w-1/2 m-2">
-        <h2 className="text-4xl text-primary font-semibold text-center mb-5">Sign Up</h2>
+        <h2 className="text-4xl text-primary font-semibold text-center mb-5">
+          Sign Up
+        </h2>
         <form onSubmit={handleSubmit(handleSignUp)}>
           <div className="md:grid md:grid-cols-2 gap-5">
             <div className="form-control ">
@@ -64,7 +100,9 @@ const SignUp = () => {
             <div className="form-control ">
               <label className="label">
                 {" "}
-                <span className="label-text text-lg text-primary font-bold">Email</span>
+                <span className="label-text text-lg text-primary font-bold">
+                  Email
+                </span>
               </label>
               <input
                 type="email"
@@ -74,7 +112,9 @@ const SignUp = () => {
                 className="input  input-bordered rounded-none bg-accent py-2 pl-3 text-lg  w-full"
                 placeholder="Email"
               />
-              {errors.email && <p className="text-red-600">{errors.email?.message}</p>}
+              {errors.email && (
+                <p className="text-red-600">{errors.email?.message}</p>
+              )}
             </div>
 
             <div className="form-control ">
@@ -112,7 +152,9 @@ const SignUp = () => {
                 className="input  input-bordered rounded-none bg-accent py-2 pl-3 text-lg  w-full"
                 placeholder="Male/Female"
               />
-              {errors.gender && <p className="text-red-600">{errors.gender?.message}</p>}
+              {errors.gender && (
+                <p className="text-red-600">{errors.gender?.message}</p>
+              )}
             </div>
 
             <div className="form-control ">
@@ -186,8 +228,15 @@ const SignUp = () => {
         <p className="text-2xl text-center mt-5">Social Media SignUp</p>
 
         <div className="flex justify-center">
-          <button className="text-primary text-lg font-bold mr-5">Google</button>
-          <button className="text-primary text-lg font-bold mr-5">FaceBook</button>
+          <button
+            onClick={handleGoogleSignup}
+            className="text-primary text-lg font-bold mr-5"
+          >
+            Google
+          </button>
+          <button className="text-primary text-lg font-bold mr-5">
+            FaceBook
+          </button>
         </div>
 
         <p className="text-center mt-5 mb-10">
