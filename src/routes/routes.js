@@ -15,6 +15,7 @@ import BatchWiseStudent from "../Pages/BatchwiseStudent/BatchwiseStudent";
 
 import SinglePerson from "../Pages/SinglePerson/SinglePerson";
 import AlumniPage from "../Pages/AlumniDirectory/AlumniPage";
+import DashboardTestPage from "../Dashboard/Pages/DashboardTestPage";
 
 const routes = createBrowserRouter([
   {
@@ -60,6 +61,7 @@ const routes = createBrowserRouter([
         },
         element: <BatchWiseStudent />,
       },
+      // single student / alumni page data
       {
         path: "/alumni/:id",
         // path: "/alumni/:graduation_year/:id",
@@ -83,6 +85,10 @@ const routes = createBrowserRouter([
       {
         path: "/about-us",
         element: <AboutUs />,
+      },
+      {
+        path: "/DashboardTestPage",
+        element: <DashboardTestPage />,
       },
       {
         path: "/login",
