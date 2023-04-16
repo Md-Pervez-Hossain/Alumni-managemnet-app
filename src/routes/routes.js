@@ -11,7 +11,7 @@ import Events from "../Pages/Events/Events";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import SingleEvent from "../Pages/SingleEvent/SingleEvent";
 import AlumniDirectory from "../Pages/AlumniDirectory/AlumniDirectory";
-import BatchWiseStudent from "../Pages/BatchWiseStudent/BatchWiseStudent";
+import BatchWiseStudent from "../Pages/BatchwiseStudent/BatchwiseStudent";
 import SinglePerson from "../Pages/SinglePerson/SinglePerson";
 
 const routes = createBrowserRouter([
@@ -42,7 +42,9 @@ const routes = createBrowserRouter([
       {
         path: "/alumni",
         loader: () => {
-          return fetch("https://alumni-managemnet-app-server.vercel.app/alumni");
+          return fetch(
+            "https://alumni-managemnet-app-server.vercel.app/alumni"
+          );
         },
         element: <AlumniDirectory />,
       },

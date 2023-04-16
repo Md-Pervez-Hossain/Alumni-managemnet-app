@@ -13,15 +13,16 @@ export const DirectoryDetails = () => {
   return (
     <div className="px-4 py-16 md:px-24 lg:px-8 lg:py-10 bg-slate-200 bg-opacity-50 p-4 rounded-lg">
       <div className="mb-10">
-        <h5 className="mb-6 text-5xl font-extrabold leading-none text-primary text-justify">
+        <h5 className="mb-6 md:text-5xl text-3xl font-extrabold leading-none text-primary text-justify">
           Spaekars
         </h5>
         <p>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia deserunt optio
-          aspernatur, blanditiis officiis vero inventore mollitia, necessitatibus est,
-          quidem voluptate iure tempore fuga recusandae cum molestias quasi eum ad! Lorem
-          ipsum dolor sit amet consectetur adipisicing elit. Est voluptatem obcaecati
-          deleniti fugiat, commodi ducimus. Hic ipsum, et, molestias temporibus fugiat
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia
+          deserunt optio aspernatur, blanditiis officiis vero inventore
+          mollitia, necessitatibus est, quidem voluptate iure tempore fuga
+          recusandae cum molestias quasi eum ad! Lorem ipsum dolor sit amet
+          consectetur adipisicing elit. Est voluptatem obcaecati deleniti
+          fugiat, commodi ducimus. Hic ipsum, et, molestias temporibus fugiat
           tempore, recusandae aliquid iure sint nobis distinctio quos suscipit.
         </p>
       </div>
@@ -58,7 +59,10 @@ export const DirectoryDetails = () => {
         <div className=" mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl lg:w-3/4 ">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3  lg:max-w-full">
             {allAlumni.slice(0, 9).map((singleAlumni) => (
-              <AlumniBatchDataCard key={singleAlumni._id} singleAlumni={singleAlumni} />
+              <AlumniBatchDataCard
+                key={singleAlumni._id}
+                singleAlumni={singleAlumni}
+              />
             ))}
           </div>
         </div>
