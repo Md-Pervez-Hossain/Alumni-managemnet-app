@@ -3,7 +3,7 @@ import React from "react";
 const AlumniDirectory = () => {
   return (
     <>
-      <div className="py-20 grid md:grid-cols-2 gap-10">
+      <div className="py-20 grid md:grid-cols-2 items-center gap-10">
         <div>
           <h1 className="mb-6 text-2xl font-semibold">Alumni Directory</h1>
           <p>
