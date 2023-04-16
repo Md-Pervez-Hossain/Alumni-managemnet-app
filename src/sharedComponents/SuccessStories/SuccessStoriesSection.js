@@ -42,18 +42,6 @@ const SuccessStoriesSection = () => {
         postedTime: "23-03-2023",
       },
     },
-    // {
-    //   _id: 4,
-    //   image: "https://i.ibb.co/KGpRmcC/desktop.jpg",
-    //   title: "Success Story title",
-    //   description:
-    //     "This an awesome platform to learn something. I have learned important things from this platform. I really love it. You can keep it number one choice.",
-    //   author: {
-    //     name: "Luca luca",
-    //     profileImage: "url",
-    //     postedTime: "23-03-2023",
-    //   },
-    // },
   ];
   return (
     <div className="my-3  mx-auto relative">
