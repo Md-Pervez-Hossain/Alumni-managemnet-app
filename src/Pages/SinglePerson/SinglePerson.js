@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   FaArrowLeft,
   FaArrowRight,
@@ -7,11 +7,26 @@ import {
   FaGoogle,
   FaLinkedin,
 } from "react-icons/fa";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 
 const SinglePerson = () => {
+  const [persons, setPersons] = useState([]);
   const singleAlumni = useLoaderData();
-  const { name, profile_picture, graduation_year } = singleAlumni;
+  const {
+    name,
+    profile_picture,
+    graduation_year,
+    major,
+    email,
+    degree,
+    department,
+    phone,
+    phone_2,
+    address,
+    careers,
+    education,
+    personal_information,
+  } = singleAlumni;
   console.log(singleAlumni);
   const [previous, setPrevious] = useState(0);
   const [next, setNext] = useState(8);
@@ -28,6 +43,18 @@ const SinglePerson = () => {
     setNext(next + 8);
     console.log("clicked next");
   };
+
+  useEffect(() => {
+    fetch("https://alumni-managemnet-app-server.vercel.app/alumni")
+      .then((res) => res.json())
+      .then((data) => {
+        setPersons(data);
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
   return (
     <div>
       <div className="bg-primary text-center text-white md:py-24 md:px-24 py-16 px-12 ">
@@ -56,90 +83,96 @@ const SinglePerson = () => {
                   <h2 className="text-2xl mb-4">{name}</h2>
                   <div className="mb-5">
                     <p>Graduation Year: {graduation_year} </p>
-                    <p>Degree : Bachelor of Science</p>
-                    <p>Department :Computer Science</p>
-                    <p>Major : Computer Science</p>
-                    <p>Email : sadia.rahman@example.com</p>
-                    <p>Phone : 123-456-7890</p>
-                    <p>Phone 2 : 555-555-5555</p>
-                    <p>Address : 123 Main Street , Dhaka</p>
+                    <p>Degree : {degree}</p>
+                    <p>Department :{department}</p>
+                    <p>Major : {major}</p>
+                    <p>Email : {email}</p>
+                    <p>Phone : {phone}</p>
+                    {phone_2 ? (
+                      <>
+                        <p>Phone 2 : {phone_2}</p>
+                      </>
+                    ) : (
+                      <></>
+                    )}
+
+                    <p>
+                      Address :{" "}
+                      {`${address.street} ${address.city} ${address.state} ${address.zip}`}
+                    </p>
                   </div>
                 </div>
                 <div>
                   <h2 className="text-2xl mb-3">Personal Information</h2>
-                  <p>Date_of_Birth : 1993-01-01 </p>
-                  <p>Gender : Female </p>
-                  <p>Fathers Name: Md. Abdul Rahman </p>
-                  <p>Mothers Name : Shahnaz Rahman </p>
-                  <p>Marital Status : Married </p>
-                  <p>Languages : Bangla , English </p>
-                  <p>Hobbies : Reading Books , Traveling </p>
+                  <p>Date_of_Birth : {personal_information.date_of_birth} </p>
+                  <p>Gender : {personal_information.gender} </p>
+                  <p>Fathers Name: {personal_information.fathers_name} </p>
+                  <p>Mothers Name : {personal_information.mothers_name}</p>
+                  <p>Marital Status :{personal_information.marital_status} </p>
+                  <p>Nationality :{personal_information.nationality} </p>
+                  <p className="font-normal">Hobbies : </p>
+                  {personal_information.hobbies.map((hobby) => {
+                    return (
+                      <>
+                        <p>{hobby}</p>
+                      </>
+                    );
+                  })}
+                  <p className="font-normal">languages : </p>
+                  {personal_information.languages.map((language) => {
+                    return (
+                      <>
+                        <p>{language}</p>
+                      </>
+                    );
+                  })}
                 </div>
               </div>
               <div>
                 <h2 className="text-2xl mb-3">Education</h2>
                 <div className="grid md:grid-cols-2 gap-5 ">
-                  <div>
-                    <p>Degree : SSC</p>
-                    <p>major : Science</p>
-                    <p>institution : Ideal School and College</p>
-                    <p>Graduation Year : 2009</p>
-                    <p>GPA : 5.00</p>
-                  </div>
-                  <div>
-                    <p>Degree : HSC</p>
-                    <p>major : Science</p>
-                    <p>institution : Viqarunnisa Noon College</p>
-                    <p>Graduation Year : 2011</p>
-                    <p>GPA : 5.00</p>
-                  </div>
-                  <div>
-                    <p>Degree : Bachelor of Science</p>
-                    <p>major : Computer Science</p>
-                    <p>
-                      institution : Bangladesh University of Engineering and
-                      Technology
-                    </p>
-                    <p>Graduation Year : 2015</p>
-                    <p>GPA : 3.9</p>
-                  </div>
+                  {education.map((edu) => {
+                    return (
+                      <>
+                        <div>
+                          <p>Degree : {edu.degree}</p>
+                          {edu.major ? (
+                            <>
+                              <p>major : {edu.major}</p>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          <p>institution : {edu.institution}</p>
+                          <p>Graduation Year : {edu.graduation_year}</p>
+                          <p>GPA : {edu.gpa}</p>
+                        </div>
+                      </>
+                    );
+                  })}
                 </div>
               </div>
               <div>
-                <h2 className="text-2xl mb-3">Careers</h2>
+                <h2 className="text-2xl mb-3">Carrers</h2>
                 <div className="grid md:grid-cols-2 gap-5">
-                  <div>
-                    <p>Company : Grameenphone</p>
-                    <p>Position : Software Engineer</p>
-                    <p>Start Date : 2015-07-01</p>
-                    <p>End Date : 2018-12-31</p>
-                    <h2>Responsibilities</h2>
-                    <p>Developed and maintained software applications</p>
-                    <p>
-                      Collaborated with cross-functional teams to deliver
-                      projects on time and within budget
-                    </p>
-                    <p>
-                      Participated in code reviews and provided feedback to team
-                      members
-                    </p>
-                  </div>
-                  <div>
-                    <p>Company : Pathao</p>
-                    <p>Position : Senior Software Engineer</p>
-                    <p>Start Date : 2019-01-01</p>
-                    <p>End Date : null</p>
-                    <h2>Responsibilities</h2>
-                    <p>Lead a team of software engineers</p>
-                    <p>
-                      Develop and design software architecture for large-scale
-                      applications
-                    </p>
-                    <p>
-                      Collaborate with product and design teams to ensure timely
-                      delivery of high-quality products
-                    </p>
-                  </div>
+                  {careers?.map((career) => {
+                    return (
+                      <div>
+                        <p>Company : {career.company}</p>
+                        <p>Position : {career.position}</p>
+                        <p>Start Date : {career.start_date}</p>
+                        <p>End Date : {career.end_date}</p>
+                        <h2>Responsibility : </h2>
+                        {career.responsibilities.map((res) => {
+                          return (
+                            <>
+                              <p>{res}</p>
+                            </>
+                          );
+                        })}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -154,31 +187,32 @@ const SinglePerson = () => {
             <h2 className="md:text-3xl text-2xl md:mb-8 mb-5">
               Similler <br /> Batch Student
             </h2>
-            <div className="flex items-center md:gap-5 gap-3 mb-8">
-              <img src={profile_picture} alt="" className="h-24 rounded-full" />
-              <div>
-                <h2 className="text-xl">Pervez Hossain</h2>
-                <button className="text-secondary font-semibold">
-                  Details
-                </button>
-              </div>
-            </div>
-
-            <div className="flex items-center md:gap-5 gap-3 mb-8">
-              <img src={profile_picture} alt="" className="h-24 rounded-full" />
-              <div>
-                <h2 className="text-xl">Pervez Hossain</h2>
-                <button className="text-secondary font-semibold">
-                  Details
-                </button>
-              </div>
-            </div>
+            {persons?.slice(previous, next).map((person) => {
+              return (
+                <div className="flex items-center md:gap-5 gap-3 mb-8">
+                  <img
+                    src={person.profile_picture}
+                    alt=""
+                    className="h-24 w-24 rounded-full"
+                  />
+                  <div>
+                    <h2 className="text-xl">{person.name}</h2>
+                    <button className="text-secondary font-semibold">
+                      Details
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
 
             <div className="flex items-center justify-end gap-3">
               <button onClick={() => handlePrevious()}>
                 <FaArrowLeft className="text-primary hover:text-secondary duration-500 ease-in-out cursor-pointer"></FaArrowLeft>
               </button>
-              <button onClick={() => handleNext()}>
+              <button
+                disabled={next > persons.length}
+                onClick={() => handleNext()}
+              >
                 <FaArrowRight className="text-primary hover:text-secondary duration-500 ease-in-out cursor-pointer"></FaArrowRight>
               </button>
             </div>

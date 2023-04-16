@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Counter from "../../Counter/Counter";
 
 const AllEventsCard = ({ item }) => {
   return (
@@ -16,32 +17,9 @@ const AllEventsCard = ({ item }) => {
           backgroundImage: `url(${item.image_url})`,
         }}
       >
-        <div className="invisible group-hover:visible ease-in-out duration-500	 text-white w-full h-full  flex pb-2 justify-center items-end bg-gradient-to-t from-black to-transparent from-10% to-50% px-5">
+        <div className="invisible group-hover:visible ease-in-out duration-500	  w-9/12 mx-auto h-full  flex pb-2 justify-center items-end bg-gradient-to-t from-black to-transparent from-10% to-50% px-5">
           {/* Time left part */}
-          <div className="flex gap-4 items-end">
-            <div className="flex flex-col items-center">
-              <div className="w-8 h-8 text-primary bg-accent text-center rounded-full flex justify-center items-center text-sm font-semibold">
-                {" "}
-                <span>3</span>{" "}
-              </div>
-              <span className="text-sm text-center">Days</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="w-8 h-8 text-primary bg-accent text-center rounded-full flex justify-center items-center text-sm font-semibold">
-                {" "}
-                <span>23</span>
-              </div>
-              <span className="text-sm text-center">Hours</span>
-            </div>
-            <div className="flex flex-col items-center">
-              <div className="w-8 h-8 text-primary bg-accent text-center rounded-full flex justify-center items-center text-sm font-semibold">
-                {" "}
-                <span>30</span>
-              </div>
-              <span className="text-sm text-center">Min </span>
-            </div>
-            <span className="text-sm text-center">Remaining </span>
-          </div>
+          <Counter></Counter>
         </div>
       </div>
       {/* content */}

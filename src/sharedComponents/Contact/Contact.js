@@ -15,7 +15,7 @@ const Contact = () => {
     <div className="mt-16 mb-20">
       <h1 className=" text-2xl font-bold mb-10">Contact</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className=" gap-12 mb-12">
+        <div className=" gap-12 ">
           <input
             {...register("firstName", {
               required: "input Field is Required",
@@ -54,7 +54,7 @@ const Contact = () => {
             name="email"
             id="name"
             placeholder="Email"
-            className="w-full p-6  mb-5 text-xs  bg-[#F2F2F2]"
+            className="w-full p-6  mb-8 text-xs  bg-[#F2F2F2]"
           />
           {errors?.email?.type === "pattern" && (
             <p className="my-3 font-bold text-red-500">Invalid Pattern</p>

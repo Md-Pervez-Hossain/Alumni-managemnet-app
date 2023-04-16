@@ -2,8 +2,8 @@ import React from "react";
 
 const FundsForCause = () => {
   return (
-    <div className="py-3 w-9/12 mx-auto relative bg-accent">
-      <div className="m-2">
+    <div className="py-3 mb-16 mt-32 mx-auto relative bg-accent">
+      <div className="m-2 py-16">
         <h2 className="text-2xl font-semibold text-center">
           Donate to NPY Women's Council
         </h2>
@@ -36,8 +36,8 @@ const FundsForCause = () => {
           />
         </div>
 
-        <div className="flex justify-center mt-5">
-          <button className="btn px-8 py-4 flex text-primary bg-secondary mt-4  font-bold  ">
+        <div className="flex justify-center mt-10">
+          <button className="bg-secondary font-semibold text-primary px-8 py-4">
             Donate
           </button>
         </div>
