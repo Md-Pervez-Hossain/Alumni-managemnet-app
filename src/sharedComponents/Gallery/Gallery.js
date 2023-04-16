@@ -1,55 +1,75 @@
 import React, { useEffect, useState } from "react";
+import {
+  useGetGalleriesQuery,
+  useGetGalleryCategoriesQuery,
+} from "../../features/Api/apiSlice";
+import Loading from "../Loading/Loading";
+import ButtonSizeSkeletion from "../Skeletion/ButtonSizeSkeletion";
+import ImageSkeletion from "../Skeletion/ImageSkeletion";
+import ErrorAlert from "../Skeletion/ErrorAlert";
+import { useDispatch } from "react-redux";
 
 const Gallery = () => {
-  const [galleryCategory, setGalleryCategory] = useState([]);
-  const [galleryData, setGalleryData] = useState([]);
+  // initially render the gallery category
+  const {
+    data: galleryCategory,
+    isError: categoryIsError,
+    isLoading: categoryIsLoading,
+    error: categoryError,
+  } = useGetGalleryCategoriesQuery();
 
-  useEffect(() => {
-    fetch(`https://alumni-managemnet-app-server.vercel.app/galleryCategories`)
-      .then((res) => res.json())
-      .then((data) => {
-        setGalleryCategory(data);
-      });
-  }, []);
+  const {
+    data: galleryData,
+    isError: dataIsError,
+    isLoading: dataIsLoading,
+    error: dataError,
+  } = useGetGalleriesQuery();
 
-  useEffect(() => {
-    fetch(`https://alumni-managemnet-app-server.vercel.app/galleries`)
-      .then((res) => res.json())
-      .then((data) => {
-        setGalleryData(data);
-      });
-  }, []);
+  const [filteredGalleryData, setFilteredGalleryData] = useState([]);
 
-  if (!galleryCategory) {
-    return <progress className="progress w-56"></progress>;
-  }
-
-  if (!galleryData) {
-    return <progress className="progress w-56"></progress>;
-  }
   const handleButtonClick = (id) => {
-    fetch(`https://alumni-managemnet-app-server.vercel.app/galleries/${id}`, {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setGalleryData(data);
-      });
+    setFilteredGalleryData(galleryData.filter((item) => item.gallery_category_id === id));
   };
+
   const handleAllButtonClick = () => {
-    fetch(`https://alumni-managemnet-app-server.vercel.app/galleries`, {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setGalleryData(data);
-      });
+    setFilteredGalleryData(galleryData);
   };
+
+  let CategoryNameContent;
+
+  if (categoryIsLoading && !categoryIsError) {
+    CategoryNameContent = <ButtonSizeSkeletion />;
+  }
+  if (!categoryIsLoading && categoryIsError) {
+    CategoryNameContent = <ErrorAlert text={categoryError} />;
+  }
+  if (!categoryIsLoading && !categoryIsError && galleryCategory?.length === 0) {
+    CategoryNameContent = <ErrorAlert text="No Category Find" />;
+  }
+  if (!categoryIsLoading && !categoryIsError && galleryCategory?.length > 0) {
+    CategoryNameContent = (
+      <>
+        {galleryCategory.map((galleryCategory) => (
+          <button
+            onClick={() => {
+              handleButtonClick(galleryCategory._id);
+            }}
+            className="px-5 py-2 w-full mr-6 md:w-auto mt-4 text-sm font-semibold bg-gray-300 focus:bg-primary focus:text-secondary hover:bg-primary hover:text-secondary"
+          >
+            {galleryCategory.name}
+          </button>
+        ))}
+      </>
+    );
+  }
 
   return (
     <div className="mt-3  mx-auto relative">
       <div className="mt-10">
         <h2 className="text-2xl lg:text-2xl font-semibold my-3">Our Gallery</h2>
+        <Loading />
+
+        <ImageSkeletion />
         <div>
           <button
             onClick={handleAllButtonClick}
@@ -57,23 +77,16 @@ const Gallery = () => {
           >
             All{" "}
           </button>
-          {galleryCategory.map((galcat) => (
-            <button
-              onClick={() => {
-                handleButtonClick(galcat._id);
-              }}
-              className="px-5 py-2 w-full mr-6 md:w-auto mt-4 text-sm font-semibold bg-gray-300 focus:bg-primary focus:text-secondary hover:bg-primary hover:text-secondary"
-            >
-              {galcat.name}
-            </button>
-          ))}
+          <button>{CategoryNameContent}</button>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3 mt-4">
-          {galleryData.slice(0, 6).map((img) => (
+          {}
+
+          {filteredGalleryData?.slice(0, 6).map((img) => (
             <div
               loading="lazy"
-              className={`h-80 bg-primary bg-cover`}
+              className={`h-80 bg-accent bg-cover`}
               style={{
                 backgroundImage: `url(${img.image_url})`,
               }}

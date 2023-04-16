@@ -16,14 +16,14 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <AuthProvider>
-      <ToastContainer position="top-center" />
-      <RouterProvider router={routes}>
-        <Provider store={store}>
+    <Provider store={store}>
+      <AuthProvider>
+        <ToastContainer position="top-center" />
+        <RouterProvider router={routes}>
           <App />
-        </Provider>
-      </RouterProvider>
-    </AuthProvider>
+        </RouterProvider>
+      </AuthProvider>
+    </Provider>
   </React.StrictMode>
 );
 
