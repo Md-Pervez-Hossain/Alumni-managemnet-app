@@ -6,10 +6,10 @@ import Slider from "../../sharedComponents/Slider/Slider";
 import SuccessStoriesSection from "../../sharedComponents/SuccessStories/SuccessStoriesSection";
 import UpComingEvents from "../../sharedComponents/UpComingEvents/UpComingEvents";
 import EmailSubScribe from "../../sharedComponents/EmailSubScribe/EmailSubScribe";
-import AlumniDirectory from "../AlumniDirectory/AlumniDirectory";
 import MissionHeading from "../../sharedComponents/MissionHeading/MissionHeading";
 import Contact from "../../sharedComponents/Contact/Contact";
 import NewsSection from "../../sharedComponents/NewsCards/NewsSection";
+import AlumniDirectory from "./AlumniDirectory";
 
 const Home = () => {
   return (
@@ -18,7 +18,6 @@ const Home = () => {
       <div className="w-9/12 mx-auto">
         <UpComingEvents />
       </div>
-      <FundsForCause />
 
       <div className=" bg-accent py-10 my-20">
         <div className="w-9/12 mx-auto">
@@ -39,6 +38,7 @@ const Home = () => {
 
       <div className="w-9/12 mx-auto my-20">
         <SuccessStoriesSection />
+        <FundsForCause />
         <NewsSection />
         <Contact />
       </div>

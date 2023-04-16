@@ -10,9 +10,11 @@ import SignUp from "../Pages/SignUp/SignUp";
 import Events from "../Pages/Events/Events";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import SingleEvent from "../Pages/SingleEvent/SingleEvent";
-import AlumniDirectory from "../Pages/AlumniDirectory/AlumniDirectory";
+
 import BatchWiseStudent from "../Pages/BatchwiseStudent/BatchwiseStudent";
+
 import SinglePerson from "../Pages/SinglePerson/SinglePerson";
+import AlumniPage from "../Pages/AlumniDirectory/AlumniPage";
 
 const routes = createBrowserRouter([
   {
@@ -46,7 +48,7 @@ const routes = createBrowserRouter([
             "https://alumni-managemnet-app-server.vercel.app/alumni"
           );
         },
-        element: <AlumniDirectory />,
+        element: <AlumniPage />,
       },
 
       {

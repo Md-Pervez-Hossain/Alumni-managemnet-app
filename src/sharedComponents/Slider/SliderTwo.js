@@ -19,20 +19,15 @@ const SliderTwo = () => {
             <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
               <div className="flex flex-col items-center justify-between xl:flex-row">
                 <div className="w-full  mb-12 xl:mb-0 xl:pr-16 xl:w-7/12">
-                  <h2 className="max-w-lg mb-6 font-sans text-3xl font-semibold tracking-tight text-white sm:text-4xl sm:leading-none">
+                  <h2 className="max-w-lg mb-6  text-3xl font-semibold tracking-tight text-white sm:text-4xl sm:leading-none">
                     We Proude To Be Student Of Oxford
                   </h2>
                   <p className="max-w-xl mb-5 text-base text-white md:text-lg ">
-                    Sed ut perspiciatis unde omnis iste natus error sit
-                    voluptatem accusantium doloremque laudan, totam rem aperiam,
-                    eaque ipsa quae.
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                    accusantium doloremque laudan, totam rem aperiam, eaque ipsa quae.
                   </p>
                   <div>
-                    <a
-                      href="/"
-                      aria-label=""
-                      className="bg-secondary px-4 py-2 "
-                    >
+                    <a href="/" aria-label="" className="bg-secondary px-4 py-2 ">
                       Learn more
                       <svg
                         className="inline-block w-3 ml-2"
@@ -74,20 +69,15 @@ const SliderTwo = () => {
             <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
               <div className="flex flex-col items-center justify-between xl:flex-row">
                 <div className="w-full  mb-12 xl:mb-0 xl:pr-16 xl:w-7/12">
-                  <h2 className="max-w-lg mb-6 font-sans text-3xl font-semibold tracking-tight text-white sm:text-4xl sm:leading-none">
+                  <h2 className="max-w-lg mb-6   text-3xl font-semibold tracking-tight text-white sm:text-4xl sm:leading-none">
                     We Proude To Be Student Of Oxford
                   </h2>
                   <p className="max-w-xl mb-5 text-base text-white md:text-lg ">
-                    Sed ut perspiciatis unde omnis iste natus error sit
-                    voluptatem accusantium doloremque laudan, totam rem aperiam,
-                    eaque ipsa quae.
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                    accusantium doloremque laudan, totam rem aperiam, eaque ipsa quae.
                   </p>
                   <div>
-                    <a
-                      href="/"
-                      aria-label=""
-                      className="bg-secondary px-4 py-2 "
-                    >
+                    <a href="/" aria-label="" className="bg-secondary px-4 py-2 ">
                       Learn more
                       <svg
                         className="inline-block w-3 ml-2"
@@ -129,20 +119,15 @@ const SliderTwo = () => {
             <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
               <div className="flex flex-col items-center justify-between xl:flex-row">
                 <div className="w-full  mb-12 xl:mb-0 xl:pr-16 xl:w-7/12">
-                  <h2 className="max-w-lg mb-6 font-sans text-3xl font-semibold tracking-tight text-white sm:text-4xl sm:leading-none">
+                  <h2 className="max-w-lg mb-6   text-3xl font-semibold tracking-tight text-white sm:text-4xl sm:leading-none">
                     We Proude To Be Student Of Oxford
                   </h2>
                   <p className="max-w-xl mb-5 text-base text-white md:text-lg ">
-                    Sed ut perspiciatis unde omnis iste natus error sit
-                    voluptatem accusantium doloremque laudan, totam rem aperiam,
-                    eaque ipsa quae.
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+                    accusantium doloremque laudan, totam rem aperiam, eaque ipsa quae.
                   </p>
                   <div>
-                    <a
-                      href="/"
-                      aria-label=""
-                      className="bg-secondary px-4 py-2 "
-                    >
+                    <a href="/" aria-label="" className="bg-secondary px-4 py-2 ">
                       Learn more
                       <svg
                         className="inline-block w-3 ml-2"

@@ -35,8 +35,8 @@ const SinglePerson = () => {
           <h2 className="md:text-4xl text-2xl mb-5">About {name}</h2>
           <hr className="border-2 w-24 mx-auto border-secondary " />
           <p className="mt-5">
-            There are many company Lorem ipsm dolor sitg amet, csetur adipicing elit, sed
-            do eiusmod tempor
+            There are many company Lorem ipsm dolor sitg amet, csetur adipicing
+            elit, sed do eiusmod tempor
           </p>
         </div>
       </div>
@@ -44,7 +44,11 @@ const SinglePerson = () => {
         <div className="grid md:grid-cols-3 gap-10">
           <div className="md:col-span-2 col-span-1">
             <div>
-              <img src={profile_picture} alt="" className="h-72 rounded-full mb-5" />
+              <img
+                src={profile_picture}
+                alt=""
+                className="h-72 w-72 rounded-full mb-5"
+              />
             </div>
             <div className="mb-4">
               <div className="grid md:grid-cols-2 gap-5">
@@ -93,7 +97,8 @@ const SinglePerson = () => {
                     <p>Degree : Bachelor of Science</p>
                     <p>major : Computer Science</p>
                     <p>
-                      institution : Bangladesh University of Engineering and Technology
+                      institution : Bangladesh University of Engineering and
+                      Technology
                     </p>
                     <p>Graduation Year : 2015</p>
                     <p>GPA : 3.9</p>
@@ -111,11 +116,12 @@ const SinglePerson = () => {
                     <h2>Responsibilities</h2>
                     <p>Developed and maintained software applications</p>
                     <p>
-                      Collaborated with cross-functional teams to deliver projects on time
-                      and within budget
+                      Collaborated with cross-functional teams to deliver
+                      projects on time and within budget
                     </p>
                     <p>
-                      Participated in code reviews and provided feedback to team members
+                      Participated in code reviews and provided feedback to team
+                      members
                     </p>
                   </div>
                   <div>
@@ -130,8 +136,8 @@ const SinglePerson = () => {
                       applications
                     </p>
                     <p>
-                      Collaborate with product and design teams to ensure timely delivery
-                      of high-quality products
+                      Collaborate with product and design teams to ensure timely
+                      delivery of high-quality products
                     </p>
                   </div>
                 </div>
@@ -152,56 +158,19 @@ const SinglePerson = () => {
               <img src={profile_picture} alt="" className="h-24 rounded-full" />
               <div>
                 <h2 className="text-xl">Pervez Hossain</h2>
-                <button className="text-secondary font-semibold">Details</button>
+                <button className="text-secondary font-semibold">
+                  Details
+                </button>
               </div>
             </div>
+
             <div className="flex items-center md:gap-5 gap-3 mb-8">
               <img src={profile_picture} alt="" className="h-24 rounded-full" />
               <div>
                 <h2 className="text-xl">Pervez Hossain</h2>
-                <button className="text-secondary font-semibold">Details</button>
-              </div>
-            </div>
-            <div className="flex items-center md:gap-5 gap-3 mb-8">
-              <img src={profile_picture} alt="" className="h-24 rounded-full" />
-              <div>
-                <h2 className="text-xl">Pervez Hossain</h2>
-                <button className="text-secondary font-semibold">Details</button>
-              </div>
-            </div>
-            <div className="flex items-center md:gap-5 gap-3 mb-8">
-              <img src={profile_picture} alt="" className="h-24 rounded-full" />
-              <div>
-                <h2 className="text-xl">Pervez Hossain</h2>
-                <button className="text-secondary font-semibold">Details</button>
-              </div>
-            </div>
-            <div className="flex items-center md:gap-5 gap-3 mb-8">
-              <img src={profile_picture} alt="" className="h-24 rounded-full" />
-              <div>
-                <h2 className="text-xl">Pervez Hossain</h2>
-                <button className="text-secondary font-semibold">Details</button>
-              </div>
-            </div>
-            <div className="flex items-center md:gap-5 gap-3 mb-8">
-              <img src={profile_picture} alt="" className="h-24 rounded-full" />
-              <div>
-                <h2 className="text-xl">Pervez Hossain</h2>
-                <button className="text-secondary font-semibold">Details</button>
-              </div>
-            </div>
-            <div className="flex items-center md:gap-5 gap-3 mb-8">
-              <img src={profile_picture} alt="" className="h-24 rounded-full" />
-              <div>
-                <h2 className="text-xl">Pervez Hossain</h2>
-                <button className="text-secondary font-semibold">Details</button>
-              </div>
-            </div>
-            <div className="flex items-center md:gap-5 gap-3 mb-8">
-              <img src={profile_picture} alt="" className="h-24 rounded-full" />
-              <div>
-                <h2 className="text-xl">Pervez Hossain</h2>
-                <button className="text-secondary font-semibold">Details</button>
+                <button className="text-secondary font-semibold">
+                  Details
+                </button>
               </div>
             </div>
 
