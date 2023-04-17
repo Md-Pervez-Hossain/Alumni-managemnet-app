@@ -5,16 +5,16 @@ const CreateEvents = () => {
     event.preventDefault();
     console.log("events Clicked");
     const form = event.target;
-    const eventsHeading = form.eventsHeading.value;
-    const eventsCreatorName = form.eventsCreatorName.value;
-    const eventsCategory = form.eventsCategory.value;
-    const eventsDetails = form.eventsDetails.value;
-    const eventsDate = form.eventsDates.value;
-    const eventsLocation = form.eventsLocation.value;
+    const event_title = form.eventsHeading.value;
+    const category = form.eventsCategory.value;
+    const description = form.eventsDetails.value;
+    const date = form.eventsDates.value;
+    const time = form.time.value;
+    const location = form.eventsLocation.value;
     const batch = form.batch.value;
-    const image = form.image.files[0];
+    const image_url = form.image.files[0];
     const formData = new FormData();
-    formData.append("image", image);
+    formData.append("image", image_url);
 
     fetch(
       "https://api.imgbb.com/1/upload?expiration=600&key=86fe1764d78f51c15b1a9dfe4b9175cf",
@@ -26,13 +26,13 @@ const CreateEvents = () => {
       .then((res) => res.json())
       .then((data) => {
         const eventsInfo = {
-          eventsHeading,
-          image: data.data.display_url,
-          eventsCreatorName,
-          eventsCategory,
-          eventsDetails,
-          eventsDate,
-          eventsLocation,
+          event_title,
+          image_url: data.data.display_url,
+          category,
+          description,
+          date,
+          time,
+          location,
           batch,
         };
         fetch("http://localhost:8000/alumniEvents", {
@@ -94,22 +94,28 @@ const CreateEvents = () => {
               <option>StudyTour</option>
             </select>
           </div>
-          <div className="form-control w-full ">
-            <input
-              type="file"
-              className="file-input file-input-bordered w-full "
-              name="image"
-            />
-          </div>
+          <input
+            type="time"
+            placeholder="Events Time"
+            className="input input-bordered w-full  mb-5 "
+            name="time"
+            required
+          />
           <input
             type="date"
             placeholder="Events Date"
-            className="input input-bordered w-full  "
+            className="input input-bordered w-full  mb-5 "
             name="eventsDates"
             required
           />
         </div>
-
+        <div className="form-control w-full ">
+          <input
+            type="file"
+            className="file-input file-input-bordered w-full "
+            name="image"
+          />
+        </div>
         <textarea
           className="textarea textarea-bordered w-full my-5"
           placeholder="Events Details"
