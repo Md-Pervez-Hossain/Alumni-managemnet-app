@@ -60,7 +60,7 @@ const Events = () => {
             onChange={(e) => handleEventLoad(e.target.value)}
             className="w-full h-11 border-green-500"
           >
-            {eventCategory.map((item, i) => (
+            {eventCategory.map((item) => (
               <option
                 key={item._id}
                 className="text-xl font-semibold"

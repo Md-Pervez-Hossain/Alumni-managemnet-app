@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const Counter = () => {
+const Counter = ({ date }) => {
   const [days, setDays] = useState("00");
   const [hours, setHours] = useState("00");
   const [mintues, setMintues] = useState("00");
@@ -15,9 +15,7 @@ const Counter = () => {
       const now = new Date().getTime();
       const distance = coundownDate - now;
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor(
-        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-      );
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const mintues = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seceonds = Math.floor((distance % (1000 * 60)) / 1000);
       // console.log(days, hours, mintues, seceonds);
@@ -70,7 +68,7 @@ const Counter = () => {
             <span>{seceonds}</span>
           </div>
         </div>
-        <span className="text-white mt-6">Remaining</span>
+        {/* <span className="text-white mt-6">Remaining</span> */}
       </div>
     </div>
   );

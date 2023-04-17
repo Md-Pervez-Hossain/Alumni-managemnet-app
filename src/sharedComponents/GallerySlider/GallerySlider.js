@@ -7,9 +7,6 @@ import { Navigation, Autoplay } from "swiper";
 const GallerySlider = ({ year }) => {
   const [yearWiseGalleryData, setYearWiseGalleryData] = useState([]);
 
-  // /galleries/batch/:batchnumber
-  //
-
   useEffect(() => {
     fetch(`https://alumni-managemnet-app-server.vercel.app/galleries/batch/${year}`)
       .then((res) => res.json())
@@ -21,7 +18,7 @@ const GallerySlider = ({ year }) => {
 
   return (
     <div className="">
-      <h2 className="text-4xl text-center">Gallery</h2>
+      <h2 className="text-3xl text-center">Memories of {year} </h2>
       <Swiper
         modules={[Autoplay, Navigation]}
         className="mySwiper"
