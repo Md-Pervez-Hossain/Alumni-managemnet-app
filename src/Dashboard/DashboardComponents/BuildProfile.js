@@ -157,7 +157,7 @@ const BuildProfile = () => {
                           for="design"
                           class="inline-block px-16 py-12 mb-4 ml-1 font-bold text-center uppercase align-middle transition-all bg-transparent border-2 border-solid rounded-lg shadow-none cursor-pointer group peer-checked:bg-slate-400 hover:scale-102 leading-pro text-xs ease-soft-in tracking-tight-soft active:opacity-85 active:shadow-soft-xs border-slate-400 text-slate-400 hover:border-slate-400 hover:bg-transparent hover:opacity-75 active:border-slate-400 active:bg-slate-400 active:text-white"
                         >
-                          <svg
+                          {/* <svg
                             class="text-slate-700"
                             width="20px"
                             height="20px"
@@ -201,7 +201,7 @@ const BuildProfile = () => {
                                 </g>
                               </g>
                             </g>
-                          </svg>
+                          </svg> */}
                         </label>
                         <h6 class="select-none dark:text-white">Design</h6>
                       </div>
@@ -218,7 +218,7 @@ const BuildProfile = () => {
                           for="code"
                           class="inline-block px-16 py-12 mb-4 ml-1 font-bold text-center uppercase align-middle transition-all bg-transparent border-2 border-solid rounded-lg shadow-none cursor-pointer group peer-checked:bg-slate-400 hover:scale-102 leading-pro text-xs ease-soft-in tracking-tight-soft active:opacity-85 active:shadow-soft-xs border-slate-400 text-slate-400 hover:border-slate-400 hover:bg-transparent hover:opacity-75 active:border-slate-400 active:bg-slate-400 active:text-white"
                         >
-                          <svg
+                          {/* <svg
                             class="text-slate-700"
                             width="20px"
                             height="20px"
@@ -262,7 +262,7 @@ const BuildProfile = () => {
                                 </g>
                               </g>
                             </g>
-                          </svg>
+                          </svg> */}
                         </label>
                         <h6 class="select-none dark:text-white">Code</h6>
                       </div>
@@ -279,7 +279,7 @@ const BuildProfile = () => {
                           for="develop"
                           class="inline-block px-16 py-12 mb-4 ml-1 font-bold text-center uppercase align-middle transition-all bg-transparent border-2 border-solid rounded-lg shadow-none cursor-pointer group peer-checked:bg-slate-400 hover:scale-102 leading-pro text-xs ease-soft-in tracking-tight-soft active:opacity-85 active:shadow-soft-xs border-slate-400 text-slate-400 hover:border-slate-400 hover:bg-transparent hover:opacity-75 active:border-slate-400 active:bg-slate-400 active:text-white"
                         >
-                          <svg
+                          {/* <svg
                             class="text-slate-700"
                             width="20px"
                             height="20px"
@@ -328,7 +328,7 @@ const BuildProfile = () => {
                                 </g>
                               </g>
                             </g>
-                          </svg>
+                          </svg> */}
                         </label>
                         <h6 class="select-none dark:text-white">Develop</h6>
                       </div>
