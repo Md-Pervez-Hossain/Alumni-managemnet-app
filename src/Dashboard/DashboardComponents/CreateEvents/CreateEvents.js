@@ -19,9 +19,8 @@ const CreateEvents = () => {
     const category = form.eventsCategory.value;
     const description = form.eventsDetails.value;
     const date = selectedDate;
-    const time = form.time.value;
     const location = form.eventsLocation.value;
-    const batch = form.batch.value;
+    const batch = form.eventsCategory.value;
     const image_url = form.image.files[0];
     const formData = new FormData();
     formData.append("image", image_url);
@@ -41,7 +40,6 @@ const CreateEvents = () => {
           category,
           description,
           date,
-          time,
           location,
           batch,
         };
