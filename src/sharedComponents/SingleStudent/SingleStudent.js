@@ -41,7 +41,11 @@ const SingleStudent = () => {
         <div className="grid md:grid-cols-3 gap-10">
           <div className="md:col-span-2 col-span-1">
             <div>
-              <img src={pervez} alt="" className="h-72 rounded-full mb-5" />
+              <img
+                src={pervez}
+                alt=""
+                className="w-72 h-72  rounded-full mb-5"
+              />
             </div>
             <div className="mb-4">
               <div className="grid md:grid-cols-2 gap-5">
@@ -148,7 +152,7 @@ const SingleStudent = () => {
               Similler <br /> Batch Student
             </h2>
             <div className="flex items-center md:gap-5 gap-3 mb-8">
-              <img src={pervez} alt="" className="h-24 rounded-full" />
+              <img src={pervez} alt="" className="h-24 w-24 rounded-full" />
               <div>
                 <h2 className="text-xl">Pervez Hossain</h2>
                 <button className="text-secondary font-semibold">
@@ -157,7 +161,7 @@ const SingleStudent = () => {
               </div>
             </div>
             <div className="flex items-center md:gap-5 gap-3 mb-8">
-              <img src={pervez} alt="" className="h-24 rounded-full" />
+              <img src={pervez} alt="" className="h-24 w-24 rounded-full" />
               <div>
                 <h2 className="text-xl">Pervez Hossain</h2>
                 <button className="text-secondary font-semibold">
@@ -166,7 +170,7 @@ const SingleStudent = () => {
               </div>
             </div>
             <div className="flex items-center md:gap-5 gap-3 mb-8">
-              <img src={pervez} alt="" className="h-24 rounded-full" />
+              <img src={pervez} alt="" className="h-24 w-24 rounded-full" />
               <div>
                 <h2 className="text-xl">Pervez Hossain</h2>
                 <button className="text-secondary font-semibold">
@@ -175,7 +179,7 @@ const SingleStudent = () => {
               </div>
             </div>
             <div className="flex items-center md:gap-5 gap-3 mb-8">
-              <img src={pervez} alt="" className="h-24 rounded-full" />
+              <img src={pervez} alt="" className="h-24 w-24 rounded-full" />
               <div>
                 <h2 className="text-xl">Pervez Hossain</h2>
                 <button className="text-secondary font-semibold">
@@ -184,7 +188,7 @@ const SingleStudent = () => {
               </div>
             </div>
             <div className="flex items-center md:gap-5 gap-3 mb-8">
-              <img src={pervez} alt="" className="h-24 rounded-full" />
+              <img src={pervez} alt="" className="h-24 w-24 rounded-full" />
               <div>
                 <h2 className="text-xl">Pervez Hossain</h2>
                 <button className="text-secondary font-semibold">
@@ -193,7 +197,7 @@ const SingleStudent = () => {
               </div>
             </div>
             <div className="flex items-center md:gap-5 gap-3 mb-8">
-              <img src={pervez} alt="" className="h-24 rounded-full" />
+              <img src={pervez} alt="" className="h-24 w-24 rounded-full" />
               <div>
                 <h2 className="text-xl">Pervez Hossain</h2>
                 <button className="text-secondary font-semibold">
@@ -202,7 +206,7 @@ const SingleStudent = () => {
               </div>
             </div>
             <div className="flex items-center md:gap-5 gap-3 mb-8">
-              <img src={pervez} alt="" className="h-24 rounded-full" />
+              <img src={pervez} alt="" className="h-24 w-24 rounded-full" />
               <div>
                 <h2 className="text-xl">Pervez Hossain</h2>
                 <button className="text-secondary font-semibold">
@@ -211,7 +215,7 @@ const SingleStudent = () => {
               </div>
             </div>
             <div className="flex items-center md:gap-5 gap-3 mb-8">
-              <img src={pervez} alt="" className="h-24 rounded-full" />
+              <img src={pervez} alt="" className="h-24 w-24 rounded-full" />
               <div>
                 <h2 className="text-xl">Pervez Hossain</h2>
                 <button className="text-secondary font-semibold">

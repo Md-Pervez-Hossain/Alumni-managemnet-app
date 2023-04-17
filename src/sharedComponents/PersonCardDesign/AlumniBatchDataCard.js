@@ -5,7 +5,19 @@ const AlumniBatchDataCard = ({ singleAlumni }) => {
   const { name, profile_picture, graduation_year, _id } = singleAlumni;
   return (
     <div className="overflow-hidden transition-shadow duration-300 bg-white rounded ">
-      <img src={profile_picture} className="object-cover w-full h-64" alt={name} />
+      {profile_picture ? (
+        <>
+          <img
+            src={profile_picture}
+            className="object-cover w-full h-64"
+            alt={name}
+          />
+        </>
+      ) : (
+        <>
+          <p>image missing</p>
+        </>
+      )}
       <div className="py-3 px-2 ">
         <p className="text-xs font-semibold tracking-wide uppercase">
           <Link
