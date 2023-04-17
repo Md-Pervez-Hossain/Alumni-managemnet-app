@@ -15,12 +15,12 @@ const CreateEvents = () => {
     event.preventDefault();
     console.log("events Clicked");
     const form = event.target;
+    const batch = form.eventsBatch.value;
     const event_title = form.eventsHeading.value;
-    const category = form.eventsCategory.value;
-    const description = form.eventsDetails.value;
     const date = selectedDate;
     const location = form.eventsLocation.value;
-    const batch = form.eventsBatch.value;
+    const description = form.eventsDetails.value;
+    const category = form.eventsCategory.value;
     const image_url = form.image.files[0];
     const formData = new FormData();
     formData.append("image", image_url);
@@ -35,15 +35,15 @@ const CreateEvents = () => {
       .then((res) => res.json())
       .then((data) => {
         const eventsInfo = {
+          batch,
           event_title,
-          image_url: data.data.display_url,
-          category,
-          description,
           date,
           location,
-          batch,
+          description,
+          category,
+          image_url: data.data.display_url,
         };
-        fetch("https://alumni-managemnet-app-server.vercel.app/alumniEvents", {
+        fetch("https://alumni-managemnet-app-server.vercel.app/events", {
           method: "POST",
           headers: {
             "content-type": "application/json",
