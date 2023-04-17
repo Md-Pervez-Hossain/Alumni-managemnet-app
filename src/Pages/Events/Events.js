@@ -7,13 +7,14 @@ import AllEventsCard from "../../sharedComponents/Events/AllEvents/AllEventsCard
 
 const Events = () => {
   const [category, setCategory] = useState("All Events");
-  const [eventCategory, setEventCategory] = useState([{ eventCategory: "All" }]);
+  const [eventCategory, setEventCategory] = useState([{ eventCategory: "All Events" }]);
   const [events, setEvents] = useState([]);
+
+  //  for pagination
   const [previous, setPrevious] = useState(0);
   const [next, setNext] = useState(4);
 
   const nextHandler = () => {
-    // if(next<=eventItems.length)
     setNext(next + 4);
     setPrevious(previous + 4);
   };
@@ -40,11 +41,16 @@ const Events = () => {
   }, []);
 
   function handleEventLoad(currentEvent) {
+    console.log(currentEvent);
+    // console.log(eventCategory);
     setCategory(currentEvent);
+    console.log(category);
   }
 
   const eventItems =
-    category === "All Events" ? events : events.filter((item) => item.event === category);
+    category === "All Events"
+      ? events
+      : events.filter((item) => item.category === category);
 
   return (
     <>
@@ -117,7 +123,7 @@ const Events = () => {
             {eventCategory?.map((item) => (
               <button
                 key={item._id}
-                onClick={() => handleEventLoad(item.eventCategory)}
+                onClick={() => handleEventLoad(item._id)}
                 className="px-5 py-2 text-left text-sm font-semibold  hover:text-primary text-gray-900"
               >
                 {item.eventCategory}

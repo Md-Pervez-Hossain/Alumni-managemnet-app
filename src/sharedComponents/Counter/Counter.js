@@ -9,7 +9,7 @@ const Counter = ({ date }) => {
   let interval = useRef();
 
   const startTimer = () => {
-    const coundownDate = new Date("april 28 2023 00:00:00").getTime();
+    const coundownDate = new Date(date).getTime();
 
     interval = setInterval(() => {
       const now = new Date().getTime();
@@ -41,29 +41,29 @@ const Counter = ({ date }) => {
     <div>
       <div className="flex gap-4 ">
         <div>
-          <span className="text-white text-sm text-center">Days</span>
-          <div className="w-8 h-8 bg-white text-center rounded-full flex justify-center items-center text-lg font-semibold">
+          <span className="text-white text-xs text-center">Days</span>
+          <div className="w-6 h-6 bg-white text-center rounded-full flex justify-center items-center text-md font-semibold">
             {" "}
             <span>{days}</span>{" "}
           </div>
         </div>
         <div>
-          <span className="text-white text-sm text-center">Hours</span>
-          <div className="w-8 h-8 bg-white text-center rounded-full flex justify-center items-center text-lg font-semibold">
+          <span className="text-white text-xs text-center">Hours</span>
+          <div className="w-6 h-6 bg-white text-center rounded-full flex justify-center items-center text-md font-semibold">
             {" "}
             <span>{hours}</span>
           </div>
         </div>
         <div>
-          <span className="text-white text-sm text-center">Min</span>
-          <div className="w-8 h-8 bg-white text-center rounded-full flex justify-center items-center text-lg font-semibold">
+          <span className="text-white text-xs text-center">Min</span>
+          <div className="w-6 h-6 bg-white text-center rounded-full flex justify-center items-center text-md font-semibold">
             {" "}
             <span>{mintues}</span>
           </div>
         </div>
         <div>
-          <span className="text-white text-sm text-center">Sec</span>
-          <div className="w-8 h-8 bg-white text-center rounded-full flex justify-center items-center text-lg font-semibold">
+          <span className="text-white text-xs text-center">Sec</span>
+          <div className="w-6 h-6 bg-white text-center rounded-full flex justify-center items-center text-md font-semibold">
             {" "}
             <span>{seceonds}</span>
           </div>
