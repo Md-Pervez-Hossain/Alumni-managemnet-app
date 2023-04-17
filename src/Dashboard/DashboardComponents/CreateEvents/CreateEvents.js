@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import "flatpickr/dist/themes/material_green.css";
+import Flatpickr from "react-flatpickr";
 
 const CreateEvents = () => {
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
   const handleEvents = (event) => {
     event.preventDefault();
     console.log("events Clicked");
@@ -81,6 +85,14 @@ const CreateEvents = () => {
           name="eventsDetails"
           required
         ></textarea>
+        <div>
+          <Flatpickr
+            data-enable-time
+            value={selectedDate}
+            onChange={(date) => setSelectedDate(date[0])}
+            c
+          />
+        </div>
         <button className="px-6 py-4 w-full rounded-lg bg-primary text-white font-semibold">
           {" "}
           Create Event
