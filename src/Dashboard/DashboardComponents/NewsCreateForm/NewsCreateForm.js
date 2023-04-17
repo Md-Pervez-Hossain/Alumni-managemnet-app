@@ -39,6 +39,17 @@ const NewsCreateForm = () => {
           likes: 0,
           comments: 0,
         };
+        fetch("http://localhost:8000/news", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newsInfo),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          });
         console.log(newsInfo);
       })
       .catch((error) => {
@@ -79,7 +90,7 @@ const NewsCreateForm = () => {
       <h2 className="text-4xl my-5">News</h2>
 
       <form onSubmit={(event) => handleNews(event)}>
-        <div className="grid grid-cols-2 gap-5">
+        <div className="grid md:grid-cols-2 gap-5">
           <input
             type="text"
             placeholder="News Heading"
