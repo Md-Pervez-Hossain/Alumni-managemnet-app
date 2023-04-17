@@ -10,7 +10,7 @@ const SuccessStoriesCard = ({ data }) => {
       {/* <img className="" src={data.image} alt="demo" /> */}
       <div className="px-8 pt-5 ">
         <h5 className="text-xl py-3 font-semibold">{data?.title}</h5>
-        <p>{data?.description}</p>
+        <p>{`${data?.description.slice(0, 51)} ...`}</p>
         <div className="mt-3 font-semibold flex justify-between items-center">
           <button className="underline">Read more</button>
           {/* <span>Author: {data?.author.name}</span> */}

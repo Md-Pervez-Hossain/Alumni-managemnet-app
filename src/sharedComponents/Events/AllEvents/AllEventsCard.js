@@ -27,7 +27,7 @@ const AllEventsCard = ({ item }) => {
         <>
           <h1 className="text-xl font-semibold">{item.event_title}</h1>
         </>
-        <p className="mt-3">{item.description}</p>
+        <p className="mt-3">{item.description.slice(0, 50)}</p>
         {/*  */}
 
         {/*  */}
