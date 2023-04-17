@@ -36,6 +36,11 @@ export const apiSlice = createApi({
       query: () => "/eventCategories",
     }),
 
+    // // news
+    getNewsCategories: builder.query({
+      query: () => "/alumniNewsCategories",
+    }),
+
     // // extras
 
     // All batches name
@@ -52,6 +57,7 @@ export const apiSlice = createApi({
 });
 
 export const {
+  useGetNewsCategoriesQuery,
   useGetAllBatchesQuery,
   useGetAllUniversityNameQuery,
   useGetEventsCategoriesQuery,
