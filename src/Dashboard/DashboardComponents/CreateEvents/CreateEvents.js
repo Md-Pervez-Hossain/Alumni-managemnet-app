@@ -67,20 +67,6 @@ const CreateEvents = () => {
             name="eventsHeading"
             required
           />
-          <div className="form-control w-full ">
-            <input
-              type="file"
-              className="file-input file-input-bordered w-full "
-              name="image"
-            />
-          </div>
-          <input
-            type="text"
-            placeholder="Events Creator Name"
-            className="input input-bordered w-full "
-            name="eventsCreatorName"
-            required
-          />
           <input
             type="text"
             placeholder="Events Location"
@@ -88,13 +74,15 @@ const CreateEvents = () => {
             name="eventsLocation"
             required
           />
-          <input
-            type="text"
-            placeholder="Batch"
-            className="input input-bordered w-full "
-            name="batch"
-            required
-          />
+          <div className="form-control w-full ">
+            <select className="select select-bordered " name="eventsCategory">
+              <option selected>2010</option>
+              <option>2011</option>
+              <option>2012</option>
+              <option>2013</option>
+              <option>2014</option>
+            </select>
+          </div>
           <div className="form-control w-full ">
             <select className="select select-bordered " name="eventsCategory">
               <option disabled selected>
@@ -106,14 +94,22 @@ const CreateEvents = () => {
               <option>StudyTour</option>
             </select>
           </div>
+          <div className="form-control w-full ">
+            <input
+              type="file"
+              className="file-input file-input-bordered w-full "
+              name="image"
+            />
+          </div>
+          <input
+            type="date"
+            placeholder="Events Date"
+            className="input input-bordered w-full  "
+            name="eventsDates"
+            required
+          />
         </div>
-        <input
-          type="date"
-          placeholder="Events Date"
-          className="input input-bordered w-full my-5 "
-          name="eventsDates"
-          required
-        />
+
         <textarea
           className="textarea textarea-bordered w-full my-5"
           placeholder="Events Details"
