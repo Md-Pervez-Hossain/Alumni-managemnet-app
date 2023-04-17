@@ -9,8 +9,8 @@ const CreateEvents = () => {
     const eventsCreatorName = form.eventsCreatorName.value;
     const eventsCategory = form.eventsCategory.value;
     const eventsDetails = form.eventsDetails.value;
+    const eventsDate = form.eventsDates.value;
     const image = form.image.files[0];
-    const time = new Date().toLocaleDateString();
     const formData = new FormData();
     formData.append("image", image);
 
@@ -23,15 +23,29 @@ const CreateEvents = () => {
     )
       .then((res) => res.json())
       .then((data) => {
-        const newsInfo = {
+        const eventsInfo = {
           eventsHeading,
           image: data.data.display_url,
           eventsCreatorName,
           eventsCategory,
           eventsDetails,
-          time,
+          eventsDate,
         };
-        console.log(newsInfo);
+        fetch("http://localhost:8000/alumniEvents", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(eventsInfo),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        console.log(eventsInfo);
       })
       .catch((error) => {
         console.log(error);
@@ -41,11 +55,11 @@ const CreateEvents = () => {
     <div className="w-9/12 mx-auto my-16">
       <h2 className="text-5xl my-5">Events</h2>
       <form onSubmit={(event) => handleEvents(event)}>
-        <div className="grid grid-cols-2 gap-5">
+        <div className="grid md:grid-cols-2 gap-5">
           <input
             type="text"
             placeholder="Events Heading"
-            className="input input-bordered w-full "
+            className="input input-bordered w-full"
             name="eventsHeading"
             required
           />
@@ -75,6 +89,14 @@ const CreateEvents = () => {
             </select>
           </div>
         </div>
+        <input
+          type="date"
+          placeholder="Events Date"
+          className="input input-bordered w-full my-5 "
+          name="eventsDates"
+          required
+        />
+
         <textarea
           className="textarea textarea-bordered w-full my-5"
           placeholder="Events Details"
