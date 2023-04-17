@@ -52,8 +52,10 @@ export const apiSlice = createApi({
 });
 
 export const {
-  useGetGalleriesQuery,
+  useGetAllBatchesQuery,
+  useGetAllUniversityNameQuery,
   useGetEventsCategoriesQuery,
+  useGetGalleriesQuery,
   useGetGalleryCategoriesQuery,
   useGetGalleriesFeaturedQuery,
   useGetGalleriesTrendingQuery,
