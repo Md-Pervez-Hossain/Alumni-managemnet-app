@@ -20,7 +20,7 @@ const Counter = () => {
       );
       const mintues = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seceonds = Math.floor((distance % (1000 * 60)) / 1000);
-      console.log(days, hours, mintues, seceonds);
+      // console.log(days, hours, mintues, seceonds);
       if (distance < 0) {
         clearInterval(interval.current);
       } else {
