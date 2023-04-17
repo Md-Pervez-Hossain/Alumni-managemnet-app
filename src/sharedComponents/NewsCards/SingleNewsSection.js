@@ -37,11 +37,11 @@ const SingleNewsSection = () => {
             </div>
             <div className="flex items-center gap-5">
               <div className="flex items-center gap-2">
-                <FaRegComment className="inline-block" />
+                <FaRegComment className="inline-block cursor-pointer" />
                 <span>Comments</span>
               </div>
               <div className="flex items-center gap-2">
-                <MdFavoriteBorder className="inline-block" />
+                <MdFavoriteBorder className="inline-block cursor-pointer" />
                 <span>Likes</span>
               </div>
             </div>

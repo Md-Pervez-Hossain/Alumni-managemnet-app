@@ -34,6 +34,7 @@ const CreateEvents = () => {
     )
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         const eventsInfo = {
           event_title,
           image_url: data.data.display_url,
