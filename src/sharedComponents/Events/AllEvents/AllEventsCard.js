@@ -17,9 +17,9 @@ const AllEventsCard = ({ item }) => {
           backgroundImage: `url(${item.image_url})`,
         }}
       >
-        <div className="invisible group-hover:visible ease-in-out duration-500	  w-9/12 mx-auto h-full  flex pb-2 justify-center items-end bg-gradient-to-t from-black to-transparent from-10% to-50% px-5">
+        <div className=" group-hover:visible  ease-in-out 	  w-9/12 mx-auto h-full  flex pb-2 justify-center items-end bg-gradient-to-t from-black to-transparent from-10% to-50% px-5">
           {/* Time left part */}
-          <Counter></Counter>
+          <Counter date={item.date}></Counter>
         </div>
       </div>
       {/* content */}

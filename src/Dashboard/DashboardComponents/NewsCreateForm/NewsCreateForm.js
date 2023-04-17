@@ -1,6 +1,9 @@
 import React from "react";
+import { useGetEventsCategoriesQuery } from "../../../features/Api/apiSlice";
+import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
+import ButtonSizeSkeletion from "../../../sharedComponents/Skeletion/ButtonSizeSkeletion";
 
-const News = () => {
+const NewsCreateForm = () => {
   const handleNews = (event) => {
     event.preventDefault();
     console.log("clicked");
@@ -42,6 +45,35 @@ const News = () => {
         console.log(error);
       });
   };
+
+  const {
+    data: newsCategories,
+    isError,
+    isLoading,
+    error,
+  } = useGetEventsCategoriesQuery();
+
+  let newsNameContent;
+
+  if (isLoading && !isError) {
+    newsNameContent = <ButtonSizeSkeletion />;
+  }
+  if (!isLoading && isError) {
+    newsNameContent = <ErrorAlert text={error} />;
+  }
+  if (!isLoading && !isError && newsCategories?.length === 0) {
+    newsNameContent = <ErrorAlert text="No Category Find" />;
+  }
+  if (!isLoading && !isError && newsCategories?.length > 0) {
+    newsNameContent = (
+      <>
+        {newsCategories.map((eventCategory) => (
+          <option>{eventCategory.eventCategory}</option>
+        ))}
+      </>
+    );
+  }
+
   return (
     <div className="w-9/12 mx-auto my-16">
       <h2 className="text-4xl my-5">News</h2>
@@ -79,13 +111,7 @@ const News = () => {
         </div>
         <div className="form-control w-full mt-5">
           <select className="select select-bordered " name="newsCategory">
-            <option disabled selected>
-              Sports
-            </option>
-            <option>Politics</option>
-            <option>Alumni</option>
-            <option>financial</option>
-            <option>Study</option>
+            {newsNameContent}
           </select>
         </div>
         <textarea
@@ -103,4 +129,4 @@ const News = () => {
   );
 };
 
-export default News;
+export default NewsCreateForm;

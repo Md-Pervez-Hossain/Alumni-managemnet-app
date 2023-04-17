@@ -12,14 +12,14 @@ const BatchWiseStudent = () => {
   console.log(year);
 
   return (
-    <div>
+    <div className="bg-accent">
       <InnerPageHeader
         title={`Batch ${year}`}
         img={student}
         description={`Connecting  Graduates: Meet the Students of Our Batch`}
       />
-      <div className="w-9/12 mx-auto md:my-32 my-16">
-        <div className=" grid md:grid-cols-3 gap-10">
+      <div className="w-9/12 mx-auto md:py-32 py-16 ">
+        <div className=" grid md:grid-cols-4 gap-10">
           {studentsOfTheBatch.map((singleAlumni) => (
             <AlumniBatchDataCard singleAlumni={singleAlumni} />
           ))}

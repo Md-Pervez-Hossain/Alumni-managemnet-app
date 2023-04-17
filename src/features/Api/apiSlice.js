@@ -29,8 +29,22 @@ export const apiSlice = createApi({
     getEvents: builder.query({
       query: () => "/events",
     }),
+    getEventsCategories: builder.query({
+      query: () => "/eventCategories",
+    }),
     getEventCategories: builder.query({
       query: () => "/eventCategories",
+    }),
+
+    // // extras
+
+    // All batches name
+    getAllBatches: builder.query({
+      query: () => "/all-batches",
+    }),
+    //  all university names
+    getAllUniversityName: builder.query({
+      query: () => "/all-university-name",
     }),
     // /events/category/:id GET endpoint that returns event data based on category ID
     // /events/:id GET endpoint that returns a single event data based on the id parameter
@@ -39,7 +53,7 @@ export const apiSlice = createApi({
 
 export const {
   useGetGalleriesQuery,
-
+  useGetEventsCategoriesQuery,
   useGetGalleryCategoriesQuery,
   useGetGalleriesFeaturedQuery,
   useGetGalleriesTrendingQuery,
