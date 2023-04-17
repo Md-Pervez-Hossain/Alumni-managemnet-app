@@ -3,7 +3,7 @@ import React from "react";
 const BuildProfile = () => {
   return (
     <div>
-      <div class="w-full max-w-full px-3 text-center flex-0">
+      {/* <div class="w-full max-w-full px-3 text-center flex-0">
         <h3 class="mt-12">Build Your Profile</h3>
         <h5 class="font-normal dark:text-white text-slate-400">
           This information will let us know more about you.
@@ -53,8 +53,8 @@ const BuildProfile = () => {
                         Let's start with the basic information
                       </h5>
                       <p>
-                        Let us know your name and email address. Use an address you don't
-                        mind other users contacting you at
+                        Let us know your name and email address. Use an address
+                        you don't mind other users contacting you at
                       </p>
                     </div>
                   </div>
@@ -65,10 +65,10 @@ const BuildProfile = () => {
                           <img
                             class="w-full rounded-lg"
                             src="../../assets/img/team-2.jpg"
-                            alt="Image placeholder"
+                            alt="Imageplaceholder"
                           />
                           <a
-                            href="javascript:;"
+                            href="/"
                             class="inline-block w-6 h-6 p-1.2 right-0 bottom-0 absolute -mb-2 -mr-2 font-bold text-center uppercase align-middle transition-all bg-gradient-to-tl from-gray-400 to-gray-100 text-slate-800 border-0 border-transparent border-solid rounded-lg cursor-pointer leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25 active:opacity-85"
                           >
                             <i class="top-0 fa fa-pen text-3xs"></i>
@@ -119,7 +119,7 @@ const BuildProfile = () => {
                         type="button"
                         aria-controls="account"
                         next-form-btn
-                        href="javascript:;"
+                        href=""
                         class="inline-block px-6 py-3 mb-0 ml-auto font-bold text-right text-white uppercase align-middle transition-all border-0 rounded-lg cursor-pointer hover:scale-102 active:opacity-85 hover:shadow-soft-xs dark:bg-gradient-to-tl dark:from-slate-850 dark:to-gray-850 bg-gradient-to-tl from-gray-900 to-slate-800 leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25"
                       >
                         Next
@@ -138,8 +138,8 @@ const BuildProfile = () => {
                         What are you doing? (checkboxes)
                       </h5>
                       <p>
-                        Give us more details about you. What do you enjoy doing in your
-                        spare time?
+                        Give us more details about you. What do you enjoy doing
+                        in your spare time?
                       </p>
                     </div>
                   </div>
@@ -338,7 +338,7 @@ const BuildProfile = () => {
                         type="button"
                         aria-controls="about"
                         prev-form-btn
-                        href="javascript:;"
+                        href=""
                         class="inline-block px-6 py-3 mb-0 font-bold text-right uppercase align-middle transition-all border-0 rounded-lg cursor-pointer hover:scale-102 active:opacity-85 hover:shadow-soft-xs bg-gradient-to-tl from-gray-400 to-gray-100 leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25 text-slate-800"
                       >
                         Prev
@@ -347,7 +347,7 @@ const BuildProfile = () => {
                         type="button"
                         aria-controls="address"
                         next-form-btn
-                        href="javascript:;"
+                        href=""
                         class="inline-block px-6 py-3 mb-0 ml-auto font-bold text-right text-white uppercase align-middle transition-all border-0 rounded-lg cursor-pointer hover:scale-102 active:opacity-85 hover:shadow-soft-xs dark:bg-gradient-to-tl dark:from-slate-850 dark:to-gray-850 bg-gradient-to-tl from-gray-900 to-slate-800 leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25"
                       >
                         Next
@@ -366,8 +366,9 @@ const BuildProfile = () => {
                         Are you living in a nice area?
                       </h5>
                       <p>
-                        One thing I love about the later sunsets is the chance to go for a
-                        walk through the neighborhood woods before dinner
+                        One thing I love about the later sunsets is the chance
+                        to go for a walk through the neighborhood woods before
+                        dinner
                       </p>
                     </div>
                   </div>
@@ -445,7 +446,7 @@ const BuildProfile = () => {
                           type="button"
                           aria-controls="account"
                           prev-form-btn
-                          href="javascript:;"
+                          href=""
                           class="inline-block px-6 py-3 mb-0 font-bold text-right uppercase align-middle transition-all border-0 rounded-lg cursor-pointer hover:scale-102 active:opacity-85 hover:shadow-soft-xs bg-gradient-to-tl from-gray-400 to-gray-100 leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25 text-slate-800"
                         >
                           Prev
@@ -453,7 +454,7 @@ const BuildProfile = () => {
                         <button
                           type="button"
                           send-form-btn
-                          href="javascript:;"
+                          href=""
                           class="inline-block px-6 py-3 mb-0 ml-auto font-bold text-right text-white uppercase align-middle transition-all border-0 rounded-lg cursor-pointer hover:scale-102 active:opacity-85 hover:shadow-soft-xs dark:bg-gradient-to-tl dark:from-slate-850 dark:to-gray-850 bg-gradient-to-tl from-gray-900 to-slate-800 leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25"
                         >
                           Send
@@ -466,7 +467,7 @@ const BuildProfile = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
