@@ -39,7 +39,8 @@ const NewsSection = () => {
       title: "TBA President's Dinner 2023",
       description:
         "This the description of today news. You can find here our latest news.",
-      image: "https://img2.storyblok.com/f/103430/568x367/61d04575df/womens-history.PNG",
+      image:
+        "https://img2.storyblok.com/f/103430/568x367/61d04575df/womens-history.PNG",
       author: {
         profileImage: "https://i.ibb.co/gwYSvj2/cat1.jpg",
         name: "Jerine",
@@ -59,6 +60,7 @@ const NewsSection = () => {
           <NewsCard key={i} data={data}></NewsCard>
         ))}
       </div>
+
       <div className="right-0 text-white mb-5 text-right mt-5">
         <button className=" py-4 px-8 text-right text-white font-bold bg-primary">
           <span>

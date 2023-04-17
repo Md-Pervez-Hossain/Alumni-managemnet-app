@@ -34,6 +34,7 @@ const CreateEvents = () => {
     )
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         const eventsInfo = {
           batch,
           event_title,
@@ -87,7 +88,9 @@ const CreateEvents = () => {
     eventCategoryNames = (
       <>
         {newsCategories.map((eventCategory) => (
+
           <option key={eventCategory._id} value={eventCategory._id}>
+
             {eventCategory.eventCategory}
           </option>
         ))}
