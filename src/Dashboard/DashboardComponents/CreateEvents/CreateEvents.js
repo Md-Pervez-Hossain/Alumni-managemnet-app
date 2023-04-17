@@ -88,7 +88,9 @@ const CreateEvents = () => {
     newsNameContent = (
       <>
         {newsCategories.map((eventCategory) => (
-          <option value={eventCategory._id}>{eventCategory.eventCategory}</option>
+          <option value={eventCategory._id}>
+            {eventCategory.eventCategory}
+          </option>
         ))}
       </>
     );
