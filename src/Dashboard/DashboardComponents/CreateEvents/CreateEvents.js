@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
+import "flatpickr/dist/themes/material_green.css";
+import Flatpickr from "react-flatpickr";
+import {
+  useGetAllBatchesQuery,
+  useGetEventsCategoriesQuery,
+} from "../../../features/Api/apiSlice";
+import Loading from "../../../sharedComponents/Loading/Loading";
+import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
 
 const CreateEvents = () => {
-  const handleEvents = (event) => {
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const handleCreateEvents = (event) => {
     event.preventDefault();
     console.log("events Clicked");
     const form = event.target;
@@ -35,7 +45,7 @@ const CreateEvents = () => {
           location,
           batch,
         };
-        fetch("http://localhost:8000/alumniEvents", {
+        fetch("https://alumni-managemnet-app-server.vercel.app/alumniEvents", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -55,11 +65,70 @@ const CreateEvents = () => {
         console.log(error);
       });
   };
+
+  //  redux fetch event categories
+  const {
+    data: newsCategories,
+    isError,
+    isLoading,
+    error,
+  } = useGetEventsCategoriesQuery();
+
+  let newsNameContent;
+  if (isLoading && !isError) {
+    newsNameContent = <Loading />;
+  }
+  if (!isLoading && isError) {
+    newsNameContent = <ErrorAlert text={error} />;
+  }
+  if (!isLoading && !isError && newsCategories?.length === 0) {
+    newsNameContent = <ErrorAlert text="No Category Find" />;
+  }
+  if (!isLoading && !isError && newsCategories?.length > 0) {
+    newsNameContent = (
+      <>
+        {newsCategories.map((eventCategory) => (
+          <option value={eventCategory._id}>{eventCategory.eventCategory}</option>
+        ))}
+      </>
+    );
+  }
+
+  // redux fetch batches
+  const {
+    data: allBatches,
+    isError: isAllBatchesError,
+    isLoading: isAllBatchesLoading,
+    error: allBatchesError,
+  } = useGetAllBatchesQuery();
+
+  let allBatchesOptionsContent;
+  if (isAllBatchesLoading && !isAllBatchesError) {
+    allBatchesOptionsContent = <Loading />;
+  }
+  if (!isAllBatchesLoading && isAllBatchesError) {
+    allBatchesOptionsContent = <ErrorAlert text={allBatchesError} />;
+  }
+  if (!isAllBatchesLoading && !isAllBatchesError && allBatches?.length === 0) {
+    allBatchesOptionsContent = <ErrorAlert text="No Category Find" />;
+  }
+  if (!isAllBatchesLoading && !isAllBatchesError && allBatches?.length > 0) {
+    allBatchesOptionsContent = (
+      <>
+        {allBatches.map((allUniversityNames) => (
+          <option value={allUniversityNames.batchNumber}>
+            {allUniversityNames.batchNumber}
+          </option>
+        ))}
+      </>
+    );
+  }
+
   return (
     <div className="w-9/12 mx-auto my-16">
       <h2 className="text-5xl my-5">Events</h2>
-      <form onSubmit={(event) => handleEvents(event)}>
-        <div className="grid md:grid-cols-2 gap-5">
+      <form onSubmit={(event) => handleCreateEvents(event)}>
+        <div className="grid md:grid-cols-2 gap-3 !my-2">
           <input
             type="text"
             placeholder="Events Heading"
@@ -74,54 +143,57 @@ const CreateEvents = () => {
             name="eventsLocation"
             required
           />
-          <div className="form-control w-full ">
-            <select className="select select-bordered " name="eventsCategory">
-              <option selected>2010</option>
-              <option>2011</option>
-              <option>2012</option>
-              <option>2013</option>
-              <option>2014</option>
-            </select>
-          </div>
-          <div className="form-control w-full ">
-            <select className="select select-bordered " name="eventsCategory">
-              <option disabled selected>
-                Seminer
-              </option>
-              <option>Fund Raising</option>
-              <option>Leadership</option>
-              <option>Picnic</option>
-              <option>StudyTour</option>
-            </select>
-          </div>
-          <input
+
+          {/* <input
             type="time"
             placeholder="Events Time"
             className="input input-bordered w-full  mb-5 "
             name="time"
             required
-          />
-          <input
+          /> */}
+          {/* <input
             type="date"
             placeholder="Events Date"
             className="input input-bordered w-full  mb-5 "
             name="eventsDates"
             required
-          />
+          /> */}
         </div>
-        <div className="form-control w-full ">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-5">
+          <div className="form-control w-full ">
+            <select className="select select-bordered " name="eventsCategory">
+              {allBatchesOptionsContent}
+            </select>
+          </div>
+          <div className="form-control w-full ">
+            <select className="select select-bordered " name="eventsCategory">
+              {newsNameContent}
+            </select>
+          </div>
+          <div className=" input input-bordered w-full  mb-5 flex items-center">
+            <Flatpickr
+              data-enable-time
+              value={selectedDate}
+              onChange={(date) => setSelectedDate(date[0])}
+              c
+            />
+          </div>
+        </div>
+        <div className="form-control w-full">
           <input
             type="file"
             className="file-input file-input-bordered w-full "
             name="image"
           />
         </div>
-        <textarea
-          className="textarea textarea-bordered w-full my-5"
-          placeholder="Events Details"
-          name="eventsDetails"
-          required
-        ></textarea>
+        <div className="form-control w-full">
+          <textarea
+            className="textarea textarea-bordered w-full my-5"
+            placeholder="Events Details"
+            name="eventsDetails"
+            required
+          ></textarea>
+        </div>
         <button className="px-6 py-4 w-full rounded-lg bg-primary text-white font-semibold">
           {" "}
           Create Event
