@@ -20,12 +20,12 @@ const Gallery = () => {
 
   const {
     data: galleryData,
-    isError: dataIsError,
-    isLoading: dataIsLoading,
-    error: dataError,
+    isError: galleryDataIsError,
+    isLoading: galleryDataIsLoading,
+    error: galleryDataError,
   } = useGetGalleriesQuery();
 
-  const [filteredGalleryData, setFilteredGalleryData] = useState([]);
+  const [filteredGalleryData, setFilteredGalleryData] = useState("all");
 
   const handleButtonClick = (id) => {
     setFilteredGalleryData(galleryData.filter((item) => item.gallery_category_id === id));
@@ -63,13 +63,62 @@ const Gallery = () => {
     );
   }
 
+  //
+  let galleryDataContent;
+
+  if (galleryDataIsLoading && !galleryDataIsError) {
+    galleryDataContent = (
+      <div className="grid md:grid-cols-3 lg:grid-cols-3 gap-3 gap-x-5 mt-4">
+        {" "}
+        <ImageSkeletion />
+        <ImageSkeletion />
+        <ImageSkeletion />
+      </div>
+    );
+  }
+  if (!galleryDataIsLoading && galleryDataIsError) {
+    galleryDataContent = <ErrorAlert text={categoryError} />;
+  }
+  if (!galleryDataIsLoading && !galleryDataIsError && galleryCategory?.length === 0) {
+    galleryDataContent = <ErrorAlert text="No Images Find" />;
+  }
+  if (!galleryDataIsLoading && !galleryDataIsError && galleryCategory?.length > 0) {
+    galleryDataContent = (
+      <>
+        {filteredGalleryData === "all" ? (
+          <>
+            {galleryData?.slice(0, 6).map((img) => (
+              <div
+                loading="lazy"
+                className={`h-80 bg-accent bg-cover`}
+                style={{
+                  backgroundImage: `url(${img.image_url})`,
+                }}
+              ></div>
+            ))}
+          </>
+        ) : (
+          <>
+            {filteredGalleryData?.slice(0, 6).map((img) => (
+              <div
+                loading="lazy"
+                className={`h-80 bg-accent bg-cover`}
+                style={{
+                  backgroundImage: `url(${img.image_url})`,
+                }}
+              ></div>
+            ))}
+          </>
+        )}
+      </>
+    );
+  }
+
   return (
     <div className="mt-3  mx-auto relative">
       <div className="mt-10">
         <h2 className="text-2xl lg:text-2xl font-semibold my-3">Our Gallery</h2>
-        <Loading />
 
-        <ImageSkeletion />
         <div>
           <button
             onClick={handleAllButtonClick}
@@ -77,21 +126,31 @@ const Gallery = () => {
           >
             All{" "}
           </button>
-          <button>{CategoryNameContent}</button>
+          <>{CategoryNameContent}</>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3 mt-4">
-          {}
-
-          {filteredGalleryData?.slice(0, 6).map((img) => (
-            <div
-              loading="lazy"
-              className={`h-80 bg-accent bg-cover`}
-              style={{
-                backgroundImage: `url(${img.image_url})`,
-              }}
-            ></div>
-          ))}
+          {galleryDataContent}
+          {/* {filteredGalleryData.length > 0 &&
+            filteredGalleryData?.slice(0, 6).map((img) => (
+              <div
+                loading="lazy"
+                className={`h-80 bg-accent bg-cover`}
+                style={{
+                  backgroundImage: `url(${img.image_url})`,
+                }}
+              ></div>
+            ))}
+          {filteredGalleryData.length === 0 && (
+            <>
+              <ImageSkeletion />
+              <ImageSkeletion />
+              <ImageSkeletion />
+              <ImageSkeletion />
+              <ImageSkeletion />
+              <ImageSkeletion />
+            </>
+          )} */}
         </div>
       </div>
     </div>
