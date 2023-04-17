@@ -15,16 +15,16 @@ const CreateEvents = () => {
     event.preventDefault();
     console.log("events Clicked");
     const form = event.target;
+    const batch = form.eventsBatch.value;
     const event_title = form.eventsHeading.value;
-    const category = form.eventsCategory.value;
-    const description = form.eventsDetails.value;
     const date = selectedDate;
     const location = form.eventsLocation.value;
-    const batch = form.eventsCategory.value;
+    const description = form.eventsDetails.value;
+    const category = form.eventsCategory.value;
     const image_url = form.image.files[0];
     const formData = new FormData();
     formData.append("image", image_url);
-
+    console.log(category);
     fetch(
       "https://api.imgbb.com/1/upload?expiration=600&key=86fe1764d78f51c15b1a9dfe4b9175cf",
       {
@@ -36,15 +36,15 @@ const CreateEvents = () => {
       .then((data) => {
         console.log(data);
         const eventsInfo = {
+          batch,
           event_title,
-          image_url: data.data.display_url,
-          category,
-          description,
           date,
           location,
-          batch,
+          description,
+          category,
+          image_url: data.data.display_url,
         };
-        fetch("https://alumni-managemnet-app-server.vercel.app/alumniEvents", {
+        fetch("https://alumni-managemnet-app-server.vercel.app/events", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -59,6 +59,7 @@ const CreateEvents = () => {
             console.log(error);
           });
         console.log(eventsInfo);
+        console.log(category);
       })
       .catch((error) => {
         console.log(error);
@@ -73,21 +74,23 @@ const CreateEvents = () => {
     error,
   } = useGetEventsCategoriesQuery();
 
-  let newsNameContent;
+  let eventCategoryNames;
   if (isLoading && !isError) {
-    newsNameContent = <Loading />;
+    eventCategoryNames = <Loading />;
   }
   if (!isLoading && isError) {
-    newsNameContent = <ErrorAlert text={error} />;
+    eventCategoryNames = <ErrorAlert text={error} />;
   }
   if (!isLoading && !isError && newsCategories?.length === 0) {
-    newsNameContent = <ErrorAlert text="No Category Find" />;
+    eventCategoryNames = <ErrorAlert text="No Category Find" />;
   }
   if (!isLoading && !isError && newsCategories?.length > 0) {
-    newsNameContent = (
+    eventCategoryNames = (
       <>
         {newsCategories.map((eventCategory) => (
-          <option value={eventCategory._id}>
+
+          <option key={eventCategory._id} value={eventCategory._id}>
+
             {eventCategory.eventCategory}
           </option>
         ))}
@@ -162,13 +165,14 @@ const CreateEvents = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-5">
           <div className="form-control w-full ">
-            <select className="select select-bordered " name="eventsCategory">
+            <select className="select select-bordered " name="eventsBatch" required>
+              <option value="">Select Batch</option>
               {allBatchesOptionsContent}
             </select>
           </div>
           <div className="form-control w-full ">
-            <select className="select select-bordered " name="eventsCategory">
-              {newsNameContent}
+            <select className="select select-bordered " name="eventsCategory" required>
+              {eventCategoryNames}
             </select>
           </div>
           <div className=" input input-bordered w-full  mb-5 flex items-center">
