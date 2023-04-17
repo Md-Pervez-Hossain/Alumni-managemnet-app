@@ -10,7 +10,7 @@ export const apiSlice = createApi({
     getGalleries: builder.query({
       query: () => "/galleries ",
     }),
-    getCategoryWiseGallery20: builder.query({
+    getCategoryWiseGallery: builder.query({
       query: (id) => `/galleryCategories/${id}`,
     }),
     // /galleryCategories/:id GET endpoint that returns a single gallery category data based on the id parameter
@@ -32,8 +32,14 @@ export const apiSlice = createApi({
     getEventsCategories: builder.query({
       query: () => "/eventCategories",
     }),
-    getEventCategories: builder.query({
-      query: () => "/eventCategories",
+
+    // // news
+    getaLLNews: builder.query({
+      query: () => "/news",
+    }),
+
+    getNewsCategories: builder.query({
+      query: () => "/alumniNewsCategories",
     }),
 
     // // extras
@@ -52,13 +58,20 @@ export const apiSlice = createApi({
 });
 
 export const {
+  // NEWS
+  useGetNewsCategoriesQuery,
+
+  // UTILS
   useGetAllBatchesQuery,
   useGetAllUniversityNameQuery,
-  useGetEventsCategoriesQuery,
+
+  // GALLERY
   useGetGalleriesQuery,
   useGetGalleryCategoriesQuery,
   useGetGalleriesFeaturedQuery,
   useGetGalleriesTrendingQuery,
+
+  // EVENTS
   useGetEventsQuery,
-  useGetEventCategoriesQuery,
+  useGetEventsCategoriesQuery,
 } = apiSlice;

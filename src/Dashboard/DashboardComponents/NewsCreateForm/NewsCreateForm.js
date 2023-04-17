@@ -1,5 +1,8 @@
 import React from "react";
-import { useGetEventsCategoriesQuery } from "../../../features/Api/apiSlice";
+import {
+  useGetEventsCategoriesQuery,
+  useGetNewsCategoriesQuery,
+} from "../../../features/Api/apiSlice";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
 import ButtonSizeSkeletion from "../../../sharedComponents/Skeletion/ButtonSizeSkeletion";
 
@@ -57,12 +60,7 @@ const NewsCreateForm = () => {
       });
   };
 
-  const {
-    data: newsCategories,
-    isError,
-    isLoading,
-    error,
-  } = useGetEventsCategoriesQuery();
+  const { data: newsCategories, isError, isLoading, error } = useGetNewsCategoriesQuery();
 
   let newsNameContent;
 
@@ -78,8 +76,8 @@ const NewsCreateForm = () => {
   if (!isLoading && !isError && newsCategories?.length > 0) {
     newsNameContent = (
       <>
-        {newsCategories.map((eventCategory) => (
-          <option>{eventCategory.eventCategory}</option>
+        {newsCategories.map((newsCategory) => (
+          <option value={newsCategory._id}>{newsCategory.categoryName}</option>
         ))}
       </>
     );

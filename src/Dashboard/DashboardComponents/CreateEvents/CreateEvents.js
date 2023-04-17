@@ -18,7 +18,7 @@ const CreateEvents = () => {
     const event_title = form.eventsHeading.value;
     const category = form.eventsCategory.value;
     const description = form.eventsDetails.value;
-    const date = form.eventsDates.value;
+    const date = selectedDate;
     const time = form.time.value;
     const location = form.eventsLocation.value;
     const batch = form.batch.value;
