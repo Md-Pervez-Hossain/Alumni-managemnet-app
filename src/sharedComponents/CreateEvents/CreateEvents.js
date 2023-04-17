@@ -10,6 +10,8 @@ const CreateEvents = () => {
     const eventsCategory = form.eventsCategory.value;
     const eventsDetails = form.eventsDetails.value;
     const eventsDate = form.eventsDates.value;
+    const eventsLocation = form.eventsLocation.value;
+    const batch = form.batch.value;
     const image = form.image.files[0];
     const formData = new FormData();
     formData.append("image", image);
@@ -30,6 +32,8 @@ const CreateEvents = () => {
           eventsCategory,
           eventsDetails,
           eventsDate,
+          eventsLocation,
+          batch,
         };
         fetch("http://localhost:8000/alumniEvents", {
           method: "POST",
@@ -77,6 +81,20 @@ const CreateEvents = () => {
             name="eventsCreatorName"
             required
           />
+          <input
+            type="text"
+            placeholder="Events Location"
+            className="input input-bordered w-full "
+            name="eventsLocation"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Batch"
+            className="input input-bordered w-full "
+            name="batch"
+            required
+          />
           <div className="form-control w-full ">
             <select className="select select-bordered " name="eventsCategory">
               <option disabled selected>
@@ -96,7 +114,6 @@ const CreateEvents = () => {
           name="eventsDates"
           required
         />
-
         <textarea
           className="textarea textarea-bordered w-full my-5"
           placeholder="Events Details"
