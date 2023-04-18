@@ -1,6 +1,7 @@
-import React from "react";
+import React from 'react';
 
 const Rony = () => {
+<<<<<<< HEAD
 
   
  
@@ -128,6 +129,13 @@ const Rony = () => {
 //   </div>
 // </div>
     
+=======
+  return (
+    <div>
+      <p>this is rony</p>
+    </div>
+  );
+>>>>>>> origin/staging-rony
 };
 
 export default Rony;

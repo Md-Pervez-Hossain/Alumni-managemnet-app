@@ -8,8 +8,14 @@ import UpComingEvents from "../../sharedComponents/UpComingEvents/UpComingEvents
 import EmailSubScribe from "../../sharedComponents/EmailSubScribe/EmailSubScribe";
 import MissionHeading from "../../sharedComponents/MissionHeading/MissionHeading";
 import Contact from "../../sharedComponents/Contact/Contact";
+<<<<<<< HEAD
 import NewsSection from "../../sharedComponents/NewsCards/NewsSection";
+<<<<<<< HEAD
 import AlumniDirectory from "./AlumniDirectory";
+=======
+=======
+>>>>>>> 1bb868742c20713fc3392c1953309566059460c2
+>>>>>>> origin/staging-rony
 
 const Home = () => {
   return (
