@@ -12,12 +12,12 @@ const AllEventsCard = ({ item }) => {
 
       <div
         loading="lazy"
-        className={`group h-60  w-full md:w-1/2 bg-primary bg-cover`}
+        className={`h-60  w-full md:w-1/2 bg-primary bg-cover`}
         style={{
           backgroundImage: `url(${item.image_url})`,
         }}
       >
-        <div className=" group-hover:visible  ease-in-out 	  w-9/12 mx-auto h-full  flex pb-2 justify-center items-end bg-gradient-to-t from-black to-transparent from-10% to-50% px-5">
+        <div className="ease-in-out mx-auto h-full  flex pb-2 justify-center items-end bg-gradient-to-t from-black to-transparent from-10% to-50% px-5">
           {/* Time left part */}
           <Counter date={item.date}></Counter>
         </div>
