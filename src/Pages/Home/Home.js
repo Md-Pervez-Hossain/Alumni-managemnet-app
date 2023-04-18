@@ -12,6 +12,8 @@ import NewsSection from "../../sharedComponents/NewsCards/NewsSection";
 import AlumniDirectory from "./AlumniDirectory";
 
 const Home = () => {
+  //  useGetEventsQuery
+
   return (
     <>
       <Slider />
