@@ -13,7 +13,8 @@ import SingleEvent from "../Pages/SingleEvent/SingleEvent";
 import SinglePerson from "../Pages/SinglePerson/SinglePerson";
 import AlumniPage from "../Pages/AlumniDirectory/AlumniPage";
 import DashboardTestPage from "../Dashboard/Pages/DashboardTestPage";
-import BatchWiseStudent from "../Pages/BatchWiseStudent/BatchWiseStudent";
+import BatchWiseStudent from "../Pages/BatchwiseStudent/BatchwiseStudent";
+import MembershipForm from "../Pages/MembershipForm/MembershipForm";
 
 const routes = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const routes = createBrowserRouter([
       {
         path: "/uhai",
         element: <Uhai />,
+      },
+      {
+        path: "/rony",
+        element: <MembershipForm />,
       },
       {
         path: "/events",
