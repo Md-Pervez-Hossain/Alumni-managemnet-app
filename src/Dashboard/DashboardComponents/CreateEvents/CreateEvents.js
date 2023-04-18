@@ -88,9 +88,7 @@ const CreateEvents = () => {
     eventCategoryNames = (
       <>
         {newsCategories.map((eventCategory) => (
-
           <option key={eventCategory._id} value={eventCategory._id}>
-
             {eventCategory.eventCategory}
           </option>
         ))}
@@ -120,7 +118,7 @@ const CreateEvents = () => {
     allBatchesOptionsContent = (
       <>
         {allBatches.map((allUniversityNames) => (
-          <option value={allUniversityNames.batchNumber}>
+          <option value={allUniversityNames.batchNumber} key={allUniversityNames._id}>
             {allUniversityNames.batchNumber}
           </option>
         ))}

@@ -51,6 +51,7 @@ const Gallery = () => {
       <>
         {galleryCategory.map((galleryCategory) => (
           <button
+            key={galleryCategory._id}
             onClick={() => {
               handleButtonClick(galleryCategory._id);
             }}
@@ -89,6 +90,7 @@ const Gallery = () => {
           <>
             {galleryData?.slice(0, 6).map((img) => (
               <div
+                key={img._id}
                 loading="lazy"
                 className={`h-80 bg-accent bg-cover`}
                 style={{
@@ -101,6 +103,7 @@ const Gallery = () => {
           <>
             {filteredGalleryData?.slice(0, 6).map((img) => (
               <div
+                key={img._id}
                 loading="lazy"
                 className={`h-80 bg-accent bg-cover`}
                 style={{

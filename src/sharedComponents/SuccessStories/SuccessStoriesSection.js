@@ -48,7 +48,7 @@ const SuccessStoriesSection = () => {
       <h1 className="my-7 text-3xl font-semibold text-center">Successful Stories</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 items-center justify-between mb-4">
         {storiesData.map((data) => (
-          <SuccessStoriesCard key={data.id} data={data}></SuccessStoriesCard>
+          <SuccessStoriesCard key={data._id} data={data}></SuccessStoriesCard>
         ))}
       </div>
       <div className="absolute bottom-0-0 right-0 text-white mb-6">

@@ -11,10 +11,14 @@ const UpComingEvents = () => {
   const [next, setNext] = useState(1);
 
   const nextHandler = () => {
+    console.log(next);
+    console.log(previous);
     setNext(next + 1);
     setPrevious(previous + 1);
   };
   const previousHandler = () => {
+    console.log(next);
+    console.log(previous);
     if (previous > 0) {
       setNext(next - 1);
       setPrevious(previous - 1);
@@ -27,7 +31,8 @@ const UpComingEvents = () => {
     isLoading: eventDataIsLoading,
     error: eventDataError,
   } = useGetEventsQuery();
-  console.log(eventData);
+  // console.log(eventData);
+  console.log(eventData?.length);
   // const { event_title, date, description, image_url } = eventData || {};
 
   let eventDataContent;
@@ -45,7 +50,10 @@ const UpComingEvents = () => {
     eventDataContent = (
       <>
         {eventData.slice(previous, next).map((eventData) => (
-          <div className="sm:flex shadow-soft-lg drop-shadow-lg	 justify-between items-center sm:w-full max-w-5xl mx-auto bg-primary  gap-4 relative -top-[24px]">
+          <div
+            key={eventData._id}
+            className="sm:flex shadow-soft-lg drop-shadow-lg	 justify-between items-center sm:w-full max-w-5xl mx-auto bg-primary  gap-4 relative -top-[24px]"
+          >
             <div className="absolute bg-white text-gray-900 -top-[24px] right-[0rem]  md:right-[2.5rem] shadow-md px-4">
               <h1 className="text-xl font-semibold">UpComing Events</h1>
             </div>

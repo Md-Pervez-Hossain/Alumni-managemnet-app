@@ -77,7 +77,9 @@ const NewsCreateForm = () => {
     newsNameContent = (
       <>
         {newsCategories.map((newsCategory) => (
-          <option value={newsCategory._id}>{newsCategory.categoryName}</option>
+          <option value={newsCategory._id} key={newsCategory._id}>
+            {newsCategory.categoryName}
+          </option>
         ))}
       </>
     );

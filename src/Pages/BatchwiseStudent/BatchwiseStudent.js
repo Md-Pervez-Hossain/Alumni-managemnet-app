@@ -21,7 +21,7 @@ const BatchWiseStudent = () => {
       <div className="w-9/12 mx-auto md:py-32 py-16 ">
         <div className=" grid md:grid-cols-4 gap-10">
           {studentsOfTheBatch.map((singleAlumni) => (
-            <AlumniBatchDataCard singleAlumni={singleAlumni} />
+            <AlumniBatchDataCard key={singleAlumni._id} singleAlumni={singleAlumni} />
           ))}
         </div>
         <div className="flex items-center justify-end gap-3 mt-5">
