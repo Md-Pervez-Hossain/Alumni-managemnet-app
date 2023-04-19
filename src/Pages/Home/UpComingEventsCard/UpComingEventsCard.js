@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { MdNavigateNext } from "react-icons/md";
-import Counter from "../Counter/Counter";
-import { useGetEventsQuery } from "../../features/Api/apiSlice";
-import CardsWithAuthorSkeletion from "../Skeletion/CardsWithAuthorSkeletion";
-import ErrorAlert from "../Skeletion/ErrorAlert";
+import Counter from "../../../sharedComponents/Counter/Counter";
+import { useGetEventsQuery } from "../../../features/Api/apiSlice";
+import CardsWithAuthorSkeletion from "../../../sharedComponents/Skeletion/CardsWithAuthorSkeletion";
+import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
 
-const UpComingEvents = () => {
+const UpComingEventsCard = () => {
   //  for pagination
   const [previous, setPrevious] = useState(0);
   const [next, setNext] = useState(1);
@@ -108,4 +108,4 @@ const UpComingEvents = () => {
   return <>{eventDataContent}</>;
 };
 
-export default UpComingEvents;
+export default UpComingEventsCard;

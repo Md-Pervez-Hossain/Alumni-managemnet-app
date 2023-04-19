@@ -14,6 +14,7 @@ import SinglePerson from "../Pages/SinglePerson/SinglePerson";
 import AlumniPage from "../Pages/AlumniDirectory/AlumniPage";
 import DashboardTestPage from "../Dashboard/Pages/DashboardTestPage";
 import BatchWiseStudent from "../Pages/BatchWiseStudent/BatchWiseStudent";
+import DashboardLayout from "../layout/DashboardLayout";
 
 const routes = createBrowserRouter([
   {
@@ -43,9 +44,7 @@ const routes = createBrowserRouter([
       {
         path: "/alumni",
         loader: () => {
-          return fetch(
-            "https://alumni-managemnet-app-server.vercel.app/alumni"
-          );
+          return fetch("https://alumni-managemnet-app-server.vercel.app/alumni");
         },
         element: <AlumniPage />,
       },
@@ -99,6 +98,11 @@ const routes = createBrowserRouter([
       },
     ],
     errorElement: <ErrorPage></ErrorPage>,
+  },
+  {
+    path: "/dashboard/",
+    element: <DashboardLayout />,
+    children: [{ path: "/dashboard/", element: <DashboardLayout /> }],
   },
 ]);
 
