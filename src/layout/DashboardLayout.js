@@ -1,10 +1,13 @@
 import React from "react";
 import DashBoardNavbar from "../Dashboard/DashboardComponents/DashBoardNavbar";
-import { Outlet } from "react-router-dom";
+import { NavLink, Outlet, useLocation } from "react-router-dom";
 import logo from "../../src/assets/logo/logo-black.png";
-import DashBoardNavItem from "../Dashboard/DashboardComponents/DashBoardNavItem";
+import DashBoardNavItem from "../Dashboard/DashboardComponents/DashBoardNavItem/DashBoardNavItem";
 
 const DashboardLayout = () => {
+  const location = useLocation();
+  const isActive = location.pathname === "/dashboard";
+
   return (
     <>
       <div className="drawer bg-[#F8F9FA] drawer-mobile">
@@ -27,13 +30,31 @@ const DashboardLayout = () => {
             <li>
               <img src={logo} alt="" className="w-1/2 pt-10" />
             </li>
-            <li>
-              <DashBoardNavItem />
-              <a>Sidebar Item 1</a>
-            </li>
-            <li>
-              <a>Sidebar Item 2</a>
-            </li>
+            <DashBoardNavItem
+              name="Dashboard"
+              fontAwesome="fa-solid fa-store"
+              url="/dashboard"
+            />
+            <DashBoardNavItem
+              name="Alumni"
+              fontAwesome="fa-solid fa-graduation-cap"
+              url="/dashboard/alumni"
+            />
+            <DashBoardNavItem
+              name="News"
+              fontAwesome="fa-regular fa-file-lines"
+              url="/dashboard/news"
+            />
+            <DashBoardNavItem
+              name="Gallery"
+              fontAwesome="fa-solid fa-photo-film"
+              url="/dashboard/gallery"
+            />
+            <DashBoardNavItem
+              name="Profile"
+              fontAwesome="fa-solid fa-user"
+              url="/dashboard/profile"
+            />
           </ul>
         </div>
       </div>

@@ -5,7 +5,7 @@ import StatsCard from "../DashboardComponents/StatsCard";
 import ProfileProjectCards from "../DashboardComponents/ProfileProjectCards";
 import ProfileBlogCards from "../DashboardComponents/ProfileBlogCards";
 import DashboardLayout from "../../layout/DashboardLayout";
-import DashBoardNavItem from "../DashboardComponents/DashBoardNavItem";
+import DashBoardNavItem from "../DashboardComponents/DashBoardNavItem/DashBoardNavItem";
 
 const DashboardTestPage = () => {
   const increment = 55;

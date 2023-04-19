@@ -12,9 +12,9 @@ import AboutUs from "../Pages/AboutUs/AboutUs";
 import SingleEvent from "../Pages/SingleEvent/SingleEvent";
 import SinglePerson from "../Pages/SinglePerson/SinglePerson";
 import AlumniPage from "../Pages/AlumniDirectory/AlumniPage";
-import DashboardTestPage from "../Dashboard/Pages/DashboardTestPage";
 import BatchWiseStudent from "../Pages/BatchWiseStudent/BatchWiseStudent";
 import DashboardLayout from "../layout/DashboardLayout";
+import DashboardTestPage from "../Dashboard/DashboardPages/DashboardTestPage";
 
 const routes = createBrowserRouter([
   {
@@ -83,10 +83,7 @@ const routes = createBrowserRouter([
         path: "/about-us",
         element: <AboutUs />,
       },
-      {
-        path: "/DashboardTestPage",
-        element: <DashboardTestPage />,
-      },
+
       {
         path: "/login",
         element: <LogIn></LogIn>,
@@ -102,7 +99,7 @@ const routes = createBrowserRouter([
   {
     path: "/dashboard/",
     element: <DashboardLayout />,
-    children: [{ path: "/dashboard/", element: <DashboardLayout /> }],
+    children: [{ path: "/dashboard/layout/", element: <DashboardTestPage /> }],
   },
 ]);
 
