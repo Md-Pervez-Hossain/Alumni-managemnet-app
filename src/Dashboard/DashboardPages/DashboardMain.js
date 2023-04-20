@@ -1,9 +1,7 @@
 import React from "react";
 import StatsCard from "../DashboardComponents/StatsCard";
-import ProfileProjectCards from "../DashboardComponents/ProfileProjectCards";
 import ProfileBlogCards from "../DashboardComponents/ProfileBlogCards";
 import ProfileBlogCardsImage from "../DashboardComponents/ProfileBlogCardsImage";
-import DashboardChart from "../DashboardComponents/Charts/DashboardChart/DashboardChart";
 import LineChart from "../DashboardComponents/Charts/DashboardChart/LineChart";
 import { linedata as lineData } from "../DashboardComponents/Charts/DashboardChart/lineData";
 
@@ -46,8 +44,9 @@ const DashboardMain = () => {
           <ProfileBlogCardsImage />
         </div>
       </div>
-      <div className="relative flex flex-col md:flex-row items-center space-between w-full gap-2 md:gap-5 mb-2 md:mb-6 ">
+      <div className="relative grid grid-cols-2 items-center space-between w-full gap-2 md:gap-5 mb-2 md:mb-6 ">
         {/* <DashboardChart /> */}
+        <LineChart data={lineData} />
         <LineChart data={lineData} />
       </div>
     </div>

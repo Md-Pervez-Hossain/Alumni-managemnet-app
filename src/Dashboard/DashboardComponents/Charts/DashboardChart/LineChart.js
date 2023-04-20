@@ -25,7 +25,7 @@ const LineChart = ({ data }) => {
         fill: true,
       },
       {
-        label: "users Gained",
+        label: "users Lost",
         data: data?.map((data) => data.userLost),
         borderColor: "#3A416F",
         backgroundColor: (context) => {
@@ -56,7 +56,7 @@ const LineChart = ({ data }) => {
   });
 
   return (
-    <div class="w-full max-w-full px-3 mt-0 lg:w-7/12 lg:flex-none">
+    <div class="w-full max-w-full px-3 mt-0  lg:flex-none">
       <div class="relative z-20 flex flex-col min-w-0 break-words bg-white border-0 border-solid dark:bg-gray-950 border-black-125 shadow-soft-xl dark:shadow-soft-dark-xl rounded-2xl bg-clip-border">
         <div class="p-6 pb-0 mb-0 border-b-0 border-solid border-black-125 rounded-t-2xl">
           <h6 class="dark:text-white">Sales overview</h6>
