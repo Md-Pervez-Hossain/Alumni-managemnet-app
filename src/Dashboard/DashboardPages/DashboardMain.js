@@ -3,6 +3,9 @@ import StatsCard from "../DashboardComponents/StatsCard";
 import ProfileProjectCards from "../DashboardComponents/ProfileProjectCards";
 import ProfileBlogCards from "../DashboardComponents/ProfileBlogCards";
 import ProfileBlogCardsImage from "../DashboardComponents/ProfileBlogCardsImage";
+import DashboardChart from "../DashboardComponents/Charts/DashboardChart/DashboardChart";
+import LineChart from "../DashboardComponents/Charts/DashboardChart/LineChart";
+import { linedata as lineData } from "../DashboardComponents/Charts/DashboardChart/lineData";
 
 const DashboardMain = () => {
   const increment = 55;
@@ -42,6 +45,10 @@ const DashboardMain = () => {
         <div className="w-full md:w-5/12">
           <ProfileBlogCardsImage />
         </div>
+      </div>
+      <div className="relative flex flex-col md:flex-row items-center space-between w-full gap-2 md:gap-5 mb-2 md:mb-6 ">
+        {/* <DashboardChart /> */}
+        <LineChart data={lineData} />
       </div>
     </div>
   );
