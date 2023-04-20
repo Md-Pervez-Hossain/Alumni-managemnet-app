@@ -1,16 +1,32 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import DashBoardNavbar from "../Dashboard/DashboardComponents/DashBoardNavbar";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import logo from "../../src/assets/logo/logo-black.png";
 import DashBoardNavItem from "../Dashboard/DashboardComponents/DashBoardNavItem/DashBoardNavItem";
-
+import ResizeObserver from "resize-observer-polyfill";
+import _ from "lodash";
 const DashboardLayout = () => {
   const location = useLocation();
   const isActive = location.pathname === "/dashboard";
 
+  const elementRef = useRef(null);
+
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver(
+      _.debounce((entries) => {
+        console.log("Element size changed!");
+        // handle resize events here
+      }, 100)
+    );
+    resizeObserver.observe(elementRef.current);
+
+    // cleanup function to disconnect the observer when the component unmounts
+    return () => resizeObserver.disconnect();
+  }, []);
+
   return (
     <>
-      <div className="drawer bg-[#F8F9FA] drawer-mobile">
+      <div ref={elementRef} className="drawer bg-[#F8F9FA] drawer-mobile">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className=" drawer-content flex flex-col items-start justify-start">
           {/* <!-- Page content here --> */}
@@ -25,10 +41,12 @@ const DashboardLayout = () => {
         </div>
         <div className="drawer-side bg-[#F8F9FA]">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-          <ul className="menu p-4 w-60  text-base-content">
+          <ul className="menu p-4 w-80  text-base-content">
             {/* <!-- Sidebar content here --> */}
             <li>
-              <img src={logo} alt="" className="w-1/2 pt-10" />
+              <Link to="/" className="bg-transparent px-4  mb-5">
+                <img src={logo} alt="" className="mt-0.5 w-3/4 " />
+              </Link>
             </li>
             <DashBoardNavItem
               name="Dashboard"
@@ -54,6 +72,13 @@ const DashboardLayout = () => {
               name="Profile"
               fontAwesome="fa-solid fa-user"
               url="/dashboard/profile"
+            />
+            <DashBoardNavItem
+              name="Logout "
+              bg="bg-gradient-to-tl from-purple-700 to-pink-500 "
+              text="text-white"
+              fontAwesome="fa-solid fa-right-from-bracket"
+              url="/"
             />
           </ul>
         </div>

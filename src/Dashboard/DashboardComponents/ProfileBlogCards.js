@@ -5,7 +5,7 @@ const ProfileBlogCards = () => {
   return (
     <div className="relative flex flex-col min-w-0 break-words bg-white shadow-soft-xl rounded-2xl bg-clip-border">
       <div className="flex-auto p-4">
-        <div className="flex flex-wrap -mx-3">
+        <div className="flex flex-wrap flex-col-reverse	 md:flex-row -mx-3">
           <div className="max-w-full px-3 lg:w-1/2 lg:flex-none">
             <div className="flex flex-col h-full">
               <p className="pt-2 mb-1 font-semibold font-sans text-slate-400">
@@ -25,7 +25,7 @@ const ProfileBlogCards = () => {
               </Link>
             </div>
           </div>
-          <div className="max-w-full px-3 mt-12 ml-auto text-center lg:mt-0 lg:w-5/12 lg:flex-none">
+          <div className="max-w-full px-3 mt-0 mb-6 md:mt-12 md:mb-0 ml-auto text-center lg:mt-0 lg:w-5/12 lg:flex-none">
             <div className="h-full bg-gradient-to-tl from-purple-700 to-pink-500 rounded-xl">
               <img
                 src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-dashboard/assets/img/shapes/waves-white.svg"

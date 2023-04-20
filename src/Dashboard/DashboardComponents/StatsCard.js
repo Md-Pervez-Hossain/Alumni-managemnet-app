@@ -3,17 +3,17 @@ import React from "react";
 const StatsCard = ({ text, number, icon, stats }) => {
   return (
     <>
-      <div className="relative flex flex-col min-w-0 mb-6 break-words bg-white shadow-soft-xl rounded-2xl bg-clip-border">
+      <div className="relative flex flex-col min-w-0 break-words bg-white shadow-soft-xl rounded-2xl bg-clip-border">
         <div className="flex-auto p-4">
-          <div className="flex flex-wrap -mx-3">
-            <div className="flex-none w-2/3 max-w-full px-3">
+          <div className="flex flex-wrap ">
+            <div className="flex-none w-2/3 max-w-full px-1 md:px-3">
               <div>
-                <p className="mb-0 font-sans font-semibold leading-normal text-sm text-[#67748e]">
+                <p className="mb-0 font-sans font-semibold leading-normal text-xs md:text-sm text-[#67748e]">
                   {text}
                 </p>
                 <h5 className="mb-0 font-body font-bold">
                   {number}
-                  <span className="leading-normal text-xs font-weight-bolder text-lime-500">
+                  <span className="ml-1 leading-normal text-xs font-weight-bolder text-lime-500">
                     {stats}
                   </span>
                 </h5>

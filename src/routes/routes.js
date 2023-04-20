@@ -15,6 +15,7 @@ import AlumniPage from "../Pages/AlumniDirectory/AlumniPage";
 import BatchWiseStudent from "../Pages/BatchWiseStudent/BatchWiseStudent";
 import DashboardLayout from "../layout/DashboardLayout";
 import DashboardTestPage from "../Dashboard/DashboardPages/DashboardTestPage";
+import DashboardMain from "../Dashboard/DashboardPages/DashboardMain";
 
 const routes = createBrowserRouter([
   {
@@ -99,7 +100,13 @@ const routes = createBrowserRouter([
   {
     path: "/dashboard/",
     element: <DashboardLayout />,
-    children: [{ path: "/dashboard/layout/", element: <DashboardTestPage /> }],
+    children: [
+      { path: "/dashboard/", element: <DashboardMain /> },
+      { path: "/dashboard/alumni/", element: <DashboardTestPage /> },
+      { path: "/dashboard/news/", element: <DashboardTestPage /> },
+      { path: "/dashboard/gallery/", element: <DashboardTestPage /> },
+      { path: "/dashboard/profile/", element: <DashboardTestPage /> },
+    ],
   },
 ]);
 
