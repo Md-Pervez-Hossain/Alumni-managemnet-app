@@ -2,7 +2,9 @@ import React from "react";
 
 const Alert = ({ text }) => {
   return (
-    <div className="relative w-full p-4 text-white rounded-lg bg-fuchsia-500">{text}</div>
+    <div className="relative w-full p-4 text-white rounded-lg bg-gradient-to-tl from-[#4D32BA] to-[#1E79DE]">
+      {text}
+    </div>
   );
 };
 

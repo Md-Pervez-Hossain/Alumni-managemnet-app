@@ -18,16 +18,16 @@ const LineChart = ({ data }) => {
           if (!chartArea) {
             return null;
           }
-          return bgGradientPink(ctx, chartArea, scales);
+          return bgGradientSky(ctx, chartArea, scales);
         },
-        borderColor: ["#CB0C9F"],
+        borderColor: ["#1F77DD"],
         tension: 0.4,
         fill: true,
       },
       {
         label: "users Lost",
         data: data?.map((data) => data.userLost),
-        borderColor: "#3A416F",
+        borderColor: "#4F2FB7",
         backgroundColor: (context) => {
           const chart = context.chart;
           const { ctx, chartArea, scales } = chart;
@@ -75,12 +75,12 @@ const LineChart = ({ data }) => {
   );
 };
 
-function bgGradientPink(ctx, chartArea, scales) {
+function bgGradientSky(ctx, chartArea, scales) {
   const { left, right, top, bottom, width, height } = chartArea;
   const { x, y } = scales;
   const gradientBg = ctx.createLinearGradient(0, top, 0, bottom);
-  gradientBg.addColorStop(0, "rgba(234,72,154, 0.3)");
-  gradientBg.addColorStop(1, "rgba(234,72,154, 0)");
+  gradientBg.addColorStop(0, "rgba(31,119,221, 0.3)");
+  gradientBg.addColorStop(1, "rgba(31,119,221, 0)");
 
   return gradientBg;
 }
@@ -88,8 +88,8 @@ function bgGradientDark(ctx, chartArea, scales) {
   const { left, right, top, bottom, width, height } = chartArea;
   const { x, y } = scales;
   const gradientBg = ctx.createLinearGradient(0, top, 0, bottom);
-  gradientBg.addColorStop(0, "rgba(58,65,111, 0.3)");
-  gradientBg.addColorStop(1, "rgba(58,65,111, 0)");
+  gradientBg.addColorStop(0, "rgba(79,47,183, 0.3)");
+  gradientBg.addColorStop(1, "rgba(79,47,183, 0)");
 
   return gradientBg;
 }

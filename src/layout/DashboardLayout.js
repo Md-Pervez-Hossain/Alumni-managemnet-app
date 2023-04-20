@@ -75,7 +75,7 @@ const DashboardLayout = () => {
             />
             <DashBoardNavItem
               name="Logout "
-              bg="bg-gradient-to-tl from-purple-700 to-pink-500 "
+              bg="bg-gradient-to-tl from-[#4D32BA] to-[#1E79DE] "
               text="text-white"
               fontAwesome="fa-solid fa-right-from-bracket"
               url="/"

@@ -35,7 +35,7 @@ const ProfileProjectCards = ({ category, title, description, img, link }) => {
             <Link to={link}>
               <button
                 type="button"
-                className="inline-block px-8 py-2 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border border-solid rounded-lg shadow-none cursor-pointer leading-pro ease-soft-in text-xs hover:scale-102 active:shadow-soft-xs tracking-tight-soft border-fuchsia-500 text-fuchsia-500 hover:border-fuchsia-500 hover:bg-transparent hover:text-fuchsia-500 hover:opacity-75 hover:shadow-none active:bg-fuchsia-500 active:text-white active:hover:bg-transparent active:hover:text-fuchsia-500"
+                className="inline-block px-8 py-2 mb-0 font-bold text-center uppercase align-middle transition-all bg-transparent border border-solid rounded-lg shadow-none cursor-pointer leading-pro ease-soft-in text-xs hover:scale-102 active:shadow-soft-xs tracking-tight-soft border-[#4D32BA] text-[#4D32BA] hover:border-[#4D32BA] hover:bg-transparent hover:text-[#4D32BA] hover:opacity-75 hover:shadow-none active:bg-gradient-to-tl from-[#4D32BA] to-[#1E79DE] active:text-white active:hover:bg-transparent active:hover:text-[#4D32BA]"
               >
                 View Project
               </button>

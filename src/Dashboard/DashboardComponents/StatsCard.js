@@ -20,7 +20,7 @@ const StatsCard = ({ text, number, icon, stats }) => {
               </div>
             </div>
             <div className="w-4/12 max-w-full px-3 ml-auto text-right flex-0">
-              <div className="inline-block w-12 h-12 text-center rounded-lg bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-2xl">
+              <div className="inline-block w-12 h-12 text-center rounded-lg bg-gradient-to-tl from-[#4D32BA] to-[#1E79DE] shadow-soft-2xl">
                 <i
                   className={`${icon} text-lg relative top-3.5 text-white`}
                   aria-hidden="true"
