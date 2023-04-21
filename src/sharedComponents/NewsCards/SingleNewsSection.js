@@ -16,9 +16,9 @@ const SingleNewsSection = () => {
             <h2 className="text-4xl my-5">Single Page Heading</h2>
             <p className="mb-5">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam
-              consequuntur aut autem quisquam, tempore voluptatum fugiat, est
-              vel commodi, voluptate tempora modi blanditiis qui quam ducimus
-              iste itaque magnam. Reprehenderit?
+              consequuntur aut autem quisquam, tempore voluptatum fugiat, est vel commodi,
+              voluptate tempora modi blanditiis qui quam ducimus iste itaque magnam.
+              Reprehenderit?
             </p>
           </div>
           <div className="flex items-center justify-between ">

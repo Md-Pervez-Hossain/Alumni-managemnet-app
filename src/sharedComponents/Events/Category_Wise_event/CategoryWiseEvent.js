@@ -35,7 +35,7 @@ const CategoryWiseEvent = ({ category }) => {
   } else {
     content = categories
       ?.slice(previous, next)
-      .map((item) => <AllEventsCard item={item} />);
+      .map((item) => <AllEventsCard key={item._id} item={item} />);
   }
   return (
     <div>

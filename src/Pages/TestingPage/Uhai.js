@@ -1,14 +1,13 @@
 import React from "react";
-import UpComingEvents from "../../sharedComponents/UpComingEvents/UpComingEvents";
 import EmailSubScribe from "../../sharedComponents/EmailSubScribe/EmailSubScribe";
-// import AllEvents from "../../sharedComponents/Events/AllEvents/AllEvents";
 import NewsSection from "../../sharedComponents/NewsCards/NewsSection";
 import SuccessStoriesSection from "../../sharedComponents/SuccessStories/SuccessStoriesSection";
+import UpComingEventsCard from "../Home/UpComingEventsCard/UpComingEventsCard";
 
 const Uhai = () => {
   return (
     <div>
-      <UpComingEvents />
+      <UpComingEventsCard />
       {/* <AllEvents /> */}
       <SuccessStoriesSection />
       <NewsSection />

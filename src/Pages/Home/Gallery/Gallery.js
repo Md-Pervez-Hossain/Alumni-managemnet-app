@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import {
   useGetGalleriesQuery,
   useGetGalleryCategoriesQuery,
-} from "../../features/Api/apiSlice";
-import Loading from "../Loading/Loading";
-import ButtonSizeSkeletion from "../Skeletion/ButtonSizeSkeletion";
-import ImageSkeletion from "../Skeletion/ImageSkeletion";
-import ErrorAlert from "../Skeletion/ErrorAlert";
+} from "../../../features/Api/apiSlice";
+import Loading from "../../../sharedComponents/Loading/Loading";
+import ButtonSizeSkeletion from "../../../sharedComponents/Skeletion/ButtonSizeSkeletion";
+import ImageSkeletion from "../../../sharedComponents/Skeletion/ImageSkeletion";
+import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
 import { useDispatch } from "react-redux";
 
 const Gallery = () => {
@@ -51,6 +51,7 @@ const Gallery = () => {
       <>
         {galleryCategory.map((galleryCategory) => (
           <button
+            key={galleryCategory._id}
             onClick={() => {
               handleButtonClick(galleryCategory._id);
             }}
@@ -89,6 +90,7 @@ const Gallery = () => {
           <>
             {galleryData?.slice(0, 6).map((img) => (
               <div
+                key={img._id}
                 loading="lazy"
                 className={`h-80 bg-accent bg-cover`}
                 style={{
@@ -101,6 +103,7 @@ const Gallery = () => {
           <>
             {filteredGalleryData?.slice(0, 6).map((img) => (
               <div
+                key={img._id}
                 loading="lazy"
                 className={`h-80 bg-accent bg-cover`}
                 style={{

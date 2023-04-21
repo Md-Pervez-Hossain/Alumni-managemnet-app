@@ -4,14 +4,12 @@ import AvatarRounder from "../DashboardComponents/AvatarRounder";
 import StatsCard from "../DashboardComponents/StatsCard";
 import ProfileProjectCards from "../DashboardComponents/ProfileProjectCards";
 import ProfileBlogCards from "../DashboardComponents/ProfileBlogCards";
-import DashboardLayout from "../../layout/DashboardLayout";
-import DashBoardNavItem from "../DashboardComponents/DashBoardNavItem";
+import DashBoardNavItem from "../DashboardComponents/DashBoardNavItem/DashBoardNavItem";
 
 const DashboardTestPage = () => {
   const increment = 55;
   return (
     <div className="flex flex-col align-middle mb-5 pb-5 gap-5 items-center">
-      <DashboardLayout />
       <Alert text="warning"></Alert>
       <AvatarRounder />
       <StatsCard

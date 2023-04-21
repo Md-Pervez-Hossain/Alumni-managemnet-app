@@ -35,13 +35,12 @@ export const DirectoryDetails = () => {
             Alumni
           </h5>
           <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia
-            deserunt optio aspernatur, blanditiis officiis vero inventore
-            mollitia, necessitatibus est, quidem voluptate iure tempore fuga
-            recusandae cum molestias quasi eum ad! Lorem ipsum dolor sit amet
-            consectetur adipisicing elit. Est voluptatem obcaecati deleniti
-            fugiat, commodi ducimus. Hic ipsum, et, molestias temporibus fugiat
-            tempore, recusandae aliquid iure sint nobis distinctio quos
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia deserunt optio
+            aspernatur, blanditiis officiis vero inventore mollitia, necessitatibus est,
+            quidem voluptate iure tempore fuga recusandae cum molestias quasi eum ad!
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Est voluptatem
+            obcaecati deleniti fugiat, commodi ducimus. Hic ipsum, et, molestias
+            temporibus fugiat tempore, recusandae aliquid iure sint nobis distinctio quos
             suscipit.
           </p>
         </div>
@@ -78,10 +77,7 @@ export const DirectoryDetails = () => {
           <div className=" mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl lg:w-3/4 ">
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3  lg:max-w-full">
               {allAlumni.slice(previous, next).map((singleAlumni) => (
-                <AlumniBatchDataCard
-                  key={singleAlumni._id}
-                  singleAlumni={singleAlumni}
-                />
+                <AlumniBatchDataCard key={singleAlumni._id} singleAlumni={singleAlumni} />
               ))}
             </div>
             <div className="flex items-center justify-end gap-3 my-5">

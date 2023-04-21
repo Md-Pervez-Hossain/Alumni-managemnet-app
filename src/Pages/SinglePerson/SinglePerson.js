@@ -62,8 +62,8 @@ const SinglePerson = () => {
           <h2 className="md:text-4xl text-2xl mb-5">About {name}</h2>
           <hr className="border-2 w-24 mx-auto border-secondary " />
           <p className="mt-5">
-            There are many company Lorem ipsm dolor sitg amet, csetur adipicing
-            elit, sed do eiusmod tempor
+            There are many company Lorem ipsm dolor sitg amet, csetur adipicing elit, sed
+            do eiusmod tempor
           </p>
         </div>
       </div>
@@ -71,11 +71,7 @@ const SinglePerson = () => {
         <div className="grid md:grid-cols-3 gap-10">
           <div className="md:col-span-2 col-span-1">
             <div>
-              <img
-                src={profile_picture}
-                alt=""
-                className="h-72 w-72 rounded-full mb-5"
-              />
+              <img src={profile_picture} alt="" className="h-72 w-72 rounded-full mb-5" />
             </div>
             <div className="mb-4">
               <div className="grid md:grid-cols-2 gap-5">
@@ -111,18 +107,18 @@ const SinglePerson = () => {
                   <p>Marital Status :{personal_information.marital_status} </p>
                   <p>Nationality :{personal_information.nationality} </p>
                   <p className="font-normal">Hobbies : </p>
-                  {personal_information.hobbies.map((hobby) => {
+                  {personal_information.hobbies.map((hobby, i) => {
                     return (
                       <>
-                        <p>{hobby}</p>
+                        <p key={i}>{hobby}</p>
                       </>
                     );
                   })}
                   <p className="font-normal">languages : </p>
-                  {personal_information.languages.map((language) => {
+                  {personal_information.languages.map((language, i) => {
                     return (
                       <>
-                        <p>{language}</p>
+                        <p key={i}>{language}</p>
                       </>
                     );
                   })}
@@ -131,10 +127,10 @@ const SinglePerson = () => {
               <div>
                 <h2 className="text-2xl mb-3">Education</h2>
                 <div className="grid md:grid-cols-2 gap-5 ">
-                  {education.map((edu) => {
+                  {education.map((edu, i) => {
                     return (
                       <>
-                        <div>
+                        <div key={i}>
                           <p>Degree : {edu.degree}</p>
                           {edu.major ? (
                             <>
@@ -155,18 +151,18 @@ const SinglePerson = () => {
               <div>
                 <h2 className="text-2xl mb-3">Carrers</h2>
                 <div className="grid md:grid-cols-2 gap-5">
-                  {careers?.map((career) => {
+                  {careers?.map((career, i) => {
                     return (
-                      <div>
+                      <div key={i}>
                         <p>Company : {career.company}</p>
                         <p>Position : {career.position}</p>
                         <p>Start Date : {career.start_date}</p>
                         <p>End Date : {career.end_date}</p>
                         <h2>Responsibility : </h2>
-                        {career.responsibilities.map((res) => {
+                        {career.responsibilities.map((res, i) => {
                           return (
                             <>
-                              <p>{res}</p>
+                              <p key={i}>{res}</p>
                             </>
                           );
                         })}
@@ -187,9 +183,9 @@ const SinglePerson = () => {
             <h2 className="md:text-3xl text-2xl md:mb-8 mb-5">
               Similler <br /> Batch Student
             </h2>
-            {persons?.slice(previous, next).map((person) => {
+            {persons?.slice(previous, next).map((person, i) => {
               return (
-                <div className="flex items-center md:gap-5 gap-3 mb-8">
+                <div key={i} className="flex items-center md:gap-5 gap-3 mb-8">
                   <img
                     src={person.profile_picture}
                     alt=""
@@ -197,9 +193,7 @@ const SinglePerson = () => {
                   />
                   <div>
                     <h2 className="text-xl">{person.name}</h2>
-                    <button className="text-secondary font-semibold">
-                      Details
-                    </button>
+                    <button className="text-secondary font-semibold">Details</button>
                   </div>
                 </div>
               );
@@ -209,10 +203,7 @@ const SinglePerson = () => {
               <button onClick={() => handlePrevious()}>
                 <FaArrowLeft className="text-primary hover:text-secondary duration-500 ease-in-out cursor-pointer"></FaArrowLeft>
               </button>
-              <button
-                disabled={next > persons.length}
-                onClick={() => handleNext()}
-              >
+              <button disabled={next > persons.length} onClick={() => handleNext()}>
                 <FaArrowRight className="text-primary hover:text-secondary duration-500 ease-in-out cursor-pointer"></FaArrowRight>
               </button>
             </div>

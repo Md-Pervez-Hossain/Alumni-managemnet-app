@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import student from "../../assets/batchwiseStudent.jpg";
 <<<<<<< HEAD
 =======
@@ -12,11 +12,21 @@ import { useLoaderData, useParams } from "react-router-dom";
 import AlumniBatchDataCard from "../../sharedComponents/PersonCardDesign/AlumniBatchDataCard";
 import InnerPageHeader from "../../sharedComponents/InnerPageHeader/InnerPageHeader";
 import GallerySlider from "../../sharedComponents/GallerySlider/GallerySlider";
+import AllEventsCard from "../../sharedComponents/Events/AllEvents/AllEventsCard";
 
 const BatchWiseStudent = () => {
   const studentsOfTheBatch = useLoaderData();
   const { year } = useParams();
-  console.log(year);
+
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    fetch(`https://alumni-managemnet-app-server.vercel.app/events/batch/${year}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setEvents(data);
+      });
+  }, []);
 
   return (
 <<<<<<< HEAD
@@ -29,9 +39,10 @@ const BatchWiseStudent = () => {
       <div className="w-9/12 mx-auto md:py-32 py-16 ">
         <div className=" grid md:grid-cols-4 gap-10">
           {studentsOfTheBatch.map((singleAlumni) => (
-            <AlumniBatchDataCard singleAlumni={singleAlumni} />
+            <AlumniBatchDataCard key={singleAlumni._id} singleAlumni={singleAlumni} />
           ))}
         </div>
+<<<<<<< HEAD
         <div className="flex items-center justify-end gap-3 mt-5">
           <FaArrowLeft className="text-primary hover:text-secondary duration-500 ease-in-out cursor-pointer"></FaArrowLeft>
           <FaArrowRight className="text-primary hover:text-secondary duration-500 ease-in-out cursor-pointer"></FaArrowRight>
@@ -171,10 +182,14 @@ const BatchWiseStudent = () => {
               </div>
             </div>
           </div>
+=======
+        {studentsOfTheBatch?.length > 4 && (
+>>>>>>> main
           <div className="flex items-center justify-end gap-3 mt-5">
             <FaArrowLeft className="text-primary hover:text-secondary duration-500 ease-in-out cursor-pointer"></FaArrowLeft>
             <FaArrowRight className="text-primary hover:text-secondary duration-500 ease-in-out cursor-pointer"></FaArrowRight>
           </div>
+<<<<<<< HEAD
 =======
               <button className="bg-secondary text-primary px-8 py-2 text-xl font-semibold ">
                 Details
@@ -347,8 +362,22 @@ const BatchWiseStudent = () => {
           <FaArrowRight className="text-primary hover:text-secondary duration-500 ease-in-out cursor-pointer"></FaArrowRight>
 >>>>>>> 1bb868742c20713fc3392c1953309566059460c2
 >>>>>>> origin/staging-rony
+=======
+        )}
+      </div>
+
+      <div className="bg-white py-10">
+        <div className="w-9/12 mx-auto">
+          <h2 className="text-3xl text-center">Upcoming Events for {year} </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2">
+            {events.slice(0, 4).map((item) => (
+              <AllEventsCard key={item._id} item={item} />
+            ))}
+          </div>
+>>>>>>> main
         </div>
       </div>
+
       <GallerySlider year={year} />
     </div>
   );

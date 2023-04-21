@@ -18,8 +18,8 @@ const SingleEvent = () => {
       />
       <div className="w-full md:w-9/12 mx-auto my-20 md:flex justify-between">
         <div className="w-full md:w-3/5 px-10 mx-auto">
-          <div className="rounded-tl-xl rounded-br-xl ">
-            <img className="rounded-tl-xl rounded-br-xl" src={image_url} alt="Event" />
+          <div className="">
+            <img className="" src={image_url} alt="Event" />
           </div>
           {/* content */}
           <div className="flex flex-col justify-between p-2">
