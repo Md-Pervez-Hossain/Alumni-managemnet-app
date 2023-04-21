@@ -11,7 +11,7 @@ const Progress = () => {
       </div>
       <div>
         <div className="h-0.75 text-xs flex overflow-visible rounded-lg bg-gray-200">
-          <div className="bg-gradient-to-tl from-[#4D32BA] to-[#1E79DE] w-1/2 transition-width duration-600 ease-soft rounded-1 -mt-0.4 -ml-px flex h-1.5 flex-col justify-center overflow-hidden whitespace-nowrap text-center text-white"></div>
+          <div className="bg-gradient-to-tl from-primary to-[#1E79DE] w-1/2 transition-width duration-600 ease-soft rounded-1 -mt-0.4 -ml-px flex h-1.5 flex-col justify-center overflow-hidden whitespace-nowrap text-center text-white"></div>
         </div>
       </div>
     </div>

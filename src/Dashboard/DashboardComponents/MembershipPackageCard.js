@@ -69,7 +69,7 @@ const MembershipPackageCard = () => {
           </div>
           <a
             href="javascript:;"
-            className="inline-block px-6 py-3 mt-4 font-bold text-center text-white uppercase align-middle transition-all border-0 rounded-lg cursor-pointer lg:w-full hover:scale-102 active:opacity-85 hover:shadow-soft-xs bg-gradient-to-tl from-[#4D32BA] to-[#1E79DE] leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25"
+            className="inline-block px-6 py-3 mt-4 font-bold text-center text-white uppercase align-middle transition-all border-0 rounded-lg cursor-pointer lg:w-full hover:scale-102 active:opacity-85 hover:shadow-soft-xs bg-gradient-to-tl from-primary to-[#1E79DE] leading-pro text-xs ease-soft-in tracking-tight-soft shadow-soft-md bg-150 bg-x-25"
           >
             Try Premium
             <i className="ml-1 fas fa-arrow-right" aria-hidden="true"></i>

@@ -19,7 +19,7 @@ const DashBoardNavItem = ({ url, name, fontAwesome, bg, text }) => {
         <div
           className={`${text} shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg   bg-center stroke-0 text-center xl:p-2.5 ${
             isActive
-              ? "bg-gradient-to-tl from-[#4D32BA] to-[#1E79DE]"
+              ? "bg-gradient-to-tl from-primary to-[#1E79DE]"
               : "bg-transparent text-slate-700"
           }`}
         >
