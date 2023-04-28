@@ -4,7 +4,6 @@ import AvatarRounder from "../DashboardComponents/AvatarRounder";
 import StatsCard from "../DashboardComponents/StatsCard";
 import ProfileProjectCards from "../DashboardComponents/ProfileProjectCards";
 import ProfileBlogCards from "../DashboardComponents/ProfileBlogCards";
-import DashBoardNavItem from "../DashboardComponents/DashBoardNavItem/DashBoardNavItem";
 
 const DashboardTestPage = () => {
   const increment = 55;
@@ -25,7 +24,6 @@ const DashboardTestPage = () => {
         link="/"
       />
       <ProfileBlogCards />
-      <DashBoardNavItem />
     </div>
   );
 };

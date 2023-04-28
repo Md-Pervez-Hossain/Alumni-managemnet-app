@@ -26,9 +26,21 @@ export const apiSlice = createApi({
       query: () => "/galleries/trending ",
     }),
     // // EVENTS  //
+
+    // get all events
     getEvents: builder.query({
       query: () => "/events",
     }),
+
+    // create event
+    addEvents: builder.mutation({
+      query: (data) => ({
+        url: "/events",
+        method: "POST",
+        body: data,
+      }),
+    }),
+
     getEventsCategories: builder.query({
       query: () => "/eventCategories",
     }),
@@ -66,6 +78,7 @@ export const apiSlice = createApi({
     getAllAlumni: builder.query({
       query: () => "/alumni",
     }),
+
     // /events/category/:id GET endpoint that returns event data based on category ID
     // /events/:id GET endpoint that returns a single event data based on the id parameter
   }),
@@ -90,6 +103,9 @@ export const {
   // EVENTS
   useGetEventsQuery,
   useGetEventsCategoriesQuery,
+
+  // mutations of events
+  useAddEventsMutation,
 
   //  All Alumni
   useGetAllAlumniQuery,

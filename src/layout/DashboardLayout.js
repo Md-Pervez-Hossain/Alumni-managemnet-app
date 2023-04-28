@@ -28,7 +28,7 @@ const DashboardLayout = () => {
     <>
       <div ref={elementRef} className="drawer bg-[#F8F9FA] drawer-mobile">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className=" drawer-content flex flex-col items-start justify-start">
+        <div className="drawer-content w-full flex flex-col items-start justify-start">
           {/* <!-- Page content here --> */}
           <DashBoardNavbar />
           <Outlet />

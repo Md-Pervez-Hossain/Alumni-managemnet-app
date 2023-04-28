@@ -27,11 +27,6 @@ const ProfileBlogCards = () => {
           </div>
           <div className="max-w-full px-3 mt-0 mb-6 md:mt-12 md:mb-0 ml-auto text-center lg:mt-0 lg:w-5/12 lg:flex-none">
             <div className="h-full bg-gradient-to-tl from-primary to-[#1E79DE] rounded-xl">
-              <img
-                src="https://raw.githubusercontent.com/creativetimofficial/public-assets/master/soft-ui-dashboard/assets/img/shapes/waves-white.svg"
-                className="absolute top-0 hidden w-1/2 h-full lg:block"
-                alt="waves"
-              />
               <div className="relative flex items-center justify-center h-full">
                 <img
                   className="relative z-20 w-full pt-6"

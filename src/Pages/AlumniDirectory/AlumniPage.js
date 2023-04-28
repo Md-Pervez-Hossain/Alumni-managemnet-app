@@ -8,7 +8,6 @@ import {
   FunnelIcon,
   MinusIcon,
   PlusIcon,
-  Squares2X2Icon,
 } from "@heroicons/react/20/solid";
 import InnerPageHeader from "../../sharedComponents/InnerPageHeader/InnerPageHeader";
 
@@ -31,15 +30,17 @@ const AlumniPage = () => {
   ];
   const filters = [
     {
-      id: "color",
-      name: "Color",
+      id: "BloodGroup",
+      name: "Blood Group",
       options: [
-        { value: "white", label: "White", checked: false },
-        { value: "beige", label: "Beige", checked: false },
-        { value: "blue", label: "Blue", checked: true },
-        { value: "brown", label: "Brown", checked: false },
-        { value: "green", label: "Green", checked: false },
-        { value: "purple", label: "Purple", checked: false },
+        { value: "A+", label: "A+", checked: false },
+        { value: "A-", label: "A-", checked: false },
+        { value: "B-", label: "B-", checked: false },
+        { value: "B+", label: "B+", checked: false },
+        { value: "O+", label: "O+", checked: false },
+        { value: "O-", label: "O-", checked: false },
+        { value: "AB+", label: "AB+", checked: false },
+        { value: "AB-", label: "AB-", checked: false },
       ],
     },
     {
@@ -70,6 +71,19 @@ const AlumniPage = () => {
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
+
+  const sortByFilterHandler = (e) => {
+    console.log(e);
+  };
+  const sortByYearHandler = (e) => {
+    console.log(e);
+  };
+  const sortBySubjectHandler = (e) => {
+    console.log(e);
+  };
+  const sortByBloodGroupHandler = (e) => {
+    console.log(e);
+  };
 
   return (
     <>
@@ -222,8 +236,7 @@ const AlumniPage = () => {
                         {sortOptions.map((option) => (
                           <Menu.Item key={option.name}>
                             {({ active }) => (
-                              <a
-                                href={option.href}
+                              <p
                                 className={classNames(
                                   option.current
                                     ? "font-medium text-gray-900"
@@ -231,9 +244,10 @@ const AlumniPage = () => {
                                   active ? "bg-gray-100" : "",
                                   "block px-4 py-2 text-xs"
                                 )}
+                                onClick={() => sortByFilterHandler(option.name)}
                               >
-                                {option.name}
-                              </a>
+                                hey {option.name}
+                              </p>
                             )}
                           </Menu.Item>
                         ))}
@@ -302,13 +316,14 @@ const AlumniPage = () => {
                                     defaultValue={option.value}
                                     type="checkbox"
                                     defaultChecked={option.checked}
+                                    onClick={() => sortByBloodGroupHandler(option)}
                                     className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                                   />
                                   <label
                                     htmlFor={`filter-${section.id}-${optionIdx}`}
                                     className="ml-3 text-sm text-gray-600"
                                   >
-                                    {option.label}
+                                    HEY {option.label}
                                   </label>
                                 </div>
                               ))}

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
 import {
+  useAddEventsMutation,
   useGetAllBatchesQuery,
   useGetEventsCategoriesQuery,
 } from "../../../features/Api/apiSlice";
@@ -9,11 +10,20 @@ import Loading from "../../../sharedComponents/Loading/Loading";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
 
 const CreateEvents = () => {
+  const [
+    addEvents,
+    {
+      data: events,
+      isLoading: isEventsAddLoading,
+      isError: isEventsAddError,
+      error: eventsAddError,
+    },
+  ] = useAddEventsMutation();
+
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleCreateEvents = (event) => {
     event.preventDefault();
-    console.log("events Clicked");
     const form = event.target;
     const batch = form.eventsBatch.value;
     const event_title = form.eventsHeading.value;
@@ -25,13 +35,13 @@ const CreateEvents = () => {
     const formData = new FormData();
     formData.append("image", image_url);
     console.log(category);
-    fetch(
-      "https://api.imgbb.com/1/upload?expiration=600&key=86fe1764d78f51c15b1a9dfe4b9175cf",
-      {
-        method: "POST",
-        body: formData,
-      }
-    )
+
+    // addEvents({});
+
+    fetch("https://api.imgbb.com/1/upload?key=dd1a5cd35aa9d832298beb50053079da", {
+      method: "POST",
+      body: formData,
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -68,26 +78,26 @@ const CreateEvents = () => {
 
   //  redux fetch event categories
   const {
-    data: newsCategories,
-    isError,
-    isLoading,
-    error,
+    data: eventsCategories,
+    isError: isEventsError,
+    isLoading: isEventsLoading,
+    error: eventsError,
   } = useGetEventsCategoriesQuery();
 
   let eventCategoryNames;
-  if (isLoading && !isError) {
+  if (isEventsLoading && !isEventsError) {
     eventCategoryNames = <Loading />;
   }
-  if (!isLoading && isError) {
-    eventCategoryNames = <ErrorAlert text={error} />;
+  if (!isEventsLoading && isEventsError) {
+    eventCategoryNames = <ErrorAlert text={eventsError} />;
   }
-  if (!isLoading && !isError && newsCategories?.length === 0) {
+  if (!isEventsLoading && !isEventsError && eventsCategories?.length === 0) {
     eventCategoryNames = <ErrorAlert text="No Category Find" />;
   }
-  if (!isLoading && !isError && newsCategories?.length > 0) {
+  if (!isEventsLoading && !isEventsError && eventsCategories?.length > 0) {
     eventCategoryNames = (
       <>
-        {newsCategories.map((eventCategory) => (
+        {eventsCategories.map((eventCategory) => (
           <option key={eventCategory._id} value={eventCategory._id}>
             {eventCategory.eventCategory}
           </option>
@@ -99,8 +109,8 @@ const CreateEvents = () => {
   // redux fetch batches
   const {
     data: allBatches,
-    isError: isAllBatchesError,
-    isLoading: isAllBatchesLoading,
+    isEventsError: isAllBatchesError,
+    isEventsLoading: isAllBatchesLoading,
     error: allBatchesError,
   } = useGetAllBatchesQuery();
 
@@ -127,7 +137,7 @@ const CreateEvents = () => {
   }
 
   return (
-    <div className="w-full mx-auto my-16">
+    <div className="w-full mx-auto my-16 px-10">
       {/* <h2 className="text-5xl my-5">Events</h2> */}
       <form onSubmit={(event) => handleCreateEvents(event)}>
         <div className="grid md:grid-cols-2 gap-3 !my-2">
