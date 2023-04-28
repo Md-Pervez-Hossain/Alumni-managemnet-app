@@ -74,8 +74,8 @@ const AlumniPage = () => {
   return (
     <>
       <InnerPageHeader
-        title="Batchwise Student"
-        description="learn more"
+        title="Our Alumni"
+        description="Browse our proud alumni`1"
         img="https://media.cnn.com/api/v1/images/stellar/prod/220624140259-01-college-students-stock.jpg?c=16x9&q=h_720,w_1280,c_fill"
       />
       <div className="bg-white">
@@ -192,9 +192,9 @@ const AlumniPage = () => {
 
           <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
-              <h1 className="text-4xl font-bold tracking-tight text-gray-900">
-                All Alumni
-              </h1>
+              <h3 className="text-xl font-bold tracking-tight text-gray-900">
+                Browse Alumni
+              </h3>
 
               <div className="flex items-center">
                 <Menu as="div" className="relative inline-block text-left">
@@ -229,7 +229,7 @@ const AlumniPage = () => {
                                     ? "font-medium text-gray-900"
                                     : "text-gray-500",
                                   active ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm"
+                                  "block px-4 py-2 text-xs"
                                 )}
                               >
                                 {option.name}
@@ -262,10 +262,7 @@ const AlumniPage = () => {
                 {/* Filters */}
                 <form className="hidden lg:block">
                   <h3 className="sr-only">Categories</h3>
-                  <ul
-                    role="list"
-                    className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900"
-                  >
+                  <ul className="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
                     {subCategories.map((category) => (
                       <li key={category.name}>
                         <a href={category.href}>{category.name}</a>

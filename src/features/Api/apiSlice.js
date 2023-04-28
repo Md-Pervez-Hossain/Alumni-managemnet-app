@@ -62,6 +62,10 @@ export const apiSlice = createApi({
       query: () => "/all-degree-programs",
     }),
 
+    // All batches name
+    getAllAlumni: builder.query({
+      query: () => "/alumni",
+    }),
     // /events/category/:id GET endpoint that returns event data based on category ID
     // /events/:id GET endpoint that returns a single event data based on the id parameter
   }),
@@ -86,4 +90,7 @@ export const {
   // EVENTS
   useGetEventsQuery,
   useGetEventsCategoriesQuery,
+
+  //  All Alumni
+  useGetAllAlumniQuery,
 } = apiSlice;

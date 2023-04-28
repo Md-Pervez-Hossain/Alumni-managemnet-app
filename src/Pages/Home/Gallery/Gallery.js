@@ -134,26 +134,6 @@ const Gallery = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3 mt-4">
           {galleryDataContent}
-          {/* {filteredGalleryData.length > 0 &&
-            filteredGalleryData?.slice(0, 6).map((img) => (
-              <div
-                loading="lazy"
-                className={`h-80 bg-accent bg-cover`}
-                style={{
-                  backgroundImage: `url(${img.image_url})`,
-                }}
-              ></div>
-            ))}
-          {filteredGalleryData.length === 0 && (
-            <>
-              <ImageSkeletion />
-              <ImageSkeletion />
-              <ImageSkeletion />
-              <ImageSkeletion />
-              <ImageSkeletion />
-              <ImageSkeletion />
-            </>
-          )} */}
         </div>
       </div>
     </div>
