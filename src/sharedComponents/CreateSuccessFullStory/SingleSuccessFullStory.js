@@ -1,9 +1,9 @@
 import React from "react";
 import { FaRegComment } from "react-icons/fa";
 import { MdFavoriteBorder } from "react-icons/md";
-import MoreNews from "./MoreNews";
+import MoreSuccessFullStory from "./MoreSuccessFullStory";
 
-const SingleNewsSection = () => {
+const SingleSuccessFullStory = () => {
   return (
     <div className="w-9/12 mx-auto my-16">
       <div className="grid lg:grid-cols-3 gap-10">
@@ -13,7 +13,7 @@ const SingleNewsSection = () => {
               src="https://images.pexels.com/photos/7972719/pexels-photo-7972719.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
               alt=""
             />
-            <h2 className="text-4xl my-5">Single Page Heading</h2>
+            <h2 className="text-4xl my-5">Successfull Story heading</h2>
             <p className="mb-5">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam
               consequuntur aut autem quisquam, tempore voluptatum fugiat, est
@@ -48,11 +48,11 @@ const SingleNewsSection = () => {
           </div>
         </div>
         <div className="lg:col-span-1">
-          <MoreNews></MoreNews>
+          <MoreSuccessFullStory></MoreSuccessFullStory>
         </div>
       </div>
     </div>
   );
 };
 
-export default SingleNewsSection;
+export default SingleSuccessFullStory;
