@@ -64,6 +64,11 @@ const DashboardLayout = () => {
               url="/dashboard/news"
             />
             <DashBoardNavItem
+              name="Events"
+              fontAwesome="fa-regular fa-file-lines"
+              url="/dashboard/events"
+            />
+            <DashBoardNavItem
               name="Gallery"
               fontAwesome="fa-solid fa-photo-film"
               url="/dashboard/gallery"
