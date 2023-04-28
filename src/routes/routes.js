@@ -3,9 +3,9 @@ import { createBrowserRouter } from "react-router-dom";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home";
 import Rakib from "../Pages/TestingPage/Rakib";
-import Main from "../../src/layout/Main";
 import Uhai from "../Pages/TestingPage/Uhai";
 
+import Main from "../../src/layout/Main";
 import LogIn from "../Pages/LogIn.js/LogIn";
 import SignUp from "../Pages/SignUp/SignUp";
 import Events from "../Pages/Events/Events";
@@ -21,6 +21,16 @@ import MembershipForm from "../Pages/MembershipForm/MembershipForm";
 import DashboardLayout from "../layout/DashboardLayout";
 // import DashboardTestPage from "../Dashboard/DashboardPages/DashboardTestPage";
 import DashboardMain from "../Dashboard/DashboardPages/DashboardMain";
+// import SinglePerson from "../Pages/SinglePerson/SinglePerson";
+// import AlumniPage from "../Pages/AlumniDirectory/AlumniPage";
+// import MembershipForm from "../Pages/MembershipForm/MembershipForm";
+// import DashboardLayout from "../layout/DashboardLayout";
+// import DashboardMain from "../Dashboard/DashboardPages/DashboardMain";
+// import BatchWiseStudent from "../Pages/BatchWiseStudent/BatchwiseStudent";
+import DashboardTestPage from "../Dashboard/DashboardPages/DashboardTestPage";
+import AddAEvent from "../Dashboard/DashboardPages/AddAEvent";
+import CreateGallery from "../Dashboard/DashboardComponents/Gallery/CreateGalleryItem";
+import CheckoutPage from "../Pages/CheckoutPage/CheckoutPage";
 
 const routes = createBrowserRouter([
   {
@@ -36,7 +46,8 @@ const routes = createBrowserRouter([
       {
         path: "/rony",
 
-        element: <MembershipForm></MembershipForm>,
+        // element: <MembershipForm></MembershipForm>,
+        element: <MembershipForm />,
       },
       {
         path: "/events",
@@ -84,15 +95,6 @@ const routes = createBrowserRouter([
         },
         element: <SinglePerson />,
       },
-
-      // {
-      //   path: "/alumniyear",
-      //   loader: ({ params }) => {
-      //     return fetch(`https://course-data-server.vercel.app/${params.year}`);
-      //   },
-      //   element: <BatchwiseStudent />,
-      // },
-
       {
         path: "/about-us",
         element: <AboutUs />,
@@ -123,6 +125,13 @@ const routes = createBrowserRouter([
       // { path: "/dashboard/news/", element: <DashboardTestPage /> },
       // { path: "/dashboard/gallery/", element: <DashboardTestPage /> },
       // { path: "/dashboard/profile/", element: <DashboardTestPage /> },
+      { path: "/dashboard/alumni/", element: <DashboardTestPage /> },
+      { path: "/dashboard/news/", element: <DashboardTestPage /> },
+      { path: "/dashboard/events", element: <AddAEvent /> },
+      { path: "/dashboard/gallery/", element: <DashboardTestPage /> },
+      { path: "/dashboard/profile/", element: <MembershipForm /> },
+      { path: "/dashboard/addAGalleryItem/", element: <CreateGallery /> },
+      { path: "/dashboard/Checkout/", element: <CheckoutPage /> },
     ],
   },
 ]);

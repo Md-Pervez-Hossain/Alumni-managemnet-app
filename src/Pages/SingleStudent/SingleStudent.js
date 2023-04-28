@@ -303,9 +303,24 @@
 // };
 
 // export default SingleStudent;
-import React from "react";
+import React, { useState } from "react";
 
 const SingleStudent = () => {
+  const [previous, setPrevious] = useState(0);
+  const [next, setNext] = useState(8);
+
+  const handlePrevious = () => {
+    if (previous > 0) {
+      setPrevious(previous - 8);
+      setNext(next - 8);
+    }
+    console.log("Clicked Previous");
+  };
+  const handleNext = () => {
+    setPrevious(previous + 8);
+    setNext(next + 8);
+    console.log("clicked next");
+  };
   return (
     <div>
       <h2>Single student</h2>

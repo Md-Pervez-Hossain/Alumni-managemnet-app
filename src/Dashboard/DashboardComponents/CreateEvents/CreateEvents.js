@@ -127,8 +127,8 @@ const CreateEvents = () => {
   }
 
   return (
-    <div className="w-9/12 mx-auto my-16">
-      <h2 className="text-5xl my-5">Events</h2>
+    <div className="w-full mx-auto my-16">
+      {/* <h2 className="text-5xl my-5">Events</h2> */}
       <form onSubmit={(event) => handleCreateEvents(event)}>
         <div className="grid md:grid-cols-2 gap-3 !my-2">
           <input
@@ -145,21 +145,6 @@ const CreateEvents = () => {
             name="eventsLocation"
             required
           />
-
-          {/* <input
-            type="time"
-            placeholder="Events Time"
-            className="input input-bordered w-full  mb-5 "
-            name="time"
-            required
-          /> */}
-          {/* <input
-            type="date"
-            placeholder="Events Date"
-            className="input input-bordered w-full  mb-5 "
-            name="eventsDates"
-            required
-          /> */}
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-5">
           <div className="form-control w-full ">
@@ -185,7 +170,7 @@ const CreateEvents = () => {
         <div className="form-control w-full">
           <input
             type="file"
-            className="file-input file-input-bordered w-full "
+            className="file-input file-input-bordered w-full"
             name="image"
           />
         </div>

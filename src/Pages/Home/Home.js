@@ -9,6 +9,8 @@ import NewsSection from "../../sharedComponents/NewsCards/NewsSection";
 
 import AlumniDirectory from "./AlumniDirectory";
 
+// import NewsSection from "../../sharedComponents/NewsCards/NewsSection";
+// import AlumniDirectory from "./AlumniDirectory";
 import UpComingEventsCard from "./UpComingEventsCard/UpComingEventsCard";
 import MissionHeading from "./MissionHeading/MissionHeading";
 import Gallery from "./Gallery/Gallery";

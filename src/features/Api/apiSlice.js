@@ -44,14 +44,24 @@ export const apiSlice = createApi({
 
     // // extras
 
-    // All batches name
-    getAllBatches: builder.query({
-      query: () => "/all-batches",
-    }),
     //  all university names
     getAllUniversityName: builder.query({
       query: () => "/all-university-name",
     }),
+
+    // All batches name
+    getAllBatches: builder.query({
+      query: () => "/all-batches",
+    }),
+    // All graduation major
+    getAllGraduationMajor: builder.query({
+      query: () => "/all-graduation-major",
+    }),
+    // All degree programs
+    getAllDegreePrograms: builder.query({
+      query: () => "/all-degree-programs",
+    }),
+
     // /events/category/:id GET endpoint that returns event data based on category ID
     // /events/:id GET endpoint that returns a single event data based on the id parameter
   }),
@@ -64,6 +74,8 @@ export const {
   // UTILS
   useGetAllBatchesQuery,
   useGetAllUniversityNameQuery,
+  useGetAllGraduationMajorQuery,
+  useGetAllDegreeProgramsQuery,
 
   // GALLERY
   useGetGalleriesQuery,
