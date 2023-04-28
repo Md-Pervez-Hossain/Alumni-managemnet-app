@@ -5,38 +5,22 @@ import Home from "../Pages/Home/Home";
 import Rakib from "../Pages/TestingPage/Rakib";
 import Main from "../../src/layout/Main";
 import Uhai from "../Pages/TestingPage/Uhai";
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-import BatchwiseStudent from "../Pages/BatchwiseStudent/BatchwiseStudent";
->>>>>>> origin/staging-rony
+
 import LogIn from "../Pages/LogIn.js/LogIn";
 import SignUp from "../Pages/SignUp/SignUp";
 import Events from "../Pages/Events/Events";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import SingleEvent from "../Pages/SingleEvent/SingleEvent";
-<<<<<<< HEAD
+
 import SinglePerson from "../Pages/SinglePerson/SinglePerson";
 import AlumniPage from "../Pages/AlumniDirectory/AlumniPage";
-<<<<<<< HEAD
-import DashboardTestPage from "../Dashboard/Pages/DashboardTestPage";
-import BatchWiseStudent from "../Pages/BatchwiseStudent/BatchwiseStudent";
-import MembershipForm from "../Pages/MembershipForm/MembershipForm";
-=======
-import MembershipForm from "../Pages/MembershipForm/MembershipForm";
-=======
-import AlumniDirectory from "../Pages/AlumniDirectory/AlumniDirectory";
-import LogIn from "../Pages/LogIn.js/LogIn";
-import SignUp from "../Pages/SignUp/SignUp";
-import SingleStudent from "../Pages/SingleStudent/SingleStudent";
->>>>>>> 1bb868742c20713fc3392c1953309566059460c2
->>>>>>> origin/staging-rony
-=======
+// import DashboardTestPage from "../Dashboard/Pages/DashboardTestPage";
 import BatchWiseStudent from "../Pages/BatchWiseStudent/BatchWiseStudent";
+import MembershipForm from "../Pages/MembershipForm/MembershipForm";
+
 import DashboardLayout from "../layout/DashboardLayout";
-import DashboardTestPage from "../Dashboard/DashboardPages/DashboardTestPage";
+// import DashboardTestPage from "../Dashboard/DashboardPages/DashboardTestPage";
 import DashboardMain from "../Dashboard/DashboardPages/DashboardMain";
->>>>>>> main
 
 const routes = createBrowserRouter([
   {
@@ -51,11 +35,8 @@ const routes = createBrowserRouter([
       },
       {
         path: "/rony",
-<<<<<<< HEAD
-        element: <MembershipForm />,
-=======
-        element: <MembershipForm></MembershipForm>
->>>>>>> origin/staging-rony
+
+        element: <MembershipForm></MembershipForm>,
       },
       {
         path: "/events",
@@ -74,13 +55,12 @@ const routes = createBrowserRouter([
       {
         path: "/alumni",
         loader: () => {
-          return fetch("https://alumni-managemnet-app-server.vercel.app/alumni");
+          return fetch(
+            "https://alumni-managemnet-app-server.vercel.app/alumni"
+          );
         },
-<<<<<<< HEAD
         element: <AlumniPage />,
-=======
-        element: <AlumniDirectory />,
->>>>>>> origin/staging-rony
+        // element: <AlumniDirectory />,
       },
 
       {
@@ -118,14 +98,11 @@ const routes = createBrowserRouter([
         element: <AboutUs />,
       },
 
+      // {
+      //   path: "/person",
+      //   element: <SingleStudent />,
+      // },
       {
-<<<<<<< HEAD
-=======
-        path: "/person",
-        element: <SingleStudent />,
-      },
-      {
->>>>>>> 1bb868742c20713fc3392c1953309566059460c2
         path: "/login",
         element: <LogIn></LogIn>,
       },
@@ -142,10 +119,10 @@ const routes = createBrowserRouter([
     element: <DashboardLayout />,
     children: [
       { path: "/dashboard/", element: <DashboardMain /> },
-      { path: "/dashboard/alumni/", element: <DashboardTestPage /> },
-      { path: "/dashboard/news/", element: <DashboardTestPage /> },
-      { path: "/dashboard/gallery/", element: <DashboardTestPage /> },
-      { path: "/dashboard/profile/", element: <DashboardTestPage /> },
+      // { path: "/dashboard/alumni/", element: <DashboardTestPage /> },
+      // { path: "/dashboard/news/", element: <DashboardTestPage /> },
+      // { path: "/dashboard/gallery/", element: <DashboardTestPage /> },
+      // { path: "/dashboard/profile/", element: <DashboardTestPage /> },
     ],
   },
 ]);
