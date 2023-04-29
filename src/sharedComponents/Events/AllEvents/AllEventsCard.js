@@ -1,8 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Counter from "../../Counter/Counter";
 
 const AllEventsCard = ({ item }) => {
+  console.log(item);
+  console.log(item.date);
+  console.log(new Date().getTime());
+  console.log(new Date());
+  const [newDate, setNewDate] = useState("");
+  useEffect(() => {
+    let todayDate = new Date(),
+      month = "" + (todayDate.getMonth() + 1),
+      day = "" + todayDate.getDate(),
+      year = todayDate.getFullYear();
+    if (day.length < 2) {
+      day = "0" + day;
+    }
+    if (month.length < 2) {
+      month = "0" + month;
+    }
+    console.log(day, month, year);
+    setNewDate([year, month, day].join("-"));
+  }, []);
+  console.log(newDate);
   return (
     <div
       key={item._id}
@@ -19,7 +39,16 @@ const AllEventsCard = ({ item }) => {
       >
         <div className="ease-in-out mx-auto h-full  flex pb-2 justify-center items-end bg-gradient-to-t from-black to-transparent from-10% to-50% px-5">
           {/* Time left part */}
-          <Counter date={item.date}></Counter>
+          {item.date === newDate ? (
+            <>
+              <p>Events On Going</p>
+            </>
+          ) : (
+            <>
+              {" "}
+              <Counter date={item.date}></Counter>
+            </>
+          )}
         </div>
       </div>
       {/* content */}

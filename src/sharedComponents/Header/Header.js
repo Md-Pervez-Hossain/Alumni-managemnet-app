@@ -63,7 +63,7 @@ const Header = () => {
 
             {user?.uid ? (
               <>
-                <div className="dropdown dropdown-end">
+                <div className="dropdown dropdown-end ">
                   <label tabIndex={0} className=" ">
                     <Link>
                       <img

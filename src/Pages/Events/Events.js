@@ -7,7 +7,9 @@ import AllEventsCard from "../../sharedComponents/Events/AllEvents/AllEventsCard
 
 const Events = () => {
   const [category, setCategory] = useState("All Events");
-  const [eventCategory, setEventCategory] = useState([{ eventCategory: "All Events" }]);
+  const [eventCategory, setEventCategory] = useState([
+    { eventCategory: "All Events" },
+  ]);
   const [events, setEvents] = useState([]);
 
   //  for pagination
@@ -40,6 +42,8 @@ const Events = () => {
       });
   }, []);
 
+  console.log(events);
+
   function handleEventLoad(currentEvent) {
     console.log(currentEvent);
     // console.log(eventCategory);
@@ -52,6 +56,8 @@ const Events = () => {
       ? events
       : events.filter((item) => item.category === category);
 
+  console.log(eventItems);
+  console.log(eventCategory);
   return (
     <>
       <InnerPageHeader

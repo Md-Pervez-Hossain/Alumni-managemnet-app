@@ -12,8 +12,10 @@ import CreateSuccessFullStory from "../../sharedComponents/CreateSuccessFullStor
 import SingleSuccessFullStory from "../../sharedComponents/CreateSuccessFullStory/SingleSuccessFullStory";
 import PaymnetSuccessfull from "../../sharedComponents/PaymnetSuccessfull/PaymnetSuccessfull";
 import CreateCharity from "../../sharedComponents/CreateCharity/CreateCharity";
-import PaymentForCharity from "../../sharedComponents/CreateCharity/PaymentForCharity";
+
 import PaymentForEvents from "../../sharedComponents/PaymentForEvents/PaymentForEvents";
+import ShowCharity from "../../sharedComponents/ShowCharity/ShowCharity";
+import PaymentForCharity from "../../sharedComponents/ShowCharity/PaymentForCharity";
 
 // import BatchwiseStudent from "../BatchwiseStudent/BatchwiseStudent";
 
@@ -36,8 +38,10 @@ const Rakib = () => {
       <SingleSuccessFullStory></SingleSuccessFullStory>
       <PaymnetSuccessfull></PaymnetSuccessfull>
       <CreateCharity></CreateCharity>
-      <PaymentForCharity></PaymentForCharity>
+
       <PaymentForEvents></PaymentForEvents>
+      <ShowCharity></ShowCharity>
+      <PaymentForCharity></PaymentForCharity>
     </div>
   );
 };
