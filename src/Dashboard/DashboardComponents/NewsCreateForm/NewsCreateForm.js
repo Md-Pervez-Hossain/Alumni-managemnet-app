@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   useGetEventsCategoriesQuery,
   useGetNewsCategoriesQuery,
 } from "../../../features/Api/apiSlice";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
 import ButtonSizeSkeletion from "../../../sharedComponents/Skeletion/ButtonSizeSkeletion";
+import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
 
 const NewsCreateForm = () => {
+  const { user } = useContext(AuthContext);
   const handleNews = (event) => {
     event.preventDefault();
     console.log("clicked");
@@ -23,7 +25,7 @@ const NewsCreateForm = () => {
     // console.log(heading, author, authorProfession, newsDetails);
 
     fetch(
-      "https://api.imgbb.com/1/upload?expiration=600&key=86fe1764d78f51c15b1a9dfe4b9175cf",
+      "https://api.imgbb.com/1/upload?key=86fe1764d78f51c15b1a9dfe4b9175cf",
       {
         method: "POST",
         body: formData,
@@ -34,7 +36,9 @@ const NewsCreateForm = () => {
         const newsInfo = {
           heading,
           image: data.data.display_url,
-          author,
+          author: user?.displayName,
+          email: user?.email,
+          img: user?.photoURL,
           NewsCategory,
           authorProfession,
           newsDetails,
@@ -52,6 +56,7 @@ const NewsCreateForm = () => {
           .then((res) => res.json())
           .then((data) => {
             console.log(data);
+            form.reset();
           });
         console.log(newsInfo);
       })
@@ -60,7 +65,12 @@ const NewsCreateForm = () => {
       });
   };
 
-  const { data: newsCategories, isError, isLoading, error } = useGetNewsCategoriesQuery();
+  const {
+    data: newsCategories,
+    isError,
+    isLoading,
+    error,
+  } = useGetNewsCategoriesQuery();
 
   let newsNameContent;
 
@@ -107,7 +117,7 @@ const NewsCreateForm = () => {
           </div>
           <input
             type="text"
-            placeholder="Author Name"
+            defaultValue={user?.displayName}
             className="input input-bordered w-full "
             name="author"
             required

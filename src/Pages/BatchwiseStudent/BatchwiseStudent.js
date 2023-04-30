@@ -14,12 +14,14 @@ const BatchWiseStudent = () => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    fetch(`https://alumni-managemnet-app-server.vercel.app/events/batch/${year}`)
+    fetch(
+      `https://alumni-managemnet-app-server.vercel.app/events/batch/${year}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setEvents(data);
       });
-  }, []);
+  }, [year]);
 
   return (
     <div className="bg-accent">
@@ -31,7 +33,10 @@ const BatchWiseStudent = () => {
       <div className="w-9/12 mx-auto md:py-32 py-16 ">
         <div className=" grid md:grid-cols-4 gap-10">
           {studentsOfTheBatch.map((singleAlumni) => (
-            <AlumniBatchDataCard key={singleAlumni._id} singleAlumni={singleAlumni} />
+            <AlumniBatchDataCard
+              key={singleAlumni._id}
+              singleAlumni={singleAlumni}
+            />
           ))}
         </div>
         {studentsOfTheBatch?.length > 4 && (

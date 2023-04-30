@@ -71,6 +71,20 @@ const CreateGallery = () => {
           img: user?.photoURL,
         };
 
+        fetch("http://localhost:8000/gallery", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(galleryInfo),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
         console.log(galleryInfo);
         form.reset();
       })
