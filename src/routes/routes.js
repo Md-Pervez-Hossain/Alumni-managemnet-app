@@ -21,6 +21,7 @@ import CreateGallery from "../Dashboard/DashboardComponents/Gallery/CreateGaller
 import CheckoutPage from "../Pages/CheckoutPage/CheckoutPage";
 import BatchWiseStudent from "../Pages/BatchWiseStudent/BatchWiseStudent";
 
+
 const routes = createBrowserRouter([
   {
     path: "/",
