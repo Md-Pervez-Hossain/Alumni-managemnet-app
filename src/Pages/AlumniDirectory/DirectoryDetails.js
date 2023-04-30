@@ -1,23 +1,23 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AlumniBatchDataCard from "../../sharedComponents/PersonCardDesign/AlumniBatchDataCard";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useGetAllAlumniQuery } from "../../features/Api/apiSlice";
-import ButtonSizeSkeletion from "../../sharedComponents/Skeletion/ButtonSizeSkeletion";
 import ErrorAlert from "../../sharedComponents/Skeletion/ErrorAlert";
-import Loading from "../../sharedComponents/Loading/Loading";
-import CardsWithAuthorSkeletion from "../../sharedComponents/Skeletion/CardsWithAuthorSkeletion";
 import PersonCardSkeleton from "../../sharedComponents/Skeletion/PersonCardSkeletion";
 import { useSelector } from "react-redux";
+import { filterBySort } from "./alumniSortFilter";
 
 export const DirectoryDetails = () => {
+  //  getting data from the alumniFilter state slice
   const { isEmployed, sort, bloodGroup, majorWise, cityWise, batchWise } = useSelector(
     (state) => state.alumniFilter
   );
-  console.log(isEmployed, sort);
 
+  //  for pagination, each page will show 9 items
   const [previous, setPrevious] = useState(0);
   const [next, setNext] = useState(9);
 
+  // Getting all alumni data form server using redux - create api. from there we get the useGetAllAlumniQuery QUERy to load data
   const {
     data: alumniData,
     isError: alumniDataIsError,
@@ -25,28 +25,8 @@ export const DirectoryDetails = () => {
     error: alumniDataError,
   } = useGetAllAlumniQuery();
 
-  const filterBySort = (alumni) => {
-    if (!alumni || !Array.isArray(alumni) || alumni.length === 0) {
-      return alumni; // Return the original array if it is undefined, not an array or has length of 0
-    }
-    const sortedAlumni = [...alumni]; // Make a copy of the alumni array
-    switch (sort) {
-      case "Name A to Z":
-        return sortedAlumni.sort((a, b) => a?.name.localeCompare(b?.name));
-      case "Name Z to A":
-        return sortedAlumni.sort((a, b) => b?.name.localeCompare(a?.name));
-      case "Batch: Old to New":
-        return sortedAlumni.sort((a, b) => a.graduation_year - b.graduation_year);
-      case "Batch: New to Old":
-        return sortedAlumni.sort((a, b) => b.graduation_year - a.graduation_year);
-      default:
-        return sortedAlumni;
-    }
-  };
-
-  const sortedArray = filterBySort(alumniData);
-
-  console.log(sortedArray);
+  // this is the sort function where we need to provide the array in first parameter and the sort in the 2nd parameter
+  const sortedArray = filterBySort(alumniData, sort);
 
   let alumniContent;
 
