@@ -64,21 +64,25 @@ export const DirectoryDetails = () => {
   if (!alumniDataIsLoading && alumniDataIsError) {
     alumniContent = <ErrorAlert text={alumniDataError} />;
   }
-  if (!alumniDataIsLoading && !alumniDataIsError && alumniData?.length === 0) {
-    alumniContent = <ErrorAlert text="No Category Find" />;
+  if (!alumniDataIsLoading && !alumniDataIsError && sortedArray?.length === 0) {
+    alumniContent = <ErrorAlert text="No Data Found" />;
   }
-  if (!alumniDataIsLoading && !alumniDataIsError && alumniData?.length > 0) {
+  if (!alumniDataIsLoading && !alumniDataIsError && sortedArray?.length > 0) {
     alumniContent = (
       <>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3  lg:max-w-full">
           {sortedArray
             // this filter the data based on the blood filter function
             .filter(filterByBloodGroup) // Filter by blood group
-            .filter(filterByMajorSubject)
+            .filter(filterByMajorSubject) // Filter by major subject
             .slice(previous, next)
             .map((singleAlumni) => (
               <AlumniBatchDataCard key={singleAlumni._id} singleAlumni={singleAlumni} />
             ))}
+
+          {/* if the filtered array doesn't have anything it will show no results found */}
+          {sortedArray.filter(filterByBloodGroup).filter(filterByMajorSubject).length ===
+            0 && <p>No results found.</p>}
         </div>
       </>
     );
