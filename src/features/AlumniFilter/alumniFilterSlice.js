@@ -4,7 +4,7 @@ const initialState = {
   sort: "",
   isEmployed: true,
   bloodGroup: [],
-  majorWise: [],
+  selectedMajor: [],
   cityWise: [],
   batchWise: [],
 };
@@ -41,7 +41,23 @@ const alumniFilterSlice = createSlice({
     },
 
     MajorWiseFilter: (state, action) => {
-      state.majorWise.push(action.payload);
+      // check the index of the action payload.
+      const majorIndex = state.selectedMajor.indexOf(action.payload);
+
+      // if the action payload already exists,
+      // then remove it from the array.
+      if (majorIndex !== -1) {
+        // in array.splice method we say the index number
+        // first and then tell the number of element to remove
+        // in this case we tell the index number of already existing element
+        // and tell them 1 to remove only that item
+        state.selectedMajor.splice(majorIndex, 1);
+      }
+      // if the action payload doesn't exists,
+      // then add it to the array.
+      else {
+        state.selectedMajor.push(action.payload);
+      }
     },
     cityWiseFilter: (state, action) => {
       state.cityWise.push(action.payload);

@@ -9,10 +9,8 @@ import { filterBySort } from "./alumniSortFilter";
 
 export const DirectoryDetails = () => {
   //  getting data from the alumniFilter state slice
-  const { isEmployed, sort, bloodGroup, majorWise, cityWise, batchWise } = useSelector(
-    (state) => state.alumniFilter
-  );
-
+  const { isEmployed, sort, bloodGroup, selectedMajor, cityWise, batchWise } =
+    useSelector((state) => state.alumniFilter);
   //  for pagination, each page will show 9 items
   const [previous, setPrevious] = useState(0);
   const [next, setNext] = useState(9);
@@ -30,20 +28,22 @@ export const DirectoryDetails = () => {
   const sortedArray = filterBySort(alumniData, sort);
 
   // filter for blood group
-  const filterByBloodGroup = (alumni) => {
-    if (Array.isArray(alumni) && bloodGroup.length > 0) {
-      return alumni.filter(
-        (singleAlumni) => singleAlumni.personal_information.blood_group === bloodGroup
-      );
+  const filterByBloodGroup = (alumniData) => {
+    // check if the blood group contains any elements
+    if (bloodGroup?.length > 0) {
+      // this returns true if bloodGroup array elements match with
+      // single alumni blood group at => singleAlumni.personal_information.blood_group
+      return bloodGroup?.includes(alumniData.personal_information.blood_group);
     }
     return true;
   };
-
-  const filterByColor = (singleAlumni) => {
-    if (bloodGroup.length > 0) {
-      console.log(bloodGroup);
-      console.log(singleAlumni.personal_information.blood_group);
-      return bloodGroup?.includes(singleAlumni.personal_information.blood_group);
+  // filter for Major
+  const filterByMajorSubject = (alumniData) => {
+    // check if the blood group contains any elements
+    if (selectedMajor?.length > 0) {
+      // this returns true if bloodGroup array elements match with
+      // single alumni blood group at => singleAlumni.personal_information.blood_group
+      return selectedMajor?.includes(alumniData.major);
     }
     return true;
   };
@@ -72,7 +72,9 @@ export const DirectoryDetails = () => {
       <>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3  lg:max-w-full">
           {sortedArray
-            .filter(filterByColor) // Filter by blood group
+            // this filter the data based on the blood filter function
+            .filter(filterByBloodGroup) // Filter by blood group
+            .filter(filterByMajorSubject)
             .slice(previous, next)
             .map((singleAlumni) => (
               <AlumniBatchDataCard key={singleAlumni._id} singleAlumni={singleAlumni} />
