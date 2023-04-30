@@ -4,10 +4,9 @@ import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   const {
-    register,
-    handleSubmit,
+    register,    
     reset,
-    formState: { errors },
+    // formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
@@ -22,7 +21,7 @@ const Contact = () => {
       )
       .then(
         (result) => {
-          console.log('Message Sent Successfully');
+          console.log("Message Sent Successfully");
           reset();
         },
         (error) => {
@@ -80,7 +79,7 @@ const Contact = () => {
             name="message"
             id="message"
             rows="3"
-            placeholder="FeedBack"
+            placeholder="Message"
             className="w-full p-6 mb-5 text-xs  bg-[#F2F2F2]"
           />
         </div>
