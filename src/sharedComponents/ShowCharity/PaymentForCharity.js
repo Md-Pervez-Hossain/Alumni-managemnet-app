@@ -9,7 +9,7 @@ const PaymentForCharity = () => {
   const [funds, setFunds] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/all-batches")
+    fetch("https://alumni-managemnet-app-server.vercel.app/all-batches")
       .then((res) => res.json())
       .then((data) => {
         setBatchYear(data);
@@ -21,7 +21,7 @@ const PaymentForCharity = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:8000/charity")
+    fetch("https://alumni-managemnet-app-server.vercel.app/charity")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -32,7 +32,7 @@ const PaymentForCharity = () => {
       });
   }, []);
   useEffect(() => {
-    fetch("http://localhost:8000/funding-projects")
+    fetch("https://alumni-managemnet-app-server.vercel.app/funding-projects")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -61,7 +61,7 @@ const PaymentForCharity = () => {
       donationAmount,
     };
     console.log(paymentCharityInfo);
-    fetch("http://localhost:8000/funding-projects/", {
+    fetch("https://alumni-managemnet-app-server.vercel.app/funding-projects/", {
       method: "POST",
       headers: {
         "content-type": "application/json",

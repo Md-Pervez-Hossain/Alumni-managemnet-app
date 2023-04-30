@@ -16,6 +16,7 @@ import CreateCharity from "../../sharedComponents/CreateCharity/CreateCharity";
 import PaymentForEvents from "../../sharedComponents/PaymentForEvents/PaymentForEvents";
 import ShowCharity from "../../sharedComponents/ShowCharity/ShowCharity";
 import PaymentForCharity from "../../sharedComponents/ShowCharity/PaymentForCharity";
+import CheckoutForm from "../../Dashboard/DashboardComponents/CheckoutForm/CheckoutForm";
 
 // import BatchwiseStudent from "../BatchwiseStudent/BatchwiseStudent";
 
@@ -26,22 +27,24 @@ import PaymentForCharity from "../../sharedComponents/ShowCharity/PaymentForChar
 const Rakib = () => {
   return (
     <div className="">
+      <CheckoutForm />
+
       {/* <SingleStudent></SingleStudent> */}
       <SliderTwo></SliderTwo>
       {/* <Counter></Counter>
       <AlumniDashboard></AlumniDashboard> */}
       <NewsCreateForm />
       <CreateEvents></CreateEvents>
-      <SingleNewsSection></SingleNewsSection>
-      <CreateGallery></CreateGallery>
-      <CreateSuccessFullStory></CreateSuccessFullStory>
-      <SingleSuccessFullStory></SingleSuccessFullStory>
-      <PaymnetSuccessfull></PaymnetSuccessfull>
-      <CreateCharity></CreateCharity>
+      {/* <SingleNewsSection></SingleNewsSection> */}
+      {/* <CreateGallery></CreateGallery> */}
+      {/* <CreateSuccessFullStory></CreateSuccessFullStory> */}
+      {/* <SingleSuccessFullStory></SingleSuccessFullStory> */}
+      {/* <PaymnetSuccessfull></PaymnetSuccessfull> */}
+      {/* <CreateCharity></CreateCharity> */}
 
-      <PaymentForEvents></PaymentForEvents>
+      {/* <PaymentForEvents></PaymentForEvents>
       <ShowCharity></ShowCharity>
-      <PaymentForCharity></PaymentForCharity>
+      <PaymentForCharity></PaymentForCharity> */}
     </div>
   );
 };

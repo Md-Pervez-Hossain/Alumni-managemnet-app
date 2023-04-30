@@ -6,7 +6,7 @@ const CreateCharity = () => {
   const [batchYear, setBatchYear] = useState([]);
   const { user } = useContext(AuthContext);
   useEffect(() => {
-    fetch("http://localhost:8000/all-batches")
+    fetch("https://alumni-managemnet-app-server.vercel.app/all-batches")
       .then((res) => res.json())
       .then((data) => {
         setBatchYear(data);
@@ -60,7 +60,7 @@ const CreateCharity = () => {
         console.log(successFullStoryInfo);
         form.reset();
 
-        fetch("http://localhost:8000/charity", {
+        fetch("https://alumni-managemnet-app-server.vercel.app/charity", {
           method: "POST",
           headers: {
             "content-type": "application/json",

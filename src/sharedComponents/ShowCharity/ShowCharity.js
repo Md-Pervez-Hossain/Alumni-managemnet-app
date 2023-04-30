@@ -5,7 +5,7 @@ const ShowCharity = () => {
   const [showCharity, setShowCharity] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/charity")
+    fetch("https://alumni-managemnet-app-server.vercel.app/charity")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

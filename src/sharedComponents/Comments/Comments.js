@@ -15,7 +15,7 @@ const Comments = () => {
       email: user?.email,
       time,
     };
-    fetch("http://localhost:8000/successFullStoryComments", {
+    fetch("https://alumni-managemnet-app-server.vercel.app/successFullStoryComments", {
       method: "POST",
       headers: {
         "content-type": "application/json",

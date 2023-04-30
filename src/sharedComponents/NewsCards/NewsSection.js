@@ -8,7 +8,7 @@ const NewsSection = () => {
   const [previous, setPrevious] = useState(0);
   const [next, setNext] = useState(3);
   useEffect(() => {
-    fetch("http://localhost:8000/news")
+    fetch("https://alumni-managemnet-app-server.vercel.app/news")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

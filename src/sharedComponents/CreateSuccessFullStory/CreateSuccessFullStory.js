@@ -8,7 +8,7 @@ const CreateSuccessFullStory = () => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    fetch("http://localhost:8000/all-batches")
+    fetch("https://alumni-managemnet-app-server.vercel.app/all-batches")
       .then((res) => res.json())
       .then((data) => {
         setBatchYear(data);
@@ -29,13 +29,10 @@ const CreateSuccessFullStory = () => {
     const time = new Date().toLocaleDateString();
     const formData = new FormData();
     formData.append("image", image_url);
-    fetch(
-      "https://api.imgbb.com/1/upload?key=86fe1764d78f51c15b1a9dfe4b9175cf",
-      {
-        method: "POST",
-        body: formData,
-      }
-    )
+    fetch("https://api.imgbb.com/1/upload?key=86fe1764d78f51c15b1a9dfe4b9175cf", {
+      method: "POST",
+      body: formData,
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -56,7 +53,7 @@ const CreateSuccessFullStory = () => {
         console.log(successFullStoryInfo);
         form.reset();
 
-        fetch("http://localhost:8000/successFullStory", {
+        fetch("https://alumni-managemnet-app-server.vercel.app/successFullStory", {
           method: "POST",
           headers: {
             "content-type": "application/json",

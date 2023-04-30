@@ -59,11 +59,17 @@ const alumniFilterSlice = createSlice({
         state.selectedMajor.push(action.payload);
       }
     },
+
+    batchWiseFilter: (state, action) => {
+      const indexOfYear = state.batchWise.indexOf(action.payload);
+      if (indexOfYear !== -1) {
+        state.batchWise.splice(indexOfYear, 1);
+      } else {
+        state.batchWise.push(action.payload);
+      }
+    },
     cityWiseFilter: (state, action) => {
       state.cityWise.push(action.payload);
-    },
-    batchWiseFilter: (state, action) => {
-      state.batchWise.push(action.payload);
     },
   },
 });

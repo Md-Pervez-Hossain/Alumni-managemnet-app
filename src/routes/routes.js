@@ -19,9 +19,9 @@ import DashboardTestPage from "../Dashboard/DashboardPages/DashboardTestPage";
 import AddAEvent from "../Dashboard/DashboardPages/AddAEvent";
 import CreateGallery from "../Dashboard/DashboardComponents/Gallery/CreateGalleryItem";
 import CheckoutPage from "../Pages/CheckoutPage/CheckoutPage";
-import BatchWiseStudent from "../Pages/BatchWiseStudent/BatchWiseStudent";
 import SingleSuccessFullStory from "../sharedComponents/CreateSuccessFullStory/SingleSuccessFullStory";
 import SingleNewsSection from "../sharedComponents/NewsCards/SingleNewsSection";
+import BatchWiseStudent from "../Pages/BatchwiseStudent/BatchwiseStudent";
 
 const routes = createBrowserRouter([
   {
@@ -47,14 +47,18 @@ const routes = createBrowserRouter([
       {
         path: "/successFullStory/:id",
         loader: async ({ params }) => {
-          return fetch(`http://localhost:8000/successFullStory/${params.id}`);
+          return fetch(
+            `https://alumni-managemnet-app-server.vercel.app/successFullStory/${params.id}`
+          );
         },
         element: <SingleSuccessFullStory></SingleSuccessFullStory>,
       },
       {
         path: "/news/:id",
         loader: async ({ params }) => {
-          return fetch(`http://localhost:8000/news/${params.id}`);
+          return fetch(
+            `https://alumni-managemnet-app-server.vercel.app/news/${params.id}`
+          );
         },
         element: <SingleNewsSection></SingleNewsSection>,
       },
@@ -71,9 +75,7 @@ const routes = createBrowserRouter([
       {
         path: "/alumni",
         loader: () => {
-          return fetch(
-            "https://alumni-managemnet-app-server.vercel.app/alumni"
-          );
+          return fetch("https://alumni-managemnet-app-server.vercel.app/alumni");
         },
         element: <AlumniPage />,
         // element: <AlumniDirectory />,

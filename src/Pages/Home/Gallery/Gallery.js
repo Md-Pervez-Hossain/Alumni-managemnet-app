@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   useGetGalleriesQuery,
   useGetGalleryCategoriesQuery,
 } from "../../../features/Api/apiSlice";
-import Loading from "../../../sharedComponents/Loading/Loading";
 import ButtonSizeSkeletion from "../../../sharedComponents/Skeletion/ButtonSizeSkeletion";
 import ImageSkeletion from "../../../sharedComponents/Skeletion/ImageSkeletion";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
-import { useDispatch } from "react-redux";
 
 const Gallery = () => {
   // initially render the gallery category

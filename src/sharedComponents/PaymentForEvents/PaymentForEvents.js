@@ -6,7 +6,7 @@ const PaymentForEvents = () => {
   const [batchYear, setBatchYear] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8000/all-batches")
+    fetch("https://alumni-managemnet-app-server.vercel.app/all-batches")
       .then((res) => res.json())
       .then((data) => {
         setBatchYear(data);
@@ -43,9 +43,8 @@ const PaymentForEvents = () => {
         <div>
           <h2 className="text-2xl mb-3">Events Heading</h2>
           <p className="mb-2">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus
-            saepe natus eaque eum laudantium ullam ratione laboriosam, aut
-            perspiciatis incidunt?
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus saepe natus
+            eaque eum laudantium ullam ratione laboriosam, aut perspiciatis incidunt?
           </p>
           <img
             src="https://images.pexels.com/photos/7944035/pexels-photo-7944035.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
@@ -96,9 +95,7 @@ const PaymentForEvents = () => {
         </div>
       </div>
       <div>
-        <h2 className="text-2xl mt-16 mb-5">
-          Explore Who Joined For This Event
-        </h2>
+        <h2 className="text-2xl mt-16 mb-5">Explore Who Joined For This Event</h2>
         <div className="overflow-x-auto">
           <table className="table w-full">
             <thead>

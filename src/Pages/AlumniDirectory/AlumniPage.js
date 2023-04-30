@@ -13,10 +13,14 @@ import InnerPageHeader from "../../sharedComponents/InnerPageHeader/InnerPageHea
 import { useDispatch, useSelector } from "react-redux";
 import {
   MajorWiseFilter,
+  batchWiseFilter,
   bloodGroupFilter,
   sortFilter,
 } from "../../features/AlumniFilter/alumniFilterSlice";
-import { useGetAllGraduationMajorQuery } from "../../features/Api/apiSlice";
+import {
+  useGetAllBatchesQuery,
+  useGetAllGraduationMajorQuery,
+} from "../../features/Api/apiSlice";
 
 const AlumniPage = () => {
   const dispatch = useDispatch();
@@ -26,6 +30,7 @@ const AlumniPage = () => {
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const { data: majorSubject } = useGetAllGraduationMajorQuery();
+  const { data: filterBatchData } = useGetAllBatchesQuery();
 
   // const allMajorSubject = [...majorSubject];
   // console.log(allMajorSubject);
@@ -65,19 +70,15 @@ const AlumniPage = () => {
   }
 
   const sortByFilterHandler = (e) => {
-    console.log(e);
     dispatch(sortFilter(e));
-    console.log(e);
   };
 
   const sortByYearHandler = (e) => {
-    console.log(e);
+    dispatch(batchWiseFilter(e));
   };
-  const sortByMajorSubjectHandler = (e) => {
-    console.log(selectedMajor);
 
+  const sortByMajorSubjectHandler = (e) => {
     dispatch(MajorWiseFilter(e));
-    console.log(e);
   };
   const sortByBloodGroupHandler = (e) => {
     dispatch(bloodGroupFilter(e.value));
@@ -182,7 +183,7 @@ const AlumniPage = () => {
                                         defaultValue={option.value}
                                         type="checkbox"
                                         defaultChecked={option.checked}
-                                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                        className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
                                       />
                                       <label
                                         htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
@@ -309,7 +310,7 @@ const AlumniPage = () => {
                               </Disclosure.Button>
                             </h3>
                             <Disclosure.Panel className="pt-6">
-                              <div className="space-y-4">
+                              <div className="space-y-4 grid grid-cols-3">
                                 {section.options.map((option, optionIdx) => (
                                   <div key={option.value} className="flex items-center">
                                     <input
@@ -319,7 +320,7 @@ const AlumniPage = () => {
                                       type="checkbox"
                                       defaultChecked={option.checked}
                                       onClick={() => sortByBloodGroupHandler(option)}
-                                      className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                      className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
                                     />
                                     <label
                                       htmlFor={`filter-${section.id}-${optionIdx}`}
@@ -335,10 +336,58 @@ const AlumniPage = () => {
                         )}
                       </Disclosure>
                     ))}
-                  {/* FILTER GROUP FOR UNIVERSITY MAJOR */}
+
+                  {/* FILTER GROUP FOR Batch */}
                   <Disclosure
                     as="div"
                     key="bloodGroupFilter"
+                    className="border-b border-gray-200 py-6"
+                  >
+                    {({ open }) => (
+                      <>
+                        <h3 className="-my-3 flow-root">
+                          <Disclosure.Button className="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
+                            <span className="font-medium text-gray-900">Batch</span>
+                            <span className="ml-6 flex items-center">
+                              {open ? (
+                                <MinusIcon className="h-5 w-5" aria-hidden="true" />
+                              ) : (
+                                <PlusIcon className="h-5 w-5" aria-hidden="true" />
+                              )}
+                            </span>
+                          </Disclosure.Button>
+                        </h3>
+                        <Disclosure.Panel className="pt-6">
+                          <div className="space-y-0.5 grid grid-cols-3">
+                            {filterBatchData?.map((option, optionIdx) => (
+                              <div key={option._id} className="flex items-center">
+                                <input
+                                  id={`filter-Batch-year-${optionIdx}`}
+                                  name={`${option.batchNumber}[]`}
+                                  defaultValue={option.batchNumber}
+                                  defaultChecked={option.checked}
+                                  type="checkbox"
+                                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
+                                  onClick={() => sortByYearHandler(option.batchNumber)}
+                                />
+                                <label
+                                  htmlFor={`filter-Batch-year-${optionIdx}`}
+                                  className="ml-3 text-sm text-gray-600"
+                                >
+                                  {option.batchNumber}
+                                </label>
+                              </div>
+                            ))}
+                          </div>
+                        </Disclosure.Panel>
+                      </>
+                    )}
+                  </Disclosure>
+
+                  {/* FILTER GROUP FOR UNIVERSITY MAJOR */}
+                  <Disclosure
+                    as="div"
+                    key="universityMajorFilter"
                     className="border-b border-gray-200 py-6"
                   >
                     {({ open }) => (
@@ -365,7 +414,7 @@ const AlumniPage = () => {
                                   defaultValue={option.graduationMajor}
                                   defaultChecked={option.checked}
                                   type="checkbox"
-                                  className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                                  className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary"
                                   onClick={() =>
                                     sortByMajorSubjectHandler(option.graduationMajor)
                                   }

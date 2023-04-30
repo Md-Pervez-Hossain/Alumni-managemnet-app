@@ -27,7 +27,7 @@ export const DirectoryDetails = () => {
   //array in first parameter and the sort in the 2nd parameter
   const sortedArray = filterBySort(alumniData, sort);
 
-  // filter for blood group
+  // *** filter for blood group ***
   const filterByBloodGroup = (alumniData) => {
     // check if the blood group contains any elements
     if (bloodGroup?.length > 0) {
@@ -37,7 +37,7 @@ export const DirectoryDetails = () => {
     }
     return true;
   };
-  // filter for Major
+  // *** filter for Major  ***
   const filterByMajorSubject = (alumniData) => {
     // check if the blood group contains any elements
     if (selectedMajor?.length > 0) {
@@ -45,6 +45,18 @@ export const DirectoryDetails = () => {
       // single alumni blood group at => singleAlumni.personal_information.blood_group
       return selectedMajor?.includes(alumniData.major);
     }
+    return true;
+  };
+
+  // *** filter for Year  ***
+  const filterByBatchYear = (alumniData) => {
+    // check if the blood group contains any elements
+    if (batchWise?.length > 0) {
+      // this returns true if bloodGroup array elements match with
+      // single alumni blood group at => singleAlumni.personal_information.blood_group
+      return batchWise?.includes(alumniData.graduation_year);
+    }
+
     return true;
   };
 
@@ -75,6 +87,7 @@ export const DirectoryDetails = () => {
             // this filter the data based on the blood filter function
             .filter(filterByBloodGroup) // Filter by blood group
             .filter(filterByMajorSubject) // Filter by major subject
+            .filter(filterByBatchYear)
             .slice(previous, next)
             .map((singleAlumni) => (
               <AlumniBatchDataCard key={singleAlumni._id} singleAlumni={singleAlumni} />

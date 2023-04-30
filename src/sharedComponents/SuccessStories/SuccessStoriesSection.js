@@ -9,7 +9,7 @@ const SuccessStoriesSection = () => {
   const [next, setNext] = useState(3);
 
   useEffect(() => {
-    fetch("http://localhost:8000/successFullStory")
+    fetch("https://alumni-managemnet-app-server.vercel.app/successFullStory")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -33,9 +33,7 @@ const SuccessStoriesSection = () => {
   };
   return (
     <div className="my-3  mx-auto relative">
-      <h1 className="my-7 text-3xl font-semibold text-center">
-        Successful Stories
-      </h1>
+      <h1 className="my-7 text-3xl font-semibold text-center">Successful Stories</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 items-center justify-between mb-4">
         {successStory?.slice(previous, next).map((data) => (
           <SuccessStoriesCard key={data._id} data={data}></SuccessStoriesCard>
@@ -45,10 +43,7 @@ const SuccessStoriesSection = () => {
         <button onClick={() => handlePrevious()}>
           <FaArrowLeft></FaArrowLeft>
         </button>
-        <button
-          disabled={next > successStory?.length}
-          onClick={() => handleNext()}
-        >
+        <button disabled={next > successStory?.length} onClick={() => handleNext()}>
           <FaArrowRight></FaArrowRight>
         </button>
       </div>

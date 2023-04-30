@@ -7,7 +7,7 @@ const MoreNews = ({ _id }) => {
   const [previous, setPrevious] = useState(0);
   const [next, setNext] = useState(6);
   useEffect(() => {
-    fetch("http://localhost:8000/news")
+    fetch("https://alumni-managemnet-app-server.vercel.app/news")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -55,14 +55,12 @@ const MoreNews = ({ _id }) => {
                 <div>
                   <h2 className="mb-2">SuccessFull Story Heading</h2>
                   <p className="text-[12px] mb-2">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Dignissimos, in.
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos,
+                    in.
                   </p>
                   <Link to={`/news/${story._id}`}>
                     {" "}
-                    <button className="bg-secondary px-4 py-2 text-white">
-                      Details
-                    </button>
+                    <button className="bg-secondary px-4 py-2 text-white">Details</button>
                   </Link>
                 </div>
               </div>

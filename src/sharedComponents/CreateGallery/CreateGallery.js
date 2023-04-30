@@ -8,7 +8,7 @@ const CreateGallery = () => {
   const { user } = useContext(AuthContext);
   console.log(user);
   useEffect(() => {
-    fetch("http://localhost:8000/galleryCategories")
+    fetch("https://alumni-managemnet-app-server.vercel.app/galleryCategories")
       .then((res) => res.json())
       .then((data) => {
         setGalleryCategory(data);
@@ -20,7 +20,7 @@ const CreateGallery = () => {
   }, []);
 
   useEffect(() => {
-    fetch("http://localhost:8000/all-batches")
+    fetch("https://alumni-managemnet-app-server.vercel.app/all-batches")
       .then((res) => res.json())
       .then((data) => {
         setBatchYear(data);
@@ -46,13 +46,10 @@ const CreateGallery = () => {
     const image_url = form.image.files[0];
     const formData = new FormData();
     formData.append("image", image_url);
-    fetch(
-      "https://api.imgbb.com/1/upload?key=86fe1764d78f51c15b1a9dfe4b9175cf",
-      {
-        method: "POST",
-        body: formData,
-      }
-    )
+    fetch("https://api.imgbb.com/1/upload?key=86fe1764d78f51c15b1a9dfe4b9175cf", {
+      method: "POST",
+      body: formData,
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -71,7 +68,7 @@ const CreateGallery = () => {
           img: user?.photoURL,
         };
 
-        fetch("http://localhost:8000/gallery", {
+        fetch("https://alumni-managemnet-app-server.vercel.app/gallery", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -118,9 +115,7 @@ const CreateGallery = () => {
           <div className="form-control w-full ">
             <select className="select select-bordered" name="gallery_category">
               {galleryCategory?.map((gCaterogy) => (
-                <option key={gCaterogy.gallery_category_id}>
-                  {gCaterogy.name}
-                </option>
+                <option key={gCaterogy.gallery_category_id}>{gCaterogy.name}</option>
               ))}
             </select>
           </div>

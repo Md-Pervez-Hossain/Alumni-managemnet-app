@@ -5,7 +5,7 @@ import { FaHeart } from "react-icons/fa";
 const ShowComments = () => {
   const [comments, setComments] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:8000/successFullStoryComments")
+    fetch("https://alumni-managemnet-app-server.vercel.app/successFullStoryComments")
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
