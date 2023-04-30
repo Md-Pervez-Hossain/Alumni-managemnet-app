@@ -22,7 +22,7 @@ const Contact = () => {
       )
       .then(
         (result) => {
-          console.log('Message Sent Successfully');
+          console.log("Message Sent Successfully");
           reset();
         },
         (error) => {

@@ -1,15 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
+  FaAddressCard,
   FaArrowLeft,
   FaArrowRight,
   FaFacebook,
   FaGithub,
   FaGoogle,
   FaLinkedin,
+  FaLocationArrow,
+  FaPhone,
+  FaRegComment,
 } from "react-icons/fa";
 import { Link, useLoaderData } from "react-router-dom";
+import { AuthContext } from "../../sharedComponents/UseContext/AuthProvider";
 
 const SinglePerson = () => {
+  const { user } = useContext(AuthContext);
   const [persons, setPersons] = useState([]);
   const singleAlumni = useLoaderData();
   const {
@@ -21,6 +27,7 @@ const SinglePerson = () => {
     degree,
     department,
     phone,
+    _id,
     phone_2,
     address,
     careers,
@@ -62,148 +69,255 @@ const SinglePerson = () => {
           <h2 className="md:text-4xl text-2xl mb-5">About {name}</h2>
           <hr className="border-2 w-24 mx-auto border-secondary " />
           <p className="mt-5">
-            There are many company Lorem ipsm dolor sitg amet, csetur adipicing elit, sed
-            do eiusmod tempor
+            There are many company Lorem ipsm dolor sitg amet, csetur adipicing
+            elit, sed do eiusmod tempor
           </p>
         </div>
       </div>
       <div className="w-9/12 mx-auto md:my-32 my-16">
-        <div className="grid md:grid-cols-3 gap-10">
-          <div className="md:col-span-2 col-span-1">
-            <div>
-              <img src={profile_picture} alt="" className="h-72 w-72 rounded-full mb-5" />
-            </div>
-            <div className="mb-4">
-              <div className="grid md:grid-cols-2 gap-5">
-                <div>
-                  <h2 className="text-2xl mb-4">{name}</h2>
-                  <div className="mb-5">
-                    <p>Graduation Year: {graduation_year} </p>
-                    <p>Degree : {degree}</p>
-                    <p>Department :{department}</p>
-                    <p>Major : {major}</p>
-                    <p>Email : {email}</p>
-                    <p>Phone : {phone}</p>
-                    {phone_2 ? (
-                      <>
-                        <p>Phone 2 : {phone_2}</p>
-                      </>
-                    ) : (
-                      <></>
-                    )}
+        <div className="grid md:grid-cols-3 gap-12">
+          <div className="lg:col-span-2 ">
+            <div className="flex flex-col lg:flex-row gap-10 lg:items-center  ">
+              <div
+                className={` border-4 border-primary rounded-full  m-0 bg-cover bg-center	bg-no-repeat`}
+                style={{
+                  backgroundImage: `url(${profile_picture})`,
+                  height: "300px",
+                  width: "300px",
+                }}
+              ></div>
+              <div>
+                <h2 className="text-4xl mb-3 text-primary ">{name}</h2>
+                {user?.uid ? (
+                  <>
+                    <div className="flex items-center gap-2">
+                      <FaLocationArrow className="text-primary"></FaLocationArrow>
+                      <p>Email : {email}</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <FaPhone className="text-primary"></FaPhone>{" "}
+                      <p>Phone : {phone}</p>
+                    </div>
 
                     <p>
-                      Address :{" "}
-                      {`${address.street} ${address.city} ${address.state} ${address.zip}`}
+                      {phone_2 ? (
+                        <>
+                          <div className="flex items-center gap-2">
+                            <FaPhone className="text-primary"></FaPhone>{" "}
+                            <p>Phone 2 : {phone_2}</p>
+                          </div>
+                        </>
+                      ) : (
+                        <></>
+                      )}
                     </p>
-                  </div>
+                    <div className="flex items-center gap-2">
+                      <FaAddressCard className="text-primary"></FaAddressCard>
+                      <p>
+                        Address :{" "}
+                        {`${address.street} ${address.city} ${address.state} ${address.zip}`}
+                      </p>
+                    </div>
+                  </>
+                ) : (
+                  <></>
+                )}
+                <div className="flex items-center gap-3 mt-3 cursor-pointer ">
+                  <FaFacebook className="text-primary hover:text-secondary duration-500 ease-in-out"></FaFacebook>
+                  <FaGithub className="text-primary hover:text-secondary duration-500 ease-in-out"></FaGithub>
+                  <FaGoogle className="text-primary hover:text-secondary duration-500 ease-in-out"></FaGoogle>
+                  <FaLinkedin className="text-primary hover:text-secondary duration-500 ease-in-out"></FaLinkedin>
+                </div>
+                <button className="bg-primary px-6 py-2 flex gap-2 items-center text-white font-semibold shadow-soft-xl  rounded-md mt-3">
+                  <FaRegComment className="inline-block" /> <h2>Message Me</h2>
+                </button>
+              </div>
+            </div>
+            <div className="mb-4">
+              <div className="">
+                <div>
+                  <div className="mb-5"></div>
                 </div>
                 <div>
-                  <h2 className="text-2xl mb-3">Personal Information</h2>
-                  <p>Date_of_Birth : {personal_information.date_of_birth} </p>
-                  <p>Gender : {personal_information.gender} </p>
-                  <p>Fathers Name: {personal_information.fathers_name} </p>
-                  <p>Mothers Name : {personal_information.mothers_name}</p>
-                  <p>Marital Status :{personal_information.marital_status} </p>
-                  <p>Nationality :{personal_information.nationality} </p>
-                  <p className="font-normal">Hobbies : </p>
-                  {personal_information.hobbies.map((hobby, i) => {
-                    return (
-                      <>
-                        <p key={i}>{hobby}</p>
-                      </>
-                    );
-                  })}
-                  <p className="font-normal">languages : </p>
-                  {personal_information.languages.map((language, i) => {
-                    return (
-                      <>
-                        <p key={i}>{language}</p>
-                      </>
-                    );
-                  })}
+                  <h2 className="text-2xl my-8">Personal Information</h2>
+                  <div className="overflow-x-auto">
+                    <table className="table w-full">
+                      {/* head */}
+                      <thead>
+                        <tr>
+                          <th>DOB</th>
+                          <th>Gender</th>
+                          <th>Fathers Name</th>
+                          <th>Mothers Name</th>
+                          <th>Marital Status</th>
+                          <th>Nationality</th>
+                          <th>Hobies</th>
+                          <th>Languages</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th>{personal_information.date_of_birth}</th>
+                          <td>{personal_information.gender}</td>
+                          <td>{personal_information.fathers_name}</td>
+                          <td>{personal_information.mothers_name}</td>
+                          <td>{personal_information.marital_status}</td>
+                          <td>{personal_information.nationality}</td>
+                          <td>
+                            {" "}
+                            <p className="font-normal">
+                              {personal_information.hobbies.map((hobby, i) => {
+                                return (
+                                  <>
+                                    <p key={i} className="inline-block ">
+                                      {hobby}
+                                    </p>
+                                  </>
+                                );
+                              })}{" "}
+                            </p>
+                          </td>
+                          <td>
+                            {" "}
+                            <p className="font-normal">
+                              {personal_information.languages.map(
+                                (language, i) => {
+                                  return (
+                                    <>
+                                      <p key={i} className="inline-block ">
+                                        {language}
+                                      </p>
+                                    </>
+                                  );
+                                }
+                              )}{" "}
+                            </p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
               <div>
-                <h2 className="text-2xl mb-3">Education</h2>
-                <div className="grid md:grid-cols-2 gap-5 ">
-                  {education.map((edu, i) => {
-                    return (
-                      <>
-                        <div key={i}>
-                          <p>Degree : {edu.degree}</p>
-                          {edu.major ? (
-                            <>
-                              <p>major : {edu.major}</p>
-                            </>
-                          ) : (
-                            <></>
-                          )}
-                          <p>institution : {edu.institution}</p>
-                          <p>Graduation Year : {edu.graduation_year}</p>
-                          <p>GPA : {edu.gpa}</p>
-                        </div>
-                      </>
-                    );
-                  })}
+                <h2 className="text-2xl my-8">Education</h2>
+                <div className="overflow-x-auto">
+                  <table className="table w-full">
+                    {/* head */}
+                    <thead>
+                      <tr>
+                        <th>Degree</th>
+                        <th>Institution</th>
+                        <th>Major</th>
+                        <th>Graduation Year</th>
+                        <th>GPA</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {education?.map((edu) => {
+                        return (
+                          <tr>
+                            <th>{edu.degree}</th>
+                            <td>{edu.institution}</td>
+                            <td>{edu.major}</td>
+                            <td>{edu.graduation_year}</td>
+                            <td>{edu.gpa}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
                 </div>
               </div>
               <div>
-                <h2 className="text-2xl mb-3">Carrers</h2>
-                <div className="grid md:grid-cols-2 gap-5">
-                  {careers?.map((career, i) => {
-                    return (
-                      <div key={i}>
-                        <p>Company : {career.company}</p>
-                        <p>Position : {career.position}</p>
-                        <p>Start Date : {career.start_date}</p>
-                        <p>End Date : {career.end_date}</p>
-                        <h2>Responsibility : </h2>
-                        {career.responsibilities.map((res, i) => {
+                <h2 className="text-2xl my-8">Carrers</h2>
+                <div className="">
+                  <div className="overflow-x-auto">
+                    <table className="table w-full">
+                      {/* head */}
+                      <thead>
+                        <tr>
+                          <th>Company</th>
+                          <th>Position</th>
+                          <th>Start Date</th>
+                          <th>End Date</th>
+                          <th>Responsibility </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {careers?.map((career, i) => {
                           return (
-                            <>
-                              <p key={i}>{res}</p>
-                            </>
+                            <tr>
+                              <th>{career.company}</th>
+                              <td>{career.position}</td>
+                              <td>{career.start_date}</td>
+
+                              <td>
+                                {career.end_date ? (
+                                  <> {career.end_date}</>
+                                ) : (
+                                  <>
+                                    {" "}
+                                    <p>Running</p>
+                                  </>
+                                )}
+                              </td>
+                              <td>
+                                {" "}
+                                {career.responsibilities.map((res, i) => {
+                                  return (
+                                    <>
+                                      <p key={i}>{res}</p>
+                                    </>
+                                  );
+                                })}
+                              </td>
+                            </tr>
                           );
                         })}
-                      </div>
-                    );
-                  })}
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-3 ">
-              <FaFacebook className="text-primary hover:text-secondary duration-500 ease-in-out"></FaFacebook>
-              <FaGithub className="text-primary hover:text-secondary duration-500 ease-in-out"></FaGithub>
-              <FaGoogle className="text-primary hover:text-secondary duration-500 ease-in-out"></FaGoogle>
-              <FaLinkedin className="text-primary hover:text-secondary duration-500 ease-in-out"></FaLinkedin>
-            </div>
           </div>
-          <div className="bg-accent md:p-5 p-2 col-span-1">
+          <div className="bg-accent md:p-5 p-2 lg:col-span-1">
             <h2 className="md:text-3xl text-2xl md:mb-8 mb-5">
               Similler <br /> Batch Student
             </h2>
-            {persons?.slice(previous, next).map((person, i) => {
-              return (
-                <div key={i} className="flex items-center md:gap-5 gap-3 mb-8">
-                  <img
-                    src={person.profile_picture}
-                    alt=""
-                    className="h-24 w-24 rounded-full"
-                  />
-                  <div>
-                    <h2 className="text-xl">{person.name}</h2>
-                    <button className="text-secondary font-semibold">Details</button>
+            {persons
+              ?.slice(previous, next)
+              .filter((per) => per._id !== _id)
+              .map((person, i) => {
+                return (
+                  <div key={i} className="flex items-center gap-5 mb-12 ">
+                    <div
+                      className={` rounded-full  m-0 bg-cover bg-center	bg-no-repeat`}
+                      style={{
+                        backgroundImage: `url(${person.profile_picture})`,
+                        height: "80px",
+                        width: "80px",
+                      }}
+                    ></div>
+                    <div>
+                      <h2 className="text-xl">{person.name}</h2>
+                      <Link to={`/alumni/${person._id}`}>
+                        <button className="text-secondary ">Details</button>
+                      </Link>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
 
             <div className="flex items-center justify-end gap-3">
               <button onClick={() => handlePrevious()}>
                 <FaArrowLeft className="text-primary hover:text-secondary duration-500 ease-in-out cursor-pointer"></FaArrowLeft>
               </button>
-              <button disabled={next > persons.length} onClick={() => handleNext()}>
+              <button
+                disabled={next > persons.length}
+                onClick={() => handleNext()}
+              >
                 <FaArrowRight className="text-primary hover:text-secondary duration-500 ease-in-out cursor-pointer"></FaArrowRight>
               </button>
             </div>

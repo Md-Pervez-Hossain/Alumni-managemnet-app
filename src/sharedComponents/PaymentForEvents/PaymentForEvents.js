@@ -2,8 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../UseContext/AuthProvider";
 
 const PaymentForEvents = () => {
-  const [batchYear, setBatchYear] = useState([]);
   const { user } = useContext(AuthContext);
+  const [batchYear, setBatchYear] = useState([]);
+
   useEffect(() => {
     fetch("http://localhost:8000/all-batches")
       .then((res) => res.json())
@@ -58,16 +59,14 @@ const PaymentForEvents = () => {
               type="text"
               className="input input-bordered w-full mb-5 "
               name="name"
-              defaultValue={`${user?.displayName}`}
-              readOnly
+              defaultValue={user?.displayName}
               required
             />
             <input
               type="email"
               className="input input-bordered w-full mb-5 "
               name="email"
-              defaultValue={`${user?.email}`}
-              readOnly
+              defaultValue={user?.email}
               required
             />
             <div className="form-control w-full mb-5 ">

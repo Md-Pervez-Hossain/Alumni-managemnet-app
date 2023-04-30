@@ -47,7 +47,7 @@ const CreateGallery = () => {
     const formData = new FormData();
     formData.append("image", image_url);
     fetch(
-      "https://api.imgbb.com/1/upload?expiration=600&key=86fe1764d78f51c15b1a9dfe4b9175cf",
+      "https://api.imgbb.com/1/upload?key=86fe1764d78f51c15b1a9dfe4b9175cf",
       {
         method: "POST",
         body: formData,
@@ -70,6 +70,21 @@ const CreateGallery = () => {
           email: user?.email,
           img: user?.photoURL,
         };
+
+        fetch("http://localhost:8000/gallery", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(galleryInfo),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
         console.log(galleryInfo);
         form.reset();
       })

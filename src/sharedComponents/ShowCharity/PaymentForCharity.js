@@ -1,15 +1,42 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../UseContext/AuthProvider";
+import DisplaySingleCharity from "./DisplaySingleCharity";
 
 const PaymentForCharity = () => {
-  const [batchYear, setBatchYear] = useState([]);
   const { user } = useContext(AuthContext);
+  const [batchYear, setBatchYear] = useState([]);
+  const [showCharity, setShowCharity] = useState([]);
+  const [funds, setFunds] = useState([]);
+
   useEffect(() => {
     fetch("http://localhost:8000/all-batches")
       .then((res) => res.json())
       .then((data) => {
         setBatchYear(data);
         console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:8000/charity")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setShowCharity(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+  useEffect(() => {
+    fetch("http://localhost:8000/funding-projects")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setFunds(data);
       })
       .catch((error) => {
         console.log(error);
@@ -34,22 +61,33 @@ const PaymentForCharity = () => {
       donationAmount,
     };
     console.log(paymentCharityInfo);
+    fetch("http://localhost:8000/funding-projects/", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(paymentCharityInfo),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
+
+  console.log(funds);
+
   return (
     <div className="w-9/12 mx-auto my-16">
-      <div className="grid grid-cols-2 gap-16 items-center">
-        <div>
-          <h2 className="text-2xl mb-3">Charity Heading</h2>
-          <p className="mb-2">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus
-            saepe natus eaque eum laudantium ullam ratione laboriosam, aut
-            perspiciatis incidunt?
-          </p>
-          <img
-            src="https://images.pexels.com/photos/933620/pexels-photo-933620.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt=""
-          />
-        </div>
+      <div className="grid lg:grid-cols-2 gap-16 items-center">
+        {showCharity?.map((charity) => (
+          <DisplaySingleCharity
+            charity={charity}
+            key={charity._id}
+          ></DisplaySingleCharity>
+        ))}
         <div>
           <h2 className="text-2xl mb-5">Please fill up !</h2>
           <form onSubmit={(event) => handlePaymentForCharity(event)}>
@@ -57,16 +95,14 @@ const PaymentForCharity = () => {
               type="text"
               className="input input-bordered w-full mb-5 "
               name="name"
-              defaultValue={`${user?.displayName}`}
-              readOnly
+              defaultValue={user?.displayName}
               required
             />
             <input
               type="email"
               className="input input-bordered w-full mb-5 "
               name="email"
-              defaultValue={`${user?.email}`}
-              readOnly
+              defaultValue={user?.email}
               required
             />
             <div className="form-control w-full mb-5 ">
@@ -109,20 +145,17 @@ const PaymentForCharity = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th>1</th>
-                <td>Pervez Hossain</td>
-                <td>2013</td>
-                <td>500 Bdt</td>
-                <td>pervez@gmail.com</td>
-              </tr>
-              <tr>
-                <th>2</th>
-                <td>Hemel Hasan</td>
-                <td>2012</td>
-                <td>5000 Bdt</td>
-                <td>hemel@gmail.com</td>
-              </tr>
+              {funds?.map((fund, idx) => {
+                return (
+                  <tr>
+                    <th>{idx + 1}</th>
+                    <td>{fund.name}</td>
+                    <td>{fund.batchNumber}</td>
+                    <td>{fund.donationAmount}</td>
+                    <td>{fund.email}</td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

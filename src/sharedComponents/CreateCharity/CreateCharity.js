@@ -22,6 +22,11 @@ const CreateCharity = () => {
     const title = form.title.value;
     const image_url = form.image.files[0];
     const batchNumber = form.batchNumber.value;
+    const goal_amount = form.goal_amount.value;
+    const deadline = form.deadline.value;
+    const city = form.city.value;
+    const state = form.state.value;
+    const country = form.country.value;
     const details = form.details.value;
     const time = new Date().toLocaleDateString();
     const formData = new FormData();
@@ -38,7 +43,12 @@ const CreateCharity = () => {
         console.log(data);
         const successFullStoryInfo = {
           title,
+          goal_amount,
           batchNumber,
+          deadline,
+          city,
+          state,
+          country,
           details,
           image_url: data.data.display_url,
           time,
@@ -50,7 +60,7 @@ const CreateCharity = () => {
         console.log(successFullStoryInfo);
         form.reset();
 
-        fetch("http://localhost:8000", {
+        fetch("http://localhost:8000/charity", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -90,6 +100,43 @@ const CreateCharity = () => {
               name="image"
             />
           </div>
+          <input
+            type="text"
+            placeholder="Goal Amount"
+            className="input input-bordered w-full "
+            name="goal_amount"
+            required
+          />
+          <input
+            type="date"
+            placeholder="DeadLine"
+            className="input input-bordered w-full "
+            name="deadline"
+            required
+          />
+        </div>
+        <div className="grid grid-cols-3 gap-5 mt-5">
+          <input
+            type="text"
+            placeholder="City"
+            className="input input-bordered w-full "
+            name="city"
+            required
+          />
+          <input
+            type="text"
+            placeholder="State"
+            className="input input-bordered w-full "
+            name="state"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Country "
+            className="input input-bordered w-full "
+            name="country"
+            required
+          />
         </div>
         <div className="form-control w-full mt-5 ">
           <select className="select select-bordered" name="batchNumber">
@@ -98,6 +145,7 @@ const CreateCharity = () => {
             ))}
           </select>
         </div>
+
         <textarea
           className="textarea textarea-bordered w-full my-5"
           placeholder="Charity Details"
