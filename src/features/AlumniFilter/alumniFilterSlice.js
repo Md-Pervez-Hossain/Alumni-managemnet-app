@@ -21,8 +21,25 @@ const alumniFilterSlice = createSlice({
       state.isEmployed.push(action.payload);
     },
     bloodGroupFilter: (state, action) => {
-      state.bloodGroup.push(action.payload);
+      // check the index of the action payload.
+      const bloodGroupIndex = state.bloodGroup.indexOf(action.payload);
+
+      // if the action payload already exists,
+      // then remove it from the array.
+      if (bloodGroupIndex !== -1) {
+        // in array.splice method we say the index number
+        // first and then tell the number of element to remove
+        // in this case we tell the index number of already existing element
+        // and tell them 1 to remove only that item
+        state.bloodGroup.splice(bloodGroupIndex, 1);
+      }
+      // if the action payload doesn't exists,
+      // then add it to the array.
+      else {
+        state.bloodGroup.push(action.payload);
+      }
     },
+
     MajorWiseFilter: (state, action) => {
       state.majorWise.push(action.payload);
     },

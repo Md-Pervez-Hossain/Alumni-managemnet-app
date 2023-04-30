@@ -25,8 +25,28 @@ export const DirectoryDetails = () => {
     error: alumniDataError,
   } = useGetAllAlumniQuery();
 
-  // this is the sort function where we need to provide the array in first parameter and the sort in the 2nd parameter
+  // this is the sort function where we need to provide the
+  //array in first parameter and the sort in the 2nd parameter
   const sortedArray = filterBySort(alumniData, sort);
+
+  // filter for blood group
+  const filterByBloodGroup = (alumni) => {
+    if (Array.isArray(alumni) && bloodGroup.length > 0) {
+      return alumni.filter(
+        (singleAlumni) => singleAlumni.personal_information.blood_group === bloodGroup
+      );
+    }
+    return true;
+  };
+
+  const filterByColor = (singleAlumni) => {
+    if (bloodGroup.length > 0) {
+      console.log(bloodGroup);
+      console.log(singleAlumni.personal_information.blood_group);
+      return bloodGroup?.includes(singleAlumni.personal_information.blood_group);
+    }
+    return true;
+  };
 
   let alumniContent;
 
@@ -51,9 +71,12 @@ export const DirectoryDetails = () => {
     alumniContent = (
       <>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3  lg:max-w-full">
-          {sortedArray.slice(previous, next).map((singleAlumni) => (
-            <AlumniBatchDataCard key={singleAlumni._id} singleAlumni={singleAlumni} />
-          ))}
+          {sortedArray
+            .filter(filterByColor) // Filter by blood group
+            .slice(previous, next)
+            .map((singleAlumni) => (
+              <AlumniBatchDataCard key={singleAlumni._id} singleAlumni={singleAlumni} />
+            ))}
         </div>
       </>
     );

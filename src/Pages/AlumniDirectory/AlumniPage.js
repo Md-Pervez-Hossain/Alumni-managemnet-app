@@ -11,14 +11,17 @@ import {
 } from "@heroicons/react/20/solid";
 import InnerPageHeader from "../../sharedComponents/InnerPageHeader/InnerPageHeader";
 import { useDispatch, useSelector } from "react-redux";
-import { sortFilter } from "../../features/AlumniFilter/alumniFilterSlice";
+import {
+  bloodGroupFilter,
+  sortFilter,
+} from "../../features/AlumniFilter/alumniFilterSlice";
 
 const AlumniPage = () => {
   const dispatch = useDispatch();
   const { isEmployed, sort, bloodGroup, majorWise, cityWise, batchWise } = useSelector(
     (state) => state.alumniFilter
   );
-  console.log(isEmployed, sort);
+  console.log(isEmployed, sort, bloodGroup);
 
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
@@ -92,7 +95,7 @@ const AlumniPage = () => {
     console.log(e);
   };
   const sortByBloodGroupHandler = (e) => {
-    console.log(e);
+    dispatch(bloodGroupFilter(e.value));
   };
 
   // Name Z to A
@@ -104,7 +107,7 @@ const AlumniPage = () => {
     <>
       <InnerPageHeader
         title="Our Alumni"
-        description="Browse our proud alumni`1"
+        description="Browse our proud alumni"
         img="https://media.cnn.com/api/v1/images/stellar/prod/220624140259-01-college-students-stock.jpg?c=16x9&q=h_720,w_1280,c_fill"
       />
       <div className="bg-white">
