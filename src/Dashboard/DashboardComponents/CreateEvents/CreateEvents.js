@@ -8,6 +8,7 @@ import {
 } from "../../../features/Api/apiSlice";
 import Loading from "../../../sharedComponents/Loading/Loading";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
+import { toast } from "react-toastify";
 
 const CreateEvents = () => {
   const [
@@ -49,7 +50,8 @@ const CreateEvents = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        const eventsInfo = {
+
+        addEvents({
           batch,
           event_title,
           date,
@@ -57,26 +59,19 @@ const CreateEvents = () => {
           description,
           category,
           image_url: data.data.display_url,
-        };
-        fetch("https://alumni-managemnet-app-server.vercel.app/events", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(eventsInfo),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-        console.log(eventsInfo);
-        console.log(category);
+        });
+
+        toast.success("Success Notification!", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+
+        form.reset();
       })
       .catch((error) => {
         console.log(error);
+        toast.error(`${error.message}`, {
+          position: toast.POSITION.TOP_LEFT,
+        });
       });
   };
 
@@ -144,8 +139,9 @@ const CreateEvents = () => {
   }
 
   return (
-    <div className="w-full mx-auto my-16 px-10">
-      {/* <h2 className="text-5xl my-5">Events</h2> */}
+    <div className="w-full mx-auto my-4 px-10">
+      <h2 className="text-xl  font-sans font-semibold">Add a Event</h2>
+
       <form onSubmit={(event) => handleCreateEvents(event)}>
         <div className="grid md:grid-cols-2 gap-3 !my-2">
           <input
@@ -207,7 +203,10 @@ const CreateEvents = () => {
             required
           ></textarea>
         </div>
-        <button className="px-6 py-4 w-full rounded-lg bg-primary text-white font-semibold">
+        <button
+          disabled={isEventsAddLoading}
+          className="px-6 py-4 w-full rounded-lg bg-primary text-white font-semibold"
+        >
           {" "}
           Create Event
         </button>

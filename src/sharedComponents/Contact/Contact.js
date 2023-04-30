@@ -1,76 +1,92 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
+
   const onSubmit = (data) => {
-    console.log(data);
-    data.reset();
+    data.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_yyonvfo",
+        "template_iiq69cw",
+        data.target,
+        "gGLUdmrxjvm2YSRQD"
+      )
+      .then(
+        (result) => {
+          console.log("Message Sent Successfully");
+          reset();
+        },
+        (error) => {
+          console.log("error form email.js:", error.text);
+        }
+      );
   };
+
   return (
     <div className="mt-16 mb-20">
       <h1 className=" text-2xl font-bold mb-10">Contact</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={onSubmit}>
         <div className=" gap-12 ">
           <div className="flex gap-2">
             <input
-              {...register("firstName", {
-                required: "input Field is Required",
-                minLength: { value: 3, message: "MinimumLength 3" },
-              })}
+              {...register("firstName")}
               type="text"
+              required
+              minLength={3}
               name="firstName"
               id="name"
               placeholder="First Name"
               className="w-full p-6 mb-5 text-xs  bg-[#F2F2F2]"
             />
-            <p className="my-3 font-bold text-red-500">{errors.firstName?.message}</p>
 
             <input
               {...register("lastName", {
-                required: "input Field is Required",
-                minLength: { value: 3, message: "MinimumLength 3" },
+                // required: "input Field is Required",
+                // minLength: { value: 3, message: "MinimumLength 3" },
               })}
               type="text"
+              required
+              minLength={3}
               name="lastName"
               id="name"
               placeholder="Last Name"
               className="w-full p-6 mb-5 text-xs  bg-[#F2F2F2]"
             />
-            <p className="my-3 font-bold text-red-500">{errors.lastName?.message}</p>
           </div>
           <input
             {...register("email", {
-              pattern: /^[A-Za-z\.@]+$/i,
+              // pattern: /^[A-Za-z\.@]+$/i,
             })}
             type="email"
+            required
             name="email"
             id="name"
             placeholder="Email"
             className="w-full p-6  mb-8 text-xs  bg-[#F2F2F2]"
           />
-          {errors?.email?.type === "pattern" && (
-            <p className="my-3 font-bold text-red-500">Invalid Pattern</p>
-          )}
 
           <textarea
-            {...register("message", { required: "input Field is Required" })}
+            {...register("message")}
+            required
             name="message"
             id="message"
             rows="3"
             placeholder="FeedBack"
             className="w-full p-6 mb-5 text-xs  bg-[#F2F2F2]"
           />
-          <p className="my-3 font-bold text-red-500">{errors.message?.message}</p>
         </div>
 
         <button className=" py-4 px-8 text-right text-primary font-bold bg-secondary">
-          {" "}
-          Submit{" "}
+          Submit
         </button>
       </form>
     </div>

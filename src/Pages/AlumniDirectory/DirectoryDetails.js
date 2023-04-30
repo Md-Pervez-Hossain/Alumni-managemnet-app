@@ -1,23 +1,52 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AlumniBatchDataCard from "../../sharedComponents/PersonCardDesign/AlumniBatchDataCard";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useGetAllAlumniQuery } from "../../features/Api/apiSlice";
-import ButtonSizeSkeletion from "../../sharedComponents/Skeletion/ButtonSizeSkeletion";
 import ErrorAlert from "../../sharedComponents/Skeletion/ErrorAlert";
-import Loading from "../../sharedComponents/Loading/Loading";
-import CardsWithAuthorSkeletion from "../../sharedComponents/Skeletion/CardsWithAuthorSkeletion";
 import PersonCardSkeleton from "../../sharedComponents/Skeletion/PersonCardSkeletion";
+import { useSelector } from "react-redux";
+import { filterBySort } from "./alumniSortFilter";
 
 export const DirectoryDetails = () => {
+  //  getting data from the alumniFilter state slice
+  const { isEmployed, sort, bloodGroup, selectedMajor, cityWise, batchWise } =
+    useSelector((state) => state.alumniFilter);
+  //  for pagination, each page will show 9 items
   const [previous, setPrevious] = useState(0);
   const [next, setNext] = useState(9);
 
+  // Getting all alumni data form server using redux - create api. from there we get the useGetAllAlumniQuery QUERy to load data
   const {
     data: alumniData,
     isError: alumniDataIsError,
     isLoading: alumniDataIsLoading,
     error: alumniDataError,
   } = useGetAllAlumniQuery();
+
+  // this is the sort function where we need to provide the
+  //array in first parameter and the sort in the 2nd parameter
+  const sortedArray = filterBySort(alumniData, sort);
+
+  // filter for blood group
+  const filterByBloodGroup = (alumniData) => {
+    // check if the blood group contains any elements
+    if (bloodGroup?.length > 0) {
+      // this returns true if bloodGroup array elements match with
+      // single alumni blood group at => singleAlumni.personal_information.blood_group
+      return bloodGroup?.includes(alumniData.personal_information.blood_group);
+    }
+    return true;
+  };
+  // filter for Major
+  const filterByMajorSubject = (alumniData) => {
+    // check if the blood group contains any elements
+    if (selectedMajor?.length > 0) {
+      // this returns true if bloodGroup array elements match with
+      // single alumni blood group at => singleAlumni.personal_information.blood_group
+      return selectedMajor?.includes(alumniData.major);
+    }
+    return true;
+  };
 
   let alumniContent;
 
@@ -35,16 +64,25 @@ export const DirectoryDetails = () => {
   if (!alumniDataIsLoading && alumniDataIsError) {
     alumniContent = <ErrorAlert text={alumniDataError} />;
   }
-  if (!alumniDataIsLoading && !alumniDataIsError && alumniData?.length === 0) {
-    alumniContent = <ErrorAlert text="No Category Find" />;
+  if (!alumniDataIsLoading && !alumniDataIsError && sortedArray?.length === 0) {
+    alumniContent = <ErrorAlert text="No Data Found" />;
   }
-  if (!alumniDataIsLoading && !alumniDataIsError && alumniData?.length > 0) {
+  if (!alumniDataIsLoading && !alumniDataIsError && sortedArray?.length > 0) {
     alumniContent = (
       <>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3  lg:max-w-full">
-          {alumniData.slice(previous, next).map((singleAlumni) => (
-            <AlumniBatchDataCard key={singleAlumni._id} singleAlumni={singleAlumni} />
-          ))}
+          {sortedArray
+            // this filter the data based on the blood filter function
+            .filter(filterByBloodGroup) // Filter by blood group
+            .filter(filterByMajorSubject) // Filter by major subject
+            .slice(previous, next)
+            .map((singleAlumni) => (
+              <AlumniBatchDataCard key={singleAlumni._id} singleAlumni={singleAlumni} />
+            ))}
+
+          {/* if the filtered array doesn't have anything it will show no results found */}
+          {sortedArray.filter(filterByBloodGroup).filter(filterByMajorSubject).length ===
+            0 && <p>No results found.</p>}
         </div>
       </>
     );
