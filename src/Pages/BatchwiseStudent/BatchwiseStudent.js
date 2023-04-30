@@ -19,7 +19,7 @@ const BatchWiseStudent = () => {
       .then((data) => {
         setEvents(data);
       });
-  }, []);
+  }, [year]);
 
   return (
     <div className="bg-accent">

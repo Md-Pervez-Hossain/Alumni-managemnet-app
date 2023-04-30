@@ -7,8 +7,14 @@ import ErrorAlert from "../../sharedComponents/Skeletion/ErrorAlert";
 import Loading from "../../sharedComponents/Loading/Loading";
 import CardsWithAuthorSkeletion from "../../sharedComponents/Skeletion/CardsWithAuthorSkeletion";
 import PersonCardSkeleton from "../../sharedComponents/Skeletion/PersonCardSkeletion";
+import { useSelector } from "react-redux";
 
 export const DirectoryDetails = () => {
+  const { isEmployed, sort, bloodGroup, majorWise, cityWise, batchWise } = useSelector(
+    (state) => state.alumniFilter
+  );
+  console.log(isEmployed, sort);
+
   const [previous, setPrevious] = useState(0);
   const [next, setNext] = useState(9);
 
@@ -18,6 +24,29 @@ export const DirectoryDetails = () => {
     isLoading: alumniDataIsLoading,
     error: alumniDataError,
   } = useGetAllAlumniQuery();
+
+  const filterBySort = (alumni) => {
+    if (!alumni || !Array.isArray(alumni) || alumni.length === 0) {
+      return alumni; // Return the original array if it is undefined, not an array or has length of 0
+    }
+    const sortedAlumni = [...alumni]; // Make a copy of the alumni array
+    switch (sort) {
+      case "Name A to Z":
+        return sortedAlumni.sort((a, b) => a?.name.localeCompare(b?.name));
+      case "Name Z to A":
+        return sortedAlumni.sort((a, b) => b?.name.localeCompare(a?.name));
+      case "Batch: Old to New":
+        return sortedAlumni.sort((a, b) => a.graduation_year - b.graduation_year);
+      case "Batch: New to Old":
+        return sortedAlumni.sort((a, b) => b.graduation_year - a.graduation_year);
+      default:
+        return sortedAlumni;
+    }
+  };
+
+  const sortedArray = filterBySort(alumniData);
+
+  console.log(sortedArray);
 
   let alumniContent;
 
@@ -42,7 +71,7 @@ export const DirectoryDetails = () => {
     alumniContent = (
       <>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3  lg:max-w-full">
-          {alumniData.slice(previous, next).map((singleAlumni) => (
+          {sortedArray.slice(previous, next).map((singleAlumni) => (
             <AlumniBatchDataCard key={singleAlumni._id} singleAlumni={singleAlumni} />
           ))}
         </div>

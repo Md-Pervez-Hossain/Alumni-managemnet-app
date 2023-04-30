@@ -10,16 +10,23 @@ import {
   PlusIcon,
 } from "@heroicons/react/20/solid";
 import InnerPageHeader from "../../sharedComponents/InnerPageHeader/InnerPageHeader";
+import { useDispatch, useSelector } from "react-redux";
+import { sortFilter } from "../../features/AlumniFilter/alumniFilterSlice";
 
 const AlumniPage = () => {
+  const dispatch = useDispatch();
+  const { isEmployed, sort, bloodGroup, majorWise, cityWise, batchWise } = useSelector(
+    (state) => state.alumniFilter
+  );
+  console.log(isEmployed, sort);
+
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   const sortOptions = [
-    { name: "Most Popular", href: "#", current: true },
-    { name: "Best Rating", href: "#", current: false },
-    { name: "Newest", href: "#", current: false },
-    { name: "Price: Low to High", href: "#", current: false },
-    { name: "Price: High to Low", href: "#", current: false },
+    { name: "Name A to Z", current: true },
+    { name: "Name Z to A", current: false },
+    { name: "Batch: Old to New", current: false },
+    { name: "Batch: New to Old", current: false },
   ];
   const subCategories = [
     { name: "Totes", href: "#" },
@@ -74,7 +81,10 @@ const AlumniPage = () => {
 
   const sortByFilterHandler = (e) => {
     console.log(e);
+    dispatch(sortFilter(e));
+    console.log(e);
   };
+
   const sortByYearHandler = (e) => {
     console.log(e);
   };
@@ -84,6 +94,11 @@ const AlumniPage = () => {
   const sortByBloodGroupHandler = (e) => {
     console.log(e);
   };
+
+  // Name Z to A
+  // Name A to Z
+  // Batch: Old to New
+  // Batch: New to Old
 
   return (
     <>
@@ -246,7 +261,7 @@ const AlumniPage = () => {
                                 )}
                                 onClick={() => sortByFilterHandler(option.name)}
                               >
-                                hey {option.name}
+                                {option.name}
                               </p>
                             )}
                           </Menu.Item>
