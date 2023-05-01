@@ -10,6 +10,7 @@ const SignUp = () => {
   const { createUser, updateUserProfile, signInWithGoogle } =
     useContext(AuthContext);
 
+    // use navigate 
   const navigate = useNavigate();
 
   const {
