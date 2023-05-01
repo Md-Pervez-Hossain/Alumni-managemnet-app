@@ -3,10 +3,15 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../sharedComponents/UseContext/AuthProvider";
 import { toast } from "react-toastify";
+import { useNavigate } from 'react-router-dom';
+
 
 const SignUp = () => {
   const { createUser, updateUserProfile, signInWithGoogle } =
     useContext(AuthContext);
+
+  const navigate = useNavigate();
+
   const {
     register,
     formState: { errors },
@@ -24,7 +29,32 @@ const SignUp = () => {
         console.log(user);
         updateUserProfile(`${data.firstName} ${data.lastName}`)
           .then(() => {
-            toast.success("SuccessFully  Signup");
+            const user = {
+              email: data.email,
+              firstName: data.firstName,
+              lastName: data.lastName,
+              grnder: data.gender,
+              dataOfBirthday: data.dataOfBirthday,
+              yearsOfStudent: data.yearsOfStudent,
+              department: data.department
+            };
+
+
+            fetch('https://alumni-managemnet-app-server.vercel.app/alumni', {
+              method: 'POST',
+              body: JSON.stringify(user),
+              headers: { 'Content-Type': 'application/json' }
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                console.log(data);
+                
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+              toast.success("SuccessFully  Signup");
+              navigate(`/dashboard/profile`)
           })
           .catch((error) => {
             console.log(error);

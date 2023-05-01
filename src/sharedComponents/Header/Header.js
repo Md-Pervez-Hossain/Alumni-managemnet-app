@@ -77,7 +77,12 @@ const Header = () => {
               <div className="dropdown lg:dropdown-end text-black">
                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                   <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                    <img src={user?.photoURL} />
+
+                    {
+                      user?.photoURL? <img src={user?.photoURL} /> : <img src="https://static.thenounproject.com/png/5572537-200.png" className="bg-white" alt="" />
+
+                    }
+                    
                   </div>
                 </label>
                 <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
