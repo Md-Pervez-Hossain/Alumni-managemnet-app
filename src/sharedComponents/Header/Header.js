@@ -61,6 +61,8 @@ const Header = () => {
               <li>Gallery</li>
             </Link>
 
+
+            {/* new modified  */}
             {!user?.uid ? (<>
               <Link to="/login"
 
@@ -99,6 +101,9 @@ const Header = () => {
 
 
             }
+
+            {/* old  */}
+
             {/* {user?.uid ? (
               <>
                 <div className="dropdown dropdown-end">
