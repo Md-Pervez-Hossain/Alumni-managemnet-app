@@ -29,6 +29,7 @@ const SignUp = () => {
         console.log(user);
         updateUserProfile(`${data.firstName} ${data.lastName}`)
           .then(() => {
+            //user data
             const user = {
               email: data.email,
               firstName: data.firstName,
