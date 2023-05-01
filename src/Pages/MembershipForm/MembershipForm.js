@@ -667,7 +667,7 @@ console.log(user);
                 />
               )} 
 
-              <input
+              <input 
                 id="address"
                 type="file"
                 placeholder=""
