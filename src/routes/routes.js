@@ -24,6 +24,8 @@ import SingleNewsSection from "../sharedComponents/NewsCards/SingleNewsSection";
 import BatchWiseStudent from "../Pages/BatchwiseStudent/BatchwiseStudent";
 import DisplaySingleCharity from "../sharedComponents/ShowCharity/DisplaySingleCharity";
 import AllNews from "../sharedComponents/NewsCards/AllNews";
+import AllGalleryImage from "../Pages/Home/Gallery/AllGalleryImage";
+import SingleGalleryImage from "../Pages/Home/Gallery/SingleGalleryImage";
 
 const routes = createBrowserRouter([
   {
@@ -61,6 +63,24 @@ const routes = createBrowserRouter([
           return fetch(`https://alumni-managemnet-app-server.vercel.app/news`);
         },
         element: <AllNews></AllNews>,
+      },
+      {
+        path: "/gallery",
+        loader: async () => {
+          return fetch(
+            `https://alumni-managemnet-app-server.vercel.app/galleries`
+          );
+        },
+        element: <AllGalleryImage></AllGalleryImage>,
+      },
+      {
+        path: "/galleries/:id",
+        loader: async ({ params }) => {
+          return fetch(
+            `https://alumni-managemnet-app-server.vercel.app/galleries/${params.id}`
+          );
+        },
+        element: <SingleGalleryImage></SingleGalleryImage>,
       },
       {
         path: "/news/:id",
