@@ -55,7 +55,7 @@ const Header = () => {
             <Link to="/about-us">
               <li>About</li>
             </Link>
-            <Link to="/">
+            <Link to="/news">
               <li>News</li>
             </Link>
             <Link to="/">
@@ -77,7 +77,10 @@ const Header = () => {
             ) : (
               <>
                 <div className="dropdown lg:dropdown-end text-black">
-                  <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                  <label
+                    tabIndex={0}
+                    className="btn btn-ghost btn-circle avatar"
+                  >
                     <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                       {user?.photoURL ? (
                         <img src={user?.photoURL} />

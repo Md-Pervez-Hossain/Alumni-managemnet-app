@@ -22,7 +22,8 @@ import CheckoutPage from "../Pages/CheckoutPage/CheckoutPage";
 import SingleSuccessFullStory from "../sharedComponents/CreateSuccessFullStory/SingleSuccessFullStory";
 import SingleNewsSection from "../sharedComponents/NewsCards/SingleNewsSection";
 import BatchWiseStudent from "../Pages/BatchwiseStudent/BatchwiseStudent";
-
+import DisplaySingleCharity from "../sharedComponents/ShowCharity/DisplaySingleCharity";
+import AllNews from "../sharedComponents/NewsCards/AllNews";
 
 const routes = createBrowserRouter([
   {
@@ -55,6 +56,13 @@ const routes = createBrowserRouter([
         element: <SingleSuccessFullStory></SingleSuccessFullStory>,
       },
       {
+        path: "/news",
+        loader: async ({ params }) => {
+          return fetch(`https://alumni-managemnet-app-server.vercel.app/news`);
+        },
+        element: <AllNews></AllNews>,
+      },
+      {
         path: "/news/:id",
         loader: async ({ params }) => {
           return fetch(
@@ -62,6 +70,15 @@ const routes = createBrowserRouter([
           );
         },
         element: <SingleNewsSection></SingleNewsSection>,
+      },
+      {
+        path: "/charity/:id",
+        loader: async ({ params }) => {
+          return fetch(
+            `https://alumni-managemnet-app-server.vercel.app/charity/${params.id}`
+          );
+        },
+        element: <DisplaySingleCharity></DisplaySingleCharity>,
       },
       {
         path: "/events/:singleEventId",
@@ -76,7 +93,9 @@ const routes = createBrowserRouter([
       {
         path: "/alumni",
         loader: () => {
-          return fetch("https://alumni-managemnet-app-server.vercel.app/alumni");
+          return fetch(
+            "https://alumni-managemnet-app-server.vercel.app/alumni"
+          );
         },
         element: <AlumniPage />,
         // element: <AlumniDirectory />,

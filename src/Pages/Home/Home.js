@@ -15,6 +15,7 @@ import UpComingEventsCard from "./UpComingEventsCard/UpComingEventsCard";
 import MissionHeading from "./MissionHeading/MissionHeading";
 import Gallery from "./Gallery/Gallery";
 import MembersStat from "./MembersStat/MembersStat";
+import ShowCharity from "../../sharedComponents/ShowCharity/ShowCharity";
 
 const Home = () => {
   //  useGetEventsQuery
@@ -36,7 +37,9 @@ const Home = () => {
       <div className="w-9/12 mx-auto my-20">
         <Gallery></Gallery>
       </div>
-
+      <div>
+        <ShowCharity></ShowCharity>
+      </div>
       <div className=" bg-accent py-10 my-20">
         <div className="w-9/12 mx-auto">
           <MembersStat />
