@@ -3,14 +3,16 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../sharedComponents/UseContext/AuthProvider";
 import { toast } from "react-toastify";
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
+import {
+  useGetAllBatchesQuery,
+  useGetAllGraduationMajorQuery,
+} from "../../features/Api/apiSlice";
 
 const SignUp = () => {
-  const { createUser, updateUserProfile, signInWithGoogle } =
-    useContext(AuthContext);
+  const { createUser, updateUserProfile, signInWithGoogle } = useContext(AuthContext);
 
-    // use navigate 
+  // use navigate
   const navigate = useNavigate();
 
   const {
@@ -20,6 +22,9 @@ const SignUp = () => {
     reset,
   } = useForm();
 
+  const { data: majorSubject } = useGetAllGraduationMajorQuery();
+  const { data: graduationYear } = useGetAllBatchesQuery();
+
   const handleSignUp = (data) => {
     console.log(data.email, data.password);
     console.log(data);
@@ -27,36 +32,73 @@ const SignUp = () => {
     createUser(data.email, data.password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
         updateUserProfile(`${data.firstName} ${data.lastName}`)
           .then(() => {
             //user data user profile
             const user = {
-              email: data.email,
               firstName: data.firstName,
               lastName: data.lastName,
-              grnder: data.gender,
-              dataOfBirthday: data.dataOfBirthday,
-              yearsOfStudent: data.yearsOfStudent,
-              department: data.department
+              name: `${data.firstName} ${data.lastName}`,
+              profile_picture: "",
+              graduation_year: data.GraduationYear,
+              degree: "",
+              department: "",
+              major: data.department,
+              email: data.email,
+              phone: "",
+              phone_2: "",
+              address: {
+                street: "",
+                city: "",
+                state: "",
+                zip: "",
+              },
+              education: [
+                {
+                  degree: "",
+                  major: "",
+                  institution: "",
+                  graduation_year: "",
+                  gpa: "",
+                },
+              ],
+              is_employed: false,
+              careers: [
+                {
+                  company: "",
+                  position: "",
+                  start_date: "",
+                  end_date: "",
+                  responsibilities: "",
+                },
+              ],
+              personal_information: {
+                date_of_birth: data.dateOfBirth,
+                gender: "",
+                blood_group: data.bloodGroup,
+                fathers_name: "",
+                mothers_name: "",
+                marital_status: "",
+                nationality: "",
+                languages: ["English", "Bengali"],
+                hobbies: [],
+              },
             };
 
-
-            fetch('https://alumni-managemnet-app-server.vercel.app/alumni', {
-              method: 'POST',
+            fetch("https://alumni-managemnet-app-server.vercel.app/alumni", {
+              method: "POST",
               body: JSON.stringify(user),
-              headers: { 'Content-Type': 'application/json' }
+              headers: { "Content-Type": "application/json" },
             })
               .then((response) => response.json())
               .then((data) => {
                 console.log(data);
-                
               })
               .catch((error) => {
                 console.error(error);
               });
-              toast.success("SuccessFully  Signup");
-              navigate(`/dashboard/profile`)
+            toast.success("SuccessFully  Signup");
+            navigate(`/dashboard/profile`);
           })
           .catch((error) => {
             console.log(error);
@@ -84,9 +126,7 @@ const SignUp = () => {
   return (
     <div className=" flex justify-center items-center  bg-accent rounded-lg py-20">
       <div className=" lg:w-1/2 m-2">
-        <h2 className="text-4xl text-primary font-semibold text-center mb-5">
-          Sign Up
-        </h2>
+        <h2 className="text-4xl text-primary font-semibold text-center mb-5">Sign Up</h2>
         <form onSubmit={handleSubmit(handleSignUp)}>
           <div className="md:grid md:grid-cols-2 gap-5">
             <div className="form-control ">
@@ -101,7 +141,7 @@ const SignUp = () => {
                 {...register("firstName", {
                   required: "First Name is required",
                 })}
-                className="input input-bordered rounded-none bg-accent py-2 pl-3 text-lg  w-full"
+                className="input input-bordered rounded-none bg-accent py-2 pl-3 text-sm  w-full"
                 placeholder="first name"
               />
               {errors.firstName && (
@@ -121,7 +161,7 @@ const SignUp = () => {
                 {...register("lastName", {
                   required: "Last Name is required",
                 })}
-                className="input input-bordered rounded-none bg-accent py-2 pl-3 text-lg  w-full"
+                className="input input-bordered rounded-none bg-accent py-2 pl-3 text-sm  w-full"
                 placeholder="last name"
               />
               {errors.lastName && (
@@ -132,21 +172,17 @@ const SignUp = () => {
             <div className="form-control ">
               <label className="label">
                 {" "}
-                <span className="label-text text-lg text-primary font-bold">
-                  Email
-                </span>
+                <span className="label-text text-lg text-primary font-bold">Email</span>
               </label>
               <input
                 type="email"
                 {...register("email", {
                   required: "Email Address is required",
                 })}
-                className="input  input-bordered rounded-none bg-accent py-2 pl-3 text-lg  w-full"
+                className="input input-bordered rounded-none bg-accent py-2 pl-3 text-sm  w-full"
                 placeholder="Email"
               />
-              {errors.email && (
-                <p className="text-red-600">{errors.email?.message}</p>
-              )}
+              {errors.email && <p className="text-red-600">{errors.email?.message}</p>}
             </div>
 
             <div className="form-control ">
@@ -161,7 +197,7 @@ const SignUp = () => {
                 {...register("password", {
                   required: "Password is required",
                 })}
-                className="input  input-bordered rounded-none bg-accent py-2 pl-3 text-lg  w-full"
+                className="input  input-bordered rounded-none bg-accent py-2 pl-3 text-sm  w-full"
                 placeholder="*******"
               />
               {errors.password && (
@@ -173,19 +209,32 @@ const SignUp = () => {
               <label className="label">
                 {" "}
                 <span className="label-text text-lg text-primary font-bold">
-                  Male/Female
+                  Blood Group
                 </span>
               </label>
-              <input
+              <select
                 type="text"
-                {...register("gender", {
-                  required: "Gender is required",
+                {...register("bloodGroup", {
+                  required: "blood Group is required",
                 })}
-                className="input  input-bordered rounded-none bg-accent py-2 pl-3 text-lg  w-full"
-                placeholder="Male/Female"
-              />
-              {errors.gender && (
-                <p className="text-red-600">{errors.gender?.message}</p>
+                className="input input-bordered rounded-none bg-accent py-2 pl-3 text-sm  w-full"
+                placeholder="Your Blood Group"
+              >
+                {" "}
+                <option selected disabled value="">
+                  your blood group
+                </option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+              </select>
+              {errors.bloodGroup && (
+                <p className="text-red-600">{errors.bloodGroup?.message}</p>
               )}
             </div>
 
@@ -197,11 +246,11 @@ const SignUp = () => {
                 </span>
               </label>
               <input
-                type="text"
+                type="date"
                 {...register("dateOfBirth", {
                   required: "Date of Birth is required",
                 })}
-                className="input  input-bordered rounded-none bg-accent py-2 pl-3 text-lg  w-full"
+                className="input  input-bordered rounded-none bg-accent py-2 pl-3 text-sm  w-full"
                 placeholder="Date Of Birth"
               />
               {errors.dateOfBirth && (
@@ -213,19 +262,29 @@ const SignUp = () => {
               <label className="label">
                 {" "}
                 <span className="label-text text-lg text-primary font-bold">
-                  Years Of Student
+                  Graduation Year
                 </span>
               </label>
-              <input
-                type="text"
-                {...register("yearsOfStudent", {
+
+              <select
+                {...register("GraduationYear", {
                   required: "Student of years required",
                 })}
-                className="input  input-bordered rounded-none bg-accent py-2 pl-3 text-lg  w-full"
-                placeholder="Years Of Student"
-              />
-              {errors.yearsOfStudent && (
-                <p className="text-red-600">{errors.yearsOfStudent?.message}</p>
+                className="input input-bordered rounded-none bg-accent py-2 pl-3 text-sm  w-full"
+              >
+                <option selected disabled value="">
+                  your graduation year
+                </option>
+                {graduationYear &&
+                  graduationYear.map((e) => (
+                    <option key={e._id} value={e.batchNumber}>
+                      {e.batchNumber}
+                    </option>
+                  ))}
+              </select>
+
+              {errors.GraduationYear && (
+                <p className="text-red-600">{errors.GraduationYear?.message}</p>
               )}
             </div>
 
@@ -236,14 +295,22 @@ const SignUp = () => {
                   Department
                 </span>
               </label>
-              <input
-                type="text"
+              <select
                 {...register("department", {
                   required: "Department is required",
                 })}
-                className="input  input-bordered rounded-none bg-accent py-2 pl-3 text-lg  w-full"
-                placeholder="Department name"
-              />
+                className="input input-bordered rounded-none bg-accent py-2 pl-3 text-sm  w-full"
+              >
+                <option selected disabled value="">
+                  select your major subject
+                </option>
+                {majorSubject &&
+                  majorSubject.map((e) => (
+                    <option key={e._id} value={e.graduationMajor}>
+                      {e.graduationMajor}{" "}
+                    </option>
+                  ))}
+              </select>
               {errors.department && (
                 <p className="text-red-600">{errors.department?.message}</p>
               )}
@@ -266,9 +333,7 @@ const SignUp = () => {
           >
             Google
           </button>
-          <button className="text-primary text-lg font-bold mr-5">
-            FaceBook
-          </button>
+          <button className="text-primary text-lg font-bold mr-5">FaceBook</button>
         </div>
 
         <p className="text-center mt-5 mb-10">
