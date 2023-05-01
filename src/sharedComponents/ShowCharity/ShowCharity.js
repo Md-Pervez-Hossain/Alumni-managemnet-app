@@ -20,6 +20,7 @@ const ShowCharity = () => {
 
   return (
     <div className="w-9/12 mx-auto my-16">
+      <h2 className="text-3xl text-center mb-10">Explore Charity</h2>
       <div className="grid lg:grid-cols-2 gap-10 ">
         {showCharity?.map((charity) => (
           <DisplayCharity charity={charity} key={charity._id}></DisplayCharity>

@@ -35,7 +35,13 @@ const DisplayCharity = ({ charity }) => {
           <p className="text-white"> DeadLine :</p>{" "}
           <Counter date={deadline}></Counter>
           <p className="mt-2">
-            <Link className=" font-semibold text-secondary"> Details</Link>
+            <Link
+              to={`/charity/${_id}`}
+              className=" font-semibold text-secondary"
+            >
+              {" "}
+              Details
+            </Link>
           </p>
         </div>
       </div>
