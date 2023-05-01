@@ -1,7 +1,5 @@
 import React, { useContext, useState } from "react";
-import { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { Navigate } from "react-router";
 import { toast } from "react-toastify";
 import {
   useGetAllBatchesQuery,
@@ -21,678 +19,587 @@ const MembershipForm = () => {
   } = useForm();
   const [photo, setPhoto] = useState(null);
 
-
-const {user} = useContext(AuthContext);
- 
-
-console.log(user);
-
-
-
-
-  // const [universityName, setUniversityName] = useState([""]);
-  // const [majorSubject, setMajorSubject] = useState([""]);
-  // const [degreeNames, setDegreeNames] = useState([""]);
-
-  //degree earned from
+  const { user } = useContext(AuthContext);
 
   const { data: universityName } = useGetAllUniversityNameQuery();
   const { data: majorSubject } = useGetAllGraduationMajorQuery();
   const { data: degreeNames } = useGetAllDegreeProgramsQuery();
   const { data: graduationYear } = useGetAllBatchesQuery();
 
-  // const getAllUniversityName = async () => {
-  //   await fetch(`https://alumni-managemnet-app-server.vercel.app/all-university-name`)
-  //     .then((res) => res.json())
-  //     .then((data) => setUniversityName(data));
-  // };
-
-  // useEffect(() => {
-  //   getAllUniversityName();
-  // }, []);
-  // //degree earned from
-
-  // const getAllMajorSubject = async () => {
-  //   await fetch(`https://alumni-managemnet-app-server.vercel.app/all-graduation-major`)
-  //     .then((res) => res.json())
-  //     .then((data) => setMajorSubject(data));
-  // };
-
-  // useEffect(() => {
-  //   getAllMajorSubject();
-  // }, []);
-
-  // const getAllDegreeNames = async () => {
-  //   await fetch(`https://alumni-managemnet-app-server.vercel.app/all-degree-programs`)
-  //     .then((res) => res.json())
-  //     .then((data) => setDegreeNames(data));
-  // };
-
-  // useEffect(() => {
-  //   getAllDegreeNames();
-  // }, []);
-
   const handelMembership = (data) => {
     console.log(data);
+    console.log(photo);
+    // ////////////////////////
 
-    const alumniData = {
-      name: "Sadia Rahman",
-      profile_picture:
-        "https://media.licdn.com/dms/image/C5603AQFtrnQuU6f5Sw/profile-displayphoto-shrink_800_800/0/1662099628632?e=2147483647&v=beta&t=z4540n_NqEDFFT4M0szi5pl5JsTxN4ukycepcNwubsI",
-      graduation_year: "2015",
-      degree: "Bachelor of Science",
-      department: "Computer Science",
-      major: "Computer Science",
-      email: "sadia.rahman@example.com",
-      phone: "123-456-7890",
-      phone_2: "555-555-5555",
-      address: {
-        street: "123 Main Street",
-        city: "Dhaka",
-        state: "",
-        zip: "1205",
-      },
-      education: [
-        {
-          degree: "SSC",
-          major: "Science",
-          institution: "Ideal School and College",
-          graduation_year: "2009",
-          gpa: 5.0,
-        },
-        {
-          degree: "HSC",
-          major: "Science",
-          institution: "Viqarunnisa Noon College",
-          graduation_year: "2011",
-          gpa: 5.0,
-        },
-        {
-          degree: "Bachelor of Science",
-          major: "Computer Science",
-          institution: "Bangladesh University of Engineering and Technology",
-          graduation_year: "2015",
-          gpa: 3.9,
-        },
-      ],
-      is_employed: true,
-      careers: [
-        {
-          company: "Grameenphone",
-          position: "Software Engineer",
-          start_date: "2015-07-01",
-          end_date: "2018-12-31",
-          responsibilities: [
-            "Developed and maintained software applications",
-            "Collaborated with cross-functional teams to deliver projects on time and within budget",
-            "Participated in code reviews and provided feedback to team members",
+    const formData = new FormData();
+    formData.append("image", photo);
+
+    fetch("https://api.imgbb.com/1/upload?key=dd1a5cd35aa9d832298beb50053079da", {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        const userData = {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          name: `${data.firstName} ${data.lastName}`,
+          profile_picture: data.data.display_url,
+          graduation_year: data.graduation_year,
+          degree: data.degreeEarned,
+          major: data.majorSubject,
+          email: data.email,
+          phone: data.mobile,
+          universityName,
+          phone_2: "",
+          address: {
+            street: data.streetAddress,
+            city: data.city,
+            state: data.stateName,
+            zip: data.zipCode,
+          },
+          education: [
+            {
+              degree: "",
+              major: "",
+              institution: "",
+              graduation_year: "",
+              gpa: "",
+            },
           ],
-        },
-        {
-          company: "Pathao",
-          position: "Senior Software Engineer",
-          start_date: "2019-01-01",
-          end_date: null,
-          responsibilities: [
-            "Lead a team of software engineers",
-            "Develop and design software architecture for large-scale applications",
-            "Collaborate with product and design teams to ensure timely delivery of high-quality products",
+          is_employed: false,
+          careers: [
+            {
+              company: "",
+              position: "",
+              start_date: "",
+              end_date: "",
+              responsibilities: "",
+            },
           ],
-        },
-      ],
-      personal_information: {
-        date_of_birth: "1993-01-01",
-        gender: "Female",
-        blood_group: "B+",
-        fathers_name: "Md. Abdul Rahman",
-        mothers_name: "Shahnaz Rahman",
-        marital_status: "Married",
-        nationality: "Bangladeshi",
-        languages: ["Bengali", "English"],
-        hobbies: ["Reading books", "Travelling"],
-      },
-    };
-    // fetch("https://alumni-managemnet-app-server.vercel.app/membership", {
-    //   method: "POST",
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    //   body: JSON.stringify(data),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     if (data.acknowledged) {
-    //       toast.success("Successfully Updated");
-    //       reset();
-    //       Navigate("/dashboard/profile");
-    //     } else {
-    //       toast.error(data.message);
-    //     }
-    //   });
+          personal_information: {
+            date_of_birth: data.dateOfBirth,
+            gender: data.gender,
+            blood_group: data.bloodGroup,
+            fathers_name: data.fatherName,
+            mothers_name: data.motherName,
+            marital_status: "",
+            nationality: "Bangladeshi",
+            languages: ["English", "Bengali"],
+            hobbies: [],
+          },
+        };
+
+        toast.success("Success Notification!", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+
+        reset();
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(`${error.message}`, {
+          position: toast.POSITION.TOP_LEFT,
+        });
+      });
+
+    // ///////////////////////
   };
 
   return (
-    <section className="p-6  text-gray-50">
-      <form
-        onSubmit={handleSubmit(handelMembership)}
-        novalidate=""
-        action=""
-        className="container flex flex-col mx-auto space-y-12 ng-untouched ng-pristine ng-valid"
-      >
-        <fieldset className="grid grid-cols-4 gap-6 p-6 py-2 px-6">
-          <div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
-
-
-            <div className="col-span-full sm:col-span-2">
-              <label for="firstname" className="text-sm text-slate-500">
-                Personal Informaition:
-              </label>
-              <input defaultValue={user?.displayName}
-                id="name"
-                {...register("firstname", { required: true, maxLength: 20 })}
-                type="text"
-                placeholder="First Name"
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 text-gray-900"
-              />
-              {errors.firstname && <span className="text-red-600">Please Write your name</span>}
-            </div>
-            <div className="col-span-full sm:col-span-2">
-              <label for="lastName" className="text-sm text-gray-50">
-                .
-              </label>
-              <input
-                id="name"
-                {...register("lastName", { required: true, maxLength: 20 })}
-                type="text"
-                placeholder="Last Name"
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              />
-              {errors.lastName && <span className="text-red-600">Write your last name</span>}
-            </div>
-            <div className="col-span-full sm:col-span-2">
-              <label for="email" className="text-sm  text-gray-50">
-                .
-              </label>
-              <input defaultValue={user?.email}
-                id="email"
-                {...register("email", {
-                  required: true,
-                  pattern: /^\S+@\S+$/i // regular expression for email validation
-                })}
-                type="email"
-                placeholder="ex-@gmail.com"
-                autoComplete="email"
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              />
-              {errors.email && <span className="text-red-600">Enter your valid email</span>}
-            </div>
-            <div className="col-span-full sm:col-span-3">
-              <label htmlFor="password" className="text-sm text-gray-50">
-                Password
-              </label>
-              <input
-                type="password"
-                {...register("password", {
-                  required: true,
-                  focus: true,
-                  pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/
-                })}
-                name="password"
-                id="password" placeholder="*******"
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              />
-              {errors.password && (
-                <span className="text-red-600">
-                  Password must contain at least one uppercase letter, one lowercase letter, one number, and be at least 6 characters long
-                </span>
-              )}
-            </div>
-
-
-            <div className="col-span-full sm:col-span-3">
-              <label htmlFor="confirm-password" className="text-sm text-gray-50">
-                Confirm Password
-              </label>
-              <input
-                id="confirm-password"
-                type="password"
-                {...register("confirmPassword", { required: true })}
-                placeholder="Confirm Password"
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              />
-              {errors.confirmPassword && (
-                <span className="text-red-600">
-                  please retype your password
-                </span>
-              )}
-            </div>
-
-            <div className="col-span-full sm:col-span-2">
-              <label for="username" className="text-sm text-slate-500">
-                Date of Birth:
-              </label>
-
-              <Controller
-                name="myDate"
-                control={control}
-                render={({ field: { onChange, value } }) => (
-                  <input
-                    type="date"
-                    onChange={onChange}
-                    value={value}
-                    className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-                  />
+    <section className="p-6">
+      <form onSubmit={handleSubmit(handelMembership)} novalidate="" action="">
+        <div className="flex gap-10  flex-col-reverse	md:flex-row">
+          <div className="w-full md:w-3/4">
+            {/* first Name and Last Name */}
+            <div class="grid md:grid-cols-2 md:gap-6">
+              <div class="relative z-0 w-full mb-6 group">
+                <input
+                  {...register("firstName", { required: true, maxLength: 20 })}
+                  type="text"
+                  name="firstName"
+                  id="floating_first_name"
+                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
+                  placeholder=" "
+                  required
+                />
+                <label
+                  for="floating_first_name"
+                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-focus:dark:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  First name
+                </label>
+                {errors.firstName && (
+                  <span className="text-red-600">Please Write your name</span>
                 )}
-              />
-
-            </div>
-            <div className="col-span-full sm:col-span-2">
-              <label for="address" className="text-sm  text-gray-50">
-                .
-              </label>
-              <select
-                {...register("gender",{ required: true })}
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              >
-                <option selected disabled value="">Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </select>
-
-              {errors.gender && (
-                <span className="text-red-600">
-                        select gender
-                </span>
-              )}
-            </div>
-            <div className="col-span-full sm:col-span-2">
-              <label for="address" className="text-sm text-gray-50">
-                .
-              </label>
-              <select
-                {...register("bloodGroup",{ required: true })}
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              >
-                <option selected disabled value="">Blood Group</option>
-                <option value="A+">A+</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B-">B-</option>
-                <option value="AB+">AB+</option>
-                <option value="AB-">AB-</option>
-                <option value="O+">O+</option>
-                <option value="O-">O-</option>
-              </select>
-              {errors.bloodGroup && (
-                <span className="text-red-600">
-                        select Blood Group
-                </span>
-              )}
-            </div>
-            <div className="col-span-full sm:col-span-3">
-              <label for="address" className="text-sm text-slate-500">
-                .
-              </label>
-              <input
-                id="address"
-                type="text"
-                {...register("fatherName",
-                {required:true})}
-                placeholder=" Father name"
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              />
-                  {errors.fatherName && (
-                <span className="text-red-600">
-                       please write your Father Name 
-                </span>
-              )}
-            </div>
-            <div className="col-span-full sm:col-span-3">
-              <label for="address" className="text-sm text-slate-500">
-                .
-              </label>
-              <input
-                id="address"
-                type="text"
-                {...register("motherName",{required:true})}
-                placeholder=" Mother name"
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              />
-                  {errors.motherName && (
-                <span className="text-red-600">
-                       please write your Father Name 
-                </span>
-              )}
-            </div>
-
-
-
-
-
-            <div className="col-span-full sm:col-span-2">
-              <label for="username" className="text-sm text-slate-500">
-                Education:
-              </label>{" "}
-              <br />
-              <select
-                {...register("universityName",{required:true})}
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              >
-                <option selected disabled value="">
-                  Your University
-                </option>
-                {universityName &&
-                  universityName.map((e) => <option value={e.name}>{e.name} </option>)}
-              </select>
-              {errors.universityName && (
-                <span className="text-red-600">
-                       please select your university 
-                </span>
-              )}
-            </div>
-            <div className="col-span-full sm:col-span-2">
-              <label for="password" className="text-sm text-gray-50">
-                .
-              </label>{" "}
-              <br />
-              {/* <input
-                id="password"
-                type="number"
-                placeholder="ex-2007"
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              /> */}
-              <select
-                {...register("graduation_year ",{required:true})}
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              >
-                <option selected disabled value="">
-                  Year of Graduation
-                </option>
-                {graduationYear &&
-                  graduationYear.map((e) => (
-                    <option value={e.batchNumber}>{e.batchNumber} </option>
-                  ))}
-              </select>
-              {errors.graduation_year && (
-                <span className="text-red-600">
-                       please select your Gratuation Year 
-                </span>
-              )}
-            </div>
-            <div className="col-span-full sm:col-span-2 flex">
-              <div className="mr-4 w-1/2">
-                <label for="username" className="text-sm  text-gray-50">
-                  .
-                </label>{" "}
-                <br />
-                <select
-                  {...register("eranedDegree",{required:true})}
-                  className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-                >
-                  <option selected disabled value="">
-                    Degree
-                  </option>
-
-                  {degreeNames &&
-                    degreeNames.map((e) => (
-                      <option value={e.degree}>{e.program_name} </option>
-                    ))}
-                </select>
-                {errors.eranedDegree && (
-                <span className="text-red-600">
-                       please select your Degree
-                </span>
-              )}
               </div>
-
-              <div className=" sm:col-span-2 w-1/2">
-                <label for="re-enter-password" className="text-sm  text-gray-50">
-                  .
-                </label>{" "}
-                <br />
-                <select
-                  {...register("mejor",{required:true})}
-                  className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
+              <div class="relative z-0 w-full mb-6 group">
+                <input
+                  {...register("lastName", { required: true, maxLength: 20 })}
+                  type="text"
+                  name="lastName"
+                  id="floating_last_name"
+                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
+                  placeholder=" "
+                  required
+                />
+                <label
+                  for="floating_last_name"
+                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-focus:dark:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                 >
-                  <option selected disabled value="">
-                    Department
-                  </option>
+                  Last name
+                </label>
+                {errors.lastName && (
+                  <span className="text-red-600">Write your last name</span>
+                )}
+              </div>
+            </div>
+
+            {/* Email and Phone */}
+            <div class="grid md:grid-cols-2 md:gap-6">
+              <div class="relative z-0 w-full mb-6 group">
+                <input
+                  {...register("email", {
+                    required: true,
+                    pattern: /^\S+@\S+$/i, // regular expression for email validation
+                  })}
+                  defaultValue={user?.email}
+                  type="text"
+                  name="email"
+                  id="email"
+                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
+                  placeholder=" "
+                  required
+                />
+                <label
+                  for="email"
+                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-focus:dark:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  Your Email
+                </label>
+                {errors.email && (
+                  <span className="text-red-600">Enter your valid email</span>
+                )}
+              </div>
+              <div class="relative z-0 w-full mb-6 group">
+                <input
+                  {...register("mobile", { required: true })}
+                  type="number"
+                  name="mobile"
+                  id="floating_phone"
+                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
+                  placeholder=" "
+                  required
+                />
+                <label
+                  for="floating_phone"
+                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-focus:dark:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  Your Phone
+                </label>
+                {errors.mobile && (
+                  <span className="text-red-600">please write your Number</span>
+                )}
+              </div>
+            </div>
+
+            {/* password and confirm password */}
+            <div class="grid md:grid-cols-2 md:gap-6">
+              <div class="relative z-0 w-full mb-6 group">
+                <input
+                  {...register("password", {
+                    required: true,
+                    focus: true,
+                    pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/,
+                  })}
+                  type="password"
+                  name="password"
+                  id="floating_password"
+                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
+                  placeholder=" "
+                  required
+                />
+                <label
+                  for="floating_password"
+                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-focus:dark:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  Your Password
+                </label>
+                {errors.password && (
+                  <span className="text-red-600">
+                    Password must contain at least one uppercase letter, one lowercase
+                    letter, one number, and be at least 6 characters long
+                  </span>
+                )}
+              </div>
+              <div class="relative z-0 w-full mb-6 group">
+                <input
+                  {...register("confirmPassword", { required: true })}
+                  type="password"
+                  name="confirmPassword"
+                  id="floating_confirm_password"
+                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
+                  placeholder=" "
+                  required
+                />
+                <label
+                  for="floating_confirm_password"
+                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-focus:dark:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  Confirm Password
+                </label>
+                {errors.confirmPassword && (
+                  <span className="text-red-600">please retype your password</span>
+                )}
+              </div>
+            </div>
+
+            {/* Education Information */}
+
+            {/* University and Major */}
+            <div class="grid md:grid-cols-2 md:gap-6">
+              <div class="relative z-0 w-full mb-6 group">
+                <label
+                  for="university"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Select your university
+                </label>
+                <select
+                  {...register("universityName", { required: true })}
+                  id="university"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                >
+                  {universityName &&
+                    universityName.map((e) => <option value={e.name}>{e.name} </option>)}
+                </select>
+              </div>
+              <div class="relative z-0 w-full mb-6 group">
+                <label
+                  for="majorSubject"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Select your Major
+                </label>
+                <select
+                  {...register("majorSubject", { required: true })}
+                  id="majorSubject"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                >
                   {majorSubject &&
                     majorSubject.map((e) => (
                       <option value={e.graduationMajor}>{e.graduationMajor} </option>
                     ))}
                 </select>
-                {errors.mejor && (
-                <span className="text-red-600">
-                       please select your Degree
-                </span>
-              )}
+                {errors.majorSubject && (
+                  <span className="text-red-600">please select your Degree</span>
+                )}
               </div>
             </div>
 
-            <div className="col-span-full">
-              <label for="address" className="text-sm  text-gray-50">
-                .
-              </label>
-              <input
-                {...register("presentPossition")}
-                id="address"
-                type="text"
-                placeholder="Present Position (If retd. last position)"
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              />
+            {/* degree and Batch number */}
+            <div class="grid md:grid-cols-2 md:gap-6">
+              <div class="relative z-0 w-full mb-6 group">
+                <label
+                  for="degree"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  select your degree
+                </label>
+                <select
+                  {...register("degreeEarned", { required: true })}
+                  id="degree"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                >
+                  {degreeNames &&
+                    degreeNames.map((e) => (
+                      <option value={e.degree}>{e.program_name} </option>
+                    ))}
+                </select>
+                {errors.degreeEarned && (
+                  <span className="text-red-600">please select your Degree</span>
+                )}
+              </div>
+              <div class="relative z-0 w-full mb-6 group">
+                <label
+                  for="graduationYear"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Year of Graduation{" "}
+                </label>
+                <select
+                  {...register("graduation_year", { required: true })}
+                  id="graduationYear"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                >
+                  {graduationYear &&
+                    graduationYear.map((e) => (
+                      <option value={e.batchNumber}>{e.batchNumber} </option>
+                    ))}
+                </select>
+                {errors.graduation_year && (
+                  <span className="text-red-600">please select your Gratuation Year</span>
+                )}
+              </div>
             </div>
-            <div className="col-span-full sm:col-span-2">
-              <label for="username" className="text-sm text-slate-500">
-                Contact Address *
-              </label>
-              <input
-                {...register("apartment")}
-                id="username"
-                type="text"
-                placeholder="Apartment number"
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              />
-            </div>
-            <div className="col-span-full sm:col-span-2">
-              <label for="password" className="text-sm text-slate-500">
-                .
-              </label>
-              <input
-                {...register("street")}
-                id="password"
-                type="text"
-                placeholder="Street/Road no"
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              />
-            </div>
-            <div className="col-span-full sm:col-span-2">
-              <label for="re-enter-password" className="text-sm text-slate-500">
-                .
-              </label>
-              <input
-                {...register("city",{required:true})}
-                id="re-enter-password"
-                type="text"
-                placeholder="City"
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              />
-                 {errors.city && (
-                <span className="text-red-600">
-                       please write your city
-                </span>
-              )}
-            </div>
-            <div className="col-span-full sm:col-span-2">
-              <label for="username" className="text-sm text-slate-500">
-                .
-              </label>
-              <input
-                id="username"
-                {...register("district",{required:true})}
-                type="text"
-                placeholder="District State"
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              />
-                 {errors.district && (
-                <span className="text-red-600">
-                       please write your district
-                </span>
-              )}
-            </div>
-            <div className="col-span-full sm:col-span-2">
-              <label for="password" className="text-sm text-slate-500">
-                .
-              </label>
-              <input
-                {...register("postCode")}
-                id="password"
-                type="text"
-                placeholder="post code"
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              />
-            </div>
-            <div className="col-span-full sm:col-span-2">
-              <label for="re-enter-password" className="text-sm text-slate-500">
-                .
-              </label>
-              <input
-                {...register("country",{required:true})}
-                id="re-enter-password"
-                type="text"
-                placeholder="Country"
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              />
-              district
-            </div>
-            <div className="col-span-full sm:col-span-3">
-              <label for="firstname" className="text-sm text-slate-500">
-                Telephone * (at least mobile number required)
-              </label>
-              <input
-                {...register("mobile",{required:true})}
-                id="firstname"
-                type="text"
-                placeholder="+880 17xxxxxxxxxx"
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              />
-              {errors.mobile && (
-                <span className="text-red-600">
-                       please write your Number
-                </span>
-              )}
-            </div>
-            <div className="col-span-full sm:col-span-3">
-              <label for="lastname" className="text-sm text-slate-500">
-                .
-              </label>
-              <input
-                {...register("residance")}
-                id="lastname"
-                type="text"
-                placeholder="Residance"
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              />
-            </div>
-            <div className="col-span-full sm:col-span-3">
-              <label for="firstname" className="text-sm text-slate-500">
-                .
-              </label>
-              <input
-                {...register("office")}
-                id="firstname"
-                type="text"
-                placeholder="Office"
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              />
-            </div>
-            <div className="col-span-full sm:col-span-3">
-              <label for="lastname" className="text-sm text-slate-500">
-                .
-              </label>
-              <input
-                {...register("fax")}
-                id="lastname"
-                type="text"
-                placeholder="Fax"
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              />
-            </div>
-            <div className="col-span-full">
-              <label for="address" className="text-sm text-slate-500">
-                Professional Information: Briefly state specialty/expertise area and
-                experience (optional)
-              </label>
 
-              <textarea
-                placeholder=""
-                {...register("message")}
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              ></textarea>
-            </div>
-            <div className="col-span-full">
-              <label for="address" className="text-sm text-slate-500">
-                Membership Fee
-              </label>
-              <p className="w-full flex justify-between py-2 px-6 focus:ring focus:ring-opacity-75 bg-white focus:ring-violet-400 border-gray-700 text-gray-900">
-                <span>Life Member/Associate Life Member</span>
-                <span>Tk 2,000</span>
-              </p>
-            </div>
-            <div className="col-span-full ">
-              <p className="w-full shadow-lg  py-2 px-6 focus:ring focus:ring-opacity-75 bg-white focus:ring-violet-400 border-gray-700 text-gray-900">
-                <input type="checkbox" /> I hereby declare that, as a Life
-                Member/Associate Life Member, I shall abide by the rules and regulations
-                of BUET Alumni and support its activities that will help achieve its
-                objectives.
-              </p>
-            </div>
-          </div>
-          <div className="space-y-2 col-span-full lg:col-span-1 flex  justify-center ">
-            <div>
-              <p className="font-medium">Photo *</p>
-              {photo ? (
-                <img
-                  src={URL.createObjectURL(photo)}
-                  alt="user"
-                  className="object-cover mb-6 rounded shadow-lg h-28 sm:h-48 xl:h-56 w-28 sm:w-48 xl:w-56"
+            {/* Personal data Optional */}
+            {/* Father and Mother */}
+            <div class="grid md:grid-cols-2 md:gap-6">
+              <div class="relative z-0 w-full mb-6 group">
+                <input
+                  {...register("fatherName", { required: true })}
+                  type="text"
+                  name="fatherName"
+                  id="floating_father_name"
+                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
+                  placeholder=" "
+                  required
                 />
-              ) : (
-                <img
-                  className="object-cover mb-6 rounded shadow-lg h-28 sm:h-48 xl:h-56 w-28 sm:w-48 xl:w-56"
-                  // src="http://buetalumni.org/assets/images/profile/default.jpg"
-                  src={user?.photoURL }
-                  alt=""
+                <label
+                  for="floating_father_name"
+                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-focus:dark:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  Your father name
+                </label>
+                {errors.fatherName && (
+                  <span className="text-red-600">please write your Father Name</span>
+                )}
+              </div>
+              <div class="relative z-0 w-full mb-6 group">
+                <input
+                  {...register("motherName", { required: true })}
+                  type="text"
+                  name="motherName"
+                  id="floating_mother_name"
+                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
+                  placeholder=" "
+                  required
                 />
-              )} 
+                <label
+                  for="floating_mother_name"
+                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-focus:dark:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  Your Mother name
+                </label>
+                {errors.motherName && (
+                  <span className="text-red-600">please write your Father Name</span>
+                )}
+              </div>
+            </div>
 
-              <input 
-                id="address"
-                type="file"
-                placeholder=""
-                accept="photo/*"
-                onChange={(e) => setPhoto(e.target.files[0])}
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              />
+            {/* Blood Group and Gender */}
+            <div class="grid md:grid-cols-3 md:gap-6">
+              <div class="relative z-0 w-full mb-6 group">
+                <label
+                  for="bloodGroup"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  select Blood Group
+                </label>
+                <select
+                  {...register("bloodGroup", { required: true })}
+                  id="bloodGroup"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                >
+                  <option selected disabled value="">
+                    Blood Group
+                  </option>
+                  <option value="A+">A+</option>
+                  <option value="A-">A-</option>
+                  <option value="B+">B+</option>
+                  <option value="B-">B-</option>
+                  <option value="AB+">AB+</option>
+                  <option value="AB-">AB-</option>
+                  <option value="O+">O+</option>
+                  <option value="O-">O-</option>
+                </select>
+                {errors.bloodGroup && (
+                  <span className="text-red-600">select Blood Group</span>
+                )}
+              </div>
+              <div class="relative z-0 w-full mb-6 group">
+                <label
+                  for="bloodGroup"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Select your gender
+                </label>
+                <select
+                  {...register("gender", { required: true })}
+                  id="bloodGroup"
+                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                >
+                  <option selected disabled value="">
+                    Gender
+                  </option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+                {errors.gender && <span className="text-red-600">select gender</span>}
+              </div>
+              <div class="relative z-0 w-full mb-6 group">
+                <label
+                  for="birthDate"
+                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Select your Date of Birth
+                </label>
+
+                <div class="relative max-w-sm">
+                  <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg
+                      aria-hidden="true"
+                      class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                        clip-rule="evenodd"
+                      ></path>
+                    </svg>
+                  </div>
+
+                  <Controller
+                    name="dateOfBirth"
+                    control={control}
+                    render={({ field: { onChange, value } }) => (
+                      <input
+                        type="date"
+                        onChange={onChange}
+                        value={value}
+                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                      />
+                    )}
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="flex">
+
+            {/* Contact Details street and city */}
+            <div class="grid md:grid-cols-2 md:gap-6">
+              <div class="relative z-0 w-full mb-6 group">
+                <input
+                  {...register("streetAddress")}
+                  type="text"
+                  name="streetAddress"
+                  id="floating_street"
+                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
+                  placeholder=" "
+                  required
+                />
+                <label
+                  for="floating_street"
+                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-focus:dark:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  Street
+                </label>
+              </div>
+              <div class="relative z-0 w-full mb-6 group">
+                <input
+                  {...register("city", { required: true })}
+                  type="text"
+                  name="city"
+                  id="floating_city"
+                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
+                  placeholder=" "
+                  required
+                />
+                <label
+                  for="floating_city"
+                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-focus:dark:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  City Name
+                </label>
+                {errors.city && (
+                  <span className="text-red-600">please write your city</span>
+                )}
+              </div>
+            </div>
+            {/* Contact Details state and zip */}
+            <div class="grid md:grid-cols-2 md:gap-6">
+              <div class="relative z-0 w-full mb-6 group">
+                <input
+                  {...register("stateName")}
+                  type="text"
+                  name="stateName"
+                  id="floating_state"
+                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
+                  placeholder=" "
+                  required
+                />
+                <label
+                  for="floating_state"
+                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-focus:dark:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  State
+                </label>
+              </div>
+              <div class="relative z-0 w-full mb-6 group">
+                <input
+                  {...register("zipCode")}
+                  type="number"
+                  name="zipCode"
+                  id="floating_zip"
+                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
+                  placeholder=" "
+                  required
+                />
+                <label
+                  for="floating_zip"
+                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-focus:dark:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                >
+                  zip
+                </label>
+              </div>
+            </div>
+
+            {/* submit button */}
             <button
               type="submit"
-              className="btn bg-primary outline-none border-none shadow-md mr-4   px-8"
+              class="text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-primary dark:hover:bg-primary dark:focus:ring-primary"
             >
-              Save
-            </button>
-            <button
-              type="cancel"
-              className="btn bg-secondary    outline-none border-none shadow-md  px-8"
-            >
-              Cancel
+              Submit
             </button>
           </div>
-        </fieldset>
+          <div className="w-full md:w-1/4">
+            <div className="space-y-2 col-span-full lg:col-span-1 flex  justify-center ">
+              <div>
+                <p className="font-medium">Photo *</p>
+                {photo ? (
+                  <img
+                    src={URL.createObjectURL(photo)}
+                    alt="user"
+                    className="object-cover mb-6 rounded shadow-lg h-28 sm:h-48 xl:h-56 w-28 sm:w-48 xl:w-56"
+                  />
+                ) : (
+                  <img
+                    className="object-cover mb-6 rounded shadow-lg h-28 sm:h-48 xl:h-56 w-28 sm:w-48 xl:w-56"
+                    // src="http://buetalumni.org/assets/images/profile/default.jpg"
+                    src={user?.photoURL}
+                    alt=""
+                  />
+                )}
+
+                <input
+                  id="address"
+                  type="file"
+                  name="image"
+                  placeholder=""
+                  accept="photo/*"
+                  onChange={(e) => setPhoto(e.target.files[0])}
+                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
       </form>
+
+      <h1 className="text-xl">OLD</h1>
     </section>
   );
 };
