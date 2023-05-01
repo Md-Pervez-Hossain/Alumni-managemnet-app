@@ -23,6 +23,7 @@ import SingleSuccessFullStory from "../sharedComponents/CreateSuccessFullStory/S
 import SingleNewsSection from "../sharedComponents/NewsCards/SingleNewsSection";
 import BatchWiseStudent from "../Pages/BatchwiseStudent/BatchwiseStudent";
 
+
 const routes = createBrowserRouter([
   {
     path: "/",

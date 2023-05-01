@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Navigate } from "react-router";
@@ -9,6 +9,7 @@ import {
   useGetAllGraduationMajorQuery,
   useGetAllUniversityNameQuery,
 } from "../../features/Api/apiSlice";
+import { AuthContext } from "../../sharedComponents/UseContext/AuthProvider";
 const MembershipForm = () => {
   const {
     register,
@@ -19,6 +20,16 @@ const MembershipForm = () => {
     formState: { errors },
   } = useForm();
   const [photo, setPhoto] = useState(null);
+
+
+const {user} = useContext(AuthContext);
+ 
+
+console.log(user);
+
+
+
+
   // const [universityName, setUniversityName] = useState([""]);
   // const [majorSubject, setMajorSubject] = useState([""]);
   // const [degreeNames, setDegreeNames] = useState([""]);
@@ -171,85 +182,95 @@ const MembershipForm = () => {
       >
         <fieldset className="grid grid-cols-4 gap-6 p-6 py-2 px-6">
           <div className="grid grid-cols-6 gap-4 col-span-full lg:col-span-3">
+
+
             <div className="col-span-full sm:col-span-2">
               <label for="firstname" className="text-sm text-slate-500">
-                First Name
+                Personal Informaition:
               </label>
-              <input
+              <input defaultValue={user?.displayName}
                 id="name"
                 {...register("firstname", { required: true, maxLength: 20 })}
                 type="text"
-                placeholder="Your name"
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
+                placeholder="First Name"
+                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 text-gray-900"
               />
+              {errors.firstname && <span className="text-red-600">Please Write your name</span>}
             </div>
             <div className="col-span-full sm:col-span-2">
-              <label for="lastName" className="text-sm text-slate-500">
-                Last Name
+              <label for="lastName" className="text-sm text-gray-50">
+                .
               </label>
               <input
                 id="name"
                 {...register("lastName", { required: true, maxLength: 20 })}
                 type="text"
-                placeholder="Your name"
+                placeholder="Last Name"
                 className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
               />
+              {errors.lastName && <span className="text-red-600">Write your last name</span>}
             </div>
             <div className="col-span-full sm:col-span-2">
-              <label for="email" className="text-sm text-slate-500">
-                Your Email
+              <label for="email" className="text-sm  text-gray-50">
+                .
               </label>
-              <input
+              <input defaultValue={user?.email}
                 id="email"
-                {...register("email", { required: true })}
+                {...register("email", {
+                  required: true,
+                  pattern: /^\S+@\S+$/i // regular expression for email validation
+                })}
                 type="email"
-                placeholder="Your Email"
+                placeholder="ex-@gmail.com"
                 autoComplete="email"
                 className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
               />
+              {errors.email && <span className="text-red-600">Enter your valid email</span>}
             </div>
-
-            {/* <div className="col-span-full sm:col-span-2">
-              <label for="username" className="text-sm text-slate-500">
-                Username
-              </label>
-              <input
-                id="username"
-                {...register("username")}
-                type="text"
-                placeholder="Your Username"
-                className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
-              />
-            </div> */}
-
             <div className="col-span-full sm:col-span-3">
-              <label for="password" className="text-sm text-slate-500">
+              <label htmlFor="password" className="text-sm text-gray-50">
                 Password
               </label>
               <input
-                id="password"
-                {...register("password", { required: true })}
                 type="password"
-                placeholder="Your Password"
+                {...register("password", {
+                  required: true,
+                  focus: true,
+                  pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/
+                })}
+                name="password"
+                id="password" placeholder="*******"
                 className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
               />
+              {errors.password && (
+                <span className="text-red-600">
+                  Password must contain at least one uppercase letter, one lowercase letter, one number, and be at least 6 characters long
+                </span>
+              )}
             </div>
+
+
             <div className="col-span-full sm:col-span-3">
-              <label for="re-enter-password" className="text-sm text-slate-500">
-                Re-enter Password
+              <label htmlFor="confirm-password" className="text-sm text-gray-50">
+                Confirm Password
               </label>
               <input
-                id="re-enter-password"
+                id="confirm-password"
                 type="password"
-                {...register("password", { required: true })}
+                {...register("confirmPassword", { required: true })}
                 placeholder="Confirm Password"
                 className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
               />
+              {errors.confirmPassword && (
+                <span className="text-red-600">
+                  please retype your password
+                </span>
+              )}
             </div>
 
             <div className="col-span-full sm:col-span-2">
               <label for="username" className="text-sm text-slate-500">
-                Date of Birth
+                Date of Birth:
               </label>
 
               <Controller
@@ -264,28 +285,36 @@ const MembershipForm = () => {
                   />
                 )}
               />
-            </div>
 
+            </div>
             <div className="col-span-full sm:col-span-2">
-              <label for="address" className="text-sm text-slate-500">
-                Your Gender
+              <label for="address" className="text-sm  text-gray-50">
+                .
               </label>
               <select
-                {...register("gender")}
+                {...register("gender",{ required: true })}
                 className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
               >
+                <option selected disabled value="">Gender</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
+
+              {errors.gender && (
+                <span className="text-red-600">
+                        select gender
+                </span>
+              )}
             </div>
             <div className="col-span-full sm:col-span-2">
-              <label for="address" className="text-sm text-slate-500">
-                Blood Group
+              <label for="address" className="text-sm text-gray-50">
+                .
               </label>
               <select
-                {...register("blood-group")}
+                {...register("bloodGroup",{ required: true })}
                 className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
               >
+                <option selected disabled value="">Blood Group</option>
                 <option value="A+">A+</option>
                 <option value="A-">A-</option>
                 <option value="B+">B+</option>
@@ -295,51 +324,76 @@ const MembershipForm = () => {
                 <option value="O+">O+</option>
                 <option value="O-">O-</option>
               </select>
+              {errors.bloodGroup && (
+                <span className="text-red-600">
+                        select Blood Group
+                </span>
+              )}
             </div>
             <div className="col-span-full sm:col-span-3">
               <label for="address" className="text-sm text-slate-500">
-                Father name
+                .
               </label>
               <input
                 id="address"
                 type="text"
-                {...register("father-name")}
-                placeholder=""
+                {...register("fatherName",
+                {required:true})}
+                placeholder=" Father name"
                 className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
               />
+                  {errors.fatherName && (
+                <span className="text-red-600">
+                       please write your Father Name 
+                </span>
+              )}
             </div>
             <div className="col-span-full sm:col-span-3">
               <label for="address" className="text-sm text-slate-500">
-                Mother name
+                .
               </label>
               <input
                 id="address"
                 type="text"
-                {...register("mother-name")}
-                placeholder=""
+                {...register("motherName",{required:true})}
+                placeholder=" Mother name"
                 className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
               />
+                  {errors.motherName && (
+                <span className="text-red-600">
+                       please write your Father Name 
+                </span>
+              )}
             </div>
+
+
+
+
 
             <div className="col-span-full sm:col-span-2">
               <label for="username" className="text-sm text-slate-500">
-                Your University
+                Education:
               </label>{" "}
               <br />
               <select
-                {...register("university-name")}
+                {...register("universityName",{required:true})}
                 className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
               >
                 <option selected disabled value="">
-                  select your Mejor Subject
+                  Your University
                 </option>
                 {universityName &&
                   universityName.map((e) => <option value={e.name}>{e.name} </option>)}
               </select>
+              {errors.universityName && (
+                <span className="text-red-600">
+                       please select your university 
+                </span>
+              )}
             </div>
             <div className="col-span-full sm:col-span-2">
-              <label for="password" className="text-sm text-slate-500">
-                Year of Graduation
+              <label for="password" className="text-sm text-gray-50">
+                .
               </label>{" "}
               <br />
               {/* <input
@@ -349,30 +403,35 @@ const MembershipForm = () => {
                 className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
               /> */}
               <select
-                {...register("graduation_year ")}
+                {...register("graduation_year ",{required:true})}
                 className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
               >
                 <option selected disabled value="">
-                  select your passing year
+                  Year of Graduation
                 </option>
                 {graduationYear &&
                   graduationYear.map((e) => (
                     <option value={e.batchNumber}>{e.batchNumber} </option>
                   ))}
               </select>
+              {errors.graduation_year && (
+                <span className="text-red-600">
+                       please select your Gratuation Year 
+                </span>
+              )}
             </div>
             <div className="col-span-full sm:col-span-2 flex">
               <div className="mr-4 w-1/2">
-                <label for="username" className="text-sm text-slate-500">
-                  Degree
+                <label for="username" className="text-sm  text-gray-50">
+                  .
                 </label>{" "}
                 <br />
                 <select
-                  {...register("eraned-degree")}
+                  {...register("eranedDegree",{required:true})}
                   className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
                 >
                   <option selected disabled value="">
-                    select Degree
+                    Degree
                   </option>
 
                   {degreeNames &&
@@ -380,37 +439,47 @@ const MembershipForm = () => {
                       <option value={e.degree}>{e.program_name} </option>
                     ))}
                 </select>
+                {errors.eranedDegree && (
+                <span className="text-red-600">
+                       please select your Degree
+                </span>
+              )}
               </div>
 
               <div className=" sm:col-span-2 w-1/2">
-                <label for="re-enter-password" className="text-sm text-slate-500">
-                  Department/Institue
+                <label for="re-enter-password" className="text-sm  text-gray-50">
+                  .
                 </label>{" "}
                 <br />
                 <select
-                  {...register("mejor")}
+                  {...register("mejor",{required:true})}
                   className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
                 >
                   <option selected disabled value="">
-                    select your Mejor Subject
+                    Department
                   </option>
                   {majorSubject &&
                     majorSubject.map((e) => (
                       <option value={e.graduationMajor}>{e.graduationMajor} </option>
                     ))}
                 </select>
+                {errors.mejor && (
+                <span className="text-red-600">
+                       please select your Degree
+                </span>
+              )}
               </div>
             </div>
 
             <div className="col-span-full">
-              <label for="address" className="text-sm text-slate-500">
-                Present Position (If retd. last position)
+              <label for="address" className="text-sm  text-gray-50">
+                .
               </label>
               <input
-                {...register("present-possition")}
+                {...register("presentPossition")}
                 id="address"
                 type="text"
-                placeholder=""
+                placeholder="Present Position (If retd. last position)"
                 className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
               />
             </div>
@@ -443,12 +512,17 @@ const MembershipForm = () => {
                 .
               </label>
               <input
-                {...register("city")}
+                {...register("city",{required:true})}
                 id="re-enter-password"
                 type="text"
                 placeholder="City"
                 className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
               />
+                 {errors.city && (
+                <span className="text-red-600">
+                       please write your city
+                </span>
+              )}
             </div>
             <div className="col-span-full sm:col-span-2">
               <label for="username" className="text-sm text-slate-500">
@@ -456,18 +530,23 @@ const MembershipForm = () => {
               </label>
               <input
                 id="username"
-                {...register("district")}
+                {...register("district",{required:true})}
                 type="text"
                 placeholder="District State"
                 className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
               />
+                 {errors.district && (
+                <span className="text-red-600">
+                       please write your district
+                </span>
+              )}
             </div>
             <div className="col-span-full sm:col-span-2">
               <label for="password" className="text-sm text-slate-500">
                 .
               </label>
               <input
-                {...register("post-code")}
+                {...register("postCode")}
                 id="password"
                 type="text"
                 placeholder="post code"
@@ -479,24 +558,30 @@ const MembershipForm = () => {
                 .
               </label>
               <input
-                {...register("country")}
+                {...register("country",{required:true})}
                 id="re-enter-password"
                 type="text"
                 placeholder="Country"
                 className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
               />
+              district
             </div>
             <div className="col-span-full sm:col-span-3">
               <label for="firstname" className="text-sm text-slate-500">
                 Telephone * (at least mobile number required)
               </label>
               <input
-                {...register("mobile")}
+                {...register("mobile",{required:true})}
                 id="firstname"
                 type="text"
-                placeholder="Mobile"
+                placeholder="+880 17xxxxxxxxxx"
                 className="w-full py-2 px-6 focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900"
               />
+              {errors.mobile && (
+                <span className="text-red-600">
+                       please write your Number
+                </span>
+              )}
             </div>
             <div className="col-span-full sm:col-span-3">
               <label for="lastname" className="text-sm text-slate-500">
@@ -576,10 +661,11 @@ const MembershipForm = () => {
               ) : (
                 <img
                   className="object-cover mb-6 rounded shadow-lg h-28 sm:h-48 xl:h-56 w-28 sm:w-48 xl:w-56"
-                  src="http://buetalumni.org/assets/images/profile/default.jpg"
+                  // src="http://buetalumni.org/assets/images/profile/default.jpg"
+                  src={user?.photoURL }
                   alt=""
                 />
-              )}
+              )} 
 
               <input
                 id="address"
@@ -591,7 +677,7 @@ const MembershipForm = () => {
               />
             </div>
           </div>
-          <div>
+          <div className="flex">
             <button
               type="submit"
               className="btn bg-primary outline-none border-none shadow-md mr-4   px-8"
