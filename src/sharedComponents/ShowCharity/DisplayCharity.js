@@ -1,6 +1,7 @@
 import React from "react";
 import Counter from "../Counter/Counter";
 import { Link } from "react-router-dom";
+import { FaArrowRight } from "react-icons/fa";
 
 const DisplayCharity = ({ charity }) => {
   const {
@@ -31,16 +32,16 @@ const DisplayCharity = ({ charity }) => {
       <div>
         <h2 className="my-3 text-xl">{title}</h2>
         <p className="mb-3">{`${details.slice(0, 50)} ...`}</p>
-        <div className="bg-primary px-3 py-2  mb-3">
-          <p className="text-white"> DeadLine :</p>{" "}
-          <Counter date={deadline}></Counter>
+        <div className=" py-2  mb-3">
+          <p className=""> DeadLine :</p> <Counter date={deadline}></Counter>
           <p className="mt-2">
             <Link
               to={`/charity/${_id}`}
-              className=" font-semibold text-secondary"
+              className=" flex gap-1 items-center text-primary "
             >
               {" "}
-              Details
+              <span> Details </span>
+              <FaArrowRight className="text-[12px] "></FaArrowRight>
             </Link>
           </p>
         </div>
