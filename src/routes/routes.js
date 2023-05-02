@@ -48,11 +48,6 @@ const routes = createBrowserRouter([
       },
       {
         path: "/successFullStory/:id",
-        loader: async ({ params }) => {
-          return fetch(
-            `https://alumni-managemnet-app-server.vercel.app/successFullStory/${params.id}`
-          );
-        },
         element: <SingleSuccessFullStory></SingleSuccessFullStory>,
       },
       {
@@ -80,11 +75,6 @@ const routes = createBrowserRouter([
       },
       {
         path: "/news/:id",
-        loader: async ({ params }) => {
-          return fetch(
-            `https://alumni-managemnet-app-server.vercel.app/news/${params.id}`
-          );
-        },
         element: <SingleNewsSection></SingleNewsSection>,
       },
       {
@@ -93,11 +83,6 @@ const routes = createBrowserRouter([
       },
       {
         path: "/events/:singleEventId",
-        loader: async ({ params }) => {
-          return fetch(
-            `https://alumni-managemnet-app-server.vercel.app/events/${params.singleEventId}`
-          );
-        },
         element: <SingleEvent />,
       },
 
@@ -108,11 +93,6 @@ const routes = createBrowserRouter([
 
       {
         path: "/alumni/batch/:year",
-        loader: ({ params }) => {
-          return fetch(
-            `https://alumni-managemnet-app-server.vercel.app/alumni/batch/${params.year}`
-          );
-        },
         element: <BatchWiseStudent />,
       },
       // single student / alumni page data

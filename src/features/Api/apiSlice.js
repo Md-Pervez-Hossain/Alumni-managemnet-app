@@ -32,6 +32,11 @@ export const apiSlice = createApi({
       query: () => "/events",
     }),
 
+    //  single event
+    getBatchWiseEvents: builder.query({
+      query: (id) => `/events/batch/${id}`,
+    }),
+
     // create event
     addEvents: builder.mutation({
       query: (data) => ({
@@ -41,6 +46,12 @@ export const apiSlice = createApi({
       }),
     }),
 
+    //  single event
+    getSingleEvent: builder.query({
+      query: (id) => `/events/${id}`,
+    }),
+
+    // events categories
     getEventsCategories: builder.query({
       query: () => "/eventCategories",
     }),
@@ -50,8 +61,24 @@ export const apiSlice = createApi({
       query: () => "/news",
     }),
 
+    getSingleNews: builder.query({
+      query: (id) => `/news/${id}`,
+    }),
+
     getNewsCategories: builder.query({
       query: () => "/alumniNewsCategories",
+    }),
+
+    // * Alumni * //
+
+    // All Alumni Data
+    getAllAlumni: builder.query({
+      query: () => "/alumni",
+    }),
+
+    // yearWise Alumni Data
+    getYearWiseAlumni: builder.query({
+      query: (id) => `/alumni/batch/${id}`,
     }),
 
     // // extras
@@ -72,11 +99,6 @@ export const apiSlice = createApi({
     // All degree programs
     getAllDegreePrograms: builder.query({
       query: () => "/all-degree-programs",
-    }),
-
-    // All batches name
-    getAllAlumni: builder.query({
-      query: () => "/alumni",
     }),
 
     //  single charity
@@ -101,6 +123,8 @@ export const {
   //charity
   useGetSingleCharityQuery,
   // NEWS
+  useGetaLLNewsQuery,
+  useGetSingleNewsQuery,
   useGetNewsCategoriesQuery,
 
   // UTILS
@@ -117,11 +141,14 @@ export const {
 
   // EVENTS
   useGetEventsQuery,
+  useGetBatchWiseEventsQuery,
   useGetEventsCategoriesQuery,
+  useGetSingleEventQuery,
 
   // mutations of events
   useAddEventsMutation,
 
   //  All Alumni
   useGetAllAlumniQuery,
+  useGetYearWiseAlumniQuery,
 } = apiSlice;

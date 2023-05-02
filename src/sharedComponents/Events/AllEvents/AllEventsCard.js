@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import Counter from "../../Counter/Counter";
 
 const AllEventsCard = ({ item }) => {
-  console.log(item);
-  console.log(item.date);
-  console.log(new Date().getTime());
-  console.log(new Date());
+  // console.log(item);
+  // console.log(item.date);
+  // console.log(new Date().getTime());
+  // console.log(new Date());
   const [newDate, setNewDate] = useState("");
   useEffect(() => {
     let todayDate = new Date(),
