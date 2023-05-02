@@ -79,12 +79,19 @@ export const apiSlice = createApi({
       query: () => "/alumni",
     }),
 
+    // All single charity
+    getSingleCharity: builder.query({
+      query: (id) => `/charity/${id}`,
+    }),
+
     // /events/category/:id GET endpoint that returns event data based on category ID
     // /events/:id GET endpoint that returns a single event data based on the id parameter
   }),
 });
 
 export const {
+  //charity
+  useGetSingleCharityQuery,
   // NEWS
   useGetNewsCategoriesQuery,
 

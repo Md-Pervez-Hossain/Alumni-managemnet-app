@@ -40,8 +40,6 @@ const routes = createBrowserRouter([
       },
       {
         path: "/rony",
-
-        // element: <MembershipForm></MembershipForm>,
         element: <MembershipForm />,
       },
       {
@@ -67,9 +65,7 @@ const routes = createBrowserRouter([
       {
         path: "/gallery",
         loader: async () => {
-          return fetch(
-            `https://alumni-managemnet-app-server.vercel.app/galleries`
-          );
+          return fetch(`https://alumni-managemnet-app-server.vercel.app/galleries`);
         },
         element: <AllGalleryImage></AllGalleryImage>,
       },
@@ -112,13 +108,7 @@ const routes = createBrowserRouter([
 
       {
         path: "/alumni",
-        loader: () => {
-          return fetch(
-            "https://alumni-managemnet-app-server.vercel.app/alumni"
-          );
-        },
         element: <AlumniPage />,
-        // element: <AlumniDirectory />,
       },
 
       {
@@ -133,7 +123,6 @@ const routes = createBrowserRouter([
       // single student / alumni page data
       {
         path: "/alumni/:id",
-        // path: "/alumni/:graduation_year/:id",
         loader: ({ params }) => {
           console.log(params);
           return fetch(
@@ -146,11 +135,6 @@ const routes = createBrowserRouter([
         path: "/about-us",
         element: <AboutUs />,
       },
-
-      // {
-      //   path: "/person",
-      //   element: <SingleStudent />,
-      // },
       {
         path: "/login",
         element: <LogIn></LogIn>,

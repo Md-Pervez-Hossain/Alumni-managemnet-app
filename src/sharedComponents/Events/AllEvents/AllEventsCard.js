@@ -46,7 +46,7 @@ const AllEventsCard = ({ item }) => {
           ) : (
             <>
               {" "}
-              <Counter date={item.date}></Counter>
+              <Counter date={item.date} color="text-white"></Counter>
             </>
           )}
         </div>
