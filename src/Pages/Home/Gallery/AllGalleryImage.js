@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import DisplayAllGalleryImage from "./DisplayAllGalleryImage";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { PhotoProvider, PhotoView } from "react-photo-view";
+import "react-photo-view/dist/react-photo-view.css";
 import InnerPageHeader from "../../../sharedComponents/InnerPageHeader/InnerPageHeader";
 
 const AllGalleryImage = () => {
@@ -34,13 +36,18 @@ const AllGalleryImage = () => {
         ></InnerPageHeader>
       </div>
       <div className="w-9/12 mx-auto my-16">
-        <div className="grid grid-cols-6 gap-5">
-          {allGalleryImage?.slice(previous, next).map((galleryImg) => (
-            <DisplayAllGalleryImage
-              galleryImg={galleryImg}
-              key={galleryImg._id}
-            ></DisplayAllGalleryImage>
-          ))}
+        <div className="grid lg:grid-cols-6 gap-5">
+          <PhotoProvider>
+            {allGalleryImage?.slice(previous, next).map((galleryImg, idx) => (
+              <PhotoView src={galleryImg.image_url}>
+                <img
+                  src={galleryImg.image_url}
+                  alt=""
+                  className="h-32 w-full rounded-lg cursor-pointer"
+                />
+              </PhotoView>
+            ))}
+          </PhotoProvider>
         </div>
         <div className="flex gap-2 justify-end my-8">
           <button onClick={() => handlePrevious()}>
