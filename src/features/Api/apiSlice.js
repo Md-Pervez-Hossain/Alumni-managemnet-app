@@ -79,9 +79,14 @@ export const apiSlice = createApi({
       query: () => "/alumni",
     }),
 
-    // All single charity
+    //  single charity
     getSingleCharity: builder.query({
       query: (id) => `/charity/${id}`,
+    }),
+
+    //  single successful stories
+    getSingleSuccessfulStories: builder.query({
+      query: (id) => `/successFullStory/${id}`,
     }),
 
     // /events/category/:id GET endpoint that returns event data based on category ID
@@ -90,6 +95,9 @@ export const apiSlice = createApi({
 });
 
 export const {
+  //   successful stories
+  useGetSingleSuccessfulStoriesQuery,
+
   //charity
   useGetSingleCharityQuery,
   // NEWS

@@ -1,23 +1,20 @@
 import React from "react";
 import Counter from "../Counter/Counter";
-import { useLoaderData, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import InnerPageHeader from "../InnerPageHeader/InnerPageHeader";
 import { useGetSingleCharityQuery } from "../../features/Api/apiSlice";
 import Loading from "../Loading/Loading";
 import ErrorAlert from "../Skeletion/ErrorAlert";
 
 const DisplaySingleCharity = () => {
-  // const charity = useLoaderData();
-
   //  get location using react-router-dom
   const location = useLocation();
   // get the current path
   const currentPath = location.pathname.split("/charity/")[1];
 
-  console.log({ currentPath });
-
+  //load data using redux
   const { data, isLoading, isError, error } = useGetSingleCharityQuery(currentPath);
-  console.log(data);
+
   const {
     batchNumber,
     city,

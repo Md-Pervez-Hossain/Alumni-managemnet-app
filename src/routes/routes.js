@@ -89,11 +89,6 @@ const routes = createBrowserRouter([
       },
       {
         path: "/charity/:id",
-        loader: async ({ params }) => {
-          return fetch(
-            `https://alumni-managemnet-app-server.vercel.app/charity/${params.id}`
-          );
-        },
         element: <DisplaySingleCharity></DisplaySingleCharity>,
       },
       {
