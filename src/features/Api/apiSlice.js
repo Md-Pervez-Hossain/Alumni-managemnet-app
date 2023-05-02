@@ -25,6 +25,12 @@ export const apiSlice = createApi({
     getGalleriesTrending: builder.query({
       query: () => "/galleries/trending ",
     }),
+
+    // BatchWise Gallery data
+    getBatchWiseGallery: builder.query({
+      query: (id) => `/galleries/batch/${id}`,
+    }),
+
     // // EVENTS  //
 
     // get all events
@@ -79,6 +85,11 @@ export const apiSlice = createApi({
     // yearWise Alumni Data
     getYearWiseAlumni: builder.query({
       query: (id) => `/alumni/batch/${id}`,
+    }),
+
+    // single Alumni Data
+    getSingleAlumni: builder.query({
+      query: (id) => `/alumni/${id}`,
     }),
 
     // // extras
@@ -138,6 +149,7 @@ export const {
   useGetGalleryCategoriesQuery,
   useGetGalleriesFeaturedQuery,
   useGetGalleriesTrendingQuery,
+  useGetBatchWiseGalleryQuery,
 
   // EVENTS
   useGetEventsQuery,
@@ -151,4 +163,5 @@ export const {
   //  All Alumni
   useGetAllAlumniQuery,
   useGetYearWiseAlumniQuery,
+  useGetSingleAlumniQuery,
 } = apiSlice;

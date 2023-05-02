@@ -1,23 +1,51 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Navigation, Autoplay } from "swiper";
+import { useGetBatchWiseGalleryQuery } from "../../features/Api/apiSlice";
+import Loading from "../Loading/Loading";
+import ErrorAlert from "../Skeletion/ErrorAlert";
 const GallerySlider = ({ year }) => {
-  const [yearWiseGalleryData, setYearWiseGalleryData] = useState([]);
+  //load data using redux
 
-  useEffect(() => {
-    fetch(`https://alumni-managemnet-app-server.vercel.app/galleries/batch/${year}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data.length);
-        setYearWiseGalleryData(data);
-      });
-  }, [year]);
+  const { data, isLoading, isError, error } = useGetBatchWiseGalleryQuery(year);
+
+  let content;
+
+  if (isLoading && !isError) {
+    content = <Loading />;
+  }
+  if (!isLoading && isError) {
+    content = <ErrorAlert text={error} />;
+  }
+  if (!isLoading && !isError) {
+    content = (
+      <>
+        {" "}
+        {data.map((info) => {
+          return (
+            <SwiperSlide key={info._id}>
+              <section className="pt-6 dark:bg-gray-800">
+                <div className="container flex flex-col justify-center  mx-auto">
+                  <div
+                    className={` bg-cover bg-center bg-no-repeat h-40 md:h-80`}
+                    style={{
+                      backgroundImage: `url(${info.image_url})`,
+                    }}
+                  ></div>
+                </div>
+              </section>
+            </SwiperSlide>
+          );
+        })}
+      </>
+    );
+  }
 
   return (
-    <div className="">
+    <div className="pt-14">
       <h2 className="text-3xl text-center">Memories of {year} </h2>
       <Swiper
         modules={[Autoplay, Navigation]}
@@ -49,22 +77,7 @@ const GallerySlider = ({ year }) => {
           },
         }}
       >
-        {yearWiseGalleryData.map((info) => {
-          return (
-            <SwiperSlide key={info._id}>
-              <section className="pt-6 dark:bg-gray-800">
-                <div className="container flex flex-col justify-center  mx-auto">
-                  <div
-                    className={` bg-cover bg-center bg-no-repeat h-40 md:h-80`}
-                    style={{
-                      backgroundImage: `url(${info.image_url})`,
-                    }}
-                  ></div>
-                </div>
-              </section>
-            </SwiperSlide>
-          );
-        })}
+        <>{content}</>
       </Swiper>
     </div>
   );

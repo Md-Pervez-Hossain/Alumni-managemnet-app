@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import student from "../../assets/batchwiseStudent.jpg";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useLocation, useParams } from "react-router-dom";
@@ -51,7 +51,7 @@ const BatchWiseStudent = () => {
     alumniContent = (
       <>
         <div className=" grid md:grid-cols-4 gap-10">
-          {alumniData.map((singleAlumni) => (
+          {alumniData?.map((singleAlumni) => (
             <AlumniBatchDataCard key={singleAlumni._id} singleAlumni={singleAlumni} />
           ))}
         </div>
@@ -78,7 +78,7 @@ const BatchWiseStudent = () => {
       <>
         {" "}
         <div className="grid grid-cols-1 md:grid-cols-2">
-          {data.slice(0, 4).map((item) => (
+          {data?.slice(0, 4).map((item) => (
             <AllEventsCard key={item._id} item={item} />
           ))}
         </div>
