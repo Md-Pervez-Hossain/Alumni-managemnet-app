@@ -16,15 +16,6 @@ const DisplayAllGalleryImage = ({ galleryImg }) => {
           }}
           className="rounded-lg"
         ></div>
-        <div>
-          <p className="mt-2">Batch : {galleryImg.batchNumber}</p>
-          <Link to={`/galleries/${galleryImg._id}`}>
-            <div className="flex items-center gap-1 text-[12px]">
-              <p>Details</p>
-              <FaArrowRight></FaArrowRight>
-            </div>
-          </Link>
-        </div>
       </section>
     </div>
   );

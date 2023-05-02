@@ -31,18 +31,17 @@ const DisplaySingleCharity = () => {
         <div>
           <h2 className="mb-3 text-xl">{title}</h2>
           <p className="mb-3">{`${details} `}</p>
-          <div className="bg-primary px-3 py-2 w-44 mb-3">
-            <p className="text-white"> DeadLine :</p>{" "}
-            <Counter date={deadline}></Counter>
+          <div className="  py-2  ">
+            <p className=""> DeadLine :</p> <Counter date={deadline}></Counter>
           </div>
-          <p className="font-semibold">
+          <p className="font-normal">
             Goal Amount : <span className="font-normal">{goal_amount}</span>
           </p>
-          <p className="font-semibold">
+          <p className="font-normal">
             Collected Amount : <span className="font-normal">{5000}</span>
           </p>
 
-          <p className="font-semibold">
+          <p className="font-normal">
             Address :{" "}
             <span className="font-normal">{`${city} ${state} ${country}`}</span>
           </p>

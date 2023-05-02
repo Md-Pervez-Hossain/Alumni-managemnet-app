@@ -111,13 +111,24 @@ const SinglePerson = () => {
                         <></>
                       )}
                     </p>
-                    <div className="flex items-center gap-2">
-                      <FaAddressCard className="text-primary"></FaAddressCard>
-                      <p>
-                        Address :{" "}
-                        {`${address.street} ${address.city} ${address.state} ${address.zip}`}
-                      </p>
-                    </div>
+
+                    <p>
+                      {address.street === null &&
+                      address.city === null &&
+                      address.state === null &&
+                      address.zip === null ? (
+                        <></>
+                      ) : (
+                        <>
+                          {" "}
+                          <div className="flex items-center gap-2">
+                            <FaAddressCard className="text-primary"></FaAddressCard>{" "}
+                            Address :{" "}
+                            {`${address.street} ${address.city} ${address.state} ${address.zip}`}
+                          </div>
+                        </>
+                      )}
+                    </p>
                   </>
                 ) : (
                   <></>
@@ -165,33 +176,48 @@ const SinglePerson = () => {
                           <td>{personal_information.nationality}</td>
                           <td>
                             {" "}
-                            <p className="font-normal">
-                              {personal_information.hobbies.map((hobby, i) => {
-                                return (
-                                  <>
-                                    <p key={i} className="inline-block ">
-                                      {hobby}
-                                    </p>
-                                  </>
-                                );
-                              })}{" "}
-                            </p>
+                            {personal_information.hobbies ? (
+                              <>
+                                <p className="font-normal">
+                                  {personal_information.hobbies.map(
+                                    (hobby, i) => {
+                                      return (
+                                        <>
+                                          <p key={i} className="inline-block ">
+                                            {hobby}
+                                          </p>
+                                        </>
+                                      );
+                                    }
+                                  )}{" "}
+                                </p>
+                              </>
+                            ) : (
+                              <></>
+                            )}
                           </td>
                           <td>
                             {" "}
-                            <p className="font-normal">
-                              {personal_information.languages.map(
-                                (language, i) => {
-                                  return (
-                                    <>
-                                      <p key={i} className="inline-block ">
-                                        {language}
-                                      </p>
-                                    </>
-                                  );
-                                }
-                              )}{" "}
-                            </p>
+                            {personal_information.languages ? (
+                              <>
+                                {" "}
+                                <p className="font-normal">
+                                  {personal_information.languages.map(
+                                    (language, i) => {
+                                      return (
+                                        <>
+                                          <p key={i} className="inline-block ">
+                                            {language}
+                                          </p>
+                                        </>
+                                      );
+                                    }
+                                  )}{" "}
+                                </p>
+                              </>
+                            ) : (
+                              <></>
+                            )}
                           </td>
                         </tr>
                       </tbody>
@@ -214,17 +240,23 @@ const SinglePerson = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {education?.map((edu) => {
-                        return (
-                          <tr>
-                            <th>{edu.degree}</th>
-                            <td>{edu.institution}</td>
-                            <td>{edu.major}</td>
-                            <td>{edu.graduation_year}</td>
-                            <td>{edu.gpa}</td>
-                          </tr>
-                        );
-                      })}
+                      {education ? (
+                        <>
+                          {education?.map((edu) => {
+                            return (
+                              <tr>
+                                <th>{edu.degree}</th>
+                                <td>{edu.institution}</td>
+                                <td>{edu.major}</td>
+                                <td>{edu.graduation_year}</td>
+                                <td>{edu.gpa}</td>
+                              </tr>
+                            );
+                          })}
+                        </>
+                      ) : (
+                        <></>
+                      )}
                     </tbody>
                   </table>
                 </div>
@@ -245,36 +277,50 @@ const SinglePerson = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {careers?.map((career, i) => {
-                          return (
-                            <tr>
-                              <th>{career.company}</th>
-                              <td>{career.position}</td>
-                              <td>{career.start_date}</td>
+                        {careers ? (
+                          <>
+                            {" "}
+                            {careers?.map((career, i) => {
+                              return (
+                                <tr>
+                                  <th>{career.company}</th>
+                                  <td>{career.position}</td>
+                                  <td>{career.start_date}</td>
 
-                              <td>
-                                {career.end_date ? (
-                                  <> {career.end_date}</>
-                                ) : (
-                                  <>
-                                    {" "}
-                                    <p>Running</p>
-                                  </>
-                                )}
-                              </td>
-                              <td>
-                                {" "}
-                                {career.responsibilities.map((res, i) => {
-                                  return (
-                                    <>
-                                      <p key={i}>{res}</p>
-                                    </>
-                                  );
-                                })}
-                              </td>
-                            </tr>
-                          );
-                        })}
+                                  <td>
+                                    {career.end_date ? (
+                                      <> {career.end_date}</>
+                                    ) : (
+                                      <>
+                                        {" "}
+                                        <p>Running</p>
+                                      </>
+                                    )}
+                                  </td>
+                                  <td>
+                                    {career?.responsibilities ? (
+                                      <>
+                                        {career?.responsibilities?.map(
+                                          (res, i) => {
+                                            return (
+                                              <>
+                                                <p key={i}>{res}</p>
+                                              </>
+                                            );
+                                          }
+                                        )}
+                                      </>
+                                    ) : (
+                                      <></>
+                                    )}
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </>
+                        ) : (
+                          <></>
+                        )}
                       </tbody>
                     </table>
                   </div>
