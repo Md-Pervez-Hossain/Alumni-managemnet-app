@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const AlumniDirectory = () => {
   return (
@@ -12,9 +13,11 @@ const AlumniDirectory = () => {
             enim ad minim veniam, quis csetur adipicing elit, sed do eiusmod
             tempor dncint ut labore et dolore magna alis
           </p>
-          <button className="mt-8 py-4 px-8 text-right text-primary font-bold bg-secondary">
-            Learn More
-          </button>
+          <Link to="/alumni">
+            <button className="mt-8 py-4 px-8 text-right text-primary font-bold bg-secondary">
+              Learn More
+            </button>
+          </Link>
         </div>
 
         <div>
