@@ -43,6 +43,7 @@ const LogIn = () => {
     <div className=" flex justify-center items-center  bg-accent rounded-lg py-20">
       <div className=" lg:w-1/2">
         <h2 className="text-4xl text-primary font-semibold text-center mb-5">Login</h2>
+        
         <form onSubmit={handleSubmit(handleLogIn)}>
           <div className="form-control lg:w-2/3 mx-auto">
             <label className="label">
@@ -83,6 +84,7 @@ const LogIn = () => {
             </button>
           </div>
         </form>
+
         <p className="text-center mt-5 mb-10">
           Don't Have An Account?{" "}
           <span>
