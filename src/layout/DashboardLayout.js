@@ -79,7 +79,8 @@ const DashboardLayout = () => {
               fontAwesome="fa-regular fa-file-lines"
               url="/dashboard/events"
             />
-            {pathname === "/dashboard/events" && (
+            {(pathname === "/dashboard/events" ||
+              pathname === "/dashboard/events/add-a-event") && (
               <DashBoardNavItem
                 name="Add a Event"
                 fontAwesome="fa-regular fa-file-lines"
