@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   FaAddressCard,
   FaArrowLeft,
@@ -22,14 +22,12 @@ import ErrorAlert from "../../sharedComponents/Skeletion/ErrorAlert";
 
 const SinglePerson = () => {
   const { user } = useContext(AuthContext);
-  const [persons, setPersons] = useState([]);
   // const singleAlumni = useLoaderData();
 
   //  get location using react-router-dom
   const location = useLocation();
   // get the current path
   const currentPath = location.pathname.split("/alumni/")[1];
-  console.log({ currentPath });
   //load data using redux
   const {
     data: singleAlumni,
@@ -409,7 +407,10 @@ const SinglePerson = () => {
               <button onClick={() => handlePrevious()}>
                 <FaArrowLeft className="text-primary hover:text-secondary duration-500 ease-in-out cursor-pointer"></FaArrowLeft>
               </button>
-              <button disabled={next > persons?.length} onClick={() => handleNext()}>
+              <button
+                disabled={next > similarAlumni?.length}
+                onClick={() => handleNext()}
+              >
                 <FaArrowRight className="text-primary hover:text-secondary duration-500 ease-in-out cursor-pointer"></FaArrowRight>
               </button>
             </div>

@@ -92,6 +92,23 @@ export const apiSlice = createApi({
       query: (id) => `/alumni/${id}`,
     }),
 
+    // *  successful stories * //
+
+    // All  successful stories Data
+    getAllSuccessfulStories: builder.query({
+      query: () => "/successFullStory",
+    }),
+
+    //  single successful stories
+    getSingleSuccessfulStories: builder.query({
+      query: (id) => `/successFullStory/${id}`,
+    }),
+    // *  CHARITY * //
+    //  single charity
+    getSingleCharity: builder.query({
+      query: (id) => `/charity/${id}`,
+    }),
+
     // // extras
 
     //  all university names
@@ -112,16 +129,6 @@ export const apiSlice = createApi({
       query: () => "/all-degree-programs",
     }),
 
-    //  single charity
-    getSingleCharity: builder.query({
-      query: (id) => `/charity/${id}`,
-    }),
-
-    //  single successful stories
-    getSingleSuccessfulStories: builder.query({
-      query: (id) => `/successFullStory/${id}`,
-    }),
-
     // /events/category/:id GET endpoint that returns event data based on category ID
     // /events/:id GET endpoint that returns a single event data based on the id parameter
   }),
@@ -129,6 +136,7 @@ export const apiSlice = createApi({
 
 export const {
   //   successful stories
+  useGetAllSuccessfulStoriesQuery,
   useGetSingleSuccessfulStoriesQuery,
 
   //charity
@@ -154,7 +162,7 @@ export const {
   // EVENTS
   useGetEventsQuery,
   useGetBatchWiseEventsQuery,
-  useGetEventsCategoriesQuery,
+  useGetEventsCategoriesQuery, //event category
   useGetSingleEventQuery,
 
   // mutations of events

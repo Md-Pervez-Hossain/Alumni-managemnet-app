@@ -52,27 +52,21 @@ const routes = createBrowserRouter([
       },
       {
         path: "/news",
-        loader: async ({ params }) => {
-          return fetch(`https://alumni-managemnet-app-server.vercel.app/news`);
-        },
         element: <AllNews></AllNews>,
       },
       {
         path: "/gallery",
-        loader: async () => {
-          return fetch(`https://alumni-managemnet-app-server.vercel.app/galleries`);
-        },
         element: <AllGalleryImage></AllGalleryImage>,
       },
-      {
-        path: "/galleries/:id",
-        loader: async ({ params }) => {
-          return fetch(
-            `https://alumni-managemnet-app-server.vercel.app/galleries/${params.id}`
-          );
-        },
-        element: <SingleGalleryImage></SingleGalleryImage>,
-      },
+      // {
+      //   path: "/galleries/:id",
+      //   loader: async ({ params }) => {
+      //     return fetch(
+      //       `https://alumni-managemnet-app-server.vercel.app/galleries/${params.id}`
+      //     );
+      //   },
+      //   element: <SingleGalleryImage></SingleGalleryImage>,
+      // },
       {
         path: "/news/:id",
         element: <SingleNewsSection></SingleNewsSection>,
@@ -98,12 +92,6 @@ const routes = createBrowserRouter([
       // single student / alumni page data
       {
         path: "/alumni/:id",
-        loader: ({ params }) => {
-          console.log(params);
-          return fetch(
-            `https://alumni-managemnet-app-server.vercel.app/alumni/${params.id}`
-          );
-        },
         element: <SinglePerson />,
       },
       {

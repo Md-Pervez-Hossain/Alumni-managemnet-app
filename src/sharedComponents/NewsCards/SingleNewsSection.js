@@ -33,7 +33,7 @@ const SingleNewsSection = () => {
     newsDetails,
     time,
     _id,
-  } = data;
+  } = data || {};
 
   let content;
 

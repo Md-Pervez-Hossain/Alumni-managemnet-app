@@ -2,10 +2,42 @@ import React from "react";
 import { useLoaderData } from "react-router-dom";
 import DisplayAllNews from "./DisplayAllNews";
 import InnerPageHeader from "../InnerPageHeader/InnerPageHeader";
+import { useGetaLLNewsQuery } from "../../features/Api/apiSlice";
+import Loading from "../Loading/Loading";
+import ErrorAlert from "../Skeletion/ErrorAlert";
 
 const AllNews = () => {
-  const allNews = useLoaderData();
-  console.log(allNews);
+  const {
+    data: newsData,
+    isError: newsIsError,
+    isLoading: newsIsLoading,
+    error: newsError,
+  } = useGetaLLNewsQuery();
+
+  let newsContent;
+
+  if (newsIsLoading && !newsIsError) {
+    newsContent = <Loading />;
+  }
+  if (!newsIsLoading && newsIsError) {
+    newsContent = <ErrorAlert text={newsError} />;
+  }
+  if (!newsIsLoading && !newsIsError && newsData?.length === 0) {
+    newsContent = <ErrorAlert text="No News Find" />;
+  }
+  if (!newsIsLoading && !newsIsError && newsData?.length > 0) {
+    newsContent = (
+      <>
+        {" "}
+        <div className="grid lg:grid-cols-3 gap-10">
+          {newsData?.map((news) => (
+            <DisplayAllNews news={news} key={news._id}></DisplayAllNews>
+          ))}
+        </div>{" "}
+      </>
+    );
+  }
+
   return (
     <div className="">
       <InnerPageHeader
@@ -16,11 +48,7 @@ const AllNews = () => {
         description="welcome To News Page"
       ></InnerPageHeader>
       <div className="w-9/12 mx-auto my-16">
-        <div className="grid lg:grid-cols-3 gap-10">
-          {allNews?.map((news) => (
-            <DisplayAllNews news={news} key={news._id}></DisplayAllNews>
-          ))}
-        </div>
+        <>{newsContent}</>
       </div>
     </div>
   );
