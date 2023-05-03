@@ -1,12 +1,12 @@
 import React from "react";
 import MoreSuccessFullStory from "./MoreSuccessFullStory";
-import Comments from "../Comments/Comments";
-import ShowComments from "../Comments/ShowComments";
 import { useLocation } from "react-router-dom";
-import InnerPageHeader from "../InnerPageHeader/InnerPageHeader";
 import { useGetSingleSuccessfulStoriesQuery } from "../../features/Api/apiSlice";
-import ErrorAlert from "../Skeletion/ErrorAlert";
-import Loading from "../Loading/Loading";
+import Loading from "../../sharedComponents/Loading/Loading";
+import ErrorAlert from "../../sharedComponents/Skeletion/ErrorAlert";
+import InnerPageHeader from "../../sharedComponents/InnerPageHeader/InnerPageHeader";
+import Comments from "../../sharedComponents/Comments/Comments";
+import ShowComments from "../../sharedComponents/Comments/ShowComments";
 
 const SingleSuccessFullStory = () => {
   //  get location using react-router-dom

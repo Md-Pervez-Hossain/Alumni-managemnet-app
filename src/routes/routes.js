@@ -17,15 +17,19 @@ import DashboardLayout from "../layout/DashboardLayout";
 import DashboardMain from "../Dashboard/DashboardPages/DashboardMain";
 import DashboardTestPage from "../Dashboard/DashboardPages/DashboardTestPage";
 import AddAEvent from "../Dashboard/DashboardPages/AddAEvent";
-import CreateGallery from "../Dashboard/DashboardComponents/Gallery/CreateGalleryItem";
 import CheckoutPage from "../Pages/CheckoutPage/CheckoutPage";
-import SingleSuccessFullStory from "../sharedComponents/CreateSuccessFullStory/SingleSuccessFullStory";
 import SingleNewsSection from "../sharedComponents/NewsCards/SingleNewsSection";
 import BatchWiseStudent from "../Pages/BatchwiseStudent/BatchwiseStudent";
 import DisplaySingleCharity from "../sharedComponents/ShowCharity/DisplaySingleCharity";
 import AllNews from "../sharedComponents/NewsCards/AllNews";
 import AllGalleryImage from "../Pages/Home/Gallery/AllGalleryImage";
 import SingleGalleryImage from "../Pages/Home/Gallery/SingleGalleryImage";
+import PrivateRoutes from "./PrivateRoutes";
+import NewsCreateForm from "../Dashboard/DashboardComponents/NewsCreateForm/NewsCreateForm";
+import CreateGallery from "../Dashboard/DashboardPages/CreateGallery/CreateGallery";
+import CreateSuccessFullStory from "../Dashboard/DashboardPages/CreateSuccessFullStory/CreateSuccessFullStory";
+import SingleSuccessFullStory from "../Pages/singleSuccessfulStory/SingleSuccessFullStory";
+import CreateCharity from "../Dashboard/DashboardPages/CreateCharity/CreateCharity";
 
 const routes = createBrowserRouter([
   {
@@ -58,15 +62,7 @@ const routes = createBrowserRouter([
         path: "/gallery",
         element: <AllGalleryImage></AllGalleryImage>,
       },
-      // {
-      //   path: "/galleries/:id",
-      //   loader: async ({ params }) => {
-      //     return fetch(
-      //       `https://alumni-managemnet-app-server.vercel.app/galleries/${params.id}`
-      //     );
-      //   },
-      //   element: <SingleGalleryImage></SingleGalleryImage>,
-      // },
+
       {
         path: "/news/:id",
         element: <SingleNewsSection></SingleNewsSection>,
@@ -112,15 +108,21 @@ const routes = createBrowserRouter([
   },
   {
     path: "/dashboard/",
-    element: <DashboardLayout />,
+    element: (
+      <PrivateRoutes>
+        {" "}
+        <DashboardLayout />
+      </PrivateRoutes>
+    ),
     children: [
       { path: "/dashboard/", element: <DashboardMain /> },
       { path: "/dashboard/alumni/", element: <DashboardTestPage /> },
-      { path: "/dashboard/news/", element: <DashboardTestPage /> },
+      { path: "/dashboard/news/", element: <NewsCreateForm /> },
       { path: "/dashboard/events", element: <AddAEvent /> },
-      { path: "/dashboard/gallery/", element: <DashboardTestPage /> },
+      { path: "/dashboard/CreateCharity", element: <CreateCharity /> },
+      { path: "/dashboard/gallery/", element: <CreateGallery /> },
+      { path: "/dashboard/successfulStory/", element: <CreateSuccessFullStory /> },
       { path: "/dashboard/profile/", element: <MembershipForm /> },
-      { path: "/dashboard/addAGalleryItem/", element: <CreateGallery /> },
       { path: "/dashboard/Checkout/", element: <CheckoutPage /> },
     ],
   },

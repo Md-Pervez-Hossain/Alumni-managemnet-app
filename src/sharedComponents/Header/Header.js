@@ -21,7 +21,9 @@ const Header = () => {
     <nav className="bg-primary text-white sticky top-0 z-50 ">
       <div className="w-9/12 mx-auto flex flex-wrap  list-none justify-between items-center py-5 text-xl font-bold">
         <div>
-          <img src={logo} alt="" className="h-16" />
+          <Link to="/">
+            <img src={logo} alt="" className="h-16" />
+          </Link>
         </div>
         <div onClick={() => setOpen(!open)}>
           {open ? (

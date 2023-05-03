@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { AiFillDislike, AiFillLike } from "react-icons/ai";
-import { FaHeart } from "react-icons/fa";
 
 const ShowComments = () => {
   const [comments, setComments] = useState([]);

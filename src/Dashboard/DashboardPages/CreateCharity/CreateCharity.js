@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
-import { AuthContext } from "../UseContext/AuthProvider";
+import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
 
 const CreateCharity = () => {
   const [batchYear, setBatchYear] = useState([]);
@@ -31,13 +31,10 @@ const CreateCharity = () => {
     const time = new Date().toLocaleDateString();
     const formData = new FormData();
     formData.append("image", image_url);
-    fetch(
-      "https://api.imgbb.com/1/upload?key=86fe1764d78f51c15b1a9dfe4b9175cf",
-      {
-        method: "POST",
-        body: formData,
-      }
-    )
+    fetch("https://api.imgbb.com/1/upload?key=86fe1764d78f51c15b1a9dfe4b9175cf", {
+      method: "POST",
+      body: formData,
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

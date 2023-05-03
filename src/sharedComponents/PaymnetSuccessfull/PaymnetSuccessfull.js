@@ -1,14 +1,12 @@
 import React from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
-const PaymnetSuccessfull = () => {
+const PaymentSuccessful = () => {
   return (
     <div className="w-9/12 mx-auto my-16">
       <div>
         <h2 className="text-2xl ">Congratulations !!!!</h2>
-        <h2 className="text-2xl mb-10 ">
-          Your Payment Has Been SuccessFully Done .
-        </h2>
+        <h2 className="text-2xl mb-10 ">Your Payment Has Been SuccessFully Done .</h2>
         <div className="overflow-x-auto">
           <table className="table w-full">
             <thead>
@@ -38,7 +36,7 @@ const PaymnetSuccessfull = () => {
         </div>
       </div>
       <div>
-        <h2 className="my-10 text-4xl">Explorer More Charity</h2>
+        <h2 className="my-10 text-4xl">Explore More Charity</h2>
         <div className="grid lg:grid-cols-4 gap-5">
           <div>
             <div
@@ -53,9 +51,8 @@ const PaymnetSuccessfull = () => {
             <div>
               <h2 className="my-3 text-2xl">Charity Heading</h2>
               <p className="mb-3">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas
-                iusto consectetur eos similique placeat id porro soluta neque
-                optio non!
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas iusto
+                consectetur eos similique placeat id porro soluta neque optio non!
               </p>
               <button className="bg-secondary px-6 py-3 ">Donation</button>
             </div>
@@ -73,9 +70,8 @@ const PaymnetSuccessfull = () => {
             <div>
               <h2 className="my-3 text-2xl">Charity Heading</h2>
               <p className="mb-3">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas
-                iusto consectetur eos similique placeat id porro soluta neque
-                optio non!
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas iusto
+                consectetur eos similique placeat id porro soluta neque optio non!
               </p>
               <button className="bg-secondary px-6 py-3 ">Donation</button>
             </div>
@@ -93,9 +89,8 @@ const PaymnetSuccessfull = () => {
             <div>
               <h2 className="my-3 text-2xl">Charity Heading</h2>
               <p className="mb-3">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas
-                iusto consectetur eos similique placeat id porro soluta neque
-                optio non!
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas iusto
+                consectetur eos similique placeat id porro soluta neque optio non!
               </p>
               <button className="bg-secondary px-6 py-3 ">Donation</button>
             </div>
@@ -113,9 +108,8 @@ const PaymnetSuccessfull = () => {
             <div>
               <h2 className="my-3 text-2xl">Charity Heading</h2>
               <p className="mb-3">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas
-                iusto consectetur eos similique placeat id porro soluta neque
-                optio non!
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quas iusto
+                consectetur eos similique placeat id porro soluta neque optio non!
               </p>
               <button className="bg-secondary px-6 py-3 ">Donation</button>
             </div>
@@ -134,4 +128,4 @@ const PaymnetSuccessfull = () => {
   );
 };
 
-export default PaymnetSuccessfull;
+export default PaymentSuccessful;
