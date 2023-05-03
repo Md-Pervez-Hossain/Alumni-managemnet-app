@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import FundsForCause from "../../sharedComponents/FundsForCause/FundsForCause";
 import Slider from "../../sharedComponents/Slider/Slider";
 import SuccessStoriesSection from "../../sharedComponents/SuccessStories/SuccessStoriesSection";
@@ -11,12 +11,26 @@ import MissionHeading from "./MissionHeading/MissionHeading";
 import Gallery from "./Gallery/Gallery";
 import MembersStat from "./MembersStat/MembersStat";
 import ShowCharity from "../../sharedComponents/ShowCharity/ShowCharity";
+import _ from "lodash";
 
 const Home = () => {
-  //  useGetEventsQuery
+  const elementRef = useRef(null);
+
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver(
+      _.debounce((entries) => {
+        console.log("Element size changed!");
+        // handle resize events here
+      }, 100)
+    );
+    resizeObserver.observe(elementRef.current);
+
+    // cleanup function to disconnect the observer when the component unmounts
+    return () => resizeObserver.disconnect();
+  }, []);
 
   return (
-    <>
+    <div ref={elementRef}>
       <Slider />
       <div className="w-9/12 mx-auto">
         <UpComingEventsCard />
@@ -48,7 +62,7 @@ const Home = () => {
         <Contact />
       </div>
       <EmailSubScribe />
-    </>
+    </div>
   );
 };
 
