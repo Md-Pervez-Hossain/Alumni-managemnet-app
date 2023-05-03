@@ -1,11 +1,13 @@
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { AiFillDislike, AiFillLike } from "react-icons/ai";
-import { FaHeart } from "react-icons/fa";
 
-const ShowComments = () => {
+const ShowComments = ({ successFullStoryData }) => {
   const [comments, setComments] = useState([]);
   useEffect(() => {
-    fetch("https://alumni-managemnet-app-server.vercel.app/successFullStoryComments")
+    fetch(
+      `http://localhost:8000/successFullStoryComments/${successFullStoryData._id}`
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -14,7 +16,22 @@ const ShowComments = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [successFullStoryData._id]);
+  // const {
+  //   data: comments = [],
+  //   refetch,
+  //   isLoading,
+  // } = useQuery({
+  //   queryKey: ["comments"],
+  //   queryFn: async () => {
+  //     const res = await fetch(
+  //       `http://localhost:8000/successFullStoryComments/${successFullStoryData._id}`,
+  //       {}
+  //     );
+  //     const data = await res.json();
+  //     return data;
+  //   },
+  // });
   return (
     <div>
       {comments?.map((comment) => {

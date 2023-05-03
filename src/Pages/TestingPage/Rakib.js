@@ -30,11 +30,13 @@ const Rakib = () => {
       <CheckoutForm />
 
       {/* <SingleStudent></SingleStudent> */}
-      <SliderTwo></SliderTwo>
+      {/* <SliderTwo></SliderTwo> */}
       {/* <Counter></Counter>
       <AlumniDashboard></AlumniDashboard> */}
       <NewsCreateForm />
-      <CreateEvents></CreateEvents>
+      <CreateGallery></CreateGallery>
+      {/* <CreateEvents></CreateEvents> */}
+      <CreateSuccessFullStory></CreateSuccessFullStory>
       {/* <SingleNewsSection></SingleNewsSection> */}
       {/* <CreateGallery></CreateGallery> */}
       {/* <CreateSuccessFullStory></CreateSuccessFullStory> */}

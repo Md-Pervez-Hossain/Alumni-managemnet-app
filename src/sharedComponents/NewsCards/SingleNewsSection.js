@@ -77,7 +77,7 @@ const SingleNewsSection = () => {
           <div className="lg:col-span-1">
             <MoreNews _id={_id}></MoreNews>
           </div>
-          <Comments></Comments>
+          <Comments singleNews={singleNews}></Comments>
         </div>
       </div>
     </div>

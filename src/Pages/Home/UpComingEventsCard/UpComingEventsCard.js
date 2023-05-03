@@ -49,7 +49,7 @@ const UpComingEventsCard = () => {
   if (!eventDataIsLoading && !eventIsError && eventData?.length > 0) {
     eventDataContent = (
       <>
-        {eventData.slice(previous, next).map((eventData) => (
+        {eventData?.slice(previous, next).map((eventData) => (
           <div
             key={eventData._id}
             className="sm:flex shadow-soft-lg drop-shadow-lg	 justify-between items-center sm:w-full max-w-5xl mx-auto bg-primary  gap-4 relative -top-[24px]"
@@ -100,13 +100,14 @@ const UpComingEventsCard = () => {
                     onClick={() => previousHandler()}
                   />{" "}
                 </button>
-                <button className="text-right">
-                  <MdNavigateNext
-                    className=""
-                    size={23}
-                    disabled={next >= eventData.length}
-                    onClick={() => nextHandler()}
-                  />{" "}
+                <button
+                  onClick={() => nextHandler()}
+                  disabled={
+                    next === eventData?.length || next > eventData?.length
+                  }
+                  className="text-right"
+                >
+                  <MdNavigateNext className="" size={23} />{" "}
                 </button>
               </div>
             </div>

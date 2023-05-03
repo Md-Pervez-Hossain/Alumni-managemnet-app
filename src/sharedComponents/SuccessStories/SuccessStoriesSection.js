@@ -33,7 +33,9 @@ const SuccessStoriesSection = () => {
   };
   return (
     <div className="my-3  mx-auto relative">
-      <h1 className="my-7 text-3xl font-semibold text-center">Successful Stories</h1>
+      <h1 className="my-7 text-3xl font-semibold text-center">
+        Successful Stories
+      </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 items-center justify-between mb-4">
         {successStory?.slice(previous, next).map((data) => (
           <SuccessStoriesCard key={data._id} data={data}></SuccessStoriesCard>
@@ -43,7 +45,12 @@ const SuccessStoriesSection = () => {
         <button onClick={() => handlePrevious()}>
           <FaArrowLeft></FaArrowLeft>
         </button>
-        <button disabled={next > successStory?.length} onClick={() => handleNext()}>
+        <button
+          disabled={
+            next > successStory?.length || next === successStory?.length
+          }
+          onClick={() => handleNext()}
+        >
           <FaArrowRight></FaArrowRight>
         </button>
       </div>

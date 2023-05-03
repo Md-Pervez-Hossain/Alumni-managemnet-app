@@ -50,7 +50,6 @@ const SinglePerson = () => {
     setNext(next + 8);
     console.log("clicked next");
   };
-
   useEffect(() => {
     fetch("https://alumni-managemnet-app-server.vercel.app/alumni")
       .then((res) => res.json())
@@ -113,10 +112,10 @@ const SinglePerson = () => {
                     </p>
 
                     <p>
-                      {address.street === null &&
-                      address.city === null &&
-                      address.state === null &&
-                      address.zip === null ? (
+                      {address?.street === null &&
+                      address?.city === null &&
+                      address?.state === null &&
+                      address?.zip === null ? (
                         <></>
                       ) : (
                         <>
@@ -124,7 +123,7 @@ const SinglePerson = () => {
                           <div className="flex items-center gap-2">
                             <FaAddressCard className="text-primary"></FaAddressCard>{" "}
                             Address :{" "}
-                            {`${address.street} ${address.city} ${address.state} ${address.zip}`}
+                            {`${address?.street} ${address?.city} ${address?.state} ${address?.zip}`}
                           </div>
                         </>
                       )}
@@ -133,6 +132,7 @@ const SinglePerson = () => {
                 ) : (
                   <></>
                 )}
+                <div></div>
                 <div className="flex items-center gap-3 mt-3 cursor-pointer ">
                   <FaFacebook className="text-primary hover:text-secondary duration-500 ease-in-out"></FaFacebook>
                   <FaGithub className="text-primary hover:text-secondary duration-500 ease-in-out"></FaGithub>
@@ -156,59 +156,212 @@ const SinglePerson = () => {
                       {/* head */}
                       <thead>
                         <tr>
-                          <th>DOB</th>
-                          <th>Gender</th>
-                          <th>Fathers Name</th>
-                          <th>Mothers Name</th>
-                          <th>Marital Status</th>
-                          <th>Nationality</th>
-                          <th>Hobies</th>
-                          <th>Languages</th>
+                          {personal_information?.date_of_birth ? (
+                            <>
+                              {" "}
+                              <th>DOB</th>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {personal_information?.gender ? (
+                            <>
+                              <th>Gender</th>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {personal_information?.fathers_name ? (
+                            <>
+                              <th>Fathers Name</th>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {personal_information?.mothers_name ? (
+                            <>
+                              {" "}
+                              <th>Mothers Name</th>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {personal_information?.marital_status ? (
+                            <>
+                              {" "}
+                              <th>Marital Status</th>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {personal_information?.nationality ? (
+                            <>
+                              {" "}
+                              <th>Nationality</th>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {graduation_year ? (
+                            <>
+                              {" "}
+                              <th>Graduation Year</th>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {major ? (
+                            <>
+                              {" "}
+                              <th>Major</th>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {department ? (
+                            <>
+                              {" "}
+                              <th>Department</th>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {degree ? (
+                            <>
+                              {" "}
+                              <th>Degree</th>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {personal_information?.hobbies ? (
+                            <>
+                              <th>Hobies</th>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {personal_information?.languages ? (
+                            <>
+                              <th>Languages</th>
+                            </>
+                          ) : (
+                            <></>
+                          )}
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <th>{personal_information.date_of_birth}</th>
-                          <td>{personal_information.gender}</td>
-                          <td>{personal_information.fathers_name}</td>
-                          <td>{personal_information.mothers_name}</td>
-                          <td>{personal_information.marital_status}</td>
-                          <td>{personal_information.nationality}</td>
+                          {personal_information?.date_of_birth ? (
+                            <>
+                              {" "}
+                              <th>{personal_information?.date_of_birth}</th>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {personal_information?.gender ? (
+                            <>
+                              <td>{personal_information?.gender}</td>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {personal_information?.fathers_name ? (
+                            <>
+                              {" "}
+                              <td>{personal_information?.fathers_name}</td>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {personal_information?.mothers_name ? (
+                            <>
+                              <td>{personal_information?.mothers_name}</td>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {personal_information?.marital_status ? (
+                            <>
+                              {" "}
+                              <td>{personal_information?.marital_status}</td>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {personal_information?.nationality ? (
+                            <>
+                              {" "}
+                              <td>{personal_information?.nationality}</td>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {graduation_year ? (
+                            <>
+                              {" "}
+                              <td>{graduation_year}</td>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {major ? (
+                            <>
+                              <td>{major}</td>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {department ? (
+                            <>
+                              {" "}
+                              <td>{department}</td>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                          {degree ? (
+                            <>
+                              <td>{degree}</td>
+                            </>
+                          ) : (
+                            <></>
+                          )}
+
                           <td>
                             {" "}
-                            {personal_information.hobbies ? (
-                              <>
-                                <p className="font-normal">
-                                  {personal_information.hobbies.map(
-                                    (hobby, i) => {
-                                      return (
-                                        <>
-                                          <p key={i} className="inline-block ">
-                                            {hobby}
-                                          </p>
-                                        </>
-                                      );
-                                    }
-                                  )}{" "}
-                                </p>
-                              </>
+                            {personal_information?.hobbies ? (
+                              <p className="font-normal">
+                                {personal_information?.hobbies.map(
+                                  (hobby, i) => {
+                                    return (
+                                      <>
+                                        <div className="inline-block  ">
+                                          <p key={i}>{`${hobby} ,  `}</p>
+                                        </div>
+                                      </>
+                                    );
+                                  }
+                                )}{" "}
+                              </p>
                             ) : (
                               <></>
                             )}
                           </td>
                           <td>
                             {" "}
-                            {personal_information.languages ? (
+                            {personal_information?.languages ? (
                               <>
                                 {" "}
                                 <p className="font-normal">
-                                  {personal_information.languages.map(
+                                  {personal_information?.languages.map(
                                     (language, i) => {
                                       return (
                                         <>
-                                          <p key={i} className="inline-block ">
-                                            {language}
-                                          </p>
+                                          <div className="inline-block  ">
+                                            <p key={i}>{`${language} , `}</p>
+                                          </div>
                                         </>
                                       );
                                     }
@@ -231,13 +384,54 @@ const SinglePerson = () => {
                   <table className="table w-full">
                     {/* head */}
                     <thead>
-                      <tr>
-                        <th>Degree</th>
-                        <th>Institution</th>
-                        <th>Major</th>
-                        <th>Graduation Year</th>
-                        <th>GPA</th>
-                      </tr>
+                      {education?.map((edu) => {
+                        return (
+                          <>
+                            <tr>
+                              {edu?.degree ? (
+                                <>
+                                  {" "}
+                                  <th>Degree</th>
+                                </>
+                              ) : (
+                                <></>
+                              )}
+                              {edu?.institution ? (
+                                <>
+                                  {" "}
+                                  <th>Institution</th>
+                                </>
+                              ) : (
+                                <></>
+                              )}
+                              {edu?.major ? (
+                                <>
+                                  {" "}
+                                  <th>Major</th>
+                                </>
+                              ) : (
+                                <></>
+                              )}
+                              {edu?.graduation_year ? (
+                                <>
+                                  {" "}
+                                  <th>Graduation Year</th>
+                                </>
+                              ) : (
+                                <></>
+                              )}
+                              {edu?.gpa ? (
+                                <>
+                                  {" "}
+                                  <th>GPA</th>
+                                </>
+                              ) : (
+                                <></>
+                              )}
+                            </tr>
+                          </>
+                        );
+                      })}
                     </thead>
                     <tbody>
                       {education ? (
@@ -245,11 +439,45 @@ const SinglePerson = () => {
                           {education?.map((edu) => {
                             return (
                               <tr>
-                                <th>{edu.degree}</th>
-                                <td>{edu.institution}</td>
-                                <td>{edu.major}</td>
-                                <td>{edu.graduation_year}</td>
-                                <td>{edu.gpa}</td>
+                                {edu?.degree ? (
+                                  <>
+                                    <th>{edu?.degree}</th>
+                                  </>
+                                ) : (
+                                  <></>
+                                )}
+                                {edu?.institution ? (
+                                  <>
+                                    {" "}
+                                    <td>{edu.institution}</td>
+                                  </>
+                                ) : (
+                                  <></>
+                                )}
+                                {edu?.major ? (
+                                  <>
+                                    {" "}
+                                    <td>{edu.major}</td>
+                                  </>
+                                ) : (
+                                  <></>
+                                )}
+                                {edu?.graduation_year ? (
+                                  <>
+                                    {" "}
+                                    <td>{edu?.graduation_year}</td>
+                                  </>
+                                ) : (
+                                  <></>
+                                )}
+                                {edu?.gpa ? (
+                                  <>
+                                    {" "}
+                                    <td>{edu?.gpa}</td>
+                                  </>
+                                ) : (
+                                  <></>
+                                )}
                               </tr>
                             );
                           })}
@@ -279,22 +507,35 @@ const SinglePerson = () => {
                       <tbody>
                         {careers ? (
                           <>
-                            {" "}
                             {careers?.map((career, i) => {
                               return (
                                 <tr>
-                                  <th>{career.company}</th>
-                                  <td>{career.position}</td>
-                                  <td>{career.start_date}</td>
-
+                                  {career.company ? (
+                                    <>
+                                      <th>{career.company}</th>
+                                    </>
+                                  ) : (
+                                    <></>
+                                  )}
+                                  {career.position ? (
+                                    <>
+                                      <td>{career.position}</td>
+                                    </>
+                                  ) : (
+                                    <></>
+                                  )}
+                                  {career.start_date ? (
+                                    <>
+                                      <td>{career.start_date}</td>
+                                    </>
+                                  ) : (
+                                    <></>
+                                  )}
                                   <td>
                                     {career.end_date ? (
                                       <> {career.end_date}</>
                                     ) : (
-                                      <>
-                                        {" "}
-                                        <p>Running</p>
-                                      </>
+                                      <> </>
                                     )}
                                   </td>
                                   <td>

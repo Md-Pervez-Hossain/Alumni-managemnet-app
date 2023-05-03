@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaRegComment } from "react-icons/fa";
 import { MdFavoriteBorder } from "react-icons/md";
 import MoreSuccessFullStory from "./MoreSuccessFullStory";
@@ -7,8 +7,11 @@ import Comments from "../Comments/Comments";
 import ShowComments from "../Comments/ShowComments";
 import { useLoaderData } from "react-router-dom";
 import InnerPageHeader from "../InnerPageHeader/InnerPageHeader";
+import { useQuery } from "@tanstack/react-query";
+import { AiFillDislike, AiFillLike } from "react-icons/ai";
 
 const SingleSuccessFullStory = () => {
+  const [successStoryComments, setSuccessStoryComments] = useState([]);
   const successFullStoryData = useLoaderData();
   console.log(successFullStoryData);
   const {
@@ -24,6 +27,22 @@ const SingleSuccessFullStory = () => {
     title,
     _id,
   } = successFullStoryData;
+  const {
+    data: comment = [],
+    refetch,
+    isLoading,
+  } = useQuery({
+    queryKey: ["comments"],
+    queryFn: async () => {
+      const res = await fetch(
+        `http://localhost:8000/successFullStoryComments/${successFullStoryData._id}`,
+        {}
+      );
+      const data = await res.json();
+      return data;
+    },
+  });
+
   return (
     <div>
       <InnerPageHeader
@@ -65,14 +84,17 @@ const SingleSuccessFullStory = () => {
                 </div>
               </div>
             </div>
-            <Comments></Comments>
+            <Comments successFullStoryData={successFullStoryData}></Comments>
           </div>
-
           <div className="lg:col-span-1">
             <MoreSuccessFullStory _id={_id}></MoreSuccessFullStory>
           </div>
+          <div>
+            <ShowComments
+              successFullStoryData={successFullStoryData}
+            ></ShowComments>
+          </div>
         </div>
-        <ShowComments></ShowComments>
       </div>
     </div>
   );

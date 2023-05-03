@@ -13,20 +13,22 @@ const NewsCard = ({ data }) => {
         style={{ backgroundImage: `url(${data.image})` }}
       ></div>
       <div className="px-5 pt-4 py-8 mt-3">
-        <h5 className="text-xl mb-4 mt-4 font-medium leading-tight text-gray-900">
-          {data?.heading}
-        </h5>
+        <Link to={`/news/${data._id}`}>
+          <h5 className="text-xl mb-4 mt-4 font-medium leading-tight text-gray-900">
+            {`${data?.heading.slice(0, 20)} ...`}
+          </h5>
+        </Link>
         <p>{`${data?.newsDetails.slice(0, 50)} ...`}</p>
 
         <Link to={`/news/${data._id}`}>
-          <button className="mt-4 text-right text-primary font-bold ">
+          <button className="mt-4 text-right text-primary font-medium ">
             Learn More{" "}
           </button>
         </Link>
 
         {/* news author */}
         <div className="mt-5  flex justify-between items-center text-black ">
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center ">
             <div className="w-11 h-11 rounded-full border-2">
               <img
                 className="w-full h-full object-cover rounded-full"

@@ -1,23 +1,41 @@
+import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
 const MoreSuccessFullStory = ({ _id }) => {
   console.log(_id);
-  const [stories, setStories] = useState([]);
+  // const [stories, setStories] = useState([]);
   const [previous, setPrevious] = useState(0);
   const [next, setNext] = useState(6);
-  useEffect(() => {
-    fetch("https://alumni-managemnet-app-server.vercel.app/successFullStory")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setStories(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   fetch("https://alumni-managemnet-app-server.vercel.app/successFullStory")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       setStories(data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
+
+  const {
+    data: stories = [],
+    refetch,
+    isLoading,
+  } = useQuery({
+    queryKey: ["stories"],
+    queryFn: async () => {
+      const res = await fetch(
+        `https://alumni-managemnet-app-server.vercel.app/successFullStory`,
+        {}
+      );
+      const data = await res.json();
+      return data;
+    },
+  });
+
   console.log(stories);
   const handlePrevious = () => {
     console.log("previous");
@@ -56,12 +74,17 @@ const MoreSuccessFullStory = ({ _id }) => {
                 <div>
                   <h2 className="mb-2">SuccessFull Story Heading</h2>
                   <p className="text-[12px] mb-2">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos,
-                    in.
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                    Dignissimos, in.
                   </p>
-                  <Link to={`/successFullStory/${story._id}`}>
+                  <Link
+                    onClick={() => refetch()}
+                    to={`/successFullStory/${story._id}`}
+                  >
                     {" "}
-                    <button className="bg-secondary px-4 py-2 text-white">Details</button>
+                    <button className="bg-secondary px-4 py-2 text-white">
+                      Details
+                    </button>
                   </Link>
                 </div>
               </div>
