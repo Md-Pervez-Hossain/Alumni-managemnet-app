@@ -1,5 +1,5 @@
 import React from "react";
-import CreateEvents from "../DashboardComponents/CreateEvents/CreateEvents";
+import CreateEvents from "../../DashboardComponents/CreateEvents/CreateEvents";
 
 const AddAEvent = () => {
   return (

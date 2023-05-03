@@ -16,7 +16,7 @@ import MembershipForm from "../Pages/MembershipForm/MembershipForm";
 import DashboardLayout from "../layout/DashboardLayout";
 import DashboardMain from "../Dashboard/DashboardPages/DashboardMain";
 import DashboardTestPage from "../Dashboard/DashboardPages/DashboardTestPage";
-import AddAEvent from "../Dashboard/DashboardPages/AddAEvent";
+import AddAEvent from "../Dashboard/DashboardPages/Events/AddAEvent";
 import CheckoutPage from "../Pages/CheckoutPage/CheckoutPage";
 import SingleNewsSection from "../sharedComponents/NewsCards/SingleNewsSection";
 import BatchWiseStudent from "../Pages/BatchwiseStudent/BatchwiseStudent";
@@ -30,6 +30,7 @@ import CreateGallery from "../Dashboard/DashboardPages/CreateGallery/CreateGalle
 import CreateSuccessFullStory from "../Dashboard/DashboardPages/CreateSuccessFullStory/CreateSuccessFullStory";
 import SingleSuccessFullStory from "../Pages/singleSuccessfulStory/SingleSuccessFullStory";
 import CreateCharity from "../Dashboard/DashboardPages/CreateCharity/CreateCharity";
+import AllEvents from "../Dashboard/DashboardPages/Events/AllEvents";
 
 const routes = createBrowserRouter([
   {
@@ -109,16 +110,17 @@ const routes = createBrowserRouter([
   {
     path: "/dashboard/",
     element: (
-      <PrivateRoutes>
-        {" "}
-        <DashboardLayout />
-      </PrivateRoutes>
+      // <PrivateRoutes>
+
+      <DashboardLayout />
+      // </PrivateRoutes>
     ),
     children: [
       { path: "/dashboard/", element: <DashboardMain /> },
       { path: "/dashboard/alumni/", element: <DashboardTestPage /> },
       { path: "/dashboard/news/", element: <NewsCreateForm /> },
-      { path: "/dashboard/events", element: <AddAEvent /> },
+      { path: "/dashboard/events", element: <AllEvents /> },
+      { path: "/dashboard/events/add-a-event", element: <AddAEvent /> },
       { path: "/dashboard/CreateCharity", element: <CreateCharity /> },
       { path: "/dashboard/gallery/", element: <CreateGallery /> },
       { path: "/dashboard/successfulStory/", element: <CreateSuccessFullStory /> },

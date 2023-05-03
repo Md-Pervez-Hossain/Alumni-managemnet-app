@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef } from "react";
 import DashBoardNavbar from "../Dashboard/DashboardComponents/DashBoardNavbar";
-import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import logo from "../../src/assets/logo/logo-black.png";
 import DashBoardNavItem from "../Dashboard/DashboardComponents/DashBoardNavItem/DashBoardNavItem";
 import ResizeObserver from "resize-observer-polyfill";
@@ -10,6 +10,9 @@ const DashboardLayout = () => {
   const location = useLocation();
   const isActive = location.pathname === "/dashboard";
   const elementRef = useRef(null);
+
+  const pathname = location.pathname;
+  console.log(pathname);
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver(
@@ -70,11 +73,20 @@ const DashboardLayout = () => {
               fontAwesome="fa-regular fa-file-lines"
               url="/dashboard/news"
             />
+
             <DashBoardNavItem
-              name="Events"
+              name="All Events"
               fontAwesome="fa-regular fa-file-lines"
               url="/dashboard/events"
             />
+            {pathname === "/dashboard/events" && (
+              <DashBoardNavItem
+                name="Add a Event"
+                fontAwesome="fa-regular fa-file-lines"
+                url="/dashboard/events/add-a-event"
+              />
+            )}
+
             <DashBoardNavItem
               name="CreateCharity"
               fontAwesome="fa-regular fa-file-lines"
