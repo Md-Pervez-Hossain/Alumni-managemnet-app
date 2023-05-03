@@ -17,15 +17,19 @@ import DashboardLayout from "../layout/DashboardLayout";
 import DashboardMain from "../Dashboard/DashboardPages/DashboardMain";
 import DashboardTestPage from "../Dashboard/DashboardPages/DashboardTestPage";
 import AddAEvent from "../Dashboard/DashboardPages/AddAEvent";
-import CreateGallery from "../Dashboard/DashboardComponents/Gallery/CreateGalleryItem";
 import CheckoutPage from "../Pages/CheckoutPage/CheckoutPage";
-import SingleSuccessFullStory from "../sharedComponents/CreateSuccessFullStory/SingleSuccessFullStory";
 import SingleNewsSection from "../sharedComponents/NewsCards/SingleNewsSection";
 import BatchWiseStudent from "../Pages/BatchwiseStudent/BatchwiseStudent";
 import DisplaySingleCharity from "../sharedComponents/ShowCharity/DisplaySingleCharity";
 import AllNews from "../sharedComponents/NewsCards/AllNews";
 import AllGalleryImage from "../Pages/Home/Gallery/AllGalleryImage";
 import SingleGalleryImage from "../Pages/Home/Gallery/SingleGalleryImage";
+import PrivateRoutes from "./PrivateRoutes";
+import NewsCreateForm from "../Dashboard/DashboardComponents/NewsCreateForm/NewsCreateForm";
+import CreateGallery from "../Dashboard/DashboardPages/CreateGallery/CreateGallery";
+import CreateSuccessFullStory from "../Dashboard/DashboardPages/CreateSuccessFullStory/CreateSuccessFullStory";
+import SingleSuccessFullStory from "../Pages/singleSuccessfulStory/SingleSuccessFullStory";
+import CreateCharity from "../Dashboard/DashboardPages/CreateCharity/CreateCharity";
 
 const routes = createBrowserRouter([
   {
@@ -40,8 +44,6 @@ const routes = createBrowserRouter([
       },
       {
         path: "/rony",
-
-        // element: <MembershipForm></MembershipForm>,
         element: <MembershipForm />,
       },
       {
@@ -50,107 +52,48 @@ const routes = createBrowserRouter([
       },
       {
         path: "/successFullStory/:id",
-        loader: async ({ params }) => {
-          return fetch(
-            `https://alumni-managemnet-app-server.vercel.app/successFullStory/${params.id}`
-          );
-        },
         element: <SingleSuccessFullStory></SingleSuccessFullStory>,
       },
       {
         path: "/news",
-        loader: async ({ params }) => {
-          return fetch(`https://alumni-managemnet-app-server.vercel.app/news`);
-        },
         element: <AllNews></AllNews>,
       },
       {
         path: "/gallery",
-        loader: async () => {
-          return fetch(
-            `https://alumni-managemnet-app-server.vercel.app/galleries`
-          );
-        },
         element: <AllGalleryImage></AllGalleryImage>,
       },
-      {
-        path: "/galleries/:id",
-        loader: async ({ params }) => {
-          return fetch(
-            `https://alumni-managemnet-app-server.vercel.app/galleries/${params.id}`
-          );
-        },
-        element: <SingleGalleryImage></SingleGalleryImage>,
-      },
+
       {
         path: "/news/:id",
-        loader: async ({ params }) => {
-          return fetch(
-            `https://alumni-managemnet-app-server.vercel.app/news/${params.id}`
-          );
-        },
         element: <SingleNewsSection></SingleNewsSection>,
       },
       {
         path: "/charity/:id",
-        loader: async ({ params }) => {
-          return fetch(
-            `https://alumni-managemnet-app-server.vercel.app/charity/${params.id}`
-          );
-        },
         element: <DisplaySingleCharity></DisplaySingleCharity>,
       },
       {
         path: "/events/:singleEventId",
-        loader: async ({ params }) => {
-          return fetch(
-            `https://alumni-managemnet-app-server.vercel.app/events/${params.singleEventId}`
-          );
-        },
         element: <SingleEvent />,
       },
 
       {
         path: "/alumni",
-        loader: () => {
-          return fetch(
-            "https://alumni-managemnet-app-server.vercel.app/alumni"
-          );
-        },
         element: <AlumniPage />,
-        // element: <AlumniDirectory />,
       },
 
       {
         path: "/alumni/batch/:year",
-        loader: ({ params }) => {
-          return fetch(
-            `https://alumni-managemnet-app-server.vercel.app/alumni/batch/${params.year}`
-          );
-        },
         element: <BatchWiseStudent />,
       },
       // single student / alumni page data
       {
         path: "/alumni/:id",
-        // path: "/alumni/:graduation_year/:id",
-        loader: ({ params }) => {
-          console.log(params);
-          return fetch(
-            `https://alumni-managemnet-app-server.vercel.app/alumni/${params.id}`
-          );
-        },
         element: <SinglePerson />,
       },
       {
         path: "/about-us",
         element: <AboutUs />,
       },
-
-      // {
-      //   path: "/person",
-      //   element: <SingleStudent />,
-      // },
       {
         path: "/login",
         element: <LogIn></LogIn>,
@@ -165,15 +108,21 @@ const routes = createBrowserRouter([
   },
   {
     path: "/dashboard/",
-    element: <DashboardLayout />,
+    element: (
+      <PrivateRoutes>
+        {" "}
+        <DashboardLayout />
+      </PrivateRoutes>
+    ),
     children: [
       { path: "/dashboard/", element: <DashboardMain /> },
       { path: "/dashboard/alumni/", element: <DashboardTestPage /> },
-      { path: "/dashboard/news/", element: <DashboardTestPage /> },
+      { path: "/dashboard/news/", element: <NewsCreateForm /> },
       { path: "/dashboard/events", element: <AddAEvent /> },
-      { path: "/dashboard/gallery/", element: <DashboardTestPage /> },
+      { path: "/dashboard/CreateCharity", element: <CreateCharity /> },
+      { path: "/dashboard/gallery/", element: <CreateGallery /> },
+      { path: "/dashboard/successfulStory/", element: <CreateSuccessFullStory /> },
       { path: "/dashboard/profile/", element: <MembershipForm /> },
-      { path: "/dashboard/addAGalleryItem/", element: <CreateGallery /> },
       { path: "/dashboard/Checkout/", element: <CheckoutPage /> },
     ],
   },

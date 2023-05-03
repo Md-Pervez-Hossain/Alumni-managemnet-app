@@ -25,11 +25,22 @@ export const apiSlice = createApi({
     getGalleriesTrending: builder.query({
       query: () => "/galleries/trending ",
     }),
+
+    // BatchWise Gallery data
+    getBatchWiseGallery: builder.query({
+      query: (id) => `/galleries/batch/${id}`,
+    }),
+
     // // EVENTS  //
 
     // get all events
     getEvents: builder.query({
       query: () => "/events",
+    }),
+
+    //  single event
+    getBatchWiseEvents: builder.query({
+      query: (id) => `/events/batch/${id}`,
     }),
 
     // create event
@@ -41,6 +52,12 @@ export const apiSlice = createApi({
       }),
     }),
 
+    //  single event
+    getSingleEvent: builder.query({
+      query: (id) => `/events/${id}`,
+    }),
+
+    // events categories
     getEventsCategories: builder.query({
       query: () => "/eventCategories",
     }),
@@ -50,8 +67,46 @@ export const apiSlice = createApi({
       query: () => "/news",
     }),
 
+    getSingleNews: builder.query({
+      query: (id) => `/news/${id}`,
+    }),
+
     getNewsCategories: builder.query({
       query: () => "/alumniNewsCategories",
+    }),
+
+    // * Alumni * //
+
+    // All Alumni Data
+    getAllAlumni: builder.query({
+      query: () => "/alumni",
+    }),
+
+    // yearWise Alumni Data
+    getYearWiseAlumni: builder.query({
+      query: (id) => `/alumni/batch/${id}`,
+    }),
+
+    // single Alumni Data
+    getSingleAlumni: builder.query({
+      query: (id) => `/alumni/${id}`,
+    }),
+
+    // *  successful stories * //
+
+    // All  successful stories Data
+    getAllSuccessfulStories: builder.query({
+      query: () => "/successFullStory",
+    }),
+
+    //  single successful stories
+    getSingleSuccessfulStories: builder.query({
+      query: (id) => `/successFullStory/${id}`,
+    }),
+    // *  CHARITY * //
+    //  single charity
+    getSingleCharity: builder.query({
+      query: (id) => `/charity/${id}`,
     }),
 
     // // extras
@@ -74,18 +129,21 @@ export const apiSlice = createApi({
       query: () => "/all-degree-programs",
     }),
 
-    // All batches name
-    getAllAlumni: builder.query({
-      query: () => "/alumni",
-    }),
-
     // /events/category/:id GET endpoint that returns event data based on category ID
     // /events/:id GET endpoint that returns a single event data based on the id parameter
   }),
 });
 
 export const {
+  //   successful stories
+  useGetAllSuccessfulStoriesQuery,
+  useGetSingleSuccessfulStoriesQuery,
+
+  //charity
+  useGetSingleCharityQuery,
   // NEWS
+  useGetaLLNewsQuery,
+  useGetSingleNewsQuery,
   useGetNewsCategoriesQuery,
 
   // UTILS
@@ -99,14 +157,19 @@ export const {
   useGetGalleryCategoriesQuery,
   useGetGalleriesFeaturedQuery,
   useGetGalleriesTrendingQuery,
+  useGetBatchWiseGalleryQuery,
 
   // EVENTS
   useGetEventsQuery,
-  useGetEventsCategoriesQuery,
+  useGetBatchWiseEventsQuery,
+  useGetEventsCategoriesQuery, //event category
+  useGetSingleEventQuery,
 
   // mutations of events
   useAddEventsMutation,
 
   //  All Alumni
   useGetAllAlumniQuery,
+  useGetYearWiseAlumniQuery,
+  useGetSingleAlumniQuery,
 } = apiSlice;

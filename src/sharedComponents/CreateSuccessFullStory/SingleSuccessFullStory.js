@@ -27,21 +27,6 @@ const SingleSuccessFullStory = () => {
     title,
     _id,
   } = successFullStoryData;
-  const {
-    data: comment = [],
-    refetch,
-    isLoading,
-  } = useQuery({
-    queryKey: ["comments"],
-    queryFn: async () => {
-      const res = await fetch(
-        `http://localhost:8000/successFullStoryComments/${successFullStoryData._id}`,
-        {}
-      );
-      const data = await res.json();
-      return data;
-    },
-  });
 
   return (
     <div>
@@ -90,9 +75,7 @@ const SingleSuccessFullStory = () => {
             <MoreSuccessFullStory _id={_id}></MoreSuccessFullStory>
           </div>
           <div>
-            <ShowComments
-              successFullStoryData={successFullStoryData}
-            ></ShowComments>
+            <ShowComments></ShowComments>
           </div>
         </div>
       </div>

@@ -1,14 +1,14 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import DashBoardNavbar from "../Dashboard/DashboardComponents/DashBoardNavbar";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import logo from "../../src/assets/logo/logo-black.png";
 import DashBoardNavItem from "../Dashboard/DashboardComponents/DashBoardNavItem/DashBoardNavItem";
 import ResizeObserver from "resize-observer-polyfill";
 import _ from "lodash";
+import { AuthContext } from "../sharedComponents/UseContext/AuthProvider";
 const DashboardLayout = () => {
   const location = useLocation();
   const isActive = location.pathname === "/dashboard";
-
   const elementRef = useRef(null);
 
   useEffect(() => {
@@ -23,6 +23,13 @@ const DashboardLayout = () => {
     // cleanup function to disconnect the observer when the component unmounts
     return () => resizeObserver.disconnect();
   }, []);
+  const { user, logout } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logout()
+      .then(() => {})
+      .catch((error) => {});
+  };
 
   return (
     <>
@@ -69,22 +76,55 @@ const DashboardLayout = () => {
               url="/dashboard/events"
             />
             <DashBoardNavItem
+              name="CreateCharity"
+              fontAwesome="fa-regular fa-file-lines"
+              url="/dashboard/CreateCharity"
+            />
+            <DashBoardNavItem
               name="Gallery"
               fontAwesome="fa-solid fa-photo-film"
               url="/dashboard/gallery"
             />
             <DashBoardNavItem
+              name="SuccessFul Story"
+              fontAwesome="fa-solid fa-photo-film"
+              url="/dashboard/successfulStory"
+            />
+
+            <DashBoardNavItem
               name="Profile"
               fontAwesome="fa-solid fa-user"
               url="/dashboard/profile"
             />
-            <DashBoardNavItem
-              name="Logout "
-              bg="bg-gradient-to-tl from-primary to-[#1E79DE] "
-              text="text-white"
-              fontAwesome="fa-solid fa-right-from-bracket"
-              url="/"
-            />
+
+            {/* LOG OUT BUTTON */}
+            <li className="mt-0.5 mb-2 w-full " onClick={() => handleLogout()}>
+              <NavLink
+                className={`bg-gradient-to-tl from-primary to-[#1E79DE]  px-4 py-2.7 text-xs my-0 mx-4 flex items-center whitespace-nowrap transition-colors
+           ${
+             isActive
+               ? "rounded-lg drop-shadow-2xl bg-[#fff] px-4 font-semibold"
+               : "bg-transparent"
+           }`}
+                to=""
+              >
+                <div
+                  className={`text-white shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg   bg-center stroke-0 text-center xl:p-2.5 ${
+                    isActive
+                      ? "bg-gradient-to-tl from-primary to-[#1E79DE]"
+                      : "bg-transparent text-slate-700"
+                  }`}
+                >
+                  <i class="fa-solid fa-right-from-bracket"></i>
+                </div>
+                <span
+                  className={`text-white ml-1 duration-300 opacity-100 pointer-events-none ease-soft text-slate-500 font-sans`}
+                  activeClassName="text-white"
+                >
+                  Logout
+                </span>
+              </NavLink>
+            </li>
           </ul>
         </div>
       </div>

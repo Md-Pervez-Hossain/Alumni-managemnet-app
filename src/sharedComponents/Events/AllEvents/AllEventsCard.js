@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import Counter from "../../Counter/Counter";
 
 const AllEventsCard = ({ item }) => {
-  console.log(item);
-  console.log(item.date);
-  console.log(new Date().getTime());
-  console.log(new Date());
+  // console.log(item);
+  // console.log(item.date);
+  // console.log(new Date().getTime());
+  // console.log(new Date());
   const [newDate, setNewDate] = useState("");
   useEffect(() => {
     let todayDate = new Date(),
@@ -19,10 +19,10 @@ const AllEventsCard = ({ item }) => {
     if (month.length < 2) {
       month = "0" + month;
     }
-    console.log(day, month, year);
+    // console.log(day, month, year);
     setNewDate([year, month, day].join("-"));
   }, []);
-  console.log(newDate);
+  // console.log(newDate);
   return (
     <div
       key={item._id}
@@ -46,7 +46,7 @@ const AllEventsCard = ({ item }) => {
           ) : (
             <>
               {" "}
-              <Counter date={item.date}></Counter>
+              <Counter date={item.date} color="text-white"></Counter>
             </>
           )}
         </div>

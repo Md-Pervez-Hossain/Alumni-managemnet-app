@@ -4,19 +4,19 @@ import { AiFillDislike, AiFillLike } from "react-icons/ai";
 
 const ShowComments = ({ successFullStoryData }) => {
   const [comments, setComments] = useState([]);
-  useEffect(() => {
-    fetch(
-      `http://localhost:8000/successFullStoryComments/${successFullStoryData._id}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setComments(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [successFullStoryData._id]);
+  // useEffect(() => {
+  //   fetch(
+  //     `http://localhost:8000/successFullStoryComments/${successFullStoryData._id}`
+  //   )
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       setComments(data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
   // const {
   //   data: comments = [],
   //   refetch,
@@ -34,7 +34,7 @@ const ShowComments = ({ successFullStoryData }) => {
   // });
   return (
     <div>
-      {comments?.map((comment) => {
+      {/* {comments?.map((comment) => {
         return (
           <div className="mt-5">
             <div className="flex gap-5 items-center">
@@ -64,7 +64,8 @@ const ShowComments = ({ successFullStoryData }) => {
             </div>
           </div>
         );
-      })}
+      })} */}
+      <h2>Show Comments</h2>
     </div>
   );
 };

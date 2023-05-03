@@ -1,16 +1,46 @@
 import React, { useState } from "react";
 import { useLoaderData } from "react-router-dom";
-import DisplayAllGalleryImage from "./DisplayAllGalleryImage";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
 import InnerPageHeader from "../../../sharedComponents/InnerPageHeader/InnerPageHeader";
+import Loading from "../../../sharedComponents/Loading/Loading";
+import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
+import { useGetGalleriesQuery } from "../../../../src/features/Api/apiSlice";
 
 const AllGalleryImage = () => {
   const [previous, setPrevious] = useState(0);
   const [next, setNext] = useState(18);
-  const allGalleryImage = useLoaderData();
-  console.log(allGalleryImage);
+
+  const { data, isLoading, isError, error } = useGetGalleriesQuery();
+
+  let content;
+
+  if (isLoading && !isError) {
+    content = <Loading />;
+  }
+  if (!isLoading && isError) {
+    content = <ErrorAlert text={error} />;
+  }
+  if (!isLoading && !isError) {
+    content = (
+      <>
+        <div className="grid lg:grid-cols-6 gap-5">
+          <PhotoProvider>
+            {data?.slice(previous, next).map((galleryImg, idx) => (
+              <PhotoView src={galleryImg.image_url}>
+                <img
+                  src={galleryImg.image_url}
+                  alt=""
+                  className="h-32 w-full rounded-lg cursor-pointer"
+                />
+              </PhotoView>
+            ))}
+          </PhotoProvider>
+        </div>
+      </>
+    );
+  }
 
   const handlePrevious = () => {
     console.log("previous");
@@ -30,33 +60,18 @@ const AllGalleryImage = () => {
         <InnerPageHeader
           title={"Gallery"}
           img={
-            "https://images.pexels.com/photos/7942549/pexels-photo-7942549.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+            "https://media.istockphoto.com/id/1347652268/photo/group-of-colleagues-celebrating-success.jpg?s=612x612&w=0&k=20&c=dojtkf9ItX21j3jtlGOGpbKDs320TTAuofoGnNSZD8Y="
           }
           description="welcome To Gallery Page"
         ></InnerPageHeader>
       </div>
       <div className="w-9/12 mx-auto my-16">
-        <div className="grid lg:grid-cols-6 gap-5">
-          <PhotoProvider>
-            {allGalleryImage?.slice(previous, next).map((galleryImg, idx) => (
-              <PhotoView src={galleryImg.image_url}>
-                <img
-                  src={galleryImg.image_url}
-                  alt=""
-                  className="h-32 w-full rounded-lg cursor-pointer"
-                />
-              </PhotoView>
-            ))}
-          </PhotoProvider>
-        </div>
+        {content}
         <div className="flex gap-2 justify-end my-8">
           <button onClick={() => handlePrevious()}>
             <FaArrowLeft></FaArrowLeft>
           </button>
-          <button
-            disabled={next > allGalleryImage?.length}
-            onClick={() => handleNext()}
-          >
+          <button disabled={next > data?.length} onClick={() => handleNext()}>
             <FaArrowRight></FaArrowRight>
           </button>
         </div>

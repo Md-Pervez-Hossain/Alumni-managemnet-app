@@ -26,11 +26,11 @@ const MembershipForm = () => {
   const { data: degreeNames } = useGetAllDegreeProgramsQuery();
   const { data: graduationYear } = useGetAllBatchesQuery();
 
-  const handelMembership = (data) => {
-    console.log(data);
-    console.log(photo);
-    // ////////////////////////
+  const handelImageUpdate = (data) => {
+    // ///////////////////////
+  };
 
+  const handelMembership = async (data) => {
     const formData = new FormData();
     formData.append("image", photo);
 
@@ -40,61 +40,7 @@ const MembershipForm = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        const userData = {
-          firstName: data.firstName,
-          lastName: data.lastName,
-          name: `${data.firstName} ${data.lastName}`,
-          profile_picture: data.data.display_url,
-          graduation_year: data.graduation_year,
-          degree: data.degreeEarned,
-          major: data.majorSubject,
-          email: data.email,
-          phone: data.mobile,
-          universityName,
-          phone_2: "",
-          address: {
-            street: data.streetAddress,
-            city: data.city,
-            state: data.stateName,
-            zip: data.zipCode,
-          },
-          education: [
-            {
-              degree: "",
-              major: "",
-              institution: "",
-              graduation_year: "",
-              gpa: "",
-            },
-          ],
-          is_employed: false,
-          careers: [
-            {
-              company: "",
-              position: "",
-              start_date: "",
-              end_date: "",
-              responsibilities: "",
-            },
-          ],
-          personal_information: {
-            date_of_birth: data.dateOfBirth,
-            gender: data.gender,
-            blood_group: data.bloodGroup,
-            fathers_name: data.fatherName,
-            mothers_name: data.motherName,
-            marital_status: "",
-            nationality: "Bangladeshi",
-            languages: ["English", "Bengali"],
-            hobbies: [],
-          },
-        };
-
-        toast.success("Success Notification!", {
-          position: toast.POSITION.TOP_CENTER,
-        });
-
-        reset();
+        setPhoto(data.data.display_url);
       })
       .catch((error) => {
         console.log(error);
@@ -103,7 +49,73 @@ const MembershipForm = () => {
         });
       });
 
-    // ///////////////////////
+    const userData = {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      name: `${data.firstName} ${data.lastName}`,
+      profile_picture: photo,
+      graduation_year: data.graduation_year,
+      degree: data.degreeEarned,
+      major: data.majorSubject,
+      email: data.email,
+      phone: data.mobile,
+      universityName: data.yourUniversityName,
+      phone_2: "",
+      address: {
+        street: data.streetAddress,
+        city: data.city,
+        state: data.stateName,
+        zip: data.zipCode,
+      },
+      education: [
+        {
+          degree: "",
+          major: "",
+          institution: "",
+          graduation_year: "",
+          gpa: "",
+        },
+      ],
+      is_employed: false,
+      careers: [
+        {
+          company: "",
+          position: "",
+          start_date: "",
+          end_date: "",
+          responsibilities: "",
+        },
+      ],
+      personal_information: {
+        date_of_birth: data.dateOfBirth,
+        gender: data.gender,
+        blood_group: data.bloodGroup,
+        fathers_name: data.fatherName,
+        mothers_name: data.motherName,
+        marital_status: "",
+        nationality: "Bangladeshi",
+        languages: ["English", "Bengali"],
+        hobbies: [],
+      },
+    };
+    await fetch(`http://localhost:8000/alumni/${data.email}`, {
+      method: "PUT",
+      body: JSON.stringify(userData),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        toast.success("Success Notification!", {
+          position: toast.POSITION.TOP_CENTER,
+        });
+        console.log("Data updated successfully:", data);
+        reset();
+      })
+      .catch((error) => {
+        console.error("Error updating data:", error);
+      });
   };
 
   return (
@@ -204,7 +216,7 @@ const MembershipForm = () => {
             </div>
 
             {/* password and confirm password */}
-            <div class="grid md:grid-cols-2 md:gap-6">
+            {/* <div class="grid md:grid-cols-2 md:gap-6">
               <div class="relative z-0 w-full mb-6 group">
                 <input
                   {...register("password", {
@@ -252,7 +264,7 @@ const MembershipForm = () => {
                   <span className="text-red-600">please retype your password</span>
                 )}
               </div>
-            </div>
+            </div> */}
 
             {/* Education Information */}
 
@@ -266,7 +278,7 @@ const MembershipForm = () => {
                   Select your university
                 </label>
                 <select
-                  {...register("universityName", { required: true })}
+                  {...register("yourUniversityName", { required: true })}
                   id="university"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                 >
@@ -348,13 +360,12 @@ const MembershipForm = () => {
             <div class="grid md:grid-cols-2 md:gap-6">
               <div class="relative z-0 w-full mb-6 group">
                 <input
-                  {...register("fatherName", { required: true })}
+                  {...register("fatherName")}
                   type="text"
                   name="fatherName"
                   id="floating_father_name"
                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
                   placeholder=" "
-                  required
                 />
                 <label
                   for="floating_father_name"
@@ -362,19 +373,18 @@ const MembershipForm = () => {
                 >
                   Your father name
                 </label>
-                {errors.fatherName && (
+                {/* {errors.fatherName && (
                   <span className="text-red-600">please write your Father Name</span>
-                )}
+                )} */}
               </div>
               <div class="relative z-0 w-full mb-6 group">
                 <input
-                  {...register("motherName", { required: true })}
+                  {...register("motherName")}
                   type="text"
                   name="motherName"
                   id="floating_mother_name"
                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
                   placeholder=" "
-                  required
                 />
                 <label
                   for="floating_mother_name"
@@ -382,9 +392,9 @@ const MembershipForm = () => {
                 >
                   Your Mother name
                 </label>
-                {errors.motherName && (
+                {/* {errors.motherName && (
                   <span className="text-red-600">please write your Father Name</span>
-                )}
+                )} */}
               </div>
             </div>
 
@@ -489,7 +499,6 @@ const MembershipForm = () => {
                   id="floating_street"
                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
                   placeholder=" "
-                  required
                 />
                 <label
                   for="floating_street"
@@ -500,13 +509,12 @@ const MembershipForm = () => {
               </div>
               <div class="relative z-0 w-full mb-6 group">
                 <input
-                  {...register("city", { required: true })}
+                  {...register("city")}
                   type="text"
                   name="city"
                   id="floating_city"
                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
                   placeholder=" "
-                  required
                 />
                 <label
                   for="floating_city"
@@ -514,9 +522,9 @@ const MembershipForm = () => {
                 >
                   City Name
                 </label>
-                {errors.city && (
+                {/* {errors.city && (
                   <span className="text-red-600">please write your city</span>
-                )}
+                )} */}
               </div>
             </div>
             {/* Contact Details state and zip */}
@@ -529,7 +537,6 @@ const MembershipForm = () => {
                   id="floating_state"
                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
                   placeholder=" "
-                  required
                 />
                 <label
                   for="floating_state"
@@ -546,7 +553,6 @@ const MembershipForm = () => {
                   id="floating_zip"
                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
                   placeholder=" "
-                  required
                 />
                 <label
                   for="floating_zip"

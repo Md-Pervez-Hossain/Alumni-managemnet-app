@@ -1,6 +1,6 @@
 import React from "react";
 import InnerPageHeader from "../../sharedComponents/InnerPageHeader/InnerPageHeader";
-import Checkout from "../../sharedComponents/CheckOut/Checkout";
+import Checkout from "../../Dashboard/DashboardPages/CheckOut/Checkout";
 
 const CheckoutPage = () => {
   return (

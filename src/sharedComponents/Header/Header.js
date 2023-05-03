@@ -21,7 +21,9 @@ const Header = () => {
     <nav className="bg-primary text-white sticky top-0 z-50 ">
       <div className="w-9/12 mx-auto flex flex-wrap  list-none justify-between items-center py-5 text-xl font-bold">
         <div>
-          <img src={logo} alt="" className="h-16" />
+          <Link to="/">
+            <img src={logo} alt="" className="h-16" />
+          </Link>
         </div>
         <div onClick={() => setOpen(!open)}>
           {open ? (
@@ -77,10 +79,7 @@ const Header = () => {
             ) : (
               <>
                 <div className="dropdown lg:dropdown-end text-black">
-                  <label
-                    tabIndex={0}
-                    className="btn btn-ghost btn-circle avatar"
-                  >
+                  <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                     <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                       {user?.photoURL ? (
                         <img src={user?.photoURL} />
@@ -95,24 +94,41 @@ const Header = () => {
                   </label>
                   <ul
                     tabIndex={0}
-                    className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+                    className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 "
                   >
                     <li>
-                      <a className="justify-between">
+                      <Link
+                        className="active:bg-secondary active:text-primary"
+                        to="/dashboard/profile"
+                      >
                         {user?.displayName}
-                        <span className="badge">new</span>
-                      </a>
+                      </Link>
                     </li>
 
                     <li>
-                      <Link to="/dashboard">Dashboard</Link>
+                      <Link
+                        className="active:bg-secondary active:text-primary"
+                        to="/dashboard"
+                      >
+                        Dashboard
+                      </Link>
                     </li>
                     <li>
-                      <a>Settings</a>
+                      <Link
+                        className="active:bg-secondary active:text-primary"
+                        to="/dashboard/profile"
+                      >
+                        Update Profile
+                      </Link>
                     </li>
 
                     <li>
-                      <a onClick={() => handleLogout()}>Logout</a>
+                      <span
+                        className="active:bg-secondary active:text-primary"
+                        onClick={() => handleLogout()}
+                      >
+                        Logout
+                      </span>
                     </li>
                   </ul>
                 </div>
