@@ -12,7 +12,6 @@ import AuthProvider from "./sharedComponents/UseContext/AuthProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 const container = document.getElementById("root");
 const root = createRoot(container);
 

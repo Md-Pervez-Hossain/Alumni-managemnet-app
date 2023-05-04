@@ -1,3 +1,4 @@
+import { useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -18,6 +19,7 @@ const MoreSuccessFullStory = ({ _id }) => {
         console.log(error);
       });
   }, []);
+
   console.log(stories);
   const handlePrevious = () => {
     console.log("previous");
@@ -40,12 +42,12 @@ const MoreSuccessFullStory = ({ _id }) => {
           return (
             <>
               <div
-                key={story._id}
+                key={story?._id}
                 className="flex items-center gap-3 justify-between mb-5"
               >
                 <div
                   style={{
-                    backgroundImage: `url(${story.image_url})`,
+                    backgroundImage: `url(${story?.image_url})`,
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "cover",
@@ -54,14 +56,25 @@ const MoreSuccessFullStory = ({ _id }) => {
                   }}
                 ></div>
                 <div>
-                  <h2 className="mb-2">SuccessFull Story Heading</h2>
+                  <h2 className="mb-2">
+                    {story?.title?.length >= 20 ? (
+                      <> {`${story?.title?.slice(0, 20)} ...`}</>
+                    ) : (
+                      <>{`${story?.title}`}</>
+                    )}
+                  </h2>
                   <p className="text-[12px] mb-2">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos,
-                    in.
+                    {story?.details?.length >= 70 ? (
+                      <>{`${story?.details?.slice(0, 70)} ...`}</>
+                    ) : (
+                      <>{`${story?.details}`}</>
+                    )}
                   </p>
                   <Link to={`/successFullStory/${story._id}`}>
                     {" "}
-                    <button className="bg-secondary px-4 py-2 text-white">Details</button>
+                    <button className="bg-primary px-4 py-2 text-white">
+                      Details
+                    </button>
                   </Link>
                 </div>
               </div>
