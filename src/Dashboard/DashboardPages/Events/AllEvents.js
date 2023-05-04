@@ -45,7 +45,7 @@ const AllEvents = () => {
                 <div>
                   <img
                     src={event.image_url}
-                    className="inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm h-9 w-9 rounded-xl"
+                    className="!w-10 !h-10 inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm rounded-xl"
                     alt="user1"
                   />
                 </div>
@@ -68,7 +68,7 @@ const AllEvents = () => {
             </td>
             <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               <span className="font-semibold leading-tight text-xs text-slate-400">
-                {Date(event.date)}
+                {Date(event.date)?.replace(/ GMT[+\-]\d{4}.*$/, "")}
               </span>
             </td>
 
@@ -85,7 +85,7 @@ const AllEvents = () => {
   }
 
   return (
-    <div>
+    <div className="w-full px-8">
       <div className="relative flex flex-col w-full min-w-0 mb-0 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
         <div className="p-6 pb-0 mb-0 bg-white rounded-t-2xl">
           <h6>All Events</h6>
