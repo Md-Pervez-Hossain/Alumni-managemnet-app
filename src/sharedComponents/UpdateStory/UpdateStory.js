@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useContext } from "react";
-import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
+import React, { useContext, useEffect, useState } from "react";
+import { useLoaderData } from "react-router-dom";
+import { AuthContext } from "../UseContext/AuthProvider";
+import { toast } from "react-toastify";
 
-const CreateSuccessFullStory = () => {
+const UpdateStory = () => {
+  const updateStoryData = useLoaderData();
+  console.log(updateStoryData);
   const [batchYear, setBatchYear] = useState([]);
   const { user } = useContext(AuthContext);
   useEffect(() => {
@@ -16,7 +19,7 @@ const CreateSuccessFullStory = () => {
         console.log(error);
       });
   }, []);
-  const handleSuccessStory = (event) => {
+  const updateSuccessStory = (event) => {
     event.preventDefault();
     const form = event.target;
     const title = form.title.value;
@@ -41,7 +44,7 @@ const CreateSuccessFullStory = () => {
           title,
           batchNumber,
           details,
-          image_url: data.data.display_url,
+          image_url: data?.data?.display_url,
           time,
           name: user?.displayName,
           email: user?.email,
@@ -53,19 +56,19 @@ const CreateSuccessFullStory = () => {
         console.log(successFullStoryInfo);
         form.reset();
 
-        fetch(
-          "https://alumni-managemnet-app-server.vercel.app/successFullStory",
-          {
-            method: "POST",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(successFullStoryInfo),
-          }
-        )
+        fetch(`http://localhost:8000/successFullStory/${updateStoryData._id}`, {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(successFullStoryInfo),
+        })
           .then((res) => res.json())
           .then((data) => {
             console.log(data);
+            if (data.modifiedCount > 0) {
+              toast.success("Successfully Updateed");
+            }
           })
           .catch((error) => {
             console.log(error);
@@ -77,15 +80,16 @@ const CreateSuccessFullStory = () => {
   };
   return (
     <div className="w-9/12 mx-auto my-16">
-      <h2 className="text-4xl my-5">SuccessFull Story</h2>
+      <h2 className="text-4xl my-5">Update SuccessFull Story</h2>
 
-      <form onSubmit={(event) => handleSuccessStory(event)}>
+      <form onSubmit={(event) => updateSuccessStory(event)}>
         <div className="grid md:grid-cols-2 gap-5">
           <input
             type="text"
             placeholder="SuccessFull Story Title"
             className="input input-bordered w-full "
             name="title"
+            defaultValue={updateStoryData?.title}
             required
           />
           <div className="form-control w-full  ">
@@ -93,11 +97,16 @@ const CreateSuccessFullStory = () => {
               type="file"
               className="file-input file-input-bordered w-full "
               name="image"
+              required
             />
           </div>
         </div>
         <div className="form-control w-full mt-5 ">
-          <select className="select select-bordered" name="batchNumber">
+          <select
+            required
+            className="select select-bordered"
+            name="batchNumber"
+          >
             {batchYear?.map((batchYear) => (
               <option key={batchYear._id}>{batchYear.batchNumber}</option>
             ))}
@@ -107,6 +116,7 @@ const CreateSuccessFullStory = () => {
           className="textarea textarea-bordered w-full my-5"
           placeholder="SuccessFull Story Details"
           name="details"
+          defaultValue={updateStoryData?.details}
           required
         ></textarea>
         <button className="px-6 py-4 w-full rounded-lg bg-primary text-white font-semibold">
@@ -117,4 +127,4 @@ const CreateSuccessFullStory = () => {
   );
 };
 
-export default CreateSuccessFullStory;
+export default UpdateStory;

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../UseContext/AuthProvider";
+import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const AllSuccessFullStory = () => {
@@ -43,6 +43,10 @@ const AllSuccessFullStory = () => {
         });
     }
   };
+
+  const handleSuccessStoryEdit = (story) => {
+    console.log(story);
+  };
   return (
     <div className="w-9/12 mx-auto my-16">
       <h2 className="my-5 text-2xl ">All SuccessFull Story</h2>
@@ -68,8 +72,11 @@ const AllSuccessFullStory = () => {
                       <td>{story?.title ? <> {story?.title}</> : <></>}</td>
                       <td>{story?.time ? <>{story?.time}</> : <></>}</td>
                       <td>
-                        <Link to={`${story._id}`}>
-                          <div className="flex gap-2 items-center">
+                        <Link to={`/updateStory/${story?._id}`}>
+                          <div
+                            onClick={() => handleSuccessStoryEdit(story._id)}
+                            className="flex gap-2 items-center"
+                          >
                             <FaEdit></FaEdit>
                             <button>Edit</button>
                           </div>

@@ -5,8 +5,9 @@ import PaymentForCharity from "../../sharedComponents/ShowCharity/PaymentForChar
 import CheckoutForm from "../../Dashboard/DashboardComponents/CheckoutForm/CheckoutForm";
 import PaymentSuccessful from "../../sharedComponents/PaymnetSuccessfull/PaymnetSuccessfull";
 import AllCharity from "../../sharedComponents/AllCharity/AllCharity";
-import AllSuccessFullStory from "../../sharedComponents/AllSuccessFullStory/AllSuccessFullStory";
+
 import AllGallery from "../../sharedComponents/AllGallery/AllGallery";
+import AllSuccessFullStory from "../../Dashboard/DashboardPages/AllSuccessFullStory/AllSuccessFullStory";
 
 const Rakib = () => {
   return (

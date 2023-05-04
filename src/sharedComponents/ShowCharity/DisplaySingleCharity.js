@@ -9,6 +9,7 @@ import MoreCharity from "./MoreCharity";
 
 const DisplaySingleCharity = () => {
   const [showCharity, setShowCharity] = useState([]);
+  console.log(showCharity.length);
 
   useEffect(() => {
     fetch("https://alumni-managemnet-app-server.vercel.app/charity")
@@ -88,17 +89,24 @@ const DisplaySingleCharity = () => {
             </div>
           </div>
           <div>
-            <h2 className="mt-12 mb-8 text-2xl">Explore More Charity</h2>
-            <div className="grid lg:grid-cols-3 gap-5">
-              {showCharity
-                ?.filter((charity) => charity._id !== _id)
-                .map((charity) => (
-                  <MoreCharity
-                    key={charity._id}
-                    charity={charity}
-                  ></MoreCharity>
-                ))}
-            </div>
+            {showCharity?.length <= 1 ? (
+              <></>
+            ) : (
+              <>
+                {" "}
+                <h2 className="mt-12 mb-8 text-2xl">Explore More Charity</h2>
+                <div className="grid lg:grid-cols-3 gap-5">
+                  {showCharity
+                    ?.filter((charity) => charity._id !== _id)
+                    .map((charity) => (
+                      <MoreCharity
+                        key={charity._id}
+                        charity={charity}
+                      ></MoreCharity>
+                    ))}
+                </div>
+              </>
+            )}
           </div>
         </div>
       </>
