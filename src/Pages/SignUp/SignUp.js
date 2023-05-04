@@ -10,7 +10,7 @@ import {
 } from "../../features/Api/apiSlice";
 
 const SignUp = () => {
-  const { createUser, updateUserProfile, signInWithGoogle } = useContext(AuthContext);
+  const { createUser, updateProfile, signInWithGoogle } = useContext(AuthContext);
 
   // use navigate
   const navigate = useNavigate();
@@ -28,88 +28,107 @@ const SignUp = () => {
   const { user } = useContext(AuthContext);
 
   const handleSignUp = (data) => {
-    console.log(data.email, data.password);
-    console.log(data);
-    reset();
-    createUser(data.email, data.password)
-      .then((result) => {
-        const user = result.user;
-        updateUserProfile(`${data.firstName} ${data.lastName}`)
-          .then(() => {
-            //user data user profile
-            const user = {
-              firstName: data.firstName,
-              lastName: data.lastName,
-              name: `${data.firstName} ${data.lastName}`,
-              profile_picture: "",
-              graduation_year: data.GraduationYear,
-              degree: "",
-              department: "",
-              major: data.department,
-              email: data.email,
-              phone: "",
-              phone_2: "",
-              address: {
-                street: "",
-                city: "",
-                state: "",
-                zip: "",
-              },
-              education: [
-                {
-                  degree: "",
-                  major: "",
-                  institution: "",
-                  graduation_year: "",
-                  gpa: "",
-                },
-              ],
-              is_employed: false,
-              careers: [
-                {
-                  company: "",
-                  position: "",
-                  start_date: "",
-                  end_date: "",
-                  responsibilities: "",
-                },
-              ],
-              personal_information: {
-                date_of_birth: data.dateOfBirth,
-                gender: "",
-                blood_group: data.bloodGroup,
-                fathers_name: "",
-                mothers_name: "",
-                marital_status: "",
-                nationality: "",
-                languages: ["English", "Bengali"],
-                hobbies: [],
-              },
-            };
+    // console.log(data, photo);
 
-            fetch("https://alumni-managemnet-app-server.vercel.app/alumni", {
-              method: "POST",
-              body: JSON.stringify(user),
-              headers: { "Content-Type": "application/json" },
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                console.log(data);
-              })
-              .catch((error) => {
-                console.error(error);
-              });
-            toast.success("SuccessFully  Signup");
-            navigate(`/dashboard/profile`);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+    const image_url = data.image[0];
+    const formData = new FormData();
+    formData.append("image", image_url);
+
+    fetch("https://api.imgbb.com/1/upload?key=dd1a5cd35aa9d832298beb50053079da", {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
       })
       .catch((error) => {
         console.log(error);
-        toast.error(error.message);
+        toast.error(`${error.message}`, {
+          position: toast.POSITION.TOP_LEFT,
+        });
       });
+
+    // createUser(data.email, data.password)
+    //   .then((result) => {
+    //     const user = result.user;
+
+    //     updateProfile({ displayName: `${data.firstName} ${data.lastName}`, photoURL: "" })
+    //       .then(() => {
+    //         //user data user profile
+    //         const user = {
+    //           firstName: data.firstName,
+    //           lastName: data.lastName,
+    //           name: `${data.firstName} ${data.lastName}`,
+    //           profile_picture: "",
+    //           graduation_year: data.GraduationYear,
+    //           degree: "",
+    //           department: "",
+    //           major: data.department,
+    //           email: data.email,
+    //           phone: "",
+    //           phone_2: "",
+    //           address: {
+    //             street: "",
+    //             city: "",
+    //             state: "",
+    //             zip: "",
+    //           },
+    //           education: [
+    //             {
+    //               degree: "",
+    //               major: data.department,
+    //               institution: "",
+    //               graduation_year: data.GraduationYear,
+    //               gpa: "",
+    //             },
+    //           ],
+    //           is_employed: false,
+    //           careers: [
+    //             {
+    //               company: "",
+    //               position: "",
+    //               start_date: "",
+    //               end_date: "",
+    //               responsibilities: "",
+    //             },
+    //           ],
+    //           personal_information: {
+    //             date_of_birth: data.dateOfBirth,
+    //             gender: "",
+    //             blood_group: data.bloodGroup,
+    //             fathers_name: "",
+    //             mothers_name: "",
+    //             marital_status: "",
+    //             nationality: "",
+    //             languages: ["English", "Bengali"],
+    //             hobbies: [],
+    //           },
+    //         };
+
+    //         fetch("https://alumni-managemnet-app-server.vercel.app/alumni", {
+    //           method: "POST",
+    //           body: JSON.stringify(user),
+    //           headers: { "Content-Type": "application/json" },
+    //         })
+    //           .then((response) => response.json())
+    //           .then((data) => {
+    //             console.log(data);
+    //           })
+    //           .catch((error) => {
+    //             console.error(error);
+    //           });
+    //         toast.success("SuccessFully  Signup");
+    //         navigate(`/dashboard/profile`);
+    //       })
+    //       .catch((error) => {
+    //         console.log(error);
+    //       });
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //     toast.error(error.message);
+    //   });
   };
 
   const handleGoogleSignup = () => {
@@ -348,6 +367,10 @@ const SignUp = () => {
 
                   <input
                     id="address"
+                    required
+                    {...register("image", {
+                      required: "Image is required",
+                    })}
                     type="file"
                     placeholder=""
                     accept="photo/*"
