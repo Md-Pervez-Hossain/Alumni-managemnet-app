@@ -14,23 +14,8 @@ import ShowCharity from "../../sharedComponents/ShowCharity/ShowCharity";
 import _ from "lodash";
 
 const Home = () => {
-  const elementRef = useRef(null);
-
-  useEffect(() => {
-    const resizeObserver = new ResizeObserver(
-      _.debounce((entries) => {
-        console.log("Element size changed!");
-        // handle resize events here
-      }, 100)
-    );
-    resizeObserver.observe(elementRef.current);
-
-    // cleanup function to disconnect the observer when the component unmounts
-    return () => resizeObserver.disconnect();
-  }, []);
-
   return (
-    <div ref={elementRef}>
+    <div>
       <Slider />
       <div className="w-9/12 mx-auto">
         <UpComingEventsCard />

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import InnerPageHeader from "../../sharedComponents/InnerPageHeader/InnerPageHeader";
 import CategoryWiseEvent from "../../sharedComponents/Events/Category_Wise_event/CategoryWiseEvent";
 import Counter from "../../sharedComponents/Counter/Counter";
@@ -9,7 +9,6 @@ import { useGetSingleEventQuery } from "../../features/Api/apiSlice";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../sharedComponents/UseContext/AuthProvider";
-import { useQuery } from "@tanstack/react-query";
 
 const SingleEvent = () => {
   const { user } = useContext(AuthContext);
@@ -21,11 +20,9 @@ const SingleEvent = () => {
   // console.log({ currentPath });
   //load data using redux
 
-  const { data, isLoading, isError, error } =
-    useGetSingleEventQuery(currentPath);
+  const { data, isLoading, isError, error } = useGetSingleEventQuery(currentPath);
   // console.log(data);
-  const { _id, description, image_url, event_title, category, batch, date } =
-    data || {};
+  const { _id, description, image_url, event_title, category, batch, date } = data || {};
 
   const {
     register,
@@ -58,16 +55,13 @@ const SingleEvent = () => {
       date: date,
     };
 
-    fetch(
-      `https://alumni-managemnet-app-server.vercel.app/join-event/${eventData._id}`,
-      {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(userInfo),
-      }
-    )
+    fetch(`https://alumni-managemnet-app-server.vercel.app/join-event/${eventData._id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(userInfo),
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -188,11 +182,7 @@ const SingleEvent = () => {
               )}
 
               {/* modal for post joining data */}
-              <input
-                type="checkbox"
-                id="event-modal"
-                className="modal-toggle"
-              />
+              <input type="checkbox" id="event-modal" className="modal-toggle" />
 
               <div className="modal">
                 <div className="modal-box">
@@ -221,9 +211,7 @@ const SingleEvent = () => {
                         placeholder="Please enter your first name."
                       />
                       {errors.first_name && (
-                        <p className="text-red-600">
-                          {errors.first_name?.message}
-                        </p>
+                        <p className="text-red-600">{errors.first_name?.message}</p>
                       )}
                     </div>
                     <div className="form-control mx-auto">
@@ -242,9 +230,7 @@ const SingleEvent = () => {
                         placeholder="Please enter your last name."
                       />
                       {errors.last_name && (
-                        <p className="text-red-600">
-                          {errors.last_name?.message}
-                        </p>
+                        <p className="text-red-600">{errors.last_name?.message}</p>
                       )}
                     </div>
 
@@ -280,9 +266,7 @@ const SingleEvent = () => {
                         placeholder="Please enter your Phone number"
                       />
                       {errors.phone_number && (
-                        <p className="text-red-600">
-                          {errors.phone_number?.message}
-                        </p>
+                        <p className="text-red-600">{errors.phone_number?.message}</p>
                       )}
                     </div>
 
@@ -296,11 +280,7 @@ const SingleEvent = () => {
               </div>
 
               {/* modal for edit joining data */}
-              <input
-                type="checkbox"
-                id="event-modal-edit"
-                className="modal-toggle"
-              />
+              <input type="checkbox" id="event-modal-edit" className="modal-toggle" />
               <div className="modal">
                 <div className="modal-box">
                   <label
