@@ -4,12 +4,17 @@ import ShowCharity from "../../sharedComponents/ShowCharity/ShowCharity";
 import PaymentForCharity from "../../sharedComponents/ShowCharity/PaymentForCharity";
 import CheckoutForm from "../../Dashboard/DashboardComponents/CheckoutForm/CheckoutForm";
 import PaymentSuccessful from "../../sharedComponents/PaymnetSuccessfull/PaymnetSuccessfull";
+import AllCharity from "../../sharedComponents/AllCharity/AllCharity";
+import AllSuccessFullStory from "../../sharedComponents/AllSuccessFullStory/AllSuccessFullStory";
+import AllGallery from "../../sharedComponents/AllGallery/AllGallery";
 
 const Rakib = () => {
   return (
     <div>
-      <CheckoutForm />
-
+      {/* <CheckoutForm /> */}
+      <AllCharity></AllCharity>
+      <AllSuccessFullStory></AllSuccessFullStory>
+      <AllGallery></AllGallery>
       {/* <SingleStudent></SingleStudent> */}
       {/* <SliderTwo></SliderTwo> */}
       {/* <Counter></Counter>
@@ -25,7 +30,7 @@ const Rakib = () => {
       {/* <PaymnetSuccessfull></PaymnetSuccessfull> */}
       {/* <CreateCharity></CreateCharity> */}
 
-      <PaymentSuccessful />
+      {/* <PaymentSuccessful /> */}
       {/* <PaymentForEvents></PaymentForEvents>
       <ShowCharity></ShowCharity>
       <PaymentForCharity></PaymentForCharity> */}

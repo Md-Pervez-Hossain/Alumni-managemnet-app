@@ -5,36 +5,20 @@ import { Link } from "react-router-dom";
 
 const MoreSuccessFullStory = ({ _id }) => {
   console.log(_id);
-  // const [stories, setStories] = useState([]);
+  const [stories, setStories] = useState([]);
   const [previous, setPrevious] = useState(0);
   const [next, setNext] = useState(6);
-  // useEffect(() => {
-  //   fetch("https://alumni-managemnet-app-server.vercel.app/successFullStory")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //       setStories(data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }, []);
-
-  const {
-    data: stories = [],
-    refetch,
-    isLoading,
-  } = useQuery({
-    queryKey: ["stories"],
-    queryFn: async () => {
-      const res = await fetch(
-        `https://alumni-managemnet-app-server.vercel.app/successFullStory`,
-        {}
-      );
-      const data = await res.json();
-      return data;
-    },
-  });
+  useEffect(() => {
+    fetch("https://alumni-managemnet-app-server.vercel.app/successFullStory")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setStories(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
 
   console.log(stories);
   const handlePrevious = () => {
@@ -58,12 +42,12 @@ const MoreSuccessFullStory = ({ _id }) => {
           return (
             <>
               <div
-                key={story._id}
+                key={story?._id}
                 className="flex items-center gap-3 justify-between mb-5"
               >
                 <div
                   style={{
-                    backgroundImage: `url(${story.image_url})`,
+                    backgroundImage: `url(${story?.image_url})`,
                     backgroundPosition: "center",
                     backgroundRepeat: "no-repeat",
                     backgroundSize: "cover",
@@ -72,17 +56,23 @@ const MoreSuccessFullStory = ({ _id }) => {
                   }}
                 ></div>
                 <div>
-                  <h2 className="mb-2">SuccessFull Story Heading</h2>
+                  <h2 className="mb-2">
+                    {story?.title?.length >= 20 ? (
+                      <> {`${story?.title?.slice(0, 20)} ...`}</>
+                    ) : (
+                      <>{`${story?.title}`}</>
+                    )}
+                  </h2>
                   <p className="text-[12px] mb-2">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                    Dignissimos, in.
+                    {story?.details?.length >= 70 ? (
+                      <>{`${story?.details?.slice(0, 70)} ...`}</>
+                    ) : (
+                      <>{`${story?.details}`}</>
+                    )}
                   </p>
-                  <Link
-                    onClick={() => refetch()}
-                    to={`/successFullStory/${story._id}`}
-                  >
+                  <Link to={`/successFullStory/${story._id}`}>
                     {" "}
-                    <button className="bg-secondary px-4 py-2 text-white">
+                    <button className="bg-primary px-4 py-2 text-white">
                       Details
                     </button>
                   </Link>

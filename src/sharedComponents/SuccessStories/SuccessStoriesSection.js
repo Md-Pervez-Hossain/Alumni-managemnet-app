@@ -65,7 +65,6 @@ const SuccessStoriesSection = () => {
         Successful Stories
       </h1>
       <>{successStoryContent}</>
-
       {successStory?.length > 3 && (
         <div className="flex gap-2 justify-end">
           <button onClick={() => handlePrevious()}>

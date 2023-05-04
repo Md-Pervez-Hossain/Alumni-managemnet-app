@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import MoreSuccessFullStory from "./MoreSuccessFullStory";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useGetSingleSuccessfulStoriesQuery } from "../../features/Api/apiSlice";
 import Loading from "../../sharedComponents/Loading/Loading";
 import ErrorAlert from "../../sharedComponents/Skeletion/ErrorAlert";
 import InnerPageHeader from "../../sharedComponents/InnerPageHeader/InnerPageHeader";
 import Comments from "../../sharedComponents/Comments/Comments";
 import ShowComments from "../../sharedComponents/Comments/ShowComments";
+import { AuthContext } from "../../sharedComponents/UseContext/AuthProvider";
 
 const SingleSuccessFullStory = () => {
+  const { user } = useContext(AuthContext);
   //  get location using react-router-dom
   const location = useLocation();
   // get the current path
@@ -19,7 +21,6 @@ const SingleSuccessFullStory = () => {
   const { data, isLoading, isError, error } =
     useGetSingleSuccessfulStoriesQuery(currentPath);
   console.log(data);
-
   const {
     batchNumber,
     comments,
@@ -47,9 +48,12 @@ const SingleSuccessFullStory = () => {
       <>
         {" "}
         <div>
-          <InnerPageHeader img={`${image_url}`} title={`${title}`}></InnerPageHeader>
+          <InnerPageHeader
+            img={`${image_url}`}
+            title={`${title}`}
+          ></InnerPageHeader>
           <div className="w-9/12 mx-auto my-16">
-            <div className="grid lg:grid-cols-3 gap-10">
+            <div className="grid lg:grid-cols-3 gap-10 ">
               <div className="lg:col-span-2">
                 <div>
                   <div
@@ -58,12 +62,14 @@ const SingleSuccessFullStory = () => {
                       backgroundPosition: "center",
                       backgroundRepeat: "no-repeat",
                       backgroundSize: "cover",
-                      height: "500px",
+                      height: "400px",
                     }}
                   ></div>
 
-                  <h2 className="text-2xl my-5">{title}</h2>
-                  <p className="mb-5">{details}</p>
+                  <div>
+                    <h2 className="text-2xl my-5">{title}</h2>
+                    <p className="mb-5">{details}</p>
+                  </div>
                 </div>
                 <div className="flex items-center justify-between ">
                   <div className="flex items-center gap-3">
@@ -76,6 +82,7 @@ const SingleSuccessFullStory = () => {
                         height: "50px",
                         width: "50px",
                       }}
+                      className="rounded-full"
                     ></div>
                     <div>
                       <p>{name}</p>
@@ -83,14 +90,29 @@ const SingleSuccessFullStory = () => {
                     </div>
                   </div>
                 </div>
-                <Comments></Comments>
+                {user?.email && user?.uid ? (
+                  <>
+                    <div>
+                      <Comments></Comments>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/login">
+                      <button className="  my-5 text-secondary text-xl">
+                        {" "}
+                        Please Log In For Comments
+                      </button>
+                    </Link>
+                  </>
+                )}
               </div>
 
               <div className="lg:col-span-1">
                 <MoreSuccessFullStory _id={_id}></MoreSuccessFullStory>
               </div>
             </div>
-            <ShowComments></ShowComments>
+            <ShowComments _id={_id}></ShowComments>
           </div>
         </div>
       </>

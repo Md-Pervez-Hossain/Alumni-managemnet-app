@@ -45,31 +45,17 @@ const Comments = ({ successFullStoryData }) => {
 
     console.log("submit");
   };
-  // const {
-  //   data: comments = [],
-  //   refetch,
-  //   isLoading,
-  // } = useQuery({
-  //   queryKey: ["comments"],
-  //   queryFn: async () => {
-  //     const res = await fetch(
-  //       `http://localhost:8000/successFullStoryComments/${successFullStoryData._id}`,
-  //       {}
-  //     );
-  //     const data = await res.json();
-  //     return data;
-  //   },
-  // });
+
   return (
     <div>
       <form onSubmit={(event) => handleComments(event)}>
         <textarea
-          className="textarea textarea-bordered w-full mt-8"
+          className=" border-2 p-5 w-full mt-5 "
           placeholder="Comments"
           name="comments"
           required
         ></textarea>
-        <button className=" mt-3 mb-8 px-6 py-2 rounded-lg bg-primary text-white">
+        <button className=" mt-3 mb-8 px-6 py-2  bg-primary text-white">
           Comment
         </button>
       </form>

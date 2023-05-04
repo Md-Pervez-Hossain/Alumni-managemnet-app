@@ -45,8 +45,7 @@ const GallerySlider = ({ year }) => {
   }
 
   return (
-    <div className="pt-14">
-      <h2 className="text-3xl text-center">Memories of {year} </h2>
+    <div className="">
       <Swiper
         modules={[Autoplay, Navigation]}
         className="mySwiper"

@@ -29,13 +29,24 @@ const DisplayCharity = ({ charity }) => {
           height: "300px",
         }}
       ></div>
-      <div className="p-8">
+      <div className="pl-2 pt-3">
         <Link to={`/charity/${_id}`}>
-          <h2 className="mb-3 text-xl">{`${title.slice(0, 20)} ...`}</h2>
+          <h2 className="text-xl mb-3">
+            {title.length >= 20 ? (
+              <>{`${title.slice(0, 20)} ...`}</>
+            ) : (
+              <>{`${title}`}</>
+            )}
+          </h2>
         </Link>
-        <p className="mb-3">{`${details.slice(0, 50)} ...`}</p>
+        {details.length >= 70 ? (
+          <>{`${details.slice(0, 70)} ...`}</>
+        ) : (
+          <>{`${details}`}</>
+        )}
+        <p className="mb-3"></p>
         <Link to={`/charity/${_id}`} className=" flex gap-1 items-center  ">
-          <span className="font-medium"> Read More </span>
+          <span className="font-medium underline"> Read More </span>
         </Link>
       </div>
     </div>

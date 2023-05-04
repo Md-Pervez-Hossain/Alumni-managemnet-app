@@ -61,24 +61,13 @@ const NewsSection = () => {
       </h1>
       <>{newsContent}</>
 
-      <div className="flex gap-2 justify-end">
-        <button onClick={() => handlePrevious()}>
-          <FaArrowLeft></FaArrowLeft>
-        </button>
-        <button
-          disabled={next === newsData?.length || next > newsData?.length}
-          onClick={() => handleNext()}
-        >
-          <FaArrowRight></FaArrowRight>
-        </button>
-      </div>
       {newsData?.length > 3 && (
         <div className="flex gap-2 justify-end">
           <button onClick={() => handlePrevious()}>
             <FaArrowLeft></FaArrowLeft>
           </button>
           <button
-            disabled={next > newsData?.length}
+            disabled={next === newsData?.length || next > newsData?.length}
             onClick={() => handleNext()}
           >
             <FaArrowRight></FaArrowRight>

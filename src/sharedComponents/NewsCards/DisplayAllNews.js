@@ -10,21 +10,30 @@ const DisplayAllNews = ({ news }) => {
         className={` h-[269px] m-0 bg-cover bg-center	bg-no-repeat`}
         style={{ backgroundImage: `url(${news.image})` }}
       ></div>
-      <div className="px-5 pt-4 py-8 mt-3">
-        <h5 className="text-xl mb-4 mt-4 font-medium leading-tight text-gray-900">
-          {news?.heading}
-        </h5>
-        <p>{`${news?.newsDetails.slice(0, 50)} ...`}</p>
-
+      <div className="pl-2 pt-2">
+        <div>
+          <Link to={`/news/${news._id}`}>
+            <h5 className="text-xl mb-4 mt-4 font-medium leading-tight text-gray-900">
+              {news?.heading.length >= 20 ? (
+                <>{`${news?.heading.slice(0, 20)} ...`}</>
+              ) : (
+                <>{`${news?.heading}`}</>
+              )}
+            </h5>
+          </Link>
+          {news?.newsDetails.length >= 70 ? (
+            <>{`${news?.newsDetails.slice(0, 70)} ...`}</>
+          ) : (
+            <>{`${news?.newsDetails} `}</>
+          )}
+        </div>
         <Link to={`/news/${news._id}`}>
-          <button className="mt-4 text-right text-primary font-bold ">
-            Learn More{" "}
-          </button>
+          <button className="mt-4 underline">Learn More </button>
         </Link>
 
         {/* news author */}
         <div className="mt-5  flex justify-between items-center text-black ">
-          <div className="flex gap-2">
+          <div className="flex gap-2 items-center">
             <div className="w-11 h-11 rounded-full border-2">
               <img
                 className="w-full h-full object-cover rounded-full"
@@ -34,7 +43,7 @@ const DisplayAllNews = ({ news }) => {
             </div>
             <div className="leading-none">
               <p>{news?.author}</p>
-              <span>{news?.time}</span>
+              <span className="text-[14px]">{news?.time}</span>
             </div>
           </div>
           <div className="flex gap-2">

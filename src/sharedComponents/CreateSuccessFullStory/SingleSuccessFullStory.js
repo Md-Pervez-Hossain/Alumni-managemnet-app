@@ -7,11 +7,10 @@ import Comments from "../Comments/Comments";
 import ShowComments from "../Comments/ShowComments";
 import { useLoaderData } from "react-router-dom";
 import InnerPageHeader from "../InnerPageHeader/InnerPageHeader";
-import { useQuery } from "@tanstack/react-query";
-import { AiFillDislike, AiFillLike } from "react-icons/ai";
 
 const SingleSuccessFullStory = () => {
-  const [successStoryComments, setSuccessStoryComments] = useState([]);
+  const { user } = useContext(AuthContext);
+  console.log(user?.email);
   const successFullStoryData = useLoaderData();
   console.log(successFullStoryData);
   const {
@@ -27,7 +26,6 @@ const SingleSuccessFullStory = () => {
     title,
     _id,
   } = successFullStoryData;
-
   return (
     <div>
       <InnerPageHeader

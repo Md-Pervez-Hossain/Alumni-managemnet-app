@@ -11,24 +11,20 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import AuthProvider from "./sharedComponents/UseContext/AuthProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 const container = document.getElementById("root");
 const root = createRoot(container);
 
-const queryClient = new QueryClient();
-
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <Provider store={store}>
-        <AuthProvider>
-          <ToastContainer position="top-center" />
-          <RouterProvider router={routes}>
-            <App />
-          </RouterProvider>
-        </AuthProvider>
-      </Provider>
-    </QueryClientProvider>
+    <Provider store={store}>
+      <AuthProvider>
+        <ToastContainer position="top-center" />
+        <RouterProvider router={routes}>
+          <App />
+        </RouterProvider>
+      </AuthProvider>
+    </Provider>
   </React.StrictMode>
 );
 

@@ -32,6 +32,9 @@ const UpComingEventsCard = () => {
     error: eventDataError,
   } = useGetEventsQuery();
   // console.log(eventData);
+  console.log(eventData);
+  console.log(new Date().getTime());
+  console.log(next);
   console.log(eventData?.length);
   // const { event_title, date, description, image_url } = eventData || {};
 
@@ -82,10 +85,13 @@ const UpComingEventsCard = () => {
                 {eventData.event_title}
               </h1>
 
-              <p className="text-white ">{eventData.description.slice(0, 200)}...</p>
+              <p className="text-white ">
+                {eventData.description.slice(0, 200)}...
+              </p>
               <button className=" bg-white hover:bg-secondary p-2 mt-4 mb-8 w-[150px]">
                 <span className="text-black font-bold">
-                  Join Now <MdNavigateNext className="inline-block text-black" />
+                  Join Now{" "}
+                  <MdNavigateNext className="inline-block text-black" />
                 </span>
               </button>
               <div className="bg-secondary text-black w-[100px] py-2 flex justify-evenly items-center absolute right-2 bottom-2">
