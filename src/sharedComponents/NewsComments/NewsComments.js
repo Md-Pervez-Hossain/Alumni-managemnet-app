@@ -18,7 +18,7 @@ const NewsComments = ({ data }) => {
       commentsId: data?._id,
     };
     console.log(commentsInfo);
-    fetch("http://localhost:8000/newsComments", {
+    fetch("https://alumni-managemnet-app-server.vercel.app/newsComments", {
       method: "POST",
       headers: {
         "content-type": "application/json",
