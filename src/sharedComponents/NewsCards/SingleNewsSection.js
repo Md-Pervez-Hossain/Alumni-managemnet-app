@@ -10,6 +10,8 @@ import Loading from "../Loading/Loading";
 import ErrorAlert from "../Skeletion/ErrorAlert";
 import ShowComments from "../Comments/ShowComments";
 import { AuthContext } from "../UseContext/AuthProvider";
+import NewsComments from "../NewsComments/NewsComments";
+import ShowNewsComments from "../NewsComments/ShowNewsComments";
 
 const SingleNewsSection = () => {
   const { user } = useContext(AuthContext);
@@ -107,7 +109,7 @@ const SingleNewsSection = () => {
                   {user?.email && user?.uid ? (
                     <>
                       <div>
-                        <Comments></Comments>
+                        <NewsComments data={data}></NewsComments>
                       </div>
                     </>
                   ) : (
@@ -122,11 +124,11 @@ const SingleNewsSection = () => {
                   )}
                 </div>
                 <div className="lg:col-span-1 w-full">
-                  <ShowComments></ShowComments>
+                  <ShowNewsComments data={data}></ShowNewsComments>
                 </div>
               </div>
             </div>
-
+            {}
             <div>
               <h2 className="text-2xl mb-8">Explore More News</h2>
               <MoreNews _id={_id}></MoreNews>
@@ -136,7 +138,7 @@ const SingleNewsSection = () => {
       </>
     );
   }
-
+  console.log(data);
   return <>{content}</>;
 };
 

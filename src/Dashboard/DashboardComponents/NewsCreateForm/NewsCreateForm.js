@@ -130,11 +130,13 @@ const NewsCreateForm = () => {
             required
           />
         </div>
+
         <div className="form-control w-full mt-5">
           <select className="select select-bordered " name="newsCategory">
             {newsNameContent}
           </select>
         </div>
+
         <textarea
           className="textarea textarea-bordered w-full my-5"
           placeholder="News Details"

@@ -34,6 +34,8 @@ import AllEvents from "../Dashboard/DashboardPages/Events/AllEvents";
 import UpdateStory from "../sharedComponents/UpdateStory/UpdateStory";
 import UpdateCharity from "../sharedComponents/UpdateCharity/UpdateCharity";
 import UpdateGallery from "../sharedComponents/UpdateGallery/UpdateGallery";
+import NewsUpdatePage from "../sharedComponents/NewsUpdatePage/NewsUpdatePage";
+import NewsUpdate from "../sharedComponents/NewsUpdate/NewsUpdate";
 
 const routes = createBrowserRouter([
   {
@@ -61,21 +63,27 @@ const routes = createBrowserRouter([
       {
         path: "/updateStory/:id",
         loader: async ({ params }) => {
-          return fetch(`http://localhost:8000/successFullStory/${params.id}`);
+          return fetch(
+            `https://alumni-managemnet-app-server.vercel.app/successFullStory/${params.id}`
+          );
         },
         element: <UpdateStory></UpdateStory>,
       },
       {
         path: "/updateCharity/:id",
         loader: async ({ params }) => {
-          return fetch(`http://localhost:8000/charity/${params.id}`);
+          return fetch(
+            `https://alumni-managemnet-app-server.vercel.app/charity/${params.id}`
+          );
         },
         element: <UpdateCharity></UpdateCharity>,
       },
       {
         path: "/updateGallery/:id",
         loader: async ({ params }) => {
-          return fetch(`http://localhost:8000/gallery/${params.id}`);
+          return fetch(
+            `https://alumni-managemnet-app-server.vercel.app/gallery/${params.id}`
+          );
         },
         element: <UpdateGallery></UpdateGallery>,
       },
@@ -127,6 +135,18 @@ const routes = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUp></SignUp>,
+      },
+      {
+        path: "/newsUpdatePage",
+        element: <NewsUpdatePage></NewsUpdatePage>,
+      },
+      {
+        path: "/newsUpdate/:id",
+        element: <NewsUpdate></NewsUpdate>,
+        loader: ({ params }) =>
+          fetch(
+            `https://alumni-managemnet-app-server.vercel.app/news/${params.id}`
+          ),
       },
     ],
     errorElement: <ErrorPage></ErrorPage>,
