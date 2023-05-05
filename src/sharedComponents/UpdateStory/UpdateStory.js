@@ -1,24 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
+import { useLoaderData } from "react-router-dom";
+import { AuthContext } from "../UseContext/AuthProvider";
+import { toast } from "react-toastify";
 
-const CreateGallery = () => {
-  const [galleryCategory, setGalleryCategory] = useState([]);
+const UpdateStory = () => {
+  const updateStoryData = useLoaderData();
+  console.log(updateStoryData);
   const [batchYear, setBatchYear] = useState([]);
-
   const { user } = useContext(AuthContext);
-  console.log(user);
-  useEffect(() => {
-    fetch("https://alumni-managemnet-app-server.vercel.app/galleryCategories")
-      .then((res) => res.json())
-      .then((data) => {
-        setGalleryCategory(data);
-        console.log(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
-
   useEffect(() => {
     fetch("https://alumni-managemnet-app-server.vercel.app/all-batches")
       .then((res) => res.json())
@@ -30,20 +19,14 @@ const CreateGallery = () => {
         console.log(error);
       });
   }, []);
-
-  console.log(galleryCategory);
-  console.log(batchYear);
-
-  const handleGallery = (event) => {
+  const updateSuccessStory = (event) => {
     event.preventDefault();
     const form = event.target;
     const title = form.title.value;
+    const image_url = form.image.files[0];
     const batchNumber = form.batchNumber.value;
-    const gallery_category = form.gallery_category.value;
     const details = form.details.value;
     const time = new Date().toLocaleDateString();
-    console.log(time);
-    const image_url = form.image.files[0];
     const formData = new FormData();
     formData.append("image", image_url);
     fetch(
@@ -56,58 +39,59 @@ const CreateGallery = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        const galleryInfo = {
+
+        const successFullStoryInfo = {
           title,
           batchNumber,
           details,
-          gallery_category,
-          total_view: 0,
-          is_fatured: false,
-          is_trending: true,
-          time,
           image_url: data?.data?.display_url,
+          time,
           name: user?.displayName,
           email: user?.email,
           img: user?.photoURL,
+          comments: 0,
+          likes: 0,
         };
 
-        fetch("https://alumni-managemnet-app-server.vercel.app/gallery", {
-          method: "POST",
+        console.log(successFullStoryInfo);
+        form.reset();
+
+        fetch(`http://localhost:8000/successFullStory/${updateStoryData._id}`, {
+          method: "PUT",
           headers: {
             "content-type": "application/json",
           },
-          body: JSON.stringify(galleryInfo),
+          body: JSON.stringify(successFullStoryInfo),
         })
           .then((res) => res.json())
           .then((data) => {
             console.log(data);
+            if (data.modifiedCount > 0) {
+              toast.success("Successfully Updateed");
+            }
           })
           .catch((error) => {
             console.log(error);
           });
-        console.log(galleryInfo);
-        form.reset();
       })
       .catch((error) => {
         console.log(error);
       });
-
-    console.log("Submit");
   };
   return (
     <div className="w-9/12 mx-auto my-16">
-      <h2 className="text-4xl my-5">Gallery</h2>
+      <h2 className="text-4xl my-5">Update SuccessFull Story</h2>
 
-      <form onSubmit={(event) => handleGallery(event)}>
+      <form onSubmit={(event) => updateSuccessStory(event)}>
         <div className="grid md:grid-cols-2 gap-5">
           <input
             type="text"
-            placeholder="Gallery Title"
+            placeholder="SuccessFull Story Title"
             className="input input-bordered w-full "
             name="title"
+            defaultValue={updateStoryData?.title}
             required
           />
-
           <div className="form-control w-full  ">
             <input
               type="file"
@@ -116,35 +100,23 @@ const CreateGallery = () => {
               required
             />
           </div>
-          <div className="form-control w-full ">
-            <select
-              required
-              className="select select-bordered"
-              name="gallery_category"
-            >
-              {galleryCategory?.map((gCaterogy) => (
-                <option key={gCaterogy.gallery_category_id}>
-                  {gCaterogy.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="form-control w-full ">
-            <select
-              required
-              className="select select-bordered"
-              name="batchNumber"
-            >
-              {batchYear?.map((batchYear) => (
-                <option key={batchYear._id}>{batchYear.batchNumber}</option>
-              ))}
-            </select>
-          </div>
+        </div>
+        <div className="form-control w-full mt-5 ">
+          <select
+            required
+            className="select select-bordered"
+            name="batchNumber"
+          >
+            {batchYear?.map((batchYear) => (
+              <option key={batchYear._id}>{batchYear.batchNumber}</option>
+            ))}
+          </select>
         </div>
         <textarea
           className="textarea textarea-bordered w-full my-5"
-          placeholder="Gallery Details"
+          placeholder="SuccessFull Story Details"
           name="details"
+          defaultValue={updateStoryData?.details}
           required
         ></textarea>
         <button className="px-6 py-4 w-full rounded-lg bg-primary text-white font-semibold">
@@ -155,4 +127,4 @@ const CreateGallery = () => {
   );
 };
 
-export default CreateGallery;
+export default UpdateStory;

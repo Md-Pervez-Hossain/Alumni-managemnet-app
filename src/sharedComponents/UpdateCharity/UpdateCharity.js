@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { useContext } from "react";
-import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
+import React, { useContext, useEffect, useState } from "react";
+import { useLoaderData } from "react-router-dom";
+import { AuthContext } from "../UseContext/AuthProvider";
+import { toast } from "react-toastify";
 
-const CreateCharity = () => {
+const UpdateCharity = () => {
+  const charityData = useLoaderData();
+  console.log(charityData);
   const [batchYear, setBatchYear] = useState([]);
   const { user } = useContext(AuthContext);
   useEffect(() => {
@@ -16,7 +19,7 @@ const CreateCharity = () => {
         console.log(error);
       });
   }, []);
-  const handleCharity = (event) => {
+  const handleUpdateCharity = (event) => {
     event.preventDefault();
     const form = event.target;
     const title = form.title.value;
@@ -41,7 +44,7 @@ const CreateCharity = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        const charityInfo = {
+        const updatedCharityInfo = {
           title,
           goal_amount,
           batchNumber,
@@ -52,24 +55,23 @@ const CreateCharity = () => {
           details,
           image_url: data?.data?.display_url,
           time,
-          name: user?.displayName,
-          email: user?.email,
-          img: user?.photoURL,
         };
 
-        console.log(charityInfo);
+        console.log(updatedCharityInfo);
         form.reset();
-
-        fetch("https://alumni-managemnet-app-server.vercel.app/charity", {
-          method: "POST",
+        fetch(`http://localhost:8000/charity/${charityData._id}`, {
+          method: "PUT",
           headers: {
             "content-type": "application/json",
           },
-          body: JSON.stringify(charityInfo),
+          body: JSON.stringify(updatedCharityInfo),
         })
           .then((res) => res.json())
           .then((data) => {
             console.log(data);
+            if (data.modifiedCount > 0) {
+              toast.success("SuccessFully Updated");
+            }
           })
           .catch((error) => {
             console.log(error);
@@ -84,13 +86,14 @@ const CreateCharity = () => {
     <div className="w-9/12 mx-auto my-16">
       <h2 className="text-4xl my-5">Charity</h2>
 
-      <form onSubmit={(event) => handleCharity(event)}>
+      <form onSubmit={(event) => handleUpdateCharity(event)}>
         <div className="grid md:grid-cols-2 gap-5">
           <input
             type="text"
             placeholder="Charity Title"
             className="input input-bordered w-full "
             name="title"
+            defaultValue={charityData?.title}
             required
           />
           <div className="form-control w-full  ">
@@ -106,6 +109,7 @@ const CreateCharity = () => {
             placeholder="Goal Amount"
             className="input input-bordered w-full "
             name="goal_amount"
+            defaultValue={charityData?.goal_amount}
             required
           />
           <input
@@ -113,6 +117,7 @@ const CreateCharity = () => {
             placeholder="DeadLine"
             className="input input-bordered w-full "
             name="deadline"
+            defaultValue={charityData?.deadline}
             required
           />
         </div>
@@ -122,6 +127,7 @@ const CreateCharity = () => {
             placeholder="City"
             className="input input-bordered w-full "
             name="city"
+            defaultValue={charityData?.city}
             required
           />
           <input
@@ -129,6 +135,7 @@ const CreateCharity = () => {
             placeholder="State"
             className="input input-bordered w-full "
             name="state"
+            defaultValue={charityData?.state}
             required
           />
           <input
@@ -136,21 +143,31 @@ const CreateCharity = () => {
             placeholder="Country "
             className="input input-bordered w-full "
             name="country"
+            defaultValue={charityData?.country}
             required
           />
         </div>
         <div className="form-control w-full mt-5 ">
-          <select className="select select-bordered" name="batchNumber">
+          <select
+            required
+            className="select select-bordered"
+            name="batchNumber"
+          >
             {batchYear?.map((batchYear) => (
-              <option key={batchYear._id}>{batchYear.batchNumber}</option>
+              <option
+                defaultValue={charityData?.batchNumber}
+                key={batchYear._id}
+              >
+                {batchYear.batchNumber}
+              </option>
             ))}
           </select>
         </div>
-
         <textarea
           className="textarea textarea-bordered w-full my-5"
           placeholder="Charity Details"
           name="details"
+          defaultValue={charityData?.details}
           required
         ></textarea>
         <button className="px-6 py-4 w-full rounded-lg bg-primary text-white font-semibold">
@@ -161,4 +178,4 @@ const CreateCharity = () => {
   );
 };
 
-export default CreateCharity;
+export default UpdateCharity;

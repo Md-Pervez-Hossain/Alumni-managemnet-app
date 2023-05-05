@@ -31,6 +31,9 @@ import CreateSuccessFullStory from "../Dashboard/DashboardPages/CreateSuccessFul
 import SingleSuccessFullStory from "../Pages/singleSuccessfulStory/SingleSuccessFullStory";
 import CreateCharity from "../Dashboard/DashboardPages/CreateCharity/CreateCharity";
 import AllEvents from "../Dashboard/DashboardPages/Events/AllEvents";
+import UpdateStory from "../sharedComponents/UpdateStory/UpdateStory";
+import UpdateCharity from "../sharedComponents/UpdateCharity/UpdateCharity";
+import UpdateGallery from "../sharedComponents/UpdateGallery/UpdateGallery";
 
 const routes = createBrowserRouter([
   {
@@ -54,6 +57,27 @@ const routes = createBrowserRouter([
       {
         path: "/successFullStory/:id",
         element: <SingleSuccessFullStory></SingleSuccessFullStory>,
+      },
+      {
+        path: "/updateStory/:id",
+        loader: async ({ params }) => {
+          return fetch(`http://localhost:8000/successFullStory/${params.id}`);
+        },
+        element: <UpdateStory></UpdateStory>,
+      },
+      {
+        path: "/updateCharity/:id",
+        loader: async ({ params }) => {
+          return fetch(`http://localhost:8000/charity/${params.id}`);
+        },
+        element: <UpdateCharity></UpdateCharity>,
+      },
+      {
+        path: "/updateGallery/:id",
+        loader: async ({ params }) => {
+          return fetch(`http://localhost:8000/gallery/${params.id}`);
+        },
+        element: <UpdateGallery></UpdateGallery>,
       },
       {
         path: "/news",
@@ -123,7 +147,10 @@ const routes = createBrowserRouter([
       { path: "/dashboard/events/add-a-event", element: <AddAEvent /> },
       { path: "/dashboard/CreateCharity", element: <CreateCharity /> },
       { path: "/dashboard/gallery/", element: <CreateGallery /> },
-      { path: "/dashboard/successfulStory/", element: <CreateSuccessFullStory /> },
+      {
+        path: "/dashboard/successfulStory/",
+        element: <CreateSuccessFullStory />,
+      },
       { path: "/dashboard/profile/", element: <MembershipForm /> },
       { path: "/dashboard/Checkout/", element: <CheckoutPage /> },
     ],

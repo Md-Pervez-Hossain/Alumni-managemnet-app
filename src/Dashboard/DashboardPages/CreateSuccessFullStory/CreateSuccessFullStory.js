@@ -4,9 +4,7 @@ import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
 
 const CreateSuccessFullStory = () => {
   const [batchYear, setBatchYear] = useState([]);
-
   const { user } = useContext(AuthContext);
-
   useEffect(() => {
     fetch("https://alumni-managemnet-app-server.vercel.app/all-batches")
       .then((res) => res.json())
@@ -20,7 +18,6 @@ const CreateSuccessFullStory = () => {
   }, []);
   const handleSuccessStory = (event) => {
     event.preventDefault();
-
     const form = event.target;
     const title = form.title.value;
     const image_url = form.image.files[0];
@@ -29,10 +26,13 @@ const CreateSuccessFullStory = () => {
     const time = new Date().toLocaleDateString();
     const formData = new FormData();
     formData.append("image", image_url);
-    fetch("https://api.imgbb.com/1/upload?key=86fe1764d78f51c15b1a9dfe4b9175cf", {
-      method: "POST",
-      body: formData,
-    })
+    fetch(
+      "https://api.imgbb.com/1/upload?key=86fe1764d78f51c15b1a9dfe4b9175cf",
+      {
+        method: "POST",
+        body: formData,
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -41,7 +41,7 @@ const CreateSuccessFullStory = () => {
           title,
           batchNumber,
           details,
-          image_url: data.data.display_url,
+          image_url: data?.data?.display_url,
           time,
           name: user?.displayName,
           email: user?.email,
@@ -53,13 +53,16 @@ const CreateSuccessFullStory = () => {
         console.log(successFullStoryInfo);
         form.reset();
 
-        fetch("https://alumni-managemnet-app-server.vercel.app/successFullStory", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(successFullStoryInfo),
-        })
+        fetch(
+          "https://alumni-managemnet-app-server.vercel.app/successFullStory",
+          {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(successFullStoryInfo),
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             console.log(data);
@@ -90,6 +93,7 @@ const CreateSuccessFullStory = () => {
               type="file"
               className="file-input file-input-bordered w-full "
               name="image"
+              required
             />
           </div>
         </div>

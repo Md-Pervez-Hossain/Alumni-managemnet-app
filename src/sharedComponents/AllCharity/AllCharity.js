@@ -71,7 +71,7 @@ const AllCharity = () => {
                         {charity?.deadline ? <>{charity?.deadline}</> : <></>}
                       </td>
                       <td>
-                        <Link to={`${charity._id}`}>
+                        <Link to={`/updateCharity/${charity._id}`}>
                           <div className="flex gap-2 items-center">
                             <FaEdit></FaEdit>
                             <button>Edit</button>
