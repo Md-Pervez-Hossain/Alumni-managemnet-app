@@ -31,6 +31,8 @@ import CreateSuccessFullStory from "../Dashboard/DashboardPages/CreateSuccessFul
 import SingleSuccessFullStory from "../Pages/singleSuccessfulStory/SingleSuccessFullStory";
 import CreateCharity from "../Dashboard/DashboardPages/CreateCharity/CreateCharity";
 import AllEvents from "../Dashboard/DashboardPages/Events/AllEvents";
+import NewsUpdatePage from "../sharedComponents/NewsUpdatePage/NewsUpdatePage";
+import NewsUpdate from "../sharedComponents/NewsUpdate/NewsUpdate";
 
 const routes = createBrowserRouter([
   {
@@ -104,6 +106,18 @@ const routes = createBrowserRouter([
         path: "/signup",
         element: <SignUp></SignUp>,
       },
+      {
+        path: "/newsUpdatePage",
+        element: <NewsUpdatePage></NewsUpdatePage>,
+      },
+      {
+        path: "/newsUpdate/:id",
+        element: <NewsUpdate></NewsUpdate>,
+        loader: ({ params }) =>
+          fetch(
+            `https://alumni-managemnet-app-server.vercel.app/news/${params.id}`
+          ),
+      },
     ],
     errorElement: <ErrorPage></ErrorPage>,
   },
@@ -123,7 +137,10 @@ const routes = createBrowserRouter([
       { path: "/dashboard/events/add-a-event", element: <AddAEvent /> },
       { path: "/dashboard/CreateCharity", element: <CreateCharity /> },
       { path: "/dashboard/gallery/", element: <CreateGallery /> },
-      { path: "/dashboard/successfulStory/", element: <CreateSuccessFullStory /> },
+      {
+        path: "/dashboard/successfulStory/",
+        element: <CreateSuccessFullStory />,
+      },
       { path: "/dashboard/profile/", element: <MembershipForm /> },
       { path: "/dashboard/Checkout/", element: <CheckoutPage /> },
     ],

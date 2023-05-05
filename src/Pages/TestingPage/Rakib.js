@@ -10,6 +10,7 @@ const Rakib = () => {
     <div>
       <CheckoutForm />
       <PaymentSuccessful />
+      
       {/* <PaymentForEvents></PaymentForEvents>
       <ShowCharity></ShowCharity>
       <PaymentForCharity></PaymentForCharity> */}
