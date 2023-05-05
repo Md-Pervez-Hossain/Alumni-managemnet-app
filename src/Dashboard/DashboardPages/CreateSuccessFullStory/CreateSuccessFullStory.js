@@ -41,7 +41,7 @@ const CreateSuccessFullStory = () => {
           title,
           batchNumber,
           details,
-          image_url: data.data.display_url,
+          image_url: data?.data?.display_url,
           time,
           name: user?.displayName,
           email: user?.email,
@@ -93,6 +93,7 @@ const CreateSuccessFullStory = () => {
               type="file"
               className="file-input file-input-bordered w-full "
               name="image"
+              required
             />
           </div>
         </div>

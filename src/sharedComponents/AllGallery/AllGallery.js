@@ -79,7 +79,7 @@ const AllGallery = () => {
                       </td>
                       <td>{gallery?.time ? <> {gallery?.time}</> : <></>}</td>
                       <td>
-                        <Link to={`${gallery?._id}`}>
+                        <Link to={`/updateGallery/${gallery?._id}`}>
                           <div className="flex gap-2 items-center">
                             <FaEdit></FaEdit>
                             <button>Edit</button>
