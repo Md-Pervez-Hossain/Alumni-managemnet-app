@@ -29,11 +29,16 @@ const AllGalleryImage = () => {
           <PhotoProvider>
             {data?.slice(previous, next).map((galleryImg, idx) => (
               <PhotoView src={galleryImg.image_url}>
-                <img
-                  src={galleryImg.image_url}
-                  alt=""
-                  className="h-32 w-full rounded-lg cursor-pointer"
-                />
+                <div
+                  style={{
+                    backgroundImage: `url(${galleryImg?.image_url})`,
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "cover",
+                    height: "150px",
+                  }}
+                  className=" w-full rounded-lg cursor-pointer"
+                ></div>
               </PhotoView>
             ))}
           </PhotoProvider>
