@@ -5,7 +5,9 @@ const ShowComments = ({ _id }) => {
   console.log(_id);
   const [comments, setComments] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:8000/successFullStoryComments/${_id}`)
+    fetch(
+      `https://alumni-managemnet-app-server.vercel.app/successFullStoryComments/${_id}`
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

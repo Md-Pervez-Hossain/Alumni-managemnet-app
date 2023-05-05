@@ -15,7 +15,7 @@ const NewsUpdatePage = () => {
     if (user?.email) {
       axios
         .get(
-          `http://localhost:8000/all-news/${user?.email}`
+          `https://alumni-managemnet-app-server.vercel.app/all-news/${user?.email}`
         )
         .then((data) => setNews(data.data))
         .catch((error) => console.error(error));
@@ -23,7 +23,7 @@ const NewsUpdatePage = () => {
   }, [user?.email]);
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:8000/news/delete/${id}`, {
+    fetch(`https://alumni-managemnet-app-server.vercel.app/news/delete/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())

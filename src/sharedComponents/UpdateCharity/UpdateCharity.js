@@ -59,13 +59,16 @@ const UpdateCharity = () => {
 
         console.log(updatedCharityInfo);
         form.reset();
-        fetch(`http://localhost:8000/charity/${charityData._id}`, {
-          method: "PUT",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(updatedCharityInfo),
-        })
+        fetch(
+          `https://alumni-managemnet-app-server.vercel.app/charity/${charityData._id}`,
+          {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(updatedCharityInfo),
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             console.log(data);

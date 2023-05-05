@@ -9,7 +9,9 @@ const AllSuccessFullStory = () => {
   console.log(user);
   const [showSuccessStory, setShowSuccessStory] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:8000/successFullStory/email/${user?.email}`)
+    fetch(
+      `https://alumni-managemnet-app-server.vercel.app/successFullStory/email/${user?.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -24,9 +26,12 @@ const AllSuccessFullStory = () => {
     const agree = window.confirm(`Are You Sure ! You want To Delete ${_id}`);
     console.log(_id);
     if (agree) {
-      fetch(`http://localhost:8000/successFullStory/${_id}`, {
-        method: "DELETE",
-      })
+      fetch(
+        `https://alumni-managemnet-app-server.vercel.app/successFullStory/${_id}`,
+        {
+          method: "DELETE",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           if (data.deletedCount > 0) {

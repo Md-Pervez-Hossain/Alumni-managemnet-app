@@ -56,13 +56,16 @@ const UpdateStory = () => {
         console.log(successFullStoryInfo);
         form.reset();
 
-        fetch(`http://localhost:8000/successFullStory/${updateStoryData._id}`, {
-          method: "PUT",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(successFullStoryInfo),
-        })
+        fetch(
+          `https://alumni-managemnet-app-server.vercel.app/successFullStory/${updateStoryData._id}`,
+          {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(successFullStoryInfo),
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             console.log(data);

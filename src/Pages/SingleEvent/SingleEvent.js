@@ -23,9 +23,11 @@ const SingleEvent = () => {
   // console.log({ currentPath });
   //load data using redux
 
-  const { data, isLoading, isError, error } = useGetSingleEventQuery(currentPath);
+  const { data, isLoading, isError, error } =
+    useGetSingleEventQuery(currentPath);
   // console.log(data);
-  const { _id, description, image_url, event_title, category, batch, date } = data || {};
+  const { _id, description, image_url, event_title, category, batch, date } =
+    data || {};
 
   const [eventData, setEventData] = useState("");
   console.log(eventData);
@@ -34,7 +36,7 @@ const SingleEvent = () => {
     if (user?.email && _id) {
       axios
         .get(
-          `http://localhost:8000/join-event?email=${user?.email}&id=${_id}`
+          `https://alumni-managemnet-app-server.vercel.app/join-event?email=${user?.email}&id=${_id}`
         )
         .then((data) => setEventData(data.data))
         .catch((error) => console.error(error));
@@ -52,13 +54,16 @@ const SingleEvent = () => {
       date: date,
     };
 
-    fetch(`http://localhost:8000/join-event/${eventData._id}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(userInfo),
-    })
+    fetch(
+      `https://alumni-managemnet-app-server.vercel.app/join-event/${eventData._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(userInfo),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -84,7 +89,7 @@ const SingleEvent = () => {
 
   const handleDelete = () => {
     fetch(
-      `http://localhost:8000/join-event/delete/${eventData._id}`,
+      `https://alumni-managemnet-app-server.vercel.app/join-event/delete/${eventData._id}`,
       {
         method: "DELETE",
       }
@@ -113,7 +118,7 @@ const SingleEvent = () => {
 
     console.log(userInfo);
 
-    fetch("http://localhost:8000/join-event", {
+    fetch("https://alumni-managemnet-app-server.vercel.app/join-event", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -215,7 +220,11 @@ const SingleEvent = () => {
               )}
 
               {/* modal for post joining data */}
-              <input type="checkbox" id="event-modal" className="modal-toggle" />
+              <input
+                type="checkbox"
+                id="event-modal"
+                className="modal-toggle"
+              />
 
               <div className="modal">
                 <div className="modal-box">
@@ -307,7 +316,11 @@ const SingleEvent = () => {
               </div>
 
               {/* modal for edit joining data */}
-              <input type="checkbox" id="event-modal-edit" className="modal-toggle" />
+              <input
+                type="checkbox"
+                id="event-modal-edit"
+                className="modal-toggle"
+              />
               <div className="modal">
                 <div className="modal-box">
                   <label

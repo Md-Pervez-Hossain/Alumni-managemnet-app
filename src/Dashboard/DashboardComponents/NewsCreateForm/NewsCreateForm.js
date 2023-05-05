@@ -46,7 +46,7 @@ const NewsCreateForm = () => {
           likes: 0,
           comments: 0,
         };
-        fetch("http://localhost:8000/news", {
+        fetch("https://alumni-managemnet-app-server.vercel.app/news", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -136,7 +136,6 @@ const NewsCreateForm = () => {
             {newsNameContent}
           </select>
         </div>
-
 
         <textarea
           className="textarea textarea-bordered w-full my-5"
