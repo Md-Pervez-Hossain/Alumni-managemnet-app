@@ -53,6 +53,7 @@ const SinglePerson = () => {
     education,
     personal_information,
   } = singleAlumni || {};
+  console.log(singleAlumni);
 
   let content;
 
@@ -80,14 +81,28 @@ const SinglePerson = () => {
               <h2 className="text-4xl mb-3 text-primary ">{name}</h2>
               {user?.uid ? (
                 <>
-                  <div className="flex items-center gap-2">
-                    <FaLocationArrow className="text-primary"></FaLocationArrow>
-                    <p>Email : {email}</p>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <FaPhone className="text-primary"></FaPhone>{" "}
-                    <p>Phone : {phone}</p>
-                  </div>
+                  {email ? (
+                    <>
+                      {" "}
+                      <div className="flex items-center gap-2">
+                        <FaLocationArrow className="text-primary"></FaLocationArrow>
+                        <p> Email : {email}</p>
+                      </div>
+                    </>
+                  ) : (
+                    <></>
+                  )}
+
+                  {phone ? (
+                    <>
+                      <div className="flex items-center gap-2">
+                        <FaPhone className="text-primary"></FaPhone>{" "}
+                        <p>Phone : {phone}</p>
+                      </div>
+                    </>
+                  ) : (
+                    <></>
+                  )}
 
                   <p>
                     {phone_2 ? (
@@ -103,14 +118,13 @@ const SinglePerson = () => {
                   </p>
 
                   <p>
-                    {address?.street === null &&
-                    address?.city === null &&
-                    address?.state === null &&
-                    address?.zip === null ? (
+                    {address?.street === "" &&
+                    address?.city === "" &&
+                    address?.state === "" &&
+                    address?.zip === "" ? (
                       <></>
                     ) : (
                       <>
-                        {" "}
                         <div className="flex items-center gap-2">
                           <FaAddressCard className="text-primary"></FaAddressCard>{" "}
                           Address :{" "}
@@ -158,52 +172,88 @@ const SinglePerson = () => {
                     </thead>
                     <tbody>
                       <tr>
-                        <th>{personal_information?.date_of_birth}</th>
-                        <td>{personal_information?.gender}</td>
-                        <td>{personal_information?.fathers_name}</td>
-                        <td>{personal_information?.mothers_name}</td>
-                        <td>{personal_information?.marital_status}</td>
-                        <td>{personal_information?.nationality}</td>
+                        <th>
+                          {" "}
+                          {personal_information?.date_of_birth ? (
+                            <>{personal_information?.date_of_birth}</>
+                          ) : (
+                            <></>
+                          )}
+                        </th>
                         <td>
                           {" "}
-                          {personal_information?.hobbies ? (
-                            <>
-                              <p className="font-normal">
-                                {personal_information?.hobbies?.map(
-                                  (hobby, i) => {
-                                    return (
-                                      <>
-                                        <p key={i} className="inline-block ">
-                                          {hobby}
-                                        </p>
-                                      </>
-                                    );
-                                  }
-                                )}{" "}
-                              </p>
-                            </>
+                          {personal_information?.gender ? (
+                            <>{personal_information?.gender}</>
                           ) : (
                             <></>
                           )}
                         </td>
                         <td>
                           {" "}
+                          {personal_information?.fathers_name ? (
+                            <>{personal_information?.fathers_name}</>
+                          ) : (
+                            <></>
+                          )}
+                        </td>
+                        <td>
+                          {personal_information?.mothers_name ? (
+                            <> {personal_information?.mothers_name}</>
+                          ) : (
+                            <></>
+                          )}
+                        </td>
+                        <td>
+                          {" "}
+                          {personal_information?.marital_status ? (
+                            <> {personal_information?.marital_status}</>
+                          ) : (
+                            <></>
+                          )}
+                        </td>
+                        <td>
+                          {" "}
+                          {personal_information?.nationality ? (
+                            <>{personal_information?.nationality}</>
+                          ) : (
+                            <></>
+                          )}
+                        </td>
+                        <td>
+                          {personal_information?.hobbies ? (
+                            <>
+                              {" "}
+                              {personal_information?.hobbies?.map(
+                                (hobby, i) => {
+                                  return (
+                                    <>
+                                      <p key={i} className="inline-block ">
+                                        {hobby}
+                                      </p>
+                                    </>
+                                  );
+                                }
+                              )}{" "}
+                            </>
+                          ) : (
+                            <></>
+                          )}
+                        </td>
+                        <td>
                           {personal_information?.languages ? (
                             <>
                               {" "}
-                              <p className="font-normal">
-                                {personal_information?.languages?.map(
-                                  (language, i) => {
-                                    return (
-                                      <>
-                                        <p key={i} className="inline-block ">
-                                          {language}
-                                        </p>
-                                      </>
-                                    );
-                                  }
-                                )}{" "}
-                              </p>
+                              {personal_information?.languages?.map(
+                                (language, i) => {
+                                  return (
+                                    <>
+                                      <p key={i} className="inline-block ">
+                                        {language}
+                                      </p>
+                                    </>
+                                  );
+                                }
+                              )}{" "}
                             </>
                           ) : (
                             <></>
@@ -230,16 +280,30 @@ const SinglePerson = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {education ? (
+                    {education.length >= 0 ? (
                       <>
                         {education?.map((edu) => {
                           return (
                             <tr>
-                              <th>{edu?.degree}</th>
-                              <td>{edu?.institution}</td>
-                              <td>{edu?.major}</td>
-                              <td>{edu?.graduation_year}</td>
-                              <td>{edu?.gpa}</td>
+                              <th>
+                                {edu?.degree ? <>{edu?.degree}</> : <></>}
+                              </th>
+                              <td>
+                                {edu?.institution ? (
+                                  <> {edu?.institution}</>
+                                ) : (
+                                  <></>
+                                )}
+                              </td>
+                              <td>{edu?.major ? <>{edu?.major}</> : <></>}</td>
+                              <td>
+                                {edu?.graduation_year ? (
+                                  <>{edu?.graduation_year}</>
+                                ) : (
+                                  <></>
+                                )}
+                              </td>
+                              <td>{edu?.gpa ? <>{edu?.gpa}</> : <></>}</td>
                             </tr>
                           );
                         })}
@@ -273,18 +337,33 @@ const SinglePerson = () => {
                           {careers?.map((career, i) => {
                             return (
                               <tr>
-                                <th>{career?.company}</th>
-                                <td>{career?.position}</td>
-                                <td>{career?.start_date}</td>
+                                <th>
+                                  {career?.company ? (
+                                    <>{career?.company}</>
+                                  ) : (
+                                    <></>
+                                  )}
+                                </th>
+                                <td>
+                                  {career?.position ? (
+                                    <>{career?.position}</>
+                                  ) : (
+                                    <></>
+                                  )}
+                                </td>
+                                <td>
+                                  {career?.start_date ? (
+                                    <>{career?.start_date}</>
+                                  ) : (
+                                    <></>
+                                  )}
+                                </td>
 
                                 <td>
                                   {career?.end_date ? (
                                     <> {career?.end_date}</>
                                   ) : (
-                                    <>
-                                      {" "}
-                                      <p>Running</p>
-                                    </>
+                                    <></>
                                   )}
                                 </td>
                                 <td>
@@ -412,13 +491,13 @@ const SinglePerson = () => {
 
             <div className="flex items-center justify-end gap-3">
               <button onClick={() => handlePrevious()}>
-                <FaArrowLeft className="text-primary hover:text-secondary duration-500 ease-in-out cursor-pointer"></FaArrowLeft>
+                <FaArrowLeft className="text-primary cursor-pointer"></FaArrowLeft>
               </button>
               <button
                 disabled={next > similarAlumni?.length}
                 onClick={() => handleNext()}
               >
-                <FaArrowRight className="text-primary hover:text-secondary duration-500 ease-in-out cursor-pointer"></FaArrowRight>
+                <FaArrowRight className="text-primary   cursor-pointer"></FaArrowRight>
               </button>
             </div>
           </div>
