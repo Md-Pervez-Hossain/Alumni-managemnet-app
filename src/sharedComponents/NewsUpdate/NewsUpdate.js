@@ -49,7 +49,7 @@ const NewsUpdate = () => {
         };
         console.log(newsInfo);
         fetch(
-          `https://alumni-managemnet-app-server.vercel.app/news/${news._id}`,
+          `http://localhost:8000/news/${news._id}`,
           {
             method: "PUT",
             headers: {

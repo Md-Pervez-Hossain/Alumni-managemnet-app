@@ -25,28 +25,43 @@ const SignUp = () => {
   const { data: majorSubject } = useGetAllGraduationMajorQuery();
   const { data: graduationYear } = useGetAllBatchesQuery();
   const [photo, setPhoto] = useState(null);
+  const [photoURL, setPhotoURL] = useState(null);
   const { user } = useContext(AuthContext);
 
   const handleSignUp = (data) => {
-    console.log(data.email, data.password);
-    console.log(data);
-    reset();
-    createUser(data.email, data.password)
-      .then((result) => {
-        const user = result.user;
-        updateUserProfile(`${data.firstName} ${data.lastName}`)
-          .then(() => {
-            //user data user profile
+    const firstName = data.firstName;
+    const lastName = data.lastName;
+    const name = `${data.firstName} ${data.lastName}`;
+    const email = data.email;
+    const password = data.password;
+    const blood_group = data.bloodGroup;
+    const date_of_birth = data.dateOfBirth;
+    const graduation_year = data.GraduationYear;
+    const major = data.major;
+
+    const image_url = data.image[0];
+    const formData = new FormData();
+    formData.append("image", image_url);
+
+    fetch("https://api.imgbb.com/1/upload?key=dd1a5cd35aa9d832298beb50053079da", {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        createUser(email, password)
+          .then((result) => {
+            const userfromData = result.user;
             const user = {
-              firstName: data.firstName,
-              lastName: data.lastName,
-              name: `${data.firstName} ${data.lastName}`,
-              profile_picture: "",
-              graduation_year: data.GraduationYear,
+              firstName: firstName,
+              lastName: lastName,
+              name: `${firstName} ${lastName}`,
+              profile_picture: data.data.display_url,
+              graduation_year: graduation_year,
               degree: "",
               department: "",
-              major: data.department,
-              email: data.email,
+              major: major,
+              email: email,
               phone: "",
               phone_2: "",
               address: {
@@ -58,9 +73,9 @@ const SignUp = () => {
               education: [
                 {
                   degree: "",
-                  major: "",
+                  major: major,
                   institution: "",
-                  graduation_year: "",
+                  graduation_year: graduation_year,
                   gpa: "",
                 },
               ],
@@ -75,9 +90,9 @@ const SignUp = () => {
                 },
               ],
               personal_information: {
-                date_of_birth: data.dateOfBirth,
+                date_of_birth: date_of_birth,
                 gender: "",
-                blood_group: data.bloodGroup,
+                blood_group: blood_group,
                 fathers_name: "",
                 mothers_name: "",
                 marital_status: "",
@@ -87,6 +102,15 @@ const SignUp = () => {
               },
             };
 
+            updateUserProfile({
+              displayName: name,
+              photoURL: data.data.display_url,
+            })
+              .then(() => {})
+              .catch((error) => {
+                console.log(error);
+              });
+
             fetch("https://alumni-managemnet-app-server.vercel.app/alumni", {
               method: "POST",
               body: JSON.stringify(user),
@@ -94,21 +118,24 @@ const SignUp = () => {
             })
               .then((response) => response.json())
               .then((data) => {
-                console.log(data);
+                reset();
+                toast.success("SuccessFully Signup");
+                navigate(`/dashboard/profile`);
               })
               .catch((error) => {
                 console.error(error);
               });
-            toast.success("SuccessFully  Signup");
-            navigate(`/dashboard/profile`);
           })
           .catch((error) => {
             console.log(error);
+            toast.error(error.message);
           });
       })
       .catch((error) => {
         console.log(error);
-        toast.error(error.message);
+        toast.error(`${error.message}`, {
+          position: toast.POSITION.TOP_LEFT,
+        });
       });
   };
 
@@ -300,17 +327,17 @@ const SignUp = () => {
                   <label className="label">
                     {" "}
                     <span className="label-text text-lg text-primary font-bold">
-                      Department
+                      Major Subject
                     </span>
                   </label>
                   <select
-                    {...register("department", {
-                      required: "Department is required",
+                    {...register("major", {
+                      required: "Major Subject is required",
                     })}
                     className="input input-bordered rounded-none bg-accent py-2 pl-3 text-sm  w-full"
                   >
                     <option selected disabled value="">
-                      select your major subject
+                      your major subject
                     </option>
                     {majorSubject &&
                       majorSubject.map((e) => (
@@ -348,6 +375,10 @@ const SignUp = () => {
 
                   <input
                     id="address"
+                    required
+                    {...register("image", {
+                      required: "Image is required",
+                    })}
                     type="file"
                     placeholder=""
                     accept="photo/*"

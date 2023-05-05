@@ -46,7 +46,7 @@ const NewsCreateForm = () => {
           likes: 0,
           comments: 0,
         };
-        fetch("https://alumni-managemnet-app-server.vercel.app/news", {
+        fetch("http://localhost:8000/news", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -130,7 +130,7 @@ const NewsCreateForm = () => {
             required
           />
         </div>
-        
+
         <div className="form-control w-full mt-5">
           <select className="select select-bordered " name="newsCategory">
             {newsNameContent}

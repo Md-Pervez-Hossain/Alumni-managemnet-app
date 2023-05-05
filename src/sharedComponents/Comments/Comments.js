@@ -1,8 +1,13 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../UseContext/AuthProvider";
+import { toast } from "react-toastify";
+import ShowComments from "./ShowComments";
+import { useQuery } from "@tanstack/react-query";
+import { AiFillDislike, AiFillLike } from "react-icons/ai";
 
-const Comments = () => {
+const Comments = ({ successFullStoryData }) => {
   const { user } = useContext(AuthContext);
+
   const handleComments = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -14,18 +19,25 @@ const Comments = () => {
       img: user?.photoURL,
       email: user?.email,
       time,
+      commentsId: successFullStoryData._id,
     };
-    fetch("https://alumni-managemnet-app-server.vercel.app/successFullStoryComments", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(commentsInfo),
-    })
+    console.log(commentsInfo);
+    fetch(
+      "https://alumni-managemnet-app-server.vercel.app/successFullStoryComments",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(commentsInfo),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        form.reset();
+        if (data.acknowledged) {
+          form.reset();
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -33,18 +45,21 @@ const Comments = () => {
 
     console.log("submit");
   };
+
   return (
     <div>
       <form onSubmit={(event) => handleComments(event)}>
         <textarea
-          className="textarea textarea-bordered w-full mt-8"
+          className=" border-2 p-5 w-full mt-5 "
           placeholder="Comments"
           name="comments"
+          required
         ></textarea>
-        <button className=" mt-3 mb-8 px-6 py-2 rounded-lg bg-primary text-white">
+        <button className=" mt-3 mb-8 px-6 py-2  bg-primary text-white">
           Comment
         </button>
       </form>
+      <div></div>
     </div>
   );
 };

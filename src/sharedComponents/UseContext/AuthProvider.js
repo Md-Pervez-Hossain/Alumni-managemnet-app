@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import app from "../Firebase/FirebaseConfig";
 import { createContext } from "react";
 import {
   createUserWithEmailAndPassword,
@@ -12,7 +13,6 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import app from "../Firebase/FirebaseConfig";
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
@@ -34,6 +34,7 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return updateProfile(auth.currentUser, {
       displayName: name,
+      photoURL: photo,
     });
   };
 
@@ -52,7 +53,6 @@ const AuthProvider = ({ children }) => {
   //  Logout
   const logout = () => {
     setLoading(true);
-    localStorage.removeItem("aircnc-token");
     return signOut(auth);
   };
 
@@ -94,9 +94,7 @@ const AuthProvider = ({ children }) => {
     setLoading,
   };
 
-  return (
-    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;

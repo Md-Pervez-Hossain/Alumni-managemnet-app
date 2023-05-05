@@ -9,7 +9,7 @@ import { TestimonialData } from "./TestimonialData";
 
 const TestimonialSlider = () => {
   return (
-    <div className=" lg:my-32 my-16">
+    <div className=" lg:my-16 my-16">
       <h2 className="text-center text-2xl  ">Our Testimonial</h2>
       <Swiper
         modules={[Autoplay, Navigation]}
@@ -53,8 +53,8 @@ const TestimonialSlider = () => {
                       className="w-20 h-20 rounded-full dark:bg-gray-500"
                     />
                     <blockquote className="max-w-lg text-lg italic font-medium text-center">
-                      "Et, dignissimos obcaecati. Recusandae praesentium doloribus vitae?
-                      Rem unde atque mollitia!"
+                      "Et, dignissimos obcaecati. Recusandae praesentium
+                      doloribus vitae? Rem unde atque mollitia!"
                     </blockquote>
                     <div className="text-center dark:text-gray-400">
                       <p>{info.name}</p>

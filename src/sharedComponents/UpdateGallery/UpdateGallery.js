@@ -1,9 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
+import { useLoaderData } from "react-router-dom";
+import { AuthContext } from "../UseContext/AuthProvider";
+import { toast } from "react-toastify";
 
-const CreateGallery = () => {
-  const [galleryCategory, setGalleryCategory] = useState([]);
+const UpdateGallery = () => {
   const [batchYear, setBatchYear] = useState([]);
+  const [galleryCategory, setGalleryCategory] = useState([]);
+  const galleryInfo = useLoaderData();
 
   const { user } = useContext(AuthContext);
   console.log(user);
@@ -18,7 +21,7 @@ const CreateGallery = () => {
         console.log(error);
       });
   }, []);
-
+  console.log(galleryInfo);
   useEffect(() => {
     fetch("https://alumni-managemnet-app-server.vercel.app/all-batches")
       .then((res) => res.json())
@@ -31,10 +34,9 @@ const CreateGallery = () => {
       });
   }, []);
 
-  console.log(galleryCategory);
   console.log(batchYear);
 
-  const handleGallery = (event) => {
+  const handleUpdateGallery = (event) => {
     event.preventDefault();
     const form = event.target;
     const title = form.title.value;
@@ -56,36 +58,32 @@ const CreateGallery = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        const galleryInfo = {
+        const updateGalleryInfo = {
           title,
           batchNumber,
           details,
           gallery_category,
-          total_view: 0,
-          is_fatured: false,
-          is_trending: true,
           time,
           image_url: data?.data?.display_url,
-          name: user?.displayName,
-          email: user?.email,
-          img: user?.photoURL,
         };
 
-        fetch("https://alumni-managemnet-app-server.vercel.app/gallery", {
-          method: "POST",
+        fetch(`http://localhost:8000/gallery/${galleryInfo._id}`, {
+          method: "PUT",
           headers: {
             "content-type": "application/json",
           },
-          body: JSON.stringify(galleryInfo),
+          body: JSON.stringify(updateGalleryInfo),
         })
           .then((res) => res.json())
           .then((data) => {
             console.log(data);
+            if (data.modifiedCount > 0) {
+              toast.success("SuccessFully Updated");
+            }
           })
           .catch((error) => {
             console.log(error);
           });
-        console.log(galleryInfo);
         form.reset();
       })
       .catch((error) => {
@@ -97,14 +95,14 @@ const CreateGallery = () => {
   return (
     <div className="w-9/12 mx-auto my-16">
       <h2 className="text-4xl my-5">Gallery</h2>
-
-      <form onSubmit={(event) => handleGallery(event)}>
+      <form onSubmit={(event) => handleUpdateGallery(event)}>
         <div className="grid md:grid-cols-2 gap-5">
           <input
             type="text"
             placeholder="Gallery Title"
             className="input input-bordered w-full "
             name="title"
+            defaultValue={galleryInfo?.title}
             required
           />
 
@@ -118,7 +116,7 @@ const CreateGallery = () => {
           </div>
           <div className="form-control w-full ">
             <select
-              required
+              defaultValue={galleryInfo?.gallery_category}
               className="select select-bordered"
               name="gallery_category"
             >
@@ -131,7 +129,7 @@ const CreateGallery = () => {
           </div>
           <div className="form-control w-full ">
             <select
-              required
+              defaultValue={galleryInfo?.batchNumber}
               className="select select-bordered"
               name="batchNumber"
             >
@@ -145,6 +143,7 @@ const CreateGallery = () => {
           className="textarea textarea-bordered w-full my-5"
           placeholder="Gallery Details"
           name="details"
+          defaultValue={galleryInfo?.details}
           required
         ></textarea>
         <button className="px-6 py-4 w-full rounded-lg bg-primary text-white font-semibold">
@@ -155,4 +154,4 @@ const CreateGallery = () => {
   );
 };
 
-export default CreateGallery;
+export default UpdateGallery;

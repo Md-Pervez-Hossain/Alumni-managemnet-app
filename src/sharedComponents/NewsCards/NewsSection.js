@@ -66,7 +66,10 @@ const NewsSection = () => {
           <button onClick={() => handlePrevious()}>
             <FaArrowLeft></FaArrowLeft>
           </button>
-          <button disabled={next > newsData?.length} onClick={() => handleNext()}>
+          <button
+            disabled={next === newsData?.length || next > newsData?.length}
+            onClick={() => handleNext()}
+          >
             <FaArrowRight></FaArrowRight>
           </button>
         </div>
