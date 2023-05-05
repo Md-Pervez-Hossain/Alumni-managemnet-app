@@ -10,7 +10,7 @@ import {
 } from "../../features/Api/apiSlice";
 
 const SignUp = () => {
-  const { createUser, updateProfile, signInWithGoogle } = useContext(AuthContext);
+  const { createUser, updateUserProfile, signInWithGoogle } = useContext(AuthContext);
 
   // use navigate
   const navigate = useNavigate();
@@ -25,10 +25,19 @@ const SignUp = () => {
   const { data: majorSubject } = useGetAllGraduationMajorQuery();
   const { data: graduationYear } = useGetAllBatchesQuery();
   const [photo, setPhoto] = useState(null);
+  const [photoURL, setPhotoURL] = useState(null);
   const { user } = useContext(AuthContext);
 
   const handleSignUp = (data) => {
-    // console.log(data, photo);
+    const firstName = data.firstName;
+    const lastName = data.lastName;
+    const name = `${data.firstName} ${data.lastName}`;
+    const email = data.email;
+    const password = data.password;
+    const blood_group = data.bloodGroup;
+    const date_of_birth = data.dateOfBirth;
+    const graduation_year = data.GraduationYear;
+    const major = data.major;
 
     const image_url = data.image[0];
     const formData = new FormData();
@@ -40,7 +49,87 @@ const SignUp = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        createUser(email, password)
+          .then((result) => {
+            const userfromData = result.user;
+            const user = {
+              firstName: firstName,
+              lastName: lastName,
+              name: `${firstName} ${lastName}`,
+              profile_picture: data.data.display_url,
+              graduation_year: graduation_year,
+              degree: "",
+              department: "",
+              major: major,
+              email: email,
+              phone: "",
+              phone_2: "",
+              address: {
+                street: "",
+                city: "",
+                state: "",
+                zip: "",
+              },
+              education: [
+                {
+                  degree: "",
+                  major: major,
+                  institution: "",
+                  graduation_year: graduation_year,
+                  gpa: "",
+                },
+              ],
+              is_employed: false,
+              careers: [
+                {
+                  company: "",
+                  position: "",
+                  start_date: "",
+                  end_date: "",
+                  responsibilities: "",
+                },
+              ],
+              personal_information: {
+                date_of_birth: date_of_birth,
+                gender: "",
+                blood_group: blood_group,
+                fathers_name: "",
+                mothers_name: "",
+                marital_status: "",
+                nationality: "",
+                languages: ["English", "Bengali"],
+                hobbies: [],
+              },
+            };
+
+            updateUserProfile({
+              displayName: name,
+              photoURL: data.data.display_url,
+            })
+              .then(() => {})
+              .catch((error) => {
+                console.log(error);
+              });
+
+            fetch("https://alumni-managemnet-app-server.vercel.app/alumni", {
+              method: "POST",
+              body: JSON.stringify(user),
+              headers: { "Content-Type": "application/json" },
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                reset();
+                toast.success("SuccessFully Signup");
+                navigate(`/dashboard/profile`);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+          })
+          .catch((error) => {
+            console.log(error);
+            toast.error(error.message);
+          });
       })
       .catch((error) => {
         console.log(error);
@@ -48,87 +137,6 @@ const SignUp = () => {
           position: toast.POSITION.TOP_LEFT,
         });
       });
-
-    // createUser(data.email, data.password)
-    //   .then((result) => {
-    //     const user = result.user;
-
-    //     updateProfile({ displayName: `${data.firstName} ${data.lastName}`, photoURL: "" })
-    //       .then(() => {
-    //         //user data user profile
-    //         const user = {
-    //           firstName: data.firstName,
-    //           lastName: data.lastName,
-    //           name: `${data.firstName} ${data.lastName}`,
-    //           profile_picture: "",
-    //           graduation_year: data.GraduationYear,
-    //           degree: "",
-    //           department: "",
-    //           major: data.department,
-    //           email: data.email,
-    //           phone: "",
-    //           phone_2: "",
-    //           address: {
-    //             street: "",
-    //             city: "",
-    //             state: "",
-    //             zip: "",
-    //           },
-    //           education: [
-    //             {
-    //               degree: "",
-    //               major: data.department,
-    //               institution: "",
-    //               graduation_year: data.GraduationYear,
-    //               gpa: "",
-    //             },
-    //           ],
-    //           is_employed: false,
-    //           careers: [
-    //             {
-    //               company: "",
-    //               position: "",
-    //               start_date: "",
-    //               end_date: "",
-    //               responsibilities: "",
-    //             },
-    //           ],
-    //           personal_information: {
-    //             date_of_birth: data.dateOfBirth,
-    //             gender: "",
-    //             blood_group: data.bloodGroup,
-    //             fathers_name: "",
-    //             mothers_name: "",
-    //             marital_status: "",
-    //             nationality: "",
-    //             languages: ["English", "Bengali"],
-    //             hobbies: [],
-    //           },
-    //         };
-
-    //         fetch("https://alumni-managemnet-app-server.vercel.app/alumni", {
-    //           method: "POST",
-    //           body: JSON.stringify(user),
-    //           headers: { "Content-Type": "application/json" },
-    //         })
-    //           .then((response) => response.json())
-    //           .then((data) => {
-    //             console.log(data);
-    //           })
-    //           .catch((error) => {
-    //             console.error(error);
-    //           });
-    //         toast.success("SuccessFully  Signup");
-    //         navigate(`/dashboard/profile`);
-    //       })
-    //       .catch((error) => {
-    //         console.log(error);
-    //       });
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //     toast.error(error.message);
-    //   });
   };
 
   const handleGoogleSignup = () => {
@@ -319,17 +327,17 @@ const SignUp = () => {
                   <label className="label">
                     {" "}
                     <span className="label-text text-lg text-primary font-bold">
-                      Department
+                      Major Subject
                     </span>
                   </label>
                   <select
-                    {...register("department", {
-                      required: "Department is required",
+                    {...register("major", {
+                      required: "Major Subject is required",
                     })}
                     className="input input-bordered rounded-none bg-accent py-2 pl-3 text-sm  w-full"
                   >
                     <option selected disabled value="">
-                      select your major subject
+                      your major subject
                     </option>
                     {majorSubject &&
                       majorSubject.map((e) => (
