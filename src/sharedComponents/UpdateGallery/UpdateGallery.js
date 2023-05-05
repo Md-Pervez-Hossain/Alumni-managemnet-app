@@ -67,13 +67,16 @@ const UpdateGallery = () => {
           image_url: data?.data?.display_url,
         };
 
-        fetch(`http://localhost:8000/gallery/${galleryInfo._id}`, {
-          method: "PUT",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(updateGalleryInfo),
-        })
+        fetch(
+          `https://alumni-managemnet-app-server.vercel.app/gallery/${galleryInfo._id}`,
+          {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(updateGalleryInfo),
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             console.log(data);

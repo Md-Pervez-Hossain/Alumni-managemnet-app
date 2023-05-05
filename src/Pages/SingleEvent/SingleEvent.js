@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import InnerPageHeader from "../../sharedComponents/InnerPageHeader/InnerPageHeader";
 import CategoryWiseEvent from "../../sharedComponents/Events/Category_Wise_event/CategoryWiseEvent";
 import Counter from "../../sharedComponents/Counter/Counter";
@@ -9,6 +9,9 @@ import { useGetSingleEventQuery } from "../../features/Api/apiSlice";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../sharedComponents/UseContext/AuthProvider";
+import emailjs from "@emailjs/browser";
+import _, { set } from "lodash";
+import axios from "axios";
 
 const SingleEvent = () => {
   const { user } = useContext(AuthContext);
@@ -20,52 +23,67 @@ const SingleEvent = () => {
   // console.log({ currentPath });
   //load data using redux
 
-  const { data, isLoading, isError, error } = useGetSingleEventQuery(currentPath);
+  const { data, isLoading, isError, error } =
+    useGetSingleEventQuery(currentPath);
   // console.log(data);
-  const { _id, description, image_url, event_title, category, batch, date } = data || {};
-
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm();
+  const { _id, description, image_url, event_title, category, batch, date } =
+    data || {};
 
   const [eventData, setEventData] = useState("");
+  console.log(eventData);
 
   useEffect(() => {
-    fetch(`https://alumni-managemnet-app-server.vercel.app/join-event/${_id}`)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setEventData(data);
-      });
-  }, [_id]);
-
-  console.log(eventData);
+    if (user?.email && _id) {
+      axios
+        .get(
+          `https://alumni-managemnet-app-server.vercel.app/join-event?email=${user?.email}&id=${_id}`
+        )
+        .then((data) => setEventData(data.data))
+        .catch((error) => console.error(error));
+    }
+  }, [user?.email, _id]);
 
   const handleEventEdit = (event) => {
     event.preventDefault();
-    const form = event.target;
-
+    const f = event.target;
     const userInfo = {
-      first_name: form.first_name.value,
-      last_name: form.last_name.value,
+      first_name: f.first_name.value,
+      last_name: f.last_name.value,
       email: user?.email,
-      phone_number: form.phone_number.value,
+      phone_number: f.phone_number.value,
       date: date,
     };
 
-    fetch(`https://alumni-managemnet-app-server.vercel.app/join-event/${eventData._id}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(userInfo),
-    })
+    fetch(
+      `https://alumni-managemnet-app-server.vercel.app/join-event/${eventData._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(userInfo),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+
         toast.success("Update Successfully.");
+        emailjs
+          .sendForm(
+            "service_tlzwnzs",
+            "template_fxu30p8",
+            form.current,
+            "hWyA-erRGdIIJOqPT"
+          )
+          .then(
+            (result) => {
+              // console.log(result.text);
+            },
+            (error) => {
+              console.log(error.text);
+            }
+          );
       });
   };
 
@@ -84,15 +102,18 @@ const SingleEvent = () => {
       });
   };
 
-  const handleEvent = (data) => {
+  const form = useRef();
+  const handleEvent = (event) => {
+    event.preventDefault();
+    const f = event.target;
     const userInfo = {
-      first_name: data.first_name,
-      last_name: data.last_name,
+      first_name: f.first_name.value,
+      last_name: f.last_name.value,
       email: user?.email,
-      phone_number: data.phone_number,
+      phone_number: f.phone_number.value,
+      date: date,
       event_id: _id,
       event_title: event_title,
-      date: date,
     };
 
     console.log(userInfo);
@@ -107,7 +128,24 @@ const SingleEvent = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+
         toast.success("Event Join Successful.");
+
+        emailjs
+          .sendForm(
+            "service_tlzwnzs",
+            "template_0dr6m1b",
+            form.current,
+            "hWyA-erRGdIIJOqPT"
+          )
+          .then(
+            (result) => {
+              // console.log(result.text);
+            },
+            (error) => {
+              console.log(error.text);
+            }
+          );
       })
       .catch((error) => {
         console.log(error);
@@ -152,7 +190,7 @@ const SingleEvent = () => {
               {/* <button className="bg-primary p-2  w-[130px]"> */}
               {/* The button to open modal */}
 
-              {eventData.event_id === _id ? (
+              {eventData.email === user?.email && eventData.event_id === _id ? (
                 <div>
                   <button className="text-center bg-primary p-2   text-white">
                     Already Joined the Event
@@ -182,7 +220,11 @@ const SingleEvent = () => {
               )}
 
               {/* modal for post joining data */}
-              <input type="checkbox" id="event-modal" className="modal-toggle" />
+              <input
+                type="checkbox"
+                id="event-modal"
+                className="modal-toggle"
+              />
 
               <div className="modal">
                 <div className="modal-box">
@@ -194,7 +236,11 @@ const SingleEvent = () => {
                   </label>
                   <h3 className="font-bold text-xl">Join {event_title}</h3>
 
-                  <form onSubmit={handleSubmit(handleEvent)}>
+                  <form ref={form} onSubmit={(event) => handleEvent(event)}>
+                    <div className="hidden">
+                      <input name="event_title" defaultValue={event_title} />
+                      <input name="date" defaultValue={date} />
+                    </div>
                     <div className="form-control mx-auto">
                       <label className="label">
                         {" "}
@@ -204,16 +250,13 @@ const SingleEvent = () => {
                       </label>
                       <input
                         type="text"
-                        {...register("first_name", {
-                          required: "First_name is required",
-                        })}
+                        name="first_name"
+                        required
                         className="input input-bordered rounded-none bg-accent py-2 pl-3 text-lg  w-full"
                         placeholder="Please enter your first name."
                       />
-                      {errors.first_name && (
-                        <p className="text-red-600">{errors.first_name?.message}</p>
-                      )}
                     </div>
+
                     <div className="form-control mx-auto">
                       <label className="label">
                         {" "}
@@ -223,15 +266,11 @@ const SingleEvent = () => {
                       </label>
                       <input
                         type="text"
-                        {...register("last_name", {
-                          required: "last_name is required",
-                        })}
+                        name="last_name"
+                        required
                         className="input input-bordered rounded-none bg-accent py-2 pl-3 text-lg  w-full"
                         placeholder="Please enter your last name."
                       />
-                      {errors.last_name && (
-                        <p className="text-red-600">{errors.last_name?.message}</p>
-                      )}
                     </div>
 
                     <div className="form-control mx-auto">
@@ -243,9 +282,10 @@ const SingleEvent = () => {
                       </label>
                       <input
                         type="email"
-                        {...register("email")}
+                        name="email"
+                        required
                         className="input input-bordered rounded-none bg-accent py-2 pl-3 text-lg  w-full"
-                        placeholder={user?.email}
+                        defaultValue={user?.email}
                         readOnly
                       />
                     </div>
@@ -259,15 +299,11 @@ const SingleEvent = () => {
                       </label>
                       <input
                         type="text"
-                        {...register("phone_number", {
-                          required: "Phone number is required",
-                        })}
+                        name="phone_number"
+                        required
                         className="input input-bordered rounded-none bg-accent py-2 pl-3 text-lg  w-full"
                         placeholder="Please enter your Phone number"
                       />
-                      {errors.phone_number && (
-                        <p className="text-red-600">{errors.phone_number?.message}</p>
-                      )}
                     </div>
 
                     <div className=" mx-auto">
@@ -280,7 +316,11 @@ const SingleEvent = () => {
               </div>
 
               {/* modal for edit joining data */}
-              <input type="checkbox" id="event-modal-edit" className="modal-toggle" />
+              <input
+                type="checkbox"
+                id="event-modal-edit"
+                className="modal-toggle"
+              />
               <div className="modal">
                 <div className="modal-box">
                   <label
@@ -291,7 +331,12 @@ const SingleEvent = () => {
                   </label>
                   <h3 className="font-bold text-xl">Join {event_title}</h3>
 
-                  <form onSubmit={(event) => handleEventEdit(event)}>
+                  <form ref={form} onSubmit={(event) => handleEventEdit(event)}>
+                    <div className="hidden">
+                      <input name="event_title" defaultValue={event_title} />
+                      <input name="date" defaultValue={date} />
+                    </div>
+
                     <div className="form-control mx-auto">
                       <label className="label">
                         {" "}
@@ -333,7 +378,7 @@ const SingleEvent = () => {
                         type="email"
                         name="email"
                         className="input input-bordered rounded-none bg-accent py-2 pl-3 text-lg  w-full"
-                        placeholder={user?.email}
+                        defaultValue={user?.email}
                         readOnly
                       />
                     </div>

@@ -10,7 +10,9 @@ const AllCharity = () => {
   console.log(user);
   const [showCharity, setShowCharity] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:8000/charity/email/${user?.email}`)
+    fetch(
+      `https://alumni-managemnet-app-server.vercel.app/charity/email/${user?.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -26,7 +28,7 @@ const AllCharity = () => {
 
     const agree = window.confirm(`Are You Sure ! You want to delete ${_id}`);
     if (agree) {
-      fetch(`http://localhost:8000/charity/${_id}`, {
+      fetch(`https://alumni-managemnet-app-server.vercel.app/charity/${_id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

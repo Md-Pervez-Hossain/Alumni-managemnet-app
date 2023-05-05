@@ -9,7 +9,9 @@ const AllGallery = () => {
   console.log(user);
   const [gallery, setGallery] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:8000/galleries/email/${user?.email}`)
+    fetch(
+      `https://alumni-managemnet-app-server.vercel.app/galleries/email/${user?.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -24,9 +26,12 @@ const AllGallery = () => {
     const agree = window.confirm(`Are you Sure ! You want To Delete ${_id}`);
     console.log(_id);
     if (agree) {
-      fetch(`http://localhost:8000/galleries/${_id}`, {
-        method: "DELETE",
-      })
+      fetch(
+        `https://alumni-managemnet-app-server.vercel.app/galleries/${_id}`,
+        {
+          method: "DELETE",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
