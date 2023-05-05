@@ -32,41 +32,51 @@ const MoreNews = ({ _id }) => {
   };
   return (
     <div>
-      {stories
-        ?.slice(previous, next)
-        .filter((story) => story._id !== _id)
-        .map((story) => {
-          return (
-            <>
-              <div
-                key={story._id}
-                className="flex items-center gap-3 justify-between mb-5"
-              >
-                <div
-                  style={{
-                    backgroundImage: `url(${story.image})`,
-                    backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
-                    height: "150px",
-                    width: "250px",
-                  }}
-                ></div>
-                <div>
-                  <h2 className="mb-2">SuccessFull Story Heading</h2>
-                  <p className="text-[12px] mb-2">
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos,
-                    in.
-                  </p>
-                  <Link to={`/news/${story._id}`}>
-                    {" "}
-                    <button className="bg-secondary px-4 py-2 text-white">Details</button>
-                  </Link>
+      <div className="grid lg:grid-cols-3 gap-5">
+        {stories
+          ?.slice(previous, next)
+          .filter((story) => story._id !== _id)
+          .map((story) => {
+            return (
+              <>
+                <div key={story._id} className="flex items-center gap-3  mb-5">
+                  <div
+                    style={{
+                      backgroundImage: `url(${story.image})`,
+                      backgroundPosition: "center",
+                      backgroundRepeat: "no-repeat",
+                      backgroundSize: "cover",
+                      height: "150px",
+                      width: "250px",
+                    }}
+                  ></div>
+                  <div>
+                    <h2 className="mb-2">
+                      {story?.heading?.length >= 20 ? (
+                        <>{`${story?.heading?.slice(0, 20)}...`}</>
+                      ) : (
+                        <>{`${story?.heading}`}</>
+                      )}
+                    </h2>
+                    <p className="text-[12px] mb-2">
+                      {story?.newsDetails?.length >= 70 ? (
+                        <> {`${story.newsDetails.slice(0, 70)} ...`}</>
+                      ) : (
+                        <>{`${story.newsDetails}`}</>
+                      )}
+                    </p>
+                    <Link to={`/news/${story._id}`}>
+                      {" "}
+                      <button className="bg-primary  px-4 py-2 text-white">
+                        Details
+                      </button>
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            </>
-          );
-        })}
+              </>
+            );
+          })}
+      </div>
 
       <div className="flex gap-2 justify-end">
         <button onClick={() => handlePrevious()}>

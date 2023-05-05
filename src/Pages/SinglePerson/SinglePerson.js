@@ -85,7 +85,8 @@ const SinglePerson = () => {
                     <p>Email : {email}</p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <FaPhone className="text-primary"></FaPhone> <p>Phone : {phone}</p>
+                    <FaPhone className="text-primary"></FaPhone>{" "}
+                    <p>Phone : {phone}</p>
                   </div>
 
                   <p>
@@ -111,8 +112,8 @@ const SinglePerson = () => {
                       <>
                         {" "}
                         <div className="flex items-center gap-2">
-                          <FaAddressCard className="text-primary"></FaAddressCard> Address
-                          :{" "}
+                          <FaAddressCard className="text-primary"></FaAddressCard>{" "}
+                          Address :{" "}
                           {`${address?.street} ${address?.city} ${address?.state} ${address?.zip}`}
                         </div>
                       </>
@@ -168,15 +169,17 @@ const SinglePerson = () => {
                           {personal_information?.hobbies ? (
                             <>
                               <p className="font-normal">
-                                {personal_information?.hobbies?.map((hobby, i) => {
-                                  return (
-                                    <>
-                                      <p key={i} className="inline-block ">
-                                        {hobby}
-                                      </p>
-                                    </>
-                                  );
-                                })}{" "}
+                                {personal_information?.hobbies?.map(
+                                  (hobby, i) => {
+                                    return (
+                                      <>
+                                        <p key={i} className="inline-block ">
+                                          {hobby}
+                                        </p>
+                                      </>
+                                    );
+                                  }
+                                )}{" "}
                               </p>
                             </>
                           ) : (
@@ -189,15 +192,17 @@ const SinglePerson = () => {
                             <>
                               {" "}
                               <p className="font-normal">
-                                {personal_information?.languages?.map((language, i) => {
-                                  return (
-                                    <>
-                                      <p key={i} className="inline-block ">
-                                        {language}
-                                      </p>
-                                    </>
-                                  );
-                                })}{" "}
+                                {personal_information?.languages?.map(
+                                  (language, i) => {
+                                    return (
+                                      <>
+                                        <p key={i} className="inline-block ">
+                                          {language}
+                                        </p>
+                                      </>
+                                    );
+                                  }
+                                )}{" "}
                               </p>
                             </>
                           ) : (
@@ -285,13 +290,15 @@ const SinglePerson = () => {
                                 <td>
                                   {career?.responsibilities ? (
                                     <>
-                                      {career?.responsibilities?.map((res, i) => {
-                                        return (
-                                          <>
-                                            <p key={i}>{res}</p>
-                                          </>
-                                        );
-                                      })}
+                                      {career?.responsibilities?.map(
+                                        (res, i) => {
+                                          return (
+                                            <>
+                                              <p key={i}>{res}</p>
+                                            </>
+                                          );
+                                        }
+                                      )}
                                     </>
                                   ) : (
                                     <></>
@@ -387,8 +394,8 @@ const SinglePerson = () => {
           <h2 className="md:text-4xl text-2xl mb-5">About {name}</h2>
           <hr className="border-2 w-24 mx-auto border-secondary " />
           <p className="mt-5">
-            There are many company Lorem ipsm dolor sitg amet, csetur adipicing elit, sed
-            do eiusmod tempor
+            There are many company Lorem ipsm dolor sitg amet, csetur adipicing
+            elit, sed do eiusmod tempor
           </p>
         </div>
       </div>

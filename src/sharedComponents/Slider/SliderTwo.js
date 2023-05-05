@@ -23,11 +23,16 @@ const SliderTwo = () => {
                     We Proude To Be Student Of Oxford
                   </h2>
                   <p className="max-w-xl mb-5 text-base text-white md:text-lg ">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                    accusantium doloremque laudan, totam rem aperiam, eaque ipsa quae.
+                    Sed ut perspiciatis unde omnis iste natus error sit
+                    voluptatem accusantium doloremque laudan, totam rem aperiam,
+                    eaque ipsa quae.
                   </p>
                   <div>
-                    <a href="/" aria-label="" className="bg-secondary px-4 py-2 ">
+                    <a
+                      href="/"
+                      aria-label=""
+                      className="bg-secondary px-4 py-2 "
+                    >
                       Learn more
                       <svg
                         className="inline-block w-3 ml-2"
@@ -73,11 +78,16 @@ const SliderTwo = () => {
                     We Proude To Be Student Of Oxford
                   </h2>
                   <p className="max-w-xl mb-5 text-base text-white md:text-lg ">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                    accusantium doloremque laudan, totam rem aperiam, eaque ipsa quae.
+                    Sed ut perspiciatis unde omnis iste natus error sit
+                    voluptatem accusantium doloremque laudan, totam rem aperiam,
+                    eaque ipsa quae.
                   </p>
                   <div>
-                    <a href="/" aria-label="" className="bg-secondary px-4 py-2 ">
+                    <a
+                      href="/"
+                      aria-label=""
+                      className="bg-secondary px-4 py-2 "
+                    >
                       Learn more
                       <svg
                         className="inline-block w-3 ml-2"
@@ -123,11 +133,16 @@ const SliderTwo = () => {
                     We Proude To Be Student Of Oxford
                   </h2>
                   <p className="max-w-xl mb-5 text-base text-white md:text-lg ">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                    accusantium doloremque laudan, totam rem aperiam, eaque ipsa quae.
+                    Sed ut perspiciatis unde omnis iste natus error sit
+                    voluptatem accusantium doloremque laudan, totam rem aperiam,
+                    eaque ipsa quae.
                   </p>
                   <div>
-                    <a href="/" aria-label="" className="bg-secondary px-4 py-2 ">
+                    <a
+                      href="/"
+                      aria-label=""
+                      className="bg-secondary px-4 py-2 "
+                    >
                       Learn more
                       <svg
                         className="inline-block w-3 ml-2"
