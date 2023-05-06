@@ -23,6 +23,12 @@ import ErrorAlert from "../../sharedComponents/Skeletion/ErrorAlert";
 const SinglePerson = () => {
   const { user } = useContext(AuthContext);
   // const singleAlumni = useLoaderData();
+  const [userEmail, setUserEmail] = useState(null);
+
+  const getUserEmail = async () => {
+    const userEmail = await user?.email;
+    return await userEmail;
+  };
 
   //  get location using react-router-dom
   const location = useLocation();
@@ -35,7 +41,6 @@ const SinglePerson = () => {
     isError,
     error,
   } = useGetSingleAlumniQuery(currentPath);
-  // console.log(data);
 
   const {
     name,
@@ -69,14 +74,31 @@ const SinglePerson = () => {
         {" "}
         <>
           <div className="flex flex-col lg:flex-row gap-10 lg:items-center  ">
-            <div
-              className={` border-4 border-primary rounded-full  m-0 bg-cover bg-center	bg-no-repeat`}
-              style={{
-                backgroundImage: `url(${profile_picture})`,
-                height: "300px",
-                width: "300px",
-              }}
-            ></div>
+            {profile_picture ? (
+              <>
+                {" "}
+                <div
+                  className={` border-4 border-primary rounded-full  m-0 bg-cover bg-center	bg-no-repeat`}
+                  style={{
+                    backgroundImage: `url(${profile_picture})`,
+                    height: "300px",
+                    width: "300px",
+                  }}
+                ></div>
+              </>
+            ) : (
+              <>
+                <div
+                  style={{
+                    backgroundImage: `url('https://ionicframework.com/docs/img/demos/avatar.svg')`,
+                    height: "300px",
+                    width: "300px",
+                  }}
+                  className={` border-4 border-primary rounded-full  m-0 bg-cover bg-center	bg-no-repeat`}
+                ></div>
+              </>
+            )}
+
             <div>
               <h2 className="text-4xl mb-3 text-primary ">{name}</h2>
               {user?.uid ? (
@@ -126,8 +148,8 @@ const SinglePerson = () => {
                     ) : (
                       <>
                         <div className="flex items-center gap-2">
-                          <FaAddressCard className="text-primary"></FaAddressCard>{" "}
-                          Address :{" "}
+                          <FaAddressCard className="text-primary"></FaAddressCard> Address
+                          :{" "}
                           {`${address?.street} ${address?.city} ${address?.state} ${address?.zip}`}
                         </div>
                       </>
@@ -223,17 +245,15 @@ const SinglePerson = () => {
                           {personal_information?.hobbies ? (
                             <>
                               {" "}
-                              {personal_information?.hobbies?.map(
-                                (hobby, i) => {
-                                  return (
-                                    <>
-                                      <p key={i} className="inline-block ">
-                                        {hobby}
-                                      </p>
-                                    </>
-                                  );
-                                }
-                              )}{" "}
+                              {personal_information?.hobbies?.map((hobby, i) => {
+                                return (
+                                  <>
+                                    <p key={i} className="inline-block ">
+                                      {hobby}
+                                    </p>
+                                  </>
+                                );
+                              })}{" "}
                             </>
                           ) : (
                             <></>
@@ -243,17 +263,15 @@ const SinglePerson = () => {
                           {personal_information?.languages ? (
                             <>
                               {" "}
-                              {personal_information?.languages?.map(
-                                (language, i) => {
-                                  return (
-                                    <>
-                                      <p key={i} className="inline-block ">
-                                        {language}
-                                      </p>
-                                    </>
-                                  );
-                                }
-                              )}{" "}
+                              {personal_information?.languages?.map((language, i) => {
+                                return (
+                                  <>
+                                    <p key={i} className="inline-block ">
+                                      {language}
+                                    </p>
+                                  </>
+                                );
+                              })}{" "}
                             </>
                           ) : (
                             <></>
@@ -280,119 +298,29 @@ const SinglePerson = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {education.length >= 0 ? (
-                      <>
-                        {education?.map((edu) => {
-                          return (
-                            <tr>
-                              <th>
-                                {edu?.degree ? <>{edu?.degree}</> : <></>}
-                              </th>
-                              <td>
-                                {edu?.institution ? (
-                                  <> {edu?.institution}</>
-                                ) : (
-                                  <></>
-                                )}
-                              </td>
-                              <td>{edu?.major ? <>{edu?.major}</> : <></>}</td>
-                              <td>
-                                {edu?.graduation_year ? (
-                                  <>{edu?.graduation_year}</>
-                                ) : (
-                                  <></>
-                                )}
-                              </td>
-                              <td>{edu?.gpa ? <>{edu?.gpa}</> : <></>}</td>
-                            </tr>
-                          );
-                        })}
-                      </>
-                    ) : (
-                      <></>
-                    )}
+                    {
+                      <tr>
+                        <th>{education?.degree ? <>{education?.degree}</> : <></>}</th>
+                        <td>
+                          {education?.institution ? (
+                            <> {education?.institution}</>
+                          ) : (
+                            <></>
+                          )}
+                        </td>
+                        <td>{education?.major ? <>{education?.major}</> : <></>}</td>
+                        <td>
+                          {education?.graduation_year ? (
+                            <>{education?.graduation_year}</>
+                          ) : (
+                            <></>
+                          )}
+                        </td>
+                        <td>{education?.gpa ? <>{education?.gpa}</> : <></>}</td>
+                      </tr>
+                    }
                   </tbody>
                 </table>
-              </div>
-            </div>
-            <div>
-              <h2 className="text-2xl my-8">Career</h2>
-              <div className="">
-                <div className="overflow-x-auto">
-                  <table className="table w-full">
-                    {/* head */}
-                    <thead>
-                      <tr>
-                        <th>Company</th>
-                        <th>Position</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Responsibility </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {careers ? (
-                        <>
-                          {" "}
-                          {careers?.map((career, i) => {
-                            return (
-                              <tr>
-                                <th>
-                                  {career?.company ? (
-                                    <>{career?.company}</>
-                                  ) : (
-                                    <></>
-                                  )}
-                                </th>
-                                <td>
-                                  {career?.position ? (
-                                    <>{career?.position}</>
-                                  ) : (
-                                    <></>
-                                  )}
-                                </td>
-                                <td>
-                                  {career?.start_date ? (
-                                    <>{career?.start_date}</>
-                                  ) : (
-                                    <></>
-                                  )}
-                                </td>
-
-                                <td>
-                                  {career?.end_date ? (
-                                    <> {career?.end_date}</>
-                                  ) : (
-                                    <></>
-                                  )}
-                                </td>
-                                <td>
-                                  {career?.responsibilities ? (
-                                    <>
-                                      {career?.responsibilities?.map(
-                                        (res, i) => {
-                                          return (
-                                            <>
-                                              <p key={i}>{res}</p>
-                                            </>
-                                          );
-                                        }
-                                      )}
-                                    </>
-                                  ) : (
-                                    <></>
-                                  )}
-                                </td>
-                              </tr>
-                            );
-                          })}
-                        </>
-                      ) : (
-                        <></>
-                      )}
-                    </tbody>
-                  </table>
-                </div>
               </div>
             </div>
           </div>
@@ -453,9 +381,9 @@ const SinglePerson = () => {
                 <div>
                   <h2 className="text-lg">
                     {" "}
-                    <Link to={`/alumni/${person?._id}`}>{person?.name}</Link>
+                    <Link to={`/alumni/${person?.email}`}>{person?.name}</Link>
                   </h2>
-                  <Link to={`/alumni/${person?._id}`}>
+                  <Link to={`/alumni/${person?.email}`}>
                     <button className="text-secondary ">Details</button>
                   </Link>
                 </div>
@@ -473,8 +401,8 @@ const SinglePerson = () => {
           <h2 className="md:text-4xl text-2xl mb-5">About {name}</h2>
           <hr className="border-2 w-24 mx-auto border-secondary " />
           <p className="mt-5">
-            There are many company Lorem ipsm dolor sitg amet, csetur adipicing
-            elit, sed do eiusmod tempor
+            There are many company Lorem ipsm dolor sitg amet, csetur adipicing elit, sed
+            do eiusmod tempor
           </p>
         </div>
       </div>

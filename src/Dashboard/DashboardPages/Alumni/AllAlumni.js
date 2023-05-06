@@ -1,75 +1,91 @@
 import React from "react";
-import DashboardTable from "../../DashboardComponents/DashboardTable";
 import { Link } from "react-router-dom";
-import { useGetEventsQuery } from "../../../features/Api/apiSlice";
 import Loading from "../../../sharedComponents/Loading/Loading";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
+import { useGetAllAlumniQuery } from "../../../features/Api/apiSlice";
 
-const AllEvents = () => {
+const AllAlumni = () => {
   const tableHeading = [
-    { name: "Title", id: 1 },
-    { name: "Location", id: 2 },
-    { name: "Batch", id: 3 },
-    { name: "Date", id: 5 },
+    { name: "Name", id: 1 },
+    { name: "Batch", id: 2 },
+    { name: "Education", id: 3 },
+    { name: "Blood", id: 4 },
   ];
 
   const {
-    data: eventsContentData,
-    isLoading: isEventsLoading,
-    isError: isEventsError,
-    error: eventsError,
-  } = useGetEventsQuery();
-  const { event_title, _id, category, batch, date, location, image_url } =
-    eventsContentData || {};
-  console.log(eventsContentData);
+    data: charityContentData,
+    isLoading: isCharityLoading,
+    isError: isCharityError,
+    error: charityError,
+  } = useGetAllAlumniQuery();
+  console.log(charityContentData);
 
-  let eventsContent;
+  let charityContent;
 
-  if (isEventsLoading && !isEventsError) {
-    eventsContent = <Loading />;
+  if (isCharityLoading && !isCharityError) {
+    charityContent = <Loading />;
   }
-  if (!isEventsLoading && isEventsError) {
-    eventsContent = <ErrorAlert text={eventsError} />;
+  if (!isCharityLoading && isCharityError) {
+    charityContent = <ErrorAlert text={charityError} />;
   }
-  if (!isEventsLoading && !isEventsError && eventsContentData?.length === 0) {
-    eventsContent = <ErrorAlert text="No Category Find" />;
+  if (!isCharityLoading && !isCharityError && charityContentData?.length === 0) {
+    charityContent = <ErrorAlert text="No Category Find" />;
   }
-  if (!isEventsLoading && !isEventsError && eventsContentData?.length > 0) {
-    eventsContent = (
+  if (!isCharityLoading && !isCharityError && charityContentData?.length > 0) {
+    charityContent = (
       <>
         {" "}
-        {eventsContentData?.map((event) => (
+        {charityContentData?.map((charity) => (
           <tr>
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               <div className="flex px-2 py-1">
                 <div>
                   <img
-                    src={event.image_url}
-                    className="!w-10 !h-10 inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm rounded-xl"
+                    src={charity.profile_picture}
+                    className="w-14 h-14 inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm rounded-xl"
                     alt="user1"
                   />
                 </div>
                 <div className="flex flex-col justify-center">
-                  <h6 className="mb-0 leading-normal text-sm">{event.event_title}</h6>
-                  <p className="mb-0 leading-tight text-xs text-slate-400">
-                    {/* john@creative-tim.com */}
-                  </p>
+                  <h6 className="mb-0 leading-normal text-sm text-primary">
+                    {charity.name}
+                  </h6>
+                  <a
+                    href={`mailto:${charity.email}`}
+                    className=" mb-0 leading-tight text-xs text-slate-400"
+                  >
+                    {charity.email}
+                  </a>
+                  <a
+                    className="mb-0 leading-tight text-xs text-slate-400"
+                    href={`tel:${charity.phone}`}
+                  >
+                    {charity.phone}
+                  </a>
                 </div>
               </div>
             </td>
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-              {/* <p className="mb-0 font-semibold leading-tight text-xs">{event.location}</p> */}
-              <p className="mb-0 leading-tight text-xs text-slate-400">
-                {event.location}
+              <Link
+                to={`/alumni/batch/${charity.graduation_year}`}
+                className="mb-0 leading-tight text-xs text-slate-400"
+              >
+                {charity.graduation_year}
+              </Link>
+            </td>
+
+            <td className="p-2 text-left align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+              <p className="font-semibold leading-tight text-xs text-slate-400">
+                {charity.major}
+              </p>
+              <p className=" mb-0 leading-tight text-xs text-slate-400">
+                {charity.degree}
               </p>
             </td>
             <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
-              <p className="mb-0 leading-tight text-xs text-slate-400">{event.batch}</p>
-            </td>
-            <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-              <span className="font-semibold leading-tight text-xs text-slate-400">
-                {Date(event.date)?.replace(/ GMT[+\-]\d{4}.*$/, "")}
-              </span>
+              <p className="mb-0 leading-tight text-xs text-slate-400">
+                {charity.personal_information.blood_group}
+              </p>
             </td>
 
             {/* edit and delete function */}
@@ -138,7 +154,7 @@ const AllEvents = () => {
                   <th className="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-400 opacity-70"></th>
                 </tr>
               </thead>
-              <tbody>{eventsContent}</tbody>
+              <tbody>{charityContent}</tbody>
             </table>
           </div>
         </div>
@@ -147,4 +163,4 @@ const AllEvents = () => {
   );
 };
 
-export default AllEvents;
+export default AllAlumni;

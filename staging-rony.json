@@ -1,0 +1,39 @@
+{
+  "firstName": "",
+  "lastName": "",
+  "name": "",
+  "profile_picture": "",
+  "graduation_year": "",
+  "degree": "",
+  "department": "",
+  "major": "",
+  "email": "",
+  "phone": "",
+
+  "address": {
+    "street": "",
+    "city": "",
+    "state": "",
+    "zip": ""
+  },
+  "education": {
+    "degree": "",
+    "major": "",
+    "institution": "",
+    "graduation_year": "",
+    "gpa": ""
+  },
+
+  "is_employed": false,
+
+  "personal_information": {
+    "date_of_birth": "",
+    "gender": "",
+    "blood_group": "",
+    "fathers_name": "",
+    "mothers_name": "",
+    "marital_status": "",
+    "nationality": "",
+    "languages": ["English", "Bangle"]
+  }
+}

@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../UseContext/AuthProvider";
 import { Link } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
 
 const AllGallery = () => {
   const { user } = useContext(AuthContext);
@@ -26,12 +26,9 @@ const AllGallery = () => {
     const agree = window.confirm(`Are you Sure ! You want To Delete ${_id}`);
     console.log(_id);
     if (agree) {
-      fetch(
-        `https://alumni-managemnet-app-server.vercel.app/galleries/${_id}`,
-        {
-          method: "DELETE",
-        }
-      )
+      fetch(`https://alumni-managemnet-app-server.vercel.app/galleries/${_id}`, {
+        method: "DELETE",
+      })
         .then((res) => res.json())
         .then((data) => {
           console.log(data);

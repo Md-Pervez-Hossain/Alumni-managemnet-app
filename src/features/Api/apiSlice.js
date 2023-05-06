@@ -89,7 +89,7 @@ export const apiSlice = createApi({
 
     // single Alumni Data
     getSingleAlumni: builder.query({
-      query: (id) => `/alumni/${id}`,
+      query: (email) => `/alumni/${email}`,
     }),
 
     // *  successful stories * //
@@ -97,6 +97,10 @@ export const apiSlice = createApi({
     // All  successful stories Data
     getAllSuccessfulStories: builder.query({
       query: () => "/successFullStory",
+    }),
+    // All  successful stories Data of a  user, based on email
+    getAllSuccessfulStoriesOfAUser: builder.query({
+      query: (email) => `/successFullStory/email/${email}`,
     }),
 
     //  single successful stories
@@ -144,6 +148,7 @@ export const apiSlice = createApi({
 export const {
   //   successful stories
   useGetAllSuccessfulStoriesQuery,
+  useGetAllSuccessfulStoriesOfAUserQuery,
   useGetSingleSuccessfulStoriesQuery,
 
   //charity

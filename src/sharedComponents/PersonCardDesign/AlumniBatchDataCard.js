@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const AlumniBatchDataCard = ({ singleAlumni }) => {
-  const { name, profile_picture, personal_information, graduation_year, _id } =
+  const { name, profile_picture, personal_information, graduation_year, _id, email } =
     singleAlumni;
   return (
     <div className="overflow-hidden transition-shadow duration-300 bg-white rounded ">
@@ -19,7 +19,7 @@ const AlumniBatchDataCard = ({ singleAlumni }) => {
         <p className="text-xs font-semibold tracking-wide uppercase">
           <Link
             // to={`/alumni/${graduation_year}/${name}`}
-            to={`/alumni/${_id}`}
+            to={`/alumni/${email}`}
             className="transition-colors duration-200 text-primary hover:text-deep-purple-accent-700"
           >
             {name}
