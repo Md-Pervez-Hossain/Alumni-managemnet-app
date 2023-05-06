@@ -1,55 +1,52 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../UseContext/AuthProvider";
-
-import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
 
-const AllCharity = () => {
+const AllGallery = () => {
   const { user } = useContext(AuthContext);
   console.log(user);
-  const [showCharity, setShowCharity] = useState([]);
+  const [gallery, setGallery] = useState([]);
   useEffect(() => {
     fetch(
-      `https://alumni-managemnet-app-server.vercel.app/charity/email/${user?.email}`
+      `https://alumni-managemnet-app-server.vercel.app/galleries/email/${user?.email}`
     )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        setShowCharity(data);
+        setGallery(data);
       })
       .catch((error) => {
         console.log(error);
       });
   }, [user?.email]);
 
-  const handleCharityDelete = (_id) => {
+  const handleGalleryDelete = (_id) => {
+    const agree = window.confirm(`Are you Sure ! You want To Delete ${_id}`);
     console.log(_id);
-
-    const agree = window.confirm(`Are You Sure ! You want to delete ${_id}`);
     if (agree) {
-      fetch(`https://alumni-managemnet-app-server.vercel.app/charity/${_id}`, {
+      fetch(`https://alumni-managemnet-app-server.vercel.app/galleries/${_id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
-          if (data.deletedCount) {
+          if (data.deletedCount > 0) {
             toast.success("Successfully Deleted", { autoClose: 500 });
-            const remaining = showCharity?.filter(
-              (charity) => charity._id !== _id
-            );
-            setShowCharity(remaining);
+            const remaining = gallery?.filter((gallery) => gallery._id !== _id);
+            setGallery(remaining);
           }
         })
         .catch((error) => {
-          toast.error(error.message, { autoClose: 500 });
+          toast.error(error.message);
+          console.log(error);
         });
     }
   };
   return (
     <div className="w-9/12 mx-auto my-16">
-      <h2 className="my-5 text-2xl ">All Charity</h2>
+      <h2 className="my-5 text-2xl ">All Gallery</h2>
       {user?.email && user?.uid ? (
         <>
           <div className="overflow-x-auto">
@@ -57,23 +54,34 @@ const AllCharity = () => {
               <thead>
                 <tr>
                   <th></th>
-                  <th>Title</th>
-                  <th>DeadLine</th>
+                  <th>Image</th>
+                  <th>Post Date</th>
                   <th>Edit</th>
                   <th>Delete</th>
                 </tr>
               </thead>
               <tbody>
-                {showCharity?.map((charity, idx) => {
+                {gallery?.map((gallery, idx) => {
                   return (
                     <tr>
-                      <td>{idx + 1}</td>
-                      <td>{charity?.title ? <>{charity?.title}</> : <></>}</td>
+                      <td> {idx + 1}</td>
                       <td>
-                        {charity?.deadline ? <>{charity?.deadline}</> : <></>}
+                        {gallery?.image_url ? (
+                          <>
+                            {" "}
+                            <img
+                              src={`${gallery?.image_url}`}
+                              alt=""
+                              className="w-16 h-16 rounded-full"
+                            />
+                          </>
+                        ) : (
+                          <></>
+                        )}
                       </td>
+                      <td>{gallery?.time ? <> {gallery?.time}</> : <></>}</td>
                       <td>
-                        <Link to={`/updateCharity/${charity._id}`}>
+                        <Link to={`/updateGallery/${gallery?._id}`}>
                           <div className="flex gap-2 items-center">
                             <FaEdit></FaEdit>
                             <button>Edit</button>
@@ -83,7 +91,7 @@ const AllCharity = () => {
                       <td>
                         <Link>
                           <div
-                            onClick={() => handleCharityDelete(charity._id)}
+                            onClick={() => handleGalleryDelete(gallery._id)}
                             className="flex gap-2 items-center"
                           >
                             <FaTrash></FaTrash>
@@ -103,7 +111,7 @@ const AllCharity = () => {
           <Link to="/login">
             <button className="  my-5 text-secondary text-xl">
               {" "}
-              Please Log In For Charity
+              Please Log In For Gallries
             </button>
           </Link>
         </>
@@ -112,4 +120,4 @@ const AllCharity = () => {
   );
 };
 
-export default AllCharity;
+export default AllGallery;

@@ -22,7 +22,6 @@ import SingleNewsSection from "../sharedComponents/NewsCards/SingleNewsSection";
 import BatchWiseStudent from "../Pages/BatchwiseStudent/BatchwiseStudent";
 import DisplaySingleCharity from "../sharedComponents/ShowCharity/DisplaySingleCharity";
 import AllGalleryImage from "../Pages/Home/Gallery/AllGalleryImage";
-import SingleGalleryImage from "../Pages/Home/Gallery/SingleGalleryImage";
 import PrivateRoutes from "./PrivateRoutes";
 import NewsCreateForm from "../Dashboard/DashboardComponents/NewsCreateForm/NewsCreateForm";
 import CreateGallery from "../Dashboard/DashboardPages/CreateGallery/CreateGallery";
@@ -37,6 +36,10 @@ import NewsUpdatePage from "../sharedComponents/NewsUpdatePage/NewsUpdatePage";
 import NewsUpdate from "../sharedComponents/NewsUpdate/NewsUpdate";
 import AllCharity from "../Dashboard/DashboardPages/CreateCharity/AllCharity";
 import AllNews from "../Dashboard/DashboardPages/News/AllNews";
+import AllSuccessFullStory from "../Dashboard/DashboardPages/AllSuccessFullStory/AllSuccessFullStory";
+import AllNewsPage from "../Pages/AllNews/AllNews";
+import AllGallery from "../Dashboard/DashboardPages/AllGallery/AllGallery";
+import AllAlumni from "../Dashboard/DashboardPages/Alumni/AllAlumni";
 
 const routes = createBrowserRouter([
   {
@@ -90,11 +93,11 @@ const routes = createBrowserRouter([
       },
       {
         path: "/news",
-        element: <AllNews></AllNews>,
+        element: <AllNewsPage />,
       },
       {
         path: "/gallery",
-        element: <AllGalleryImage></AllGalleryImage>,
+        element: <AllGallery></AllGallery>,
       },
 
       {
@@ -160,7 +163,7 @@ const routes = createBrowserRouter([
     ),
     children: [
       { path: "/dashboard/", element: <DashboardMain /> },
-      { path: "/dashboard/alumni/", element: <DashboardTestPage /> },
+      { path: "/dashboard/alumni/", element: <AllAlumni /> },
 
       { path: "/dashboard/news/", element: <AllNews /> },
       { path: "/dashboard/news/add-a-news", element: <AddAEvent /> },
@@ -175,7 +178,7 @@ const routes = createBrowserRouter([
 
       {
         path: "/dashboard/successfulStory/",
-        element: <CreateSuccessFullStory />,
+        element: <AllSuccessFullStory />,
       },
       {
         path: "/dashboard/successfulStory/add-a-successfulStory",

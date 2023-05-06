@@ -127,7 +127,7 @@ const DashboardLayout = () => {
               <DashBoardNavItem
                 name="Add a Story"
                 fontAwesome="fa-regular fa-file-lines"
-                url="/dashboard/charity/add-a-charity"
+                url="/dashboard/successfulStory/add-a-successfulStory"
               />
             )}
 

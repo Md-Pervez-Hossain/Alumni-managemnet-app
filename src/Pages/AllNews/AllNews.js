@@ -1,12 +1,11 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
-import DisplayAllNews from "./DisplayAllNews";
-import InnerPageHeader from "../InnerPageHeader/InnerPageHeader";
+import DisplayAllNews from "../../sharedComponents/NewsCards/DisplayAllNews";
+import InnerPageHeader from "../../sharedComponents/InnerPageHeader/InnerPageHeader";
 import { useGetaLLNewsQuery } from "../../features/Api/apiSlice";
-import Loading from "../Loading/Loading";
-import ErrorAlert from "../Skeletion/ErrorAlert";
+import Loading from "../../sharedComponents/Loading/Loading";
+import ErrorAlert from "../../sharedComponents/Skeletion/ErrorAlert";
 
-const AllNews = () => {
+const AllNewsPage = () => {
   const {
     data: newsData,
     isError: newsIsError,
@@ -54,4 +53,4 @@ const AllNews = () => {
   );
 };
 
-export default AllNews;
+export default AllNewsPage;
