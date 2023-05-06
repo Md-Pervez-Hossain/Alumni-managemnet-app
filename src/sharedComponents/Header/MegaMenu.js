@@ -19,7 +19,7 @@ const MegaMenu = () => {
     const reqBatch = await fetch(`http://localhost:8000/all-batches`);
     const responseData = await reqBatch.json();
     setBatchData(responseData);
-    console.log(responseData);
+    // console.log(responseData);
   };
 
   useEffect(() => {

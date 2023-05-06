@@ -124,7 +124,7 @@ const routes = createBrowserRouter([
       },
       // single student / alumni page data
       {
-        path: "/alumni/:id",
+        path: "/alumni/:email",
         element: <SinglePerson />,
       },
       {

@@ -23,6 +23,12 @@ import ErrorAlert from "../../sharedComponents/Skeletion/ErrorAlert";
 const SinglePerson = () => {
   const { user } = useContext(AuthContext);
   // const singleAlumni = useLoaderData();
+  const [userEmail, setUserEmail] = useState(null);
+
+  const getUserEmail = async () => {
+    const userEmail = await user?.email;
+    return await userEmail;
+  };
 
   //  get location using react-router-dom
   const location = useLocation();
@@ -34,8 +40,7 @@ const SinglePerson = () => {
     isLoading,
     isError,
     error,
-  } = useGetSingleAlumniQuery(user?.email);
-  console.log(singleAlumni);
+  } = useGetSingleAlumniQuery(currentPath);
 
   const {
     name,
@@ -53,7 +58,7 @@ const SinglePerson = () => {
     education,
     personal_information,
   } = singleAlumni || {};
-  // console.log(singleAlumni);
+  console.log(singleAlumni);
 
   let content;
 
@@ -185,10 +190,6 @@ const SinglePerson = () => {
                         <th>Nationality</th>
                         <th>Hobbies</th>
                         <th>Languages</th>
-                        <th>degree</th>
-                        <th>graduation_year,</th>
-                        <th>department,</th>
-                        <th>major,</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -280,12 +281,6 @@ const SinglePerson = () => {
                             <></>
                           )}
                         </td>
-                        <td>{degree ? <> {degree}</> : <></>}</td>
-                        <td>
-                          {graduation_year ? <> {graduation_year}</> : <></>}
-                        </td>
-                        <td>{department ? <> {department}</> : <></>}</td>
-                        <td>{major ? <> {major}</> : <></>}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -307,119 +302,35 @@ const SinglePerson = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {education ? (
-                      <>
-                        {education?.map((edu) => {
-                          return (
-                            <tr>
-                              <th>
-                                {edu?.degree ? <>{edu?.degree}</> : <></>}
-                              </th>
-                              <td>
-                                {edu?.institution ? (
-                                  <> {edu?.institution}</>
-                                ) : (
-                                  <></>
-                                )}
-                              </td>
-                              <td>{edu?.major ? <>{edu?.major}</> : <></>}</td>
-                              <td>
-                                {edu?.graduation_year ? (
-                                  <>{edu?.graduation_year}</>
-                                ) : (
-                                  <></>
-                                )}
-                              </td>
-                              <td>{edu?.gpa ? <>{edu?.gpa}</> : <></>}</td>
-                            </tr>
-                          );
-                        })}
-                      </>
-                    ) : (
-                      <></>
-                    )}
+                    {
+                      <tr>
+                        <th>
+                          {education?.degree ? <>{education?.degree}</> : <></>}
+                        </th>
+                        <td>
+                          {education?.institution ? (
+                            <> {education?.institution}</>
+                          ) : (
+                            <></>
+                          )}
+                        </td>
+                        <td>
+                          {education?.major ? <>{education?.major}</> : <></>}
+                        </td>
+                        <td>
+                          {education?.graduation_year ? (
+                            <>{education?.graduation_year}</>
+                          ) : (
+                            <></>
+                          )}
+                        </td>
+                        <td>
+                          {education?.gpa ? <>{education?.gpa}</> : <></>}
+                        </td>
+                      </tr>
+                    }
                   </tbody>
                 </table>
-              </div>
-            </div>
-            <div>
-              <h2 className="text-2xl my-8">Career</h2>
-              <div className="">
-                <div className="overflow-x-auto">
-                  <table className="table w-full">
-                    {/* head */}
-                    <thead>
-                      <tr>
-                        <th>Company</th>
-                        <th>Position</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
-                        <th>Responsibility </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {careers ? (
-                        <>
-                          {" "}
-                          {careers?.map((career, i) => {
-                            return (
-                              <tr>
-                                <th>
-                                  {career?.company ? (
-                                    <>{career?.company}</>
-                                  ) : (
-                                    <></>
-                                  )}
-                                </th>
-                                <td>
-                                  {career?.position ? (
-                                    <>{career?.position}</>
-                                  ) : (
-                                    <></>
-                                  )}
-                                </td>
-                                <td>
-                                  {career?.start_date ? (
-                                    <>{career?.start_date}</>
-                                  ) : (
-                                    <></>
-                                  )}
-                                </td>
-
-                                <td>
-                                  {career?.end_date ? (
-                                    <> {career?.end_date}</>
-                                  ) : (
-                                    <></>
-                                  )}
-                                </td>
-                                <td>
-                                  {career?.responsibilities ? (
-                                    <>
-                                      {career?.responsibilities?.map(
-                                        (res, i) => {
-                                          return (
-                                            <>
-                                              <p key={i}>{res}</p>
-                                            </>
-                                          );
-                                        }
-                                      )}
-                                    </>
-                                  ) : (
-                                    <></>
-                                  )}
-                                </td>
-                              </tr>
-                            );
-                          })}
-                        </>
-                      ) : (
-                        <></>
-                      )}
-                    </tbody>
-                  </table>
-                </div>
               </div>
             </div>
           </div>
@@ -480,9 +391,9 @@ const SinglePerson = () => {
                 <div>
                   <h2 className="text-lg">
                     {" "}
-                    <Link to={`/alumni/${person?._id}`}>{person?.name}</Link>
+                    <Link to={`/alumni/${person?.email}`}>{person?.name}</Link>
                   </h2>
-                  <Link to={`/alumni/${person?._id}`}>
+                  <Link to={`/alumni/${person?.email}`}>
                     <button className="text-secondary ">Details</button>
                   </Link>
                 </div>

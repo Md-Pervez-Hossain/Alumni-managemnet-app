@@ -6,9 +6,51 @@ import {
   useGetAllDegreeProgramsQuery,
   useGetAllGraduationMajorQuery,
   useGetAllUniversityNameQuery,
+  useGetSingleAlumniQuery,
 } from "../../features/Api/apiSlice";
 import { AuthContext } from "../../sharedComponents/UseContext/AuthProvider";
 const MembershipForm = () => {
+  const [photo, setPhoto] = useState(null);
+  const [userEmail, setUserEmail] = useState(null);
+
+  const { user } = useContext(AuthContext);
+  console.log(user?.email);
+
+  const getUserEmail = async () => {
+    const userEmail = await user?.email;
+    return await userEmail;
+  };
+
+  getUserEmail(user)
+    .then((userEmail) => {
+      setUserEmail(userEmail);
+    })
+    .catch((err) => console.error(err));
+
+  const { data: singleAlumni } = useGetSingleAlumniQuery(userEmail);
+  const { data: universityName } = useGetAllUniversityNameQuery();
+  const { data: majorSubject } = useGetAllGraduationMajorQuery();
+  const { data: degreeNames } = useGetAllDegreeProgramsQuery();
+  const { data: graduationYear } = useGetAllBatchesQuery();
+
+  console.log(singleAlumni);
+
+  const {
+    firstName,
+    lastName,
+    profile_picture,
+    name,
+    email,
+    phone,
+    education,
+    graduation_year,
+    degree,
+    department,
+    major,
+    address,
+    personal_information,
+  } = singleAlumni || {};
+
   const {
     register,
     handleSubmit,
@@ -17,14 +59,6 @@ const MembershipForm = () => {
     reset,
     formState: { errors },
   } = useForm();
-  const [photo, setPhoto] = useState(null);
-
-  const { user } = useContext(AuthContext);
-
-  const { data: universityName } = useGetAllUniversityNameQuery();
-  const { data: majorSubject } = useGetAllGraduationMajorQuery();
-  const { data: degreeNames } = useGetAllDegreeProgramsQuery();
-  const { data: graduationYear } = useGetAllBatchesQuery();
 
   const handelImageUpdate = (data) => {
     // ///////////////////////
@@ -34,13 +68,10 @@ const MembershipForm = () => {
     const formData = new FormData();
     formData.append("image", photo);
 
-    fetch(
-      "https://api.imgbb.com/1/upload?key=dd1a5cd35aa9d832298beb50053079da",
-      {
-        method: "POST",
-        body: formData,
-      }
-    )
+    fetch("https://api.imgbb.com/1/upload?key=dd1a5cd35aa9d832298beb50053079da", {
+      method: "POST",
+      body: formData,
+    })
       .then((res) => res.json())
       .then((data) => {
         setPhoto(data.data.display_url);
@@ -101,16 +132,13 @@ const MembershipForm = () => {
         hobbies: [],
       },
     };
-    await fetch(
-      `https://alumni-managemnet-app-server.vercel.app/alumni/${data.email}`,
-      {
-        method: "PUT",
-        body: JSON.stringify(userData),
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-      }
-    )
+    await fetch(`https://alumni-managemnet-app-server.vercel.app/alumni/${data.email}`, {
+      method: "PUT",
+      body: JSON.stringify(userData),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         toast.success("Success Notification!", {
@@ -138,7 +166,7 @@ const MembershipForm = () => {
                   name="firstName"
                   id="floating_first_name"
                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
-                  placeholder=" "
+                  defaultValue={firstName}
                   required
                 />
                 <label
@@ -159,6 +187,7 @@ const MembershipForm = () => {
                   id="floating_last_name"
                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
                   placeholder=" "
+                  defaultValue={lastName}
                   required
                 />
                 <label
@@ -181,7 +210,8 @@ const MembershipForm = () => {
                     required: true,
                     pattern: /^\S+@\S+$/i, // regular expression for email validation
                   })}
-                  defaultValue={user?.email}
+                  defaultValue={user?.email || email}
+                  readOnly
                   type="text"
                   name="email"
                   id="email"
@@ -207,6 +237,7 @@ const MembershipForm = () => {
                   id="floating_phone"
                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
                   placeholder=" "
+                  defaultValue={phone}
                   required
                 />
                 <label
@@ -288,10 +319,11 @@ const MembershipForm = () => {
                   id="university"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                 >
+                  <option selected disabled value="">
+                    your university name
+                  </option>
                   {universityName &&
-                    universityName.map((e) => (
-                      <option value={e.name}>{e.name} </option>
-                    ))}
+                    universityName.map((e) => <option value={e.name}>{e.name} </option>)}
                 </select>
               </div>
               <div class="relative z-0 w-full mb-6 group">
@@ -308,15 +340,11 @@ const MembershipForm = () => {
                 >
                   {majorSubject &&
                     majorSubject.map((e) => (
-                      <option value={e.graduationMajor}>
-                        {e.graduationMajor}{" "}
-                      </option>
+                      <option value={e.graduationMajor}>{e.graduationMajor} </option>
                     ))}
                 </select>
                 {errors.majorSubject && (
-                  <span className="text-red-600">
-                    please select your Degree
-                  </span>
+                  <span className="text-red-600">please select your Degree</span>
                 )}
               </div>
             </div>
@@ -341,9 +369,7 @@ const MembershipForm = () => {
                     ))}
                 </select>
                 {errors.degreeEarned && (
-                  <span className="text-red-600">
-                    please select your Degree
-                  </span>
+                  <span className="text-red-600">please select your Degree</span>
                 )}
               </div>
               <div class="relative z-0 w-full mb-6 group">
@@ -364,9 +390,7 @@ const MembershipForm = () => {
                     ))}
                 </select>
                 {errors.graduation_year && (
-                  <span className="text-red-600">
-                    please select your Gratuation Year
-                  </span>
+                  <span className="text-red-600">please select your Gratuation Year</span>
                 )}
               </div>
             </div>
@@ -462,9 +486,7 @@ const MembershipForm = () => {
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                 </select>
-                {errors.gender && (
-                  <span className="text-red-600">select gender</span>
-                )}
+                {errors.gender && <span className="text-red-600">select gender</span>}
               </div>
               <div class="relative z-0 w-full mb-6 group">
                 <label
