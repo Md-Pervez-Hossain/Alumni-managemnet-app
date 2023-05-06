@@ -26,7 +26,9 @@ const Counter = ({ date, color }) => {
       const now = new Date().getTime();
       const distance = coundownDate - now;
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+      );
       const mintues = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       // const seceonds = Math.floor((distance % (1000 * 60)) / 1000);
       // console.log(days, hours, mintues, seceonds);
@@ -44,7 +46,7 @@ const Counter = ({ date, color }) => {
   useEffect(() => {
     startTimer();
     return () => {
-      clearInterval(interval.current);
+      clearInterval(interval);
     };
   });
 
@@ -53,7 +55,7 @@ const Counter = ({ date, color }) => {
       {today > eventDate && (
         <>
           {" "}
-          <span className="bg-red-500 text-white">Expired </span>{" "}
+          <span className="bg-red-500 text-white px-4 py-1">Expired </span>{" "}
         </>
       )}
 

@@ -69,14 +69,31 @@ const SinglePerson = () => {
         {" "}
         <>
           <div className="flex flex-col lg:flex-row gap-10 lg:items-center  ">
-            <div
-              className={` border-4 border-primary rounded-full  m-0 bg-cover bg-center	bg-no-repeat`}
-              style={{
-                backgroundImage: `url(${profile_picture})`,
-                height: "300px",
-                width: "300px",
-              }}
-            ></div>
+            {profile_picture ? (
+              <>
+                {" "}
+                <div
+                  className={` border-4 border-primary rounded-full  m-0 bg-cover bg-center	bg-no-repeat`}
+                  style={{
+                    backgroundImage: `url(${profile_picture})`,
+                    height: "300px",
+                    width: "300px",
+                  }}
+                ></div>
+              </>
+            ) : (
+              <>
+                <div
+                  style={{
+                    backgroundImage: `url('https://ionicframework.com/docs/img/demos/avatar.svg')`,
+                    height: "300px",
+                    width: "300px",
+                  }}
+                  className={` border-4 border-primary rounded-full  m-0 bg-cover bg-center	bg-no-repeat`}
+                ></div>
+              </>
+            )}
+
             <div>
               <h2 className="text-4xl mb-3 text-primary ">{name}</h2>
               {user?.uid ? (
