@@ -104,7 +104,14 @@ export const apiSlice = createApi({
       query: (id) => `/successFullStory/${id}`,
     }),
     // *  CHARITY * //
+
     //  single charity
+    getAllCharity: builder.query({
+      query: () => `/charity/`,
+    }),
+
+    //  single charity
+
     getSingleCharity: builder.query({
       query: (id) => `/charity/${id}`,
     }),
@@ -140,6 +147,7 @@ export const {
   useGetSingleSuccessfulStoriesQuery,
 
   //charity
+  useGetAllCharityQuery,
   useGetSingleCharityQuery,
   // NEWS
   useGetaLLNewsQuery,

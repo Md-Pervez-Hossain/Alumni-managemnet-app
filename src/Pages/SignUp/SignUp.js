@@ -53,6 +53,7 @@ const SignUp = () => {
     )
       .then((res) => res.json())
       .then((data) => {
+        setPhotoURL(data.data.display_url);
         createUser(email, password)
           .then((result) => {
             const userfromData = result.user;
@@ -106,15 +107,6 @@ const SignUp = () => {
               },
             };
 
-            updateUserProfile({
-              displayName: name,
-              photoURL: data.data.display_url,
-            })
-              .then(() => {})
-              .catch((error) => {
-                console.log(error);
-              });
-
             fetch("https://alumni-managemnet-app-server.vercel.app/alumni", {
               method: "POST",
               body: JSON.stringify(user),
@@ -125,6 +117,15 @@ const SignUp = () => {
                 reset();
                 toast.success("SuccessFully Signup");
                 navigate(`/dashboard/profile`);
+
+                // updateUserProfile({
+                //   displayName: name,
+                //   photoURL: photoURL,
+                // })
+                //   .then(() => {})
+                //   .catch((error) => {
+                //     console.log(error);
+                //   });
               })
               .catch((error) => {
                 console.error(error);

@@ -21,7 +21,6 @@ import CheckoutPage from "../Pages/CheckoutPage/CheckoutPage";
 import SingleNewsSection from "../sharedComponents/NewsCards/SingleNewsSection";
 import BatchWiseStudent from "../Pages/BatchwiseStudent/BatchwiseStudent";
 import DisplaySingleCharity from "../sharedComponents/ShowCharity/DisplaySingleCharity";
-import AllNews from "../sharedComponents/NewsCards/AllNews";
 import AllGalleryImage from "../Pages/Home/Gallery/AllGalleryImage";
 import SingleGalleryImage from "../Pages/Home/Gallery/SingleGalleryImage";
 import PrivateRoutes from "./PrivateRoutes";
@@ -36,6 +35,8 @@ import UpdateCharity from "../sharedComponents/UpdateCharity/UpdateCharity";
 import UpdateGallery from "../sharedComponents/UpdateGallery/UpdateGallery";
 import NewsUpdatePage from "../sharedComponents/NewsUpdatePage/NewsUpdatePage";
 import NewsUpdate from "../sharedComponents/NewsUpdate/NewsUpdate";
+import AllCharity from "../Dashboard/DashboardPages/CreateCharity/AllCharity";
+import AllNews from "../Dashboard/DashboardPages/News/AllNews";
 
 const routes = createBrowserRouter([
   {
@@ -144,9 +145,7 @@ const routes = createBrowserRouter([
         path: "/newsUpdate/:id",
         element: <NewsUpdate></NewsUpdate>,
         loader: ({ params }) =>
-          fetch(
-            `https://alumni-managemnet-app-server.vercel.app/news/${params.id}`
-          ),
+          fetch(`https://alumni-managemnet-app-server.vercel.app/news/${params.id}`),
       },
     ],
     errorElement: <ErrorPage></ErrorPage>,
@@ -162,15 +161,27 @@ const routes = createBrowserRouter([
     children: [
       { path: "/dashboard/", element: <DashboardMain /> },
       { path: "/dashboard/alumni/", element: <DashboardTestPage /> },
-      { path: "/dashboard/news/", element: <NewsCreateForm /> },
+
+      { path: "/dashboard/news/", element: <AllNews /> },
+      { path: "/dashboard/news/add-a-news", element: <AddAEvent /> },
+
       { path: "/dashboard/events", element: <AllEvents /> },
       { path: "/dashboard/events/add-a-event", element: <AddAEvent /> },
-      { path: "/dashboard/CreateCharity", element: <CreateCharity /> },
+
+      { path: "/dashboard/charity", element: <AllCharity /> },
+      { path: "/dashboard/charity/add-a-charity", element: <CreateCharity /> },
+
       { path: "/dashboard/gallery/", element: <CreateGallery /> },
+
       {
         path: "/dashboard/successfulStory/",
         element: <CreateSuccessFullStory />,
       },
+      {
+        path: "/dashboard/successfulStory/add-a-successfulStory",
+        element: <CreateSuccessFullStory />,
+      },
+
       { path: "/dashboard/profile/", element: <MembershipForm /> },
       { path: "/dashboard/Checkout/", element: <CheckoutPage /> },
     ],
