@@ -119,7 +119,7 @@ const SingleSuccessFullStory = () => {
                 {user?.email && user?.uid ? (
                   <>
                     <div>
-                      <Comments></Comments>
+                      <Comments data={data}></Comments>
                     </div>
                   </>
                 ) : (

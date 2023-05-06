@@ -139,8 +139,8 @@ const SinglePerson = () => {
                     ) : (
                       <>
                         <div className="flex items-center gap-2">
-                          <FaAddressCard className="text-primary"></FaAddressCard> Address
-                          :{" "}
+                          <FaAddressCard className="text-primary"></FaAddressCard>{" "}
+                          Address :{" "}
                           {`${address?.street} ${address?.city} ${address?.state} ${address?.zip}`}
                         </div>
                       </>
@@ -227,15 +227,17 @@ const SinglePerson = () => {
                           {personal_information?.languages ? (
                             <>
                               {" "}
-                              {personal_information?.languages?.map((language, i) => {
-                                return (
-                                  <>
-                                    <p key={i} className="inline-block ">
-                                      {language}
-                                    </p>
-                                  </>
-                                );
-                              })}{" "}
+                              {personal_information?.languages?.map(
+                                (language, i) => {
+                                  return (
+                                    <>
+                                      <p key={i} className="inline-block ">
+                                        {language}
+                                      </p>
+                                    </>
+                                  );
+                                }
+                              )}{" "}
                             </>
                           ) : (
                             <></>
@@ -263,7 +265,9 @@ const SinglePerson = () => {
                   <tbody>
                     {
                       <tr>
-                        <th>{education?.degree ? <>{education?.degree}</> : <></>}</th>
+                        <th>
+                          {education?.degree ? <>{education?.degree}</> : <></>}
+                        </th>
                         <td>
                           {education?.institution ? (
                             <> {education?.institution}</>
@@ -271,7 +275,9 @@ const SinglePerson = () => {
                             <></>
                           )}
                         </td>
-                        <td>{education?.major ? <>{education?.major}</> : <></>}</td>
+                        <td>
+                          {education?.major ? <>{education?.major}</> : <></>}
+                        </td>
                         <td>
                           {education?.graduation_year ? (
                             <>{education?.graduation_year}</>
@@ -363,8 +369,8 @@ const SinglePerson = () => {
           <h2 className="md:text-4xl text-2xl mb-5">About {name}</h2>
           <hr className="border-2 w-24 mx-auto border-secondary " />
           <p className="mt-5">
-            There are many company Lorem ipsm dolor sitg amet, csetur adipicing elit, sed
-            do eiusmod tempor
+            There are many company Lorem ipsm dolor sitg amet, csetur adipicing
+            elit, sed do eiusmod tempor
           </p>
         </div>
       </div>
