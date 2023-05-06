@@ -16,7 +16,9 @@ const MegaMenu = () => {
   // get all batchs data
 
   const batch = async () => {
-    const reqBatch = await fetch(`http://localhost:8000/all-batches`);
+    const reqBatch = await fetch(
+      `https://alumni-managemnet-app-server.vercel.app/all-batches`
+    );
     const responseData = await reqBatch.json();
     setBatchData(responseData);
     // console.log(responseData);
