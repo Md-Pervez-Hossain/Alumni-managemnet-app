@@ -22,7 +22,6 @@ import SingleNewsSection from "../sharedComponents/NewsCards/SingleNewsSection";
 import BatchWiseStudent from "../Pages/BatchwiseStudent/BatchwiseStudent";
 import DisplaySingleCharity from "../sharedComponents/ShowCharity/DisplaySingleCharity";
 import AllGalleryImage from "../Pages/Home/Gallery/AllGalleryImage";
-import SingleGalleryImage from "../Pages/Home/Gallery/SingleGalleryImage";
 import PrivateRoutes from "./PrivateRoutes";
 import NewsCreateForm from "../Dashboard/DashboardComponents/NewsCreateForm/NewsCreateForm";
 import CreateGallery from "../Dashboard/DashboardPages/CreateGallery/CreateGallery";
@@ -38,6 +37,7 @@ import NewsUpdate from "../sharedComponents/NewsUpdate/NewsUpdate";
 import AllCharity from "../Dashboard/DashboardPages/CreateCharity/AllCharity";
 import AllNews from "../Dashboard/DashboardPages/News/AllNews";
 import EventUpdate from "../Dashboard/DashboardPages/EventUpdate/EventUpdate";
+
 
 const routes = createBrowserRouter([
   {
