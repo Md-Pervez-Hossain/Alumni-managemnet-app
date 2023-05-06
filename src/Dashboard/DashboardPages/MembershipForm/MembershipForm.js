@@ -123,7 +123,7 @@ const MembershipForm = () => {
     };
     console.log(userData);
 
-    fetch(`http://localhost:8000/alumni/${data.email}`, {
+    fetch(`https://alumni-managemnet-app-server.vercel.app/alumni/${data.email}`, {
       method: "PUT",
       body: JSON.stringify(userData),
       headers: {
