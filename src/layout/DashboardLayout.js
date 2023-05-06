@@ -69,16 +69,25 @@ const DashboardLayout = () => {
               url="/dashboard/alumni"
             />
             <DashBoardNavItem
-              name="News"
+              name="All News"
               fontAwesome="fa-regular fa-file-lines"
               url="/dashboard/news"
             />
+            {(pathname === "/dashboard/news" ||
+              pathname === "/dashboard/news/add-a-news") && (
+              <DashBoardNavItem
+                name="Add a News"
+                fontAwesome="fa-regular fa-file-lines"
+                url="/dashboard/news/add-a-news"
+              />
+            )}
 
             <DashBoardNavItem
               name="All Events"
               fontAwesome="fa-regular fa-file-lines"
               url="/dashboard/events"
             />
+
             {(pathname === "/dashboard/events" ||
               pathname === "/dashboard/events/add-a-event") && (
               <DashBoardNavItem
@@ -89,20 +98,38 @@ const DashboardLayout = () => {
             )}
 
             <DashBoardNavItem
-              name="CreateCharity"
+              name="All Charity"
               fontAwesome="fa-regular fa-file-lines"
-              url="/dashboard/CreateCharity"
+              url="/dashboard/charity"
             />
+
+            {(pathname === "/dashboard/charity" ||
+              pathname === "/dashboard/charity/add-a-charity") && (
+              <DashBoardNavItem
+                name="Add a Charity"
+                fontAwesome="fa-regular fa-file-lines"
+                url="/dashboard/charity/add-a-charity"
+              />
+            )}
+
             <DashBoardNavItem
               name="Gallery"
               fontAwesome="fa-solid fa-photo-film"
               url="/dashboard/gallery"
             />
             <DashBoardNavItem
-              name="SuccessFul Story"
+              name="Successful Story"
               fontAwesome="fa-solid fa-photo-film"
               url="/dashboard/successfulStory"
             />
+            {(pathname === "/dashboard/successfulStory" ||
+              pathname === "/dashboard/successfulStory/add-a-successfulStory") && (
+              <DashBoardNavItem
+                name="Add a Story"
+                fontAwesome="fa-regular fa-file-lines"
+                url="/dashboard/charity/add-a-charity"
+              />
+            )}
 
             <DashBoardNavItem
               name="Profile"
