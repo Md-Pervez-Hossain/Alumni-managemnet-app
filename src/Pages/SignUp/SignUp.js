@@ -64,7 +64,6 @@ const SignUp = () => {
               major: major,
               email: email,
               phone: "",
-              phone_2: "",
               address: {
                 street: "",
                 city: "",

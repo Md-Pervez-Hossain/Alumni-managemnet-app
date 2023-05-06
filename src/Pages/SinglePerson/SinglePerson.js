@@ -75,28 +75,19 @@ const SinglePerson = () => {
         <>
           <div className="flex flex-col lg:flex-row gap-10 lg:items-center  ">
             {profile_picture ? (
-              <>
-                {" "}
-                <div
-                  className={` border-4 border-primary rounded-full  m-0 bg-cover bg-center	bg-no-repeat`}
-                  style={{
-                    backgroundImage: `url(${profile_picture})`,
-                    height: "300px",
-                    width: "300px",
-                  }}
-                ></div>
-              </>
+              <div
+                className={`!w-64 !h-64 !block	 border-4 border-primary rounded-full m-0 bg-cover bg-center	bg-no-repeat`}
+                style={{
+                  backgroundImage: `url(${profile_picture})`,
+                }}
+              ></div>
             ) : (
-              <>
-                <div
-                  style={{
-                    backgroundImage: `url('https://ionicframework.com/docs/img/demos/avatar.svg')`,
-                    height: "300px",
-                    width: "300px",
-                  }}
-                  className={` border-4 border-primary rounded-full  m-0 bg-cover bg-center	bg-no-repeat`}
-                ></div>
-              </>
+              <div
+                style={{
+                  backgroundImage: `url('https://ionicframework.com/docs/img/demos/avatar.svg')`,
+                }}
+                className={`!w-64 !h-64 !block border-4 border-primary rounded-full  m-0 bg-cover bg-center	bg-no-repeat`}
+              ></div>
             )}
 
             <div>
@@ -183,12 +174,10 @@ const SinglePerson = () => {
                     <thead>
                       <tr>
                         <th>DOB</th>
+                        <th>Blood Group</th>
                         <th>Gender</th>
                         <th>Fathers Name</th>
                         <th>Mothers Name</th>
-                        <th>Marital Status</th>
-                        <th>Nationality</th>
-                        <th>Hobbies</th>
                         <th>Languages</th>
                       </tr>
                     </thead>
@@ -204,6 +193,14 @@ const SinglePerson = () => {
                         </th>
                         <td>
                           {" "}
+                          {personal_information?.blood_group ? (
+                            <>{personal_information?.blood_group}</>
+                          ) : (
+                            <></>
+                          )}
+                        </td>
+                        <td>
+                          {" "}
                           {personal_information?.gender ? (
                             <>{personal_information?.gender}</>
                           ) : (
@@ -213,7 +210,7 @@ const SinglePerson = () => {
                         <td>
                           {" "}
                           {personal_information?.fathers_name ? (
-                            <>{personal_information?.fathers_name}</>
+                            <> {personal_information?.fathers_name}</>
                           ) : (
                             <></>
                           )}
@@ -225,40 +222,7 @@ const SinglePerson = () => {
                             <></>
                           )}
                         </td>
-                        <td>
-                          {" "}
-                          {personal_information?.marital_status ? (
-                            <> {personal_information?.marital_status}</>
-                          ) : (
-                            <></>
-                          )}
-                        </td>
-                        <td>
-                          {" "}
-                          {personal_information?.nationality ? (
-                            <>{personal_information?.nationality}</>
-                          ) : (
-                            <></>
-                          )}
-                        </td>
-                        <td>
-                          {personal_information?.hobbies ? (
-                            <>
-                              {" "}
-                              {personal_information?.hobbies?.map((hobby, i) => {
-                                return (
-                                  <>
-                                    <p key={i} className="inline-block ">
-                                      {hobby}
-                                    </p>
-                                  </>
-                                );
-                              })}{" "}
-                            </>
-                          ) : (
-                            <></>
-                          )}
-                        </td>
+
                         <td>
                           {personal_information?.languages ? (
                             <>
@@ -294,7 +258,6 @@ const SinglePerson = () => {
                       <th>Institution</th>
                       <th>Major</th>
                       <th>Graduation Year</th>
-                      <th>GPA</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -316,7 +279,6 @@ const SinglePerson = () => {
                             <></>
                           )}
                         </td>
-                        <td>{education?.gpa ? <>{education?.gpa}</> : <></>}</td>
                       </tr>
                     }
                   </tbody>

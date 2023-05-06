@@ -7,10 +7,10 @@ import {
   useGetAllGraduationMajorQuery,
   useGetAllUniversityNameQuery,
   useGetSingleAlumniQuery,
-} from "../../features/Api/apiSlice";
-import { AuthContext } from "../../sharedComponents/UseContext/AuthProvider";
+} from "../../../features/Api/apiSlice";
+import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
 const MembershipForm = () => {
-  const [photo, setPhoto] = useState(null);
+  // const [photo, setPhoto] = useState(null);
   const [userEmail, setUserEmail] = useState(null);
 
   const { user } = useContext(AuthContext);
@@ -21,13 +21,13 @@ const MembershipForm = () => {
     return await userEmail;
   };
 
-  getUserEmail(user)
-    .then((userEmail) => {
-      setUserEmail(userEmail);
-    })
-    .catch((err) => console.error(err));
+  // getUserEmail(user)
+  //   .then((userEmail) => {
+  //     setUserEmail(userEmail);
+  //   })
+  //   .catch((err) => console.error(err));
 
-  const { data: singleAlumni } = useGetSingleAlumniQuery(userEmail);
+  const { data: singleAlumni } = useGetSingleAlumniQuery(user.email);
   const { data: universityName } = useGetAllUniversityNameQuery();
   const { data: majorSubject } = useGetAllGraduationMajorQuery();
   const { data: degreeNames } = useGetAllDegreeProgramsQuery();
@@ -64,62 +64,51 @@ const MembershipForm = () => {
     // ///////////////////////
   };
 
-  const handelMembership = async (data) => {
-    const formData = new FormData();
-    formData.append("image", photo);
+  const handelMembership = (data) => {
+    // const formData = new FormData();
+    // formData.append("image", photo);
 
-    fetch("https://api.imgbb.com/1/upload?key=dd1a5cd35aa9d832298beb50053079da", {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setPhoto(data.data.display_url);
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error(`${error.message}`, {
-          position: toast.POSITION.TOP_LEFT,
-        });
-      });
+    // fetch("https://api.imgbb.com/1/upload?key=dd1a5cd35aa9d832298beb50053079da", {
+    //   method: "POST",
+    //   body: formData,
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     setPhoto(data.data.display_url);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //     toast.error(`${error.message}`, {
+    //       position: toast.POSITION.TOP_LEFT,
+    //     });
+    //   });
 
     const userData = {
       firstName: data.firstName,
       lastName: data.lastName,
       name: `${data.firstName} ${data.lastName}`,
-      profile_picture: photo,
       graduation_year: data.graduation_year,
       degree: data.degreeEarned,
       major: data.majorSubject,
       email: data.email,
       phone: data.mobile,
       universityName: data.yourUniversityName,
-      phone_2: "",
       address: {
         street: data.streetAddress,
         city: data.city,
         state: data.stateName,
         zip: data.zipCode,
       },
-      education: [
-        {
-          degree: "",
-          major: "",
-          institution: "",
-          graduation_year: "",
-          gpa: "",
-        },
-      ],
+      education: {
+        degree: data.degreeEarned,
+        major: data.majorSubject,
+        institution: data.yourUniversityName,
+        graduation_year: data.graduation_year,
+        gpa: "",
+      },
+
       is_employed: false,
-      careers: [
-        {
-          company: "",
-          position: "",
-          start_date: "",
-          end_date: "",
-          responsibilities: "",
-        },
-      ],
+
       personal_information: {
         date_of_birth: data.dateOfBirth,
         gender: data.gender,
@@ -132,7 +121,9 @@ const MembershipForm = () => {
         hobbies: [],
       },
     };
-    await fetch(`https://alumni-managemnet-app-server.vercel.app/alumni/${data.email}`, {
+    console.log(userData);
+
+    fetch(`http://localhost:8000/alumni/${data.email}`, {
       method: "PUT",
       body: JSON.stringify(userData),
       headers: {
@@ -145,7 +136,7 @@ const MembershipForm = () => {
           position: toast.POSITION.TOP_CENTER,
         });
         console.log("Data updated successfully:", data);
-        reset();
+        // reset();
       })
       .catch((error) => {
         console.error("Error updating data:", error);
@@ -154,7 +145,7 @@ const MembershipForm = () => {
 
   return (
     <section className="p-6">
-      <form onSubmit={handleSubmit(handelMembership)} novalidate="" action="">
+      <form onSubmit={handleSubmit(handelMembership)}>
         <div className="flex gap-10  flex-col-reverse	md:flex-row">
           <div className="w-full md:w-3/4">
             {/* first Name and Last Name */}
@@ -252,57 +243,6 @@ const MembershipForm = () => {
               </div>
             </div>
 
-            {/* password and confirm password */}
-            {/* <div class="grid md:grid-cols-2 md:gap-6">
-              <div class="relative z-0 w-full mb-6 group">
-                <input
-                  {...register("password", {
-                    required: true,
-                    focus: true,
-                    pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/,
-                  })}
-                  type="password"
-                  name="password"
-                  id="floating_password"
-                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
-                  placeholder=" "
-                  required
-                />
-                <label
-                  for="floating_password"
-                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-focus:dark:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Your Password
-                </label>
-                {errors.password && (
-                  <span className="text-red-600">
-                    Password must contain at least one uppercase letter, one lowercase
-                    letter, one number, and be at least 6 characters long
-                  </span>
-                )}
-              </div>
-              <div class="relative z-0 w-full mb-6 group">
-                <input
-                  {...register("confirmPassword", { required: true })}
-                  type="password"
-                  name="confirmPassword"
-                  id="floating_confirm_password"
-                  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
-                  placeholder=" "
-                  required
-                />
-                <label
-                  for="floating_confirm_password"
-                  class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-focus:dark:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
-                >
-                  Confirm Password
-                </label>
-                {errors.confirmPassword && (
-                  <span className="text-red-600">please retype your password</span>
-                )}
-              </div>
-            </div> */}
-
             {/* Education Information */}
 
             {/* University and Major */}
@@ -319,8 +259,14 @@ const MembershipForm = () => {
                   id="university"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                 >
-                  <option selected disabled value="">
-                    your university name
+                  <option
+                    value={education?.institution ? education?.institution : ""}
+                    disabled
+                    selected
+                  >
+                    {education?.institution
+                      ? education?.institution
+                      : " Select your university"}
                   </option>
                   {universityName &&
                     universityName.map((e) => <option value={e.name}>{e.name} </option>)}
@@ -338,6 +284,9 @@ const MembershipForm = () => {
                   id="majorSubject"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                 >
+                  <option value={major ? major : ""} disabled selected>
+                    {major ? major : " Select your major"}
+                  </option>
                   {majorSubject &&
                     majorSubject.map((e) => (
                       <option value={e.graduationMajor}>{e.graduationMajor} </option>
@@ -363,6 +312,14 @@ const MembershipForm = () => {
                   id="degree"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                 >
+                  <option
+                    value={education?.degree ? education?.degree : ""}
+                    disabled
+                    selected
+                  >
+                    {education?.degree ? education?.degree : " Select your degree"}
+                  </option>
+
                   {degreeNames &&
                     degreeNames.map((e) => (
                       <option value={e.degree}>{e.program_name} </option>
@@ -384,6 +341,14 @@ const MembershipForm = () => {
                   id="graduationYear"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                 >
+                  <option
+                    value={graduation_year ? graduation_year : ""}
+                    disabled
+                    selected
+                  >
+                    {graduation_year ? graduation_year : "Select your Graduation Year"}
+                  </option>
+
                   {graduationYear &&
                     graduationYear.map((e) => (
                       <option value={e.batchNumber}>{e.batchNumber} </option>
@@ -401,6 +366,7 @@ const MembershipForm = () => {
               <div class="relative z-0 w-full mb-6 group">
                 <input
                   {...register("fatherName")}
+                  defaultValue={personal_information?.fathers_name}
                   type="text"
                   name="fatherName"
                   id="floating_father_name"
@@ -413,13 +379,11 @@ const MembershipForm = () => {
                 >
                   Your father name
                 </label>
-                {/* {errors.fatherName && (
-                  <span className="text-red-600">please write your Father Name</span>
-                )} */}
               </div>
               <div class="relative z-0 w-full mb-6 group">
                 <input
                   {...register("motherName")}
+                  defaultValue={personal_information?.mothers_name}
                   type="text"
                   name="motherName"
                   id="floating_mother_name"
@@ -432,9 +396,6 @@ const MembershipForm = () => {
                 >
                   Your Mother name
                 </label>
-                {/* {errors.motherName && (
-                  <span className="text-red-600">please write your Father Name</span>
-                )} */}
               </div>
             </div>
 
@@ -452,8 +413,10 @@ const MembershipForm = () => {
                   id="bloodGroup"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                 >
-                  <option selected disabled value="">
-                    Blood Group
+                  <option selected disabled value={personal_information?.blood_group}>
+                    {personal_information?.blood_group
+                      ? personal_information?.blood_group
+                      : "Blood Group"}
                   </option>
                   <option value="A+">A+</option>
                   <option value="A-">A-</option>
@@ -534,6 +497,7 @@ const MembershipForm = () => {
               <div class="relative z-0 w-full mb-6 group">
                 <input
                   {...register("streetAddress")}
+                  defaultValue={address?.street}
                   type="text"
                   name="streetAddress"
                   id="floating_street"
@@ -550,6 +514,7 @@ const MembershipForm = () => {
               <div class="relative z-0 w-full mb-6 group">
                 <input
                   {...register("city")}
+                  defaultValue={address?.city}
                   type="text"
                   name="city"
                   id="floating_city"
@@ -562,9 +527,6 @@ const MembershipForm = () => {
                 >
                   City Name
                 </label>
-                {/* {errors.city && (
-                  <span className="text-red-600">please write your city</span>
-                )} */}
               </div>
             </div>
             {/* Contact Details state and zip */}
@@ -572,6 +534,7 @@ const MembershipForm = () => {
               <div class="relative z-0 w-full mb-6 group">
                 <input
                   {...register("stateName")}
+                  defaultValue={address?.state}
                   type="text"
                   name="stateName"
                   id="floating_state"
@@ -588,6 +551,7 @@ const MembershipForm = () => {
               <div class="relative z-0 w-full mb-6 group">
                 <input
                   {...register("zipCode")}
+                  defaultValue={address?.zip}
                   type="number"
                   name="zipCode"
                   id="floating_zip"
@@ -615,22 +579,21 @@ const MembershipForm = () => {
             <div className="space-y-2 col-span-full lg:col-span-1 flex  justify-center ">
               <div>
                 <p className="font-medium">Photo *</p>
-                {photo ? (
+                {profile_picture ? (
                   <img
-                    src={URL.createObjectURL(photo)}
+                    src={profile_picture}
                     alt="user"
                     className="object-cover mb-6 rounded shadow-lg h-28 sm:h-48 xl:h-56 w-28 sm:w-48 xl:w-56"
                   />
                 ) : (
                   <img
                     className="object-cover mb-6 rounded shadow-lg h-28 sm:h-48 xl:h-56 w-28 sm:w-48 xl:w-56"
-                    // src="http://buetalumni.org/assets/images/profile/default.jpg"
                     src={user?.photoURL}
                     alt=""
                   />
                 )}
 
-                <input
+                {/* <input
                   id="address"
                   type="file"
                   name="image"
@@ -638,7 +601,7 @@ const MembershipForm = () => {
                   accept="photo/*"
                   onChange={(e) => setPhoto(e.target.files[0])}
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
-                />
+                /> */}
               </div>
             </div>
           </div>

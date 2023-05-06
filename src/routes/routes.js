@@ -12,7 +12,6 @@ import AboutUs from "../Pages/AboutUs/AboutUs";
 import SingleEvent from "../Pages/SingleEvent/SingleEvent";
 import SinglePerson from "../Pages/SinglePerson/SinglePerson";
 import AlumniPage from "../Pages/AlumniDirectory/AlumniPage";
-import MembershipForm from "../Pages/MembershipForm/MembershipForm";
 import DashboardLayout from "../layout/DashboardLayout";
 import DashboardMain from "../Dashboard/DashboardPages/DashboardMain";
 import DashboardTestPage from "../Dashboard/DashboardPages/DashboardTestPage";
@@ -40,6 +39,7 @@ import AllSuccessFullStory from "../Dashboard/DashboardPages/AllSuccessFullStory
 import AllNewsPage from "../Pages/AllNews/AllNews";
 import AllGallery from "../Dashboard/DashboardPages/AllGallery/AllGallery";
 import AllAlumni from "../Dashboard/DashboardPages/Alumni/AllAlumni";
+import MembershipForm from "../Dashboard/DashboardPages/MembershipForm/MembershipForm";
 
 const routes = createBrowserRouter([
   {
