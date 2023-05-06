@@ -51,16 +51,34 @@ const SingleSuccessFullStory = () => {
             </div>
             <div className="flex items-center justify-between ">
               <div className="flex items-center gap-3">
-                <div
-                  style={{
-                    backgroundImage: `url(${img})`,
-                    backgroundPosition: "center",
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "cover",
-                    height: "50px",
-                    width: "50px",
-                  }}
-                ></div>
+                {img ? (
+                  <>
+                    <div
+                      style={{
+                        backgroundImage: `url(${img})`,
+                        backgroundPosition: "center",
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "cover",
+                        height: "50px",
+                        width: "50px",
+                      }}
+                    ></div>
+                  </>
+                ) : (
+                  <>
+                    <div
+                      style={{
+                        backgroundImage: `url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyKpQUy8JP90MAZxFjU0P9bPqkUWL35fd8Ag&usqp=CAU')`,
+                        backgroundPosition: "center",
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "cover",
+                        height: "50px",
+                        width: "50px",
+                      }}
+                    ></div>
+                  </>
+                )}
+
                 <div>
                   <p>{name}</p>
                   <p>{time}</p>
