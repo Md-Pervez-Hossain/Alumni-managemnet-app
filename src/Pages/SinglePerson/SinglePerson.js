@@ -23,6 +23,12 @@ import ErrorAlert from "../../sharedComponents/Skeletion/ErrorAlert";
 const SinglePerson = () => {
   const { user } = useContext(AuthContext);
   // const singleAlumni = useLoaderData();
+  const [userEmail, setUserEmail] = useState(null);
+
+  const getUserEmail = async () => {
+    const userEmail = await user?.email;
+    return await userEmail;
+  };
 
   //  get location using react-router-dom
   const location = useLocation();
@@ -34,8 +40,7 @@ const SinglePerson = () => {
     isLoading,
     isError,
     error,
-  } = useGetSingleAlumniQuery(user?.email);
-  // console.log(data);
+  } = useGetSingleAlumniQuery(currentPath);
 
   const {
     name,
@@ -293,7 +298,7 @@ const SinglePerson = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {education.length >= 0 ? (
+                    {education?.length >= 0 ? (
                       <>
                         {education?.map((edu) => {
                           return (
