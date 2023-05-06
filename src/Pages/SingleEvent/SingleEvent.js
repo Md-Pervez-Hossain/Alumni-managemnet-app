@@ -12,6 +12,7 @@ import { AuthContext } from "../../sharedComponents/UseContext/AuthProvider";
 import emailjs from "@emailjs/browser";
 import _, { set } from "lodash";
 import axios from "axios";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 const SingleEvent = () => {
   const { user } = useContext(AuthContext);
@@ -31,6 +32,11 @@ const SingleEvent = () => {
 
   const [eventData, setEventData] = useState("");
   console.log(eventData);
+  console.log(data);
+  const eventDate = new Date(date);
+  const today = new Date();
+  console.log(eventDate);
+  console.log(today);
 
   useEffect(() => {
     if (user?.email && _id) {
@@ -171,51 +177,74 @@ const SingleEvent = () => {
         <div className="w-full md:w-9/12 mx-auto my-20 md:flex justify-between">
           <div className="w-full md:w-3/5 px-10 mx-auto">
             <div className="">
-              <img className="" src={image_url} alt="Event" />
+              <div
+                style={{
+                  backgroundImage: `url(${image_url})`,
+                  backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                  height: "400px",
+                }}
+              ></div>
             </div>
             {/* content */}
-            <div className="flex flex-col justify-between p-2">
-              <Counter date={date}></Counter>
-
-              <div>
-                <h1 className="text-xl font-semibold">{event_title}</h1>
-                <h1 className="text-xl font-semibold">
-                  {new Date(date).toLocaleDateString("en-US")}
-                </h1>
-                <span className="inline bg-accent px-4 py-1 my-2 text-primary font-semibold shadow-soft-lg ">
-                  {batch}
-                </span>
+            <div className="flex flex-col justify-between p-2 ">
+              <div className=" my-3">
+                <Counter date={date}></Counter>
               </div>
-              <p className="mt-3">{description}</p>
+
+              <div className=" mb-5">
+                <h1 className="text-xl font-semibold">
+                  {event_title ? <>{event_title}</> : <></>}
+                </h1>
+                <p className="mt-3 mb-3">
+                  {description ? <>{description}</> : <></>}
+                </p>
+                <p>Event Date :{new Date(date).toLocaleDateString("en-US")}</p>
+                <p> Batch: {batch}</p>
+              </div>
+
               {/* <button className="bg-primary p-2  w-[130px]"> */}
               {/* The button to open modal */}
 
               {eventData.email === user?.email && eventData.event_id === _id ? (
                 <div>
-                  <button className="text-center bg-primary p-2   text-white">
-                    Already Joined the Event
+                  <button className="text-center mt-2 bg-primary p-2   text-white">
+                    Already Joined
                   </button>
 
                   <label
                     htmlFor="event-modal-edit"
                     className="text-center mx-4 cursor-pointer bg-primary p-2   text-white"
                   >
-                    Edit the Joining From
+                    <span> Edit</span>{" "}
+                    <FaEdit className=" inline-block mb-1"></FaEdit>{" "}
                   </label>
 
                   <button
                     onClick={handleDelete}
                     className="text-center bg-primary p-2   text-white"
                   >
-                    Delete the Joining From
+                    <div className="flex items-center gap-2">
+                      <span>Delete</span>
+                      <FaTrash></FaTrash>
+                    </div>
                   </button>
                 </div>
               ) : (
-                <label
-                  htmlFor="event-modal"
-                  className="text-center bg-primary p-2  w-[130px] text-white"
-                >
-                  Join Event
+                <label htmlFor="event-modal">
+                  {today > eventDate ? (
+                    <></>
+                  ) : (
+                    <>
+                      <label
+                        htmlFor="event-modal"
+                        className="text-center  cursor-pointer bg-primary px-4 py-2 mt-10   text-white"
+                      >
+                        Join Event
+                      </label>
+                    </>
+                  )}
                 </label>
               )}
 

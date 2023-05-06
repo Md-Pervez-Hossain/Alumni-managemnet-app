@@ -49,9 +49,21 @@ const AllEventsCard = ({ item }) => {
       {/* content */}
       <div className="md:w-1/2 w-full  flex flex-col justify-between p-2">
         <>
-          <h1 className="text-xl font-semibold">{item.event_title}</h1>
+          <h1 className="text-xl font-semibold">
+            {item?.event_title?.length >= 15 ? (
+              <>{`${item?.event_title.slice(0, 15)}...`}</>
+            ) : (
+              <>{`${item?.event_title}`}</>
+            )}
+          </h1>
         </>
-        <p className="mt-3">{item.description.slice(0, 50)}</p>
+        <p className="mt-3">
+          {item?.description?.length >= 30 ? (
+            <>{`${item.description.slice(0, 30)}...`}</>
+          ) : (
+            <>{`${item.description}`}</>
+          )}
+        </p>
         {/*  */}
 
         {/*  */}
