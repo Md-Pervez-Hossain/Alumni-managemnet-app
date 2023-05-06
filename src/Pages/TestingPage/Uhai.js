@@ -5,6 +5,9 @@ import SuccessStoriesSection from "../../sharedComponents/SuccessStories/Success
 import UpComingEventsCard from "../Home/UpComingEventsCard/UpComingEventsCard";
 import NewsCreateForm from "../../Dashboard/DashboardComponents/NewsCreateForm/NewsCreateForm";
 import NewsUpdatePage from "../../sharedComponents/NewsUpdatePage/NewsUpdatePage";
+import EventUpdatePages from "../../Dashboard/DashboardPages/EventUpdatePage/EventUpdatePages";
+import AddAEvent from "../../Dashboard/DashboardPages/Events/AddAEvent";
+import JoinedEventUpdatePage from "../../Dashboard/DashboardPages/JoinedEventUpdatePage/JoinedEventUpdatePage";
 
 const Uhai = () => {
   return (
@@ -14,8 +17,13 @@ const Uhai = () => {
       {/* <SuccessStoriesSection /> */}
 
      <NewsUpdatePage></NewsUpdatePage>
+     {/* <EventUpdatePages></EventUpdatePages> */}
 
-      <NewsSection />
+     {/* <JoinedEventUpdatePage></JoinedEventUpdatePage> */}
+
+     
+      <AddAEvent></AddAEvent>
+      {/* <NewsSection /> */}
       {/* <EmailSubScribe /> */}
       {/* <NewsCreateForm></NewsCreateForm> */}
     </div>

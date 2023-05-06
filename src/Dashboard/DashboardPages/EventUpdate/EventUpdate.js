@@ -1,31 +1,22 @@
 import React, { useContext, useState } from "react";
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
+import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
+import { useLoaderData } from "react-router-dom";
+import Loading from "../../../sharedComponents/Loading/Loading";
+import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
 import {
   useAddEventsMutation,
   useGetAllBatchesQuery,
   useGetEventsCategoriesQuery,
 } from "../../../features/Api/apiSlice";
-import Loading from "../../../sharedComponents/Loading/Loading";
-import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
 import { toast } from "react-toastify";
-import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
 
-const CreateEvents = () => {
+const EventUpdate = () => {
+  const { user } = useContext(AuthContext);
+  const singleEvent = useLoaderData();
 
-  const {user} = useContext(AuthContext);
-  // console.log(user?.email)
-
-  const [
-    addEvents,
-    {
-      data: events,
-      isLoading: isEventsAddLoading,
-      isError: isEventsAddError,
-      error: eventsAddError,
-    },
-  ] = useAddEventsMutation();
-
+  console.log(singleEvent._id);
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleCreateEvents = (event) => {
@@ -35,28 +26,31 @@ const CreateEvents = () => {
     const batch = form.eventsBatch.value;
     const event_title = form.eventsHeading.value;
     const date = selectedDate;
-    console.log(date);
+    // console.log(date);
     const location = form.eventsLocation.value;
     const description = form.eventsDetails.value;
     const category = form.eventsCategory.value;
     const image_url = form.image.files[0];
     const formData = new FormData();
     formData.append("image", image_url);
-    console.log(category);
-    console.log(formData);
+    // console.log(category);
+    // console.log(formData);
 
     // addEvents({});
 
-    fetch("https://api.imgbb.com/1/upload?key=dd1a5cd35aa9d832298beb50053079da", {
-      method: "POST",
-      body: formData,
-    })
+    fetch(
+      "https://api.imgbb.com/1/upload?key=dd1a5cd35aa9d832298beb50053079da",
+      {
+        method: "POST",
+        body: formData,
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
 
-        addEvents({
-          authorEmail:authorEmail,
+        const eventInfo = {
+          authorEmail: authorEmail,
           batch,
           event_title,
           date,
@@ -64,19 +58,28 @@ const CreateEvents = () => {
           description,
           category,
           image_url: data.data.display_url,
-        });
+        };
 
-        toast.success("Success Notification!", {
-          position: toast.POSITION.TOP_CENTER,
-        });
-
-        form.reset();
+        fetch(
+          `https://alumni-managemnet-app-server.vercel.app/event/${singleEvent._id}`,
+          {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(eventInfo),
+          }
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            toast.success("Update Successfully.");
+            form.reset();
+          });
       })
       .catch((error) => {
         console.log(error);
-        toast.error(`${error.message}`, {
-          position: toast.POSITION.TOP_LEFT,
-        });
+        toast.error(`${error.message}`);
       });
   };
 
@@ -132,7 +135,10 @@ const CreateEvents = () => {
     allBatchesOptionsContent = (
       <>
         {allBatches.map((allUniversityNames) => (
-          <option value={allUniversityNames.batchNumber} key={allUniversityNames._id}>
+          <option
+            value={allUniversityNames.batchNumber}
+            key={allUniversityNames._id}
+          >
             {allUniversityNames.batchNumber}
           </option>
         ))}
@@ -148,14 +154,14 @@ const CreateEvents = () => {
         <div className="grid md:grid-cols-2 gap-3 !my-2">
           <input
             type="text"
-            placeholder="Events Heading"
+            defaultValue={singleEvent.event_title}
             className="input input-bordered w-full"
             name="eventsHeading"
             required
           />
           <input
             type="text"
-            placeholder="Events Location"
+            defaultValue={singleEvent.location}
             className="input input-bordered w-full "
             name="eventsLocation"
             required
@@ -163,13 +169,21 @@ const CreateEvents = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-5">
           <div className="form-control w-full ">
-            <select className="select select-bordered " name="eventsBatch" required>
+            <select
+              className="select select-bordered "
+              name="eventsBatch"
+              required
+            >
               <option value="">Select Batch</option>
               {allBatchesOptionsContent}
             </select>
           </div>
           <div className="form-control w-full ">
-            <select className="select select-bordered " name="eventsCategory" required>
+            <select
+              className="select select-bordered "
+              name="eventsCategory"
+              required
+            >
               {eventCategoryNames}
             </select>
           </div>
@@ -187,20 +201,18 @@ const CreateEvents = () => {
             type="file"
             className="file-input file-input-bordered w-full"
             name="image"
+            required
           />
         </div>
         <div className="form-control w-full">
           <textarea
             className="textarea textarea-bordered w-full my-5"
-            placeholder="Events Details"
+            defaultValue={singleEvent.description}
             name="eventsDetails"
             required
           ></textarea>
         </div>
-        <button
-          disabled={isEventsAddLoading}
-          className="px-6 py-4 w-full rounded-lg bg-primary text-white font-semibold"
-        >
+        <button className="px-6 py-4 w-full rounded-lg bg-primary text-white font-semibold">
           {" "}
           Create Event
         </button>
@@ -209,4 +221,4 @@ const CreateEvents = () => {
   );
 };
 
-export default CreateEvents;
+export default EventUpdate;

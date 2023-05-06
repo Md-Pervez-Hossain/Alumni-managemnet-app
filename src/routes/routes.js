@@ -37,6 +37,7 @@ import NewsUpdatePage from "../sharedComponents/NewsUpdatePage/NewsUpdatePage";
 import NewsUpdate from "../sharedComponents/NewsUpdate/NewsUpdate";
 import AllCharity from "../Dashboard/DashboardPages/CreateCharity/AllCharity";
 import AllNews from "../Dashboard/DashboardPages/News/AllNews";
+import EventUpdate from "../Dashboard/DashboardPages/EventUpdate/EventUpdate";
 
 const routes = createBrowserRouter([
   {
@@ -145,7 +146,17 @@ const routes = createBrowserRouter([
         path: "/newsUpdate/:id",
         element: <NewsUpdate></NewsUpdate>,
         loader: ({ params }) =>
-          fetch(`https://alumni-managemnet-app-server.vercel.app/news/${params.id}`),
+          fetch(
+            `https://alumni-managemnet-app-server.vercel.app/news/${params.id}`
+          ),
+      },
+      {
+        path: "/eventUpdate/:id",
+        element: <EventUpdate></EventUpdate>,
+        loader: ({ params }) =>
+          fetch(
+            `https://alumni-managemnet-app-server.vercel.app/events/${params.id}`
+          ),
       },
     ],
     errorElement: <ErrorPage></ErrorPage>,
