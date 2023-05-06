@@ -19,13 +19,13 @@ const AboutUs = () => {
         <div>
           <h2 className="md:text-4xl text-3xl mb-5">Who we are</h2>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
-            aliquam dignissimos nulla? Repellendus quidem ad, debitis illo harum
-            officiis minima quis nostrum voluptates atque fugiat exercitationem
-            veniam illum suscipit nulla?.Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Error aliquam dignissimos nulla? Repellendus
-            quidem ad, debitis illo harum officiis minima quis nostrum
-            voluptates atque fugiat exercitationem veniam illum suscipit.
+            Alumni are former students of a school, college, or university who
+            have either attended or graduated in some fashion from the
+            institution. The feminine plural alumnae is sometimes used for
+            groups of women. The word is Latin and means "one who is being
+            nourished".Traditionally, "alumnus" refers specifically to a
+            singular male graduate and "alumni" is the plural form for a group
+            of male graduates
           </p>
         </div>
         <div>
@@ -43,8 +43,9 @@ const AboutUs = () => {
               Our Dedicated Team
             </p>
             <p className="text-base text-gray-700 md:text-lg">
-              Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-              accusantium doloremque laudantium.
+              Alumni are former students of a school, college, or university who
+              have either attended or graduated in some fashion from the
+              institution.
             </p>
           </div>
           <div className="grid gap-10 mx-auto sm:grid-cols-2 lg:grid-cols-4 lg:max-w-screen-lg">
@@ -227,13 +228,11 @@ const AboutUs = () => {
         <div>
           <h2 className="md:text-4xl text-3xl mb-5">Why we Care</h2>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
-            aliquam dignissimos nulla? Repellendus quidem ad, debitis illo harum
-            officiis minima quis nostrum voluptates atque fugiat exercitationem
-            veniam illum suscipit nulla?.Lorem ipsum dolor sit amet consectetur
-            adipisicing elit. Error aliquam dignissimos nulla? Repellendus
-            quidem ad, debitis illo harum officiis minima quis nostrum
-            voluptates atque fugiat exercitationem veniam illum suscipit nulla?
+            Alumni refers to people who have graduated from an institution (most
+            commonly a university) while alma mater is the institution from
+            which a person has graduated. A graduate is a person (male or
+            female) who has completed a degree at a university/college. Alumni
+            are male graduates. Alumnae are female graduates.
           </p>
         </div>
       </div>

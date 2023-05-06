@@ -46,7 +46,7 @@ const Counter = ({ date, color }) => {
   useEffect(() => {
     startTimer();
     return () => {
-      clearInterval(interval.current);
+      clearInterval(interval);
     };
   });
 
