@@ -97,7 +97,7 @@ const routes = createBrowserRouter([
       },
       {
         path: "/gallery",
-        element: <AllGallery></AllGallery>,
+        element: <AllGalleryImage></AllGalleryImage>,
       },
 
       {
@@ -148,7 +148,9 @@ const routes = createBrowserRouter([
         path: "/newsUpdate/:id",
         element: <NewsUpdate></NewsUpdate>,
         loader: ({ params }) =>
-          fetch(`https://alumni-managemnet-app-server.vercel.app/news/${params.id}`),
+          fetch(
+            `https://alumni-managemnet-app-server.vercel.app/news/${params.id}`
+          ),
       },
     ],
     errorElement: <ErrorPage></ErrorPage>,

@@ -36,9 +36,12 @@ const ShowComments = ({ _id }) => {
     console.log(_id);
     const agree = window.confirm(`Are You Sure You Want to delete !...`);
     if (agree) {
-      fetch(`http://localhost:8000/successFullStoryComment/${_id}`, {
-        method: "DELETE",
-      })
+      fetch(
+        `https://alumni-managemnet-app-server.vercel.app/successFullStoryComment/${_id}`,
+        {
+          method: "DELETE",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);

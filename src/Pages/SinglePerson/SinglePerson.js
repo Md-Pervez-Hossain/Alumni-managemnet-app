@@ -34,8 +34,8 @@ const SinglePerson = () => {
     isLoading,
     isError,
     error,
-  } = useGetSingleAlumniQuery(currentPath);
-  // console.log(data);
+  } = useGetSingleAlumniQuery(user?.email);
+  console.log(singleAlumni);
 
   const {
     name,
@@ -53,7 +53,7 @@ const SinglePerson = () => {
     education,
     personal_information,
   } = singleAlumni || {};
-  console.log(singleAlumni);
+  // console.log(singleAlumni);
 
   let content;
 
@@ -185,6 +185,10 @@ const SinglePerson = () => {
                         <th>Nationality</th>
                         <th>Hobbies</th>
                         <th>Languages</th>
+                        <th>degree</th>
+                        <th>graduation_year,</th>
+                        <th>department,</th>
+                        <th>major,</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -276,6 +280,12 @@ const SinglePerson = () => {
                             <></>
                           )}
                         </td>
+                        <td>{degree ? <> {degree}</> : <></>}</td>
+                        <td>
+                          {graduation_year ? <> {graduation_year}</> : <></>}
+                        </td>
+                        <td>{department ? <> {department}</> : <></>}</td>
+                        <td>{major ? <> {major}</> : <></>}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -297,7 +307,7 @@ const SinglePerson = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {education.length >= 0 ? (
+                    {education ? (
                       <>
                         {education?.map((edu) => {
                           return (
