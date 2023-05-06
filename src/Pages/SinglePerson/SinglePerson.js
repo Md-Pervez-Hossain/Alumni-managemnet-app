@@ -34,7 +34,7 @@ const SinglePerson = () => {
     isLoading,
     isError,
     error,
-  } = useGetSingleAlumniQuery(currentPath);
+  } = useGetSingleAlumniQuery(user?.email);
   // console.log(data);
 
   const {
@@ -143,8 +143,8 @@ const SinglePerson = () => {
                     ) : (
                       <>
                         <div className="flex items-center gap-2">
-                          <FaAddressCard className="text-primary"></FaAddressCard>{" "}
-                          Address :{" "}
+                          <FaAddressCard className="text-primary"></FaAddressCard> Address
+                          :{" "}
                           {`${address?.street} ${address?.city} ${address?.state} ${address?.zip}`}
                         </div>
                       </>
@@ -240,17 +240,15 @@ const SinglePerson = () => {
                           {personal_information?.hobbies ? (
                             <>
                               {" "}
-                              {personal_information?.hobbies?.map(
-                                (hobby, i) => {
-                                  return (
-                                    <>
-                                      <p key={i} className="inline-block ">
-                                        {hobby}
-                                      </p>
-                                    </>
-                                  );
-                                }
-                              )}{" "}
+                              {personal_information?.hobbies?.map((hobby, i) => {
+                                return (
+                                  <>
+                                    <p key={i} className="inline-block ">
+                                      {hobby}
+                                    </p>
+                                  </>
+                                );
+                              })}{" "}
                             </>
                           ) : (
                             <></>
@@ -260,17 +258,15 @@ const SinglePerson = () => {
                           {personal_information?.languages ? (
                             <>
                               {" "}
-                              {personal_information?.languages?.map(
-                                (language, i) => {
-                                  return (
-                                    <>
-                                      <p key={i} className="inline-block ">
-                                        {language}
-                                      </p>
-                                    </>
-                                  );
-                                }
-                              )}{" "}
+                              {personal_information?.languages?.map((language, i) => {
+                                return (
+                                  <>
+                                    <p key={i} className="inline-block ">
+                                      {language}
+                                    </p>
+                                  </>
+                                );
+                              })}{" "}
                             </>
                           ) : (
                             <></>
@@ -302,15 +298,9 @@ const SinglePerson = () => {
                         {education?.map((edu) => {
                           return (
                             <tr>
-                              <th>
-                                {edu?.degree ? <>{edu?.degree}</> : <></>}
-                              </th>
+                              <th>{edu?.degree ? <>{edu?.degree}</> : <></>}</th>
                               <td>
-                                {edu?.institution ? (
-                                  <> {edu?.institution}</>
-                                ) : (
-                                  <></>
-                                )}
+                                {edu?.institution ? <> {edu?.institution}</> : <></>}
                               </td>
                               <td>{edu?.major ? <>{edu?.major}</> : <></>}</td>
                               <td>
@@ -355,46 +345,28 @@ const SinglePerson = () => {
                             return (
                               <tr>
                                 <th>
-                                  {career?.company ? (
-                                    <>{career?.company}</>
-                                  ) : (
-                                    <></>
-                                  )}
+                                  {career?.company ? <>{career?.company}</> : <></>}
                                 </th>
                                 <td>
-                                  {career?.position ? (
-                                    <>{career?.position}</>
-                                  ) : (
-                                    <></>
-                                  )}
+                                  {career?.position ? <>{career?.position}</> : <></>}
                                 </td>
                                 <td>
-                                  {career?.start_date ? (
-                                    <>{career?.start_date}</>
-                                  ) : (
-                                    <></>
-                                  )}
+                                  {career?.start_date ? <>{career?.start_date}</> : <></>}
                                 </td>
 
                                 <td>
-                                  {career?.end_date ? (
-                                    <> {career?.end_date}</>
-                                  ) : (
-                                    <></>
-                                  )}
+                                  {career?.end_date ? <> {career?.end_date}</> : <></>}
                                 </td>
                                 <td>
                                   {career?.responsibilities ? (
                                     <>
-                                      {career?.responsibilities?.map(
-                                        (res, i) => {
-                                          return (
-                                            <>
-                                              <p key={i}>{res}</p>
-                                            </>
-                                          );
-                                        }
-                                      )}
+                                      {career?.responsibilities?.map((res, i) => {
+                                        return (
+                                          <>
+                                            <p key={i}>{res}</p>
+                                          </>
+                                        );
+                                      })}
                                     </>
                                   ) : (
                                     <></>
@@ -490,8 +462,8 @@ const SinglePerson = () => {
           <h2 className="md:text-4xl text-2xl mb-5">About {name}</h2>
           <hr className="border-2 w-24 mx-auto border-secondary " />
           <p className="mt-5">
-            There are many company Lorem ipsm dolor sitg amet, csetur adipicing
-            elit, sed do eiusmod tempor
+            There are many company Lorem ipsm dolor sitg amet, csetur adipicing elit, sed
+            do eiusmod tempor
           </p>
         </div>
       </div>

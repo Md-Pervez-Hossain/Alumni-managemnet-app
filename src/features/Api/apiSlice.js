@@ -89,7 +89,7 @@ export const apiSlice = createApi({
 
     // single Alumni Data
     getSingleAlumni: builder.query({
-      query: (id) => `/alumni/${id}`,
+      query: (email) => `/alumni/${email}`,
     }),
 
     // *  successful stories * //
