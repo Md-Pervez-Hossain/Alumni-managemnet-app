@@ -24,9 +24,12 @@ const ShowNewsComments = ({ data }) => {
     console.log(_id);
     const agree = window.confirm(`Are You Sure You want To Delete ! ...`);
     if (agree) {
-      fetch(`http://localhost:8000/newsComments/6454d0bc21b2985369dc6380`, {
-        method: "DELETE",
-      })
+      fetch(
+        `https://alumni-managemnet-app-server.vercel.app/newsComments/${_id}`,
+        {
+          method: "DELETE",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
