@@ -5,6 +5,11 @@ import { useGetEventsQuery } from "../../../features/Api/apiSlice";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
 import Loading from "../../../sharedComponents/Loading/Loading";
 import { Link } from "react-router-dom";
+// import AOS from 'aos';
+// import 'aos/dist/aos.css';
+
+// // Initialize AOS
+// AOS.init();
 
 const UpComingEventsCard = () => {
   //  for pagination
@@ -59,7 +64,13 @@ const UpComingEventsCard = () => {
           .filter(filterByDate)
           .slice(previous, next)
           .map((eventData) => (
-            <div
+            <div  data-aos="fade-up"
+            data-aos-offset="200"
+            data-aos-delay="50"
+            data-aos-duration="1000"
+            data-aos-easing="ease-in-out"
+            data-aos-mirror="true"
+            data-aos-once="false"
               key={eventData._id}
               className="sm:flex shadow-soft-lg drop-shadow-lg	 justify-between items-center sm:w-full max-w-5xl mx-auto bg-primary  gap-4 relative -top-[24px]"
             >
