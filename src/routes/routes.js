@@ -26,14 +26,14 @@ import NewsCreateForm from "../Dashboard/DashboardComponents/NewsCreateForm/News
 import CreateGallery from "../Dashboard/DashboardPages/CreateGallery/CreateGallery";
 import CreateSuccessFullStory from "../Dashboard/DashboardPages/CreateSuccessFullStory/CreateSuccessFullStory";
 import SingleSuccessFullStory from "../Pages/singleSuccessfulStory/SingleSuccessFullStory";
-import CreateCharity from "../Dashboard/DashboardPages/CreateCharity/CreateCharity";
+import CreateCharity from "../Dashboard/DashboardPages/Charity/CreateCharity";
 import AllEvents from "../Dashboard/DashboardPages/Events/AllEvents";
 import UpdateStory from "../sharedComponents/UpdateStory/UpdateStory";
 import UpdateCharity from "../sharedComponents/UpdateCharity/UpdateCharity";
 import UpdateGallery from "../sharedComponents/UpdateGallery/UpdateGallery";
 import NewsUpdatePage from "../sharedComponents/NewsUpdatePage/NewsUpdatePage";
 import NewsUpdate from "../sharedComponents/NewsUpdate/NewsUpdate";
-import AllCharity from "../Dashboard/DashboardPages/CreateCharity/AllCharity";
+import AllCharity from "../Dashboard/DashboardPages/Charity/AllCharity";
 import AllNews from "../Dashboard/DashboardPages/News/AllNews";
 import AllSuccessFullStory from "../Dashboard/DashboardPages/AllSuccessFullStory/AllSuccessFullStory";
 import AllNewsPage from "../Pages/AllNews/AllNews";

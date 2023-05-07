@@ -2,7 +2,9 @@ import React from "react";
 
 const FundsForCause = () => {
   return (
-    <div className="py-3 mb-16 mt-32 mx-auto relative bg-accent">
+    <div data-aos="fade-up"
+    data-aos-duration="3000"
+     className="py-3 mb-16 mt-32 mx-auto relative bg-accent">
       <div className="m-2 py-16">
         <h2 className="text-2xl font-semibold text-center">Donate to Flood Donation</h2>
         <p className="text-center text-sm mt-4 mb-10">
