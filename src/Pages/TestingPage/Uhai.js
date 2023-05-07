@@ -18,6 +18,7 @@ const Uhai = () => {
 
       <NewsUpdatePage></NewsUpdatePage>
       <EventUpdatePages></EventUpdatePages>
+      
 
       <JoinedEventUpdatePage></JoinedEventUpdatePage>
 

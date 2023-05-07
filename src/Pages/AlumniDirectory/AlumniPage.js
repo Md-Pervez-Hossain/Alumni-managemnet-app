@@ -93,7 +93,7 @@ const AlumniPage = () => {
     <>
       <InnerPageHeader
         title="Our Alumni"
-        description="Browse our proud alumni"
+        description="Explore our alumni directory and connect with fellow graduates from your alma mater. Get in touch with old friends and colleagues, expand your professional network, and stay up-to-date on news and events related to your educational community."
         img="https://media.cnn.com/api/v1/images/stellar/prod/220624140259-01-college-students-stock.jpg?c=16x9&q=h_720,w_1280,c_fill"
       />
       <div className="bg-white">
