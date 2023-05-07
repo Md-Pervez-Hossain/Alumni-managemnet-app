@@ -21,17 +21,20 @@ const Home = () => {
         <UpComingEventsCard />
       </div>
 
-      <div className=" bg-accent py-10 my-20">
+      <div  className=" bg-accent py-10 my-20">
         <div className="w-9/12 mx-auto">
           <MissionHeading />
           <AlumniDirectory />
         </div>
       </div>
 
-      <div className="w-9/12 mx-auto my-20">
+      <div data-aos="fade-left"
+     data-aos-easing="ease-out-cubic"
+     data-aos-duration="3000"className="w-9/12 mx-auto my-20">
         <Gallery></Gallery>
       </div>
-      <div>
+      <div data-aos="fade-up"
+     data-aos-duration="3000">
         <ShowCharity></ShowCharity>
       </div>
       <div className=" bg-accent py-10 my-20">
