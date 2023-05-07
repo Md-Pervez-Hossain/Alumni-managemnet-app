@@ -1,27 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
-import { useAddCharityMutation } from "../../../features/Api/apiSlice";
+import {
+  useAddCharityMutation,
+  useGetAllBatchesQuery,
+} from "../../../features/Api/apiSlice";
 import { toast } from "react-hot-toast";
 
 const CreateCharity = () => {
-  const [batchYear, setBatchYear] = useState([]);
+  // const [batchYear, setBatchYear] = useState([]);
   const { user } = useContext(AuthContext);
 
   const [addCharity, { data, isSuccess, isError, isLoading, error }] =
     useAddCharityMutation();
 
-  useEffect(() => {
-    fetch("https://alumni-managemnet-app-server.vercel.app/all-batches")
-      .then((res) => res.json())
-      .then((data) => {
-        setBatchYear(data);
-        console.log(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  const { data: batchYear } = useGetAllBatchesQuery();
+
   const handleCharity = (event) => {
     event.preventDefault();
     const form = event.target;
@@ -60,19 +54,21 @@ const CreateCharity = () => {
           img: user?.photoURL,
         };
         addCharity(charityInfo);
-
-        // toast.promise({
-        //   loading: "Saving...",
-        //   success: <b>Settings saved!</b>,
-        //   error: <b>Could not save.</b>,
-        // });
-
-        isSuccess && form.reset();
+        form.reset();
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Charity created!");
+    } else if (isError) {
+      toast.error(error.message);
+      console.log(error);
+    }
+  }, [isSuccess, isError, error]);
 
   return (
     <div className="w-9/12 mx-auto my-16">

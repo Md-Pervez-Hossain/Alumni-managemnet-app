@@ -271,16 +271,7 @@ const SinglePerson = () => {
                         <td>
                           {personal_information?.languages ? (
                             <>
-                              {" "}
-                              {personal_information?.languages?.map((language, i) => {
-                                return (
-                                  <>
-                                    <p key={i} className="inline-block ">
-                                      {language}
-                                    </p>
-                                  </>
-                                );
-                              })}{" "}
+                              <p> {personal_information?.languages.join(", ")}</p>
                             </>
                           ) : (
                             <></>

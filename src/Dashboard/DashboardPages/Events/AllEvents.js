@@ -23,6 +23,20 @@ const AllEvents = () => {
     eventsContentData || {};
   console.log(eventsContentData);
 
+  // to convert the date string into a format like "12 Jan 2022, 12:45 PM" this
+  const formatDate = (dateString) => {
+    const options = {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat("en-US", options).format(date);
+  };
+
   let eventsContent;
 
   if (isEventsLoading && !isEventsError) {
@@ -68,7 +82,7 @@ const AllEvents = () => {
             </td>
             <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               <span className="font-semibold leading-tight text-xs text-slate-400">
-                {Date(event.date)?.replace(/ GMT[+\-]\d{4}.*$/, "")}
+                {formatDate(event.date)}
               </span>
             </td>
 
