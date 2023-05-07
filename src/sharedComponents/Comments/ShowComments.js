@@ -36,17 +36,18 @@ const ShowComments = ({ _id }) => {
     console.log(_id);
     const agree = window.confirm(`Are You Sure You Want to delete !...`);
     if (agree) {
-      fetch(`http://localhost:8000/successFullStoryComment/${_id}`, {
-        method: "DELETE",
-      })
+      fetch(
+        `https://alumni-managemnet-app-server.vercel.app/successFullStoryComment/${_id}`,
+        {
+          method: "DELETE",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
           if (data.deletedCount > 0) {
             toast.success("Successfully Deleted");
-            const remaining = comments?.filter(
-              (comment) => comment?._id !== _id
-            );
+            const remaining = comments?.filter((comment) => comment?._id !== _id);
             setComments(remaining);
           }
         })
@@ -83,10 +84,7 @@ const ShowComments = ({ _id }) => {
                         {comment?.time ? <>{comment?.time}</> : <></>}
                       </p>
                     </div>
-                    <p>
-                      {" "}
-                      {comment?.comments ? <>{comment?.comments}</> : <></>}
-                    </p>
+                    <p> {comment?.comments ? <>{comment?.comments}</> : <></>}</p>
                     <div className="flex gap-5 items-center cursor-pointer">
                       <AiFillLike className="text-primary"></AiFillLike>
                       <AiFillDislike className="text-primary"></AiFillDislike>
@@ -96,8 +94,7 @@ const ShowComments = ({ _id }) => {
                           <>
                             <label htmlFor="my-modal-6">
                               {" "}
-                              <FaEdit className="inline-block  mb-1"></FaEdit>{" "}
-                              Edit
+                              <FaEdit className="inline-block  mb-1"></FaEdit> Edit
                             </label>
                           </>
                         ) : (
@@ -105,11 +102,7 @@ const ShowComments = ({ _id }) => {
                         )}
 
                         {/* Put this part before </body> tag */}
-                        <input
-                          type="checkbox"
-                          id="my-modal-6"
-                          className="modal-toggle"
-                        />
+                        <input type="checkbox" id="my-modal-6" className="modal-toggle" />
                         <div className="modal modal-bottom sm:modal-middle">
                           <div className="modal-box">
                             <form>

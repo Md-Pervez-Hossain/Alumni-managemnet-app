@@ -42,11 +42,11 @@ const AlumniPage = () => {
     { name: "Batch: New to Old", current: false },
   ];
   const subCategories = [
-    { name: "Totes" },
-    { name: "Backpacks" },
-    { name: "Travel Bags" },
-    { name: "Hip Bags" },
-    { name: "Laptop Sleeves" },
+    // { name: "Totes" },
+    // { name: "Backpacks" },
+    // { name: "Travel Bags" },
+    // { name: "Hip Bags" },
+    // { name: "Laptop Sleeves" },
   ];
   const BloodGroupFiltersData = [
     {

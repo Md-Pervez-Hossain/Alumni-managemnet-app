@@ -5,8 +5,9 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://alumni-managemnet-app-server.vercel.app",
   }),
+  tagTypes: ["alumni", "events", "news", "stroy", "gallery", "charity"],
   endpoints: (builder) => ({
-    // // Gallery  //
+    // * Gallery  //
     getGalleries: builder.query({
       query: () => "/galleries ",
     }),
@@ -36,6 +37,7 @@ export const apiSlice = createApi({
     // get all events
     getEvents: builder.query({
       query: () => "/events",
+      providesTags: ["events"],
     }),
 
     //  single event
@@ -50,6 +52,7 @@ export const apiSlice = createApi({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["events"],
     }),
 
     //  single event
@@ -80,6 +83,7 @@ export const apiSlice = createApi({
     // All Alumni Data
     getAllAlumni: builder.query({
       query: () => "/alumni",
+      providesTags: ["alumni"],
     }),
 
     // yearWise Alumni Data
@@ -90,6 +94,26 @@ export const apiSlice = createApi({
     // single Alumni Data
     getSingleAlumni: builder.query({
       query: (email) => `/alumni/${email}`,
+    }),
+
+    // add a new Alumni
+    addAlumni: builder.mutation({
+      query: (data) => ({
+        url: "/alumni",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["alumni"],
+    }),
+
+    // Alumni Edit
+    editAlumni: builder.mutation({
+      query: ({ email, data }) => ({
+        url: `/alumni/${email}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["alumni"],
     }),
 
     // *  successful stories * //
@@ -109,7 +133,7 @@ export const apiSlice = createApi({
     }),
     // *  CHARITY * //
 
-    //  single charity
+    //  all charity
     getAllCharity: builder.query({
       query: () => `/charity/`,
     }),
@@ -120,7 +144,27 @@ export const apiSlice = createApi({
       query: (id) => `/charity/${id}`,
     }),
 
-    // // extras
+    // add a new Charity
+    addCharity: builder.mutation({
+      query: (data) => ({
+        url: "/charity/",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["charity"],
+    }),
+
+    // edit charity
+    editCharity: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/charity/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["charity"],
+    }),
+
+    // * extras
 
     //  all university names
     getAllUniversityName: builder.query({
@@ -154,6 +198,9 @@ export const {
   //charity
   useGetAllCharityQuery,
   useGetSingleCharityQuery,
+  useAddCharityMutation,
+  useEditCharityMutation,
+
   // NEWS
   useGetaLLNewsQuery,
   useGetSingleNewsQuery,
@@ -185,4 +232,7 @@ export const {
   useGetAllAlumniQuery,
   useGetYearWiseAlumniQuery,
   useGetSingleAlumniQuery,
+  // Mutations of ALUMNI
+  useAddAlumniMutation,
+  useEditAlumniMutation,
 } = apiSlice;

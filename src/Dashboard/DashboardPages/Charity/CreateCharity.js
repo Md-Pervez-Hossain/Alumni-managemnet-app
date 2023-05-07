@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
+import { useAddCharityMutation } from "../../../features/Api/apiSlice";
+import { toast } from "react-hot-toast";
 
 const CreateCharity = () => {
   const [batchYear, setBatchYear] = useState([]);
   const { user } = useContext(AuthContext);
+
+  const [addCharity, { data, isSuccess, isError, isLoading, error }] =
+    useAddCharityMutation();
+
   useEffect(() => {
     fetch("https://alumni-managemnet-app-server.vercel.app/all-batches")
       .then((res) => res.json())
@@ -31,13 +37,10 @@ const CreateCharity = () => {
     const time = new Date().toLocaleDateString();
     const formData = new FormData();
     formData.append("image", image_url);
-    fetch(
-      "https://api.imgbb.com/1/upload?key=86fe1764d78f51c15b1a9dfe4b9175cf",
-      {
-        method: "POST",
-        body: formData,
-      }
-    )
+    fetch("https://api.imgbb.com/1/upload?key=86fe1764d78f51c15b1a9dfe4b9175cf", {
+      method: "POST",
+      body: formData,
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -56,24 +59,15 @@ const CreateCharity = () => {
           email: user?.email,
           img: user?.photoURL,
         };
+        addCharity(charityInfo);
 
-        console.log(charityInfo);
-        form.reset();
+        // toast.promise({
+        //   loading: "Saving...",
+        //   success: <b>Settings saved!</b>,
+        //   error: <b>Could not save.</b>,
+        // });
 
-        fetch("https://alumni-managemnet-app-server.vercel.app/charity", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(charityInfo),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+        isSuccess && form.reset();
       })
       .catch((error) => {
         console.log(error);
@@ -153,8 +147,12 @@ const CreateCharity = () => {
           name="details"
           required
         ></textarea>
-        <button className="px-6 py-4 w-full rounded-lg bg-primary text-white font-semibold">
-          Submit
+
+        <button
+          disabled={isLoading}
+          className="px-6 py-4 w-full rounded-lg bg-primary text-white font-semibold"
+        >
+          Create Charity
         </button>
       </form>
     </div>

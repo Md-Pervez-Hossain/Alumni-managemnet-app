@@ -1,5 +1,4 @@
 import React from "react";
-import DashboardTable from "../../DashboardComponents/DashboardTable";
 import { Link } from "react-router-dom";
 import Loading from "../../../sharedComponents/Loading/Loading";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";

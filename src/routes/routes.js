@@ -12,7 +12,7 @@ import AboutUs from "../Pages/AboutUs/AboutUs";
 import SingleEvent from "../Pages/SingleEvent/SingleEvent";
 import SinglePerson from "../Pages/SinglePerson/SinglePerson";
 import AlumniPage from "../Pages/AlumniDirectory/AlumniPage";
-import MembershipForm from "../Pages/MembershipForm/MembershipForm";
+// import MembershipForm from "../Pages/MembershipForm/MembershipForm";
 import DashboardLayout from "../layout/DashboardLayout";
 import DashboardMain from "../Dashboard/DashboardPages/DashboardMain";
 import DashboardTestPage from "../Dashboard/DashboardPages/DashboardTestPage";
@@ -27,20 +27,23 @@ import NewsCreateForm from "../Dashboard/DashboardComponents/NewsCreateForm/News
 import CreateGallery from "../Dashboard/DashboardPages/CreateGallery/CreateGallery";
 import CreateSuccessFullStory from "../Dashboard/DashboardPages/CreateSuccessFullStory/CreateSuccessFullStory";
 import SingleSuccessFullStory from "../Pages/singleSuccessfulStory/SingleSuccessFullStory";
-import CreateCharity from "../Dashboard/DashboardPages/CreateCharity/CreateCharity";
+// import CreateCharity from "../Dashboard/DashboardPages/CreateCharity/CreateCharity";
 import AllEvents from "../Dashboard/DashboardPages/Events/AllEvents";
 import UpdateStory from "../sharedComponents/UpdateStory/UpdateStory";
 import UpdateCharity from "../sharedComponents/UpdateCharity/UpdateCharity";
 import UpdateGallery from "../sharedComponents/UpdateGallery/UpdateGallery";
 import NewsUpdatePage from "../sharedComponents/NewsUpdatePage/NewsUpdatePage";
 import NewsUpdate from "../sharedComponents/NewsUpdate/NewsUpdate";
-import AllCharity from "../Dashboard/DashboardPages/CreateCharity/AllCharity";
+// import AllCharity from "../Dashboard/DashboardPages/CreateCharity/AllCharity";
 import AllNews from "../Dashboard/DashboardPages/News/AllNews";
 import AllSuccessFullStory from "../Dashboard/DashboardPages/AllSuccessFullStory/AllSuccessFullStory";
 import AllNewsPage from "../Pages/AllNews/AllNews";
 import AllGallery from "../Dashboard/DashboardPages/AllGallery/AllGallery";
 import AllAlumni from "../Dashboard/DashboardPages/Alumni/AllAlumni";
 import EventUpdate from "../Dashboard/DashboardPages/EventUpdate/EventUpdate";
+import MembershipForm from "../Dashboard/DashboardPages/MembershipForm/MembershipForm";
+import CreateCharity from "../Dashboard/DashboardPages/Charity/CreateCharity";
+import AllCharity from "../Dashboard/DashboardPages/OldAllCharity/AllCharity";
 
 const routes = createBrowserRouter([
   {
@@ -55,7 +58,7 @@ const routes = createBrowserRouter([
       },
       {
         path: "/rony",
-        element: <MembershipForm />,
+        element: <MembershipForm></MembershipForm>,
       },
       {
         path: "/events",
@@ -181,8 +184,8 @@ const routes = createBrowserRouter([
       { path: "/dashboard/events", element: <AllEvents /> },
       { path: "/dashboard/events/add-a-event", element: <AddAEvent /> },
 
-      { path: "/dashboard/charity", element: <AllCharity /> },
-      { path: "/dashboard/charity/add-a-charity", element: <CreateCharity /> },
+      { path: "/dashboard/charity", element: <AllCharity></AllCharity> },
+      { path: "/dashboard/charity/add-a-charity", element: <CreateCharity></CreateCharity> },
 
       { path: "/dashboard/gallery/", element: <CreateGallery /> },
 

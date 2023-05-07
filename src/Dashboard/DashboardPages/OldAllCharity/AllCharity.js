@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../UseContext/AuthProvider";
+
 
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
 
 const AllCharity = () => {
   const { user } = useContext(AuthContext);
@@ -22,8 +23,6 @@ const AllCharity = () => {
   }, [user?.email]);
 
   const handleCharityDelete = (_id) => {
-    console.log(_id);
-
     const agree = window.confirm(`Are You Sure ! You want to delete ${_id}`);
     if (agree) {
       fetch(`https://alumni-managemnet-app-server.vercel.app/charity/${_id}`, {

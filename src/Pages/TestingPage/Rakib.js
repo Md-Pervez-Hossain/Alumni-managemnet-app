@@ -1,7 +1,9 @@
 import React from "react";
+import RegisterForm from "../SignUp/RegisterForm";
+import RegisterUserCard from "../SignUp/RegisterUserCard";
 
 const Rakib = () => {
-  return <div></div>;
+  return;
 };
 
 export default Rakib;
