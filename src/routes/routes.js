@@ -133,7 +133,9 @@ const routes = createBrowserRouter([
       {
         path: "/charity/donation/:id",
         loader: async ({ params }) => {
-          return fetch(`http://localhost:8000/charity/donation/${params.id}`);
+          return fetch(
+            `https://alumni-managemnet-app-server.vercel.app/charity/donation/${params.id}`
+          );
         },
         element: <Donation></Donation>,
       },

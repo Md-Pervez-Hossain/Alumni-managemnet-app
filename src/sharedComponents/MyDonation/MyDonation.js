@@ -6,7 +6,9 @@ const MyDonation = () => {
   const [myDonation, setMyDonation] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/charityDonation/${user?.email}`)
+    fetch(
+      `https://alumni-managemnet-app-server.vercel.app/charityDonation/${user?.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
