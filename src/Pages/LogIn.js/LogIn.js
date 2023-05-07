@@ -47,8 +47,6 @@ const LogIn = () => {
         <h2 className="text-4xl text-primary font-semibold text-center mb-5">
           Login
         </h2>
-        <h2 className="text-4xl text-primary font-semibold text-center mb-5">Login</h2>
-        
         <form onSubmit={handleSubmit(handleLogIn)}>
           <div className="form-control lg:w-2/3 mx-auto">
             <label className="label">
@@ -82,7 +80,7 @@ const LogIn = () => {
                 required: "Password is required",
               })}
               className="input input-bordered rounded-none bg-accent py-2 pl-3 text-lg  w-full"
-              placeholder="*********"
+              placeholder="***"
             />
             {errors.password && (
               <p className="text-red-600">{errors.password?.message}</p>
@@ -95,7 +93,6 @@ const LogIn = () => {
             </button>
           </div>
         </form>
-
         <p className="text-center mt-5 mb-10">
           Don't Have An Account?{" "}
           <span>
