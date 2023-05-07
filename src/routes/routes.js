@@ -123,7 +123,7 @@ const routes = createBrowserRouter([
         path: "/alumni/batch/:year",
         element: <BatchWiseStudent />,
       },
-      // single student / alumni page data
+
       {
         path: "/alumni/:email",
         element: <SinglePerson />,
@@ -185,7 +185,7 @@ const routes = createBrowserRouter([
         element: <CreateSuccessFullStory />,
       },
 
-      { path: "/dashboard/profile/", element: <MembershipForm /> },
+      { path: "/dashboard/profile/:email", element: <MembershipForm /> },
       { path: "/dashboard/Checkout/", element: <CheckoutPage /> },
     ],
   },
