@@ -40,6 +40,7 @@ import AllNewsPage from "../Pages/AllNews/AllNews";
 import AllGallery from "../Dashboard/DashboardPages/AllGallery/AllGallery";
 import AllAlumni from "../Dashboard/DashboardPages/Alumni/AllAlumni";
 import MembershipForm from "../Dashboard/DashboardPages/MembershipForm/MembershipForm";
+import Donation from "../sharedComponents/Donation/Donation";
 
 const routes = createBrowserRouter([
   {
@@ -107,6 +108,13 @@ const routes = createBrowserRouter([
       {
         path: "/charity/:id",
         element: <DisplaySingleCharity></DisplaySingleCharity>,
+      },
+      {
+        path: "/charity/donation/:id",
+        loader: async ({ params }) => {
+          return fetch(`http://localhost:8000/charity/donation/${params.id}`);
+        },
+        element: <Donation></Donation>,
       },
       {
         path: "/events/:singleEventId",

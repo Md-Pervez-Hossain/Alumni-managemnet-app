@@ -3,13 +3,12 @@ import DisplayNewsComments from "./DisplayNewsComments";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const ShowNewsComments = ({ data }) => {
+  console.log(data);
   const [newsComments, setNewsComments] = useState([]);
   const [previous, setPrevious] = useState(0);
   const [next, setNext] = useState(10);
   useEffect(() => {
-    fetch(
-      `https://alumni-managemnet-app-server.vercel.app/newsComments/${data._id}`
-    )
+    fetch(`http://localhost:8000/newsComment/${data?._id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -18,7 +17,7 @@ const ShowNewsComments = ({ data }) => {
       .catch((error) => {
         console.log(error);
       });
-  }, [data._id]);
+  }, [data?._id]);
 
   const handleCommentsDelete = (_id) => {
     console.log(_id);
