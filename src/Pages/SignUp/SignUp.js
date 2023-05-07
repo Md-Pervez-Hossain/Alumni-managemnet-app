@@ -10,7 +10,8 @@ import {
 } from "../../features/Api/apiSlice";
 
 const SignUp = () => {
-  const { createUser, updateUserProfile, signInWithGoogle } = useContext(AuthContext);
+  const { createUser, updateUserProfile, signInWithGoogle } =
+    useContext(AuthContext);
 
   // use navigate
   const navigate = useNavigate();
@@ -43,15 +44,19 @@ const SignUp = () => {
     const formData = new FormData();
     formData.append("image", image_url);
 
-    fetch("https://api.imgbb.com/1/upload?key=dd1a5cd35aa9d832298beb50053079da", {
-      method: "POST",
-      body: formData,
-    })
+    fetch(
+      "https://api.imgbb.com/1/upload?key=dd1a5cd35aa9d832298beb50053079da",
+      {
+        method: "POST",
+        body: formData,
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setPhotoURL(data.data.display_url);
         createUser(email, password)
           .then((result) => {
+            toast.success("SuccessFully Signup");
             const userfromData = result.user;
             const user = {
               firstName: firstName,
@@ -93,30 +98,31 @@ const SignUp = () => {
               },
             };
 
+            updateUserProfile({
+              displayName: name,
+              photoURL: photoURL,
+            })
+              .then(() => {})
+              .catch((error) => {
+                console.log(error);
+              });
+
             fetch("https://alumni-managemnet-app-server.vercel.app/alumni", {
               method: "POST",
               body: JSON.stringify(user),
               headers: { "Content-Type": "application/json" },
             })
-              .then((response) => response.json())
-              .then((data) => {
-                reset();
-                toast.success("SuccessFully Signup");
-                navigate(`/dashboard/profile`);
-
-                // updateUserProfile({
-                //   displayName: name,
-                //   photoURL: photoURL,
-                // })
-                //   .then(() => {})
-                //   .catch((error) => {
-                //     console.log(error);
-                //   });
-              })
+              .then((res) => res.json())
+              .then((data) => {})
               .catch((error) => {
                 console.error(error);
               });
+
+            reset();
+
+            navigate(`/dashboard/profile`);
           })
+
           .catch((error) => {
             console.log(error);
             toast.error(error.message);
@@ -146,10 +152,12 @@ const SignUp = () => {
   return (
     <div className=" flex justify-center items-center  bg-accent rounded-lg py-20">
       <div className=" lg:w-3/4 m-2">
-        <h2 className="text-4xl text-primary font-semibold text-center mb-5">Sign Up</h2>
+        <h2 className="text-4xl text-primary font-semibold text-center mb-5">
+          Sign Up
+        </h2>
         <form onSubmit={handleSubmit(handleSignUp)}>
-          <div className="flex gap-2">
-            <div className="w-3/4">
+          <div className="flex flex-col-reverse md:flex-row gap-2">
+            <div className="w-full md:w-3/4">
               <div className="md:grid md:grid-cols-2 gap-5">
                 <div className="form-control ">
                   <label className="label">
@@ -280,7 +288,9 @@ const SignUp = () => {
                     placeholder="Date Of Birth"
                   />
                   {errors.dateOfBirth && (
-                    <p className="text-red-600">{errors.dateOfBirth?.message}</p>
+                    <p className="text-red-600">
+                      {errors.dateOfBirth?.message}
+                    </p>
                   )}
                 </div>
 
@@ -310,7 +320,9 @@ const SignUp = () => {
                   </select>
 
                   {errors.GraduationYear && (
-                    <p className="text-red-600">{errors.GraduationYear?.message}</p>
+                    <p className="text-red-600">
+                      {errors.GraduationYear?.message}
+                    </p>
                   )}
                 </div>
 
@@ -343,27 +355,26 @@ const SignUp = () => {
                 </div>
               </div>
             </div>
-            <div className="w-1/4">
-              <div className="space-y-2 col-span-full lg:col-span-1 flex  justify-center ">
+            <div className="w-full md:w-1/4">
+              <div className="space-y-2 col-span-full lg:col-span-1 flex px-2 justify-center ">
                 <div>
-                  <p className="font-medium">Profile Photo*</p>
-
-                  {/*  */}
-
                   {photo ? (
                     <div className="avatar">
                       <div className="w-42 rounded-full">
-                        <img src={URL.createObjectURL(photo)} />
+                        <img src={URL?.createObjectURL(photo)} alt="" />
                       </div>
                     </div>
                   ) : (
                     <div className="avatar">
                       <div className="w-42 rounded-full">
-                        <img ssrc={user?.photoURL} />
+                        <img
+                          src="https://sbcf.fr/wp-content/uploads/2018/03/sbcf-default-avatar.png"
+                          alt=""
+                        />
                       </div>
                     </div>
                   )}
-
+                  <p className="font-medium text-center">Profile Photo*</p>
                   <input
                     id="address"
                     required
@@ -397,7 +408,9 @@ const SignUp = () => {
           >
             Google
           </button>
-          <button className="text-primary text-lg font-bold mr-5">FaceBook</button>
+          <button className="text-primary text-lg font-bold mr-5">
+            FaceBook
+          </button>
         </div>
 
         <p className="text-center mt-5 mb-10">

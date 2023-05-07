@@ -13,13 +13,13 @@ const Header = () => {
 
   const handleLogout = () => {
     logout()
-      .then(() => { })
+      .then(() => {})
       .catch((error) => {
         console.log(error);
       });
   };
   return (
-    <nav className="bg-primary text-white sticky top-0 z-50 ">
+    <nav className="bg-primary text-white sticky top-0 z-50 print:hidden">
       <div className="w-9/12 mx-auto flex flex-wrap  list-none justify-between items-center py-5 text-xl font-bold">
         <div>
           <Link to="/">
@@ -39,8 +39,9 @@ const Header = () => {
             </>
           )}
           <div
-            className={`  flex justify-center items-center w-full left-0 px-12 py-3 z-50 bg-primary md:bg-transparent  md:px-0  flex-col absolute md:static duration-700 ease-in-out md:flex-row gap-5 ${open ? "top-24" : "top-[-500px]"
-              }`}
+            className={`  flex justify-center items-center w-full left-0 px-12 py-3 z-50 bg-primary md:bg-transparent  md:px-0  flex-col absolute md:static duration-700 ease-in-out md:flex-row gap-5 ${
+              open ? "top-24" : "top-[-500px]"
+            }`}
           >
             <Link to="/">
               <li>Home</li>
@@ -48,10 +49,9 @@ const Header = () => {
             <Link to="/alumni">
               <li>Alumni</li>
             </Link>
-            
-              <MegaMenu />
 
-            
+            <MegaMenu />
+
             <Link to="/events">
               <li>Events</li>
             </Link>
@@ -64,7 +64,6 @@ const Header = () => {
             <Link to="/gallery">
               <li>Gallery</li>
             </Link>
-
 
             {/* new modified  */}
             {!user?.uid ? (
@@ -81,7 +80,10 @@ const Header = () => {
             ) : (
               <>
                 <div className="dropdown lg:dropdown-end text-black">
-                  <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                  <label
+                    tabIndex={0}
+                    className="btn btn-ghost btn-circle avatar"
+                  >
                     <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                       {user?.photoURL ? (
                         <img src={user?.photoURL} />

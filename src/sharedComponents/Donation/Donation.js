@@ -16,9 +16,12 @@ const Donation = () => {
     const cus_add1 = form?.cus_add1.value;
     const cus_city = form?.cus_city.value;
     const cus_state = form?.cus_state.value;
+    const cus_donationAmount = form?.cus_donationAmount.value;
     const cus_postcode = form?.cus_postcode.value;
+    const currency = form?.currency.value;
+    const cus_phone = form?.cus_phone.value;
     const cus_email = form?.cus_email.value;
-    const donerInfo = {
+    const charityDonationInfo = {
       cus_name,
       cus_country,
       cus_add1,
@@ -26,8 +29,29 @@ const Donation = () => {
       cus_state,
       cus_email,
       cus_postcode,
+      cus_phone,
+      cus_donationAmount,
+      currency,
+      donationId: donationInfo?._id,
+      donationTitle: donationInfo?.title,
     };
-    console.log(donerInfo);
+    console.log(charityDonationInfo);
+
+    fetch("http://localhost:8000/charityDonation", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(charityDonationInfo),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        window.location.replace(data?.url);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -139,16 +163,6 @@ const Donation = () => {
                   className="input input-bordered w-full "
                 />
               </div>
-            </div>
-            <div className="form-control w-full mt-5 ">
-              <input
-                type="text"
-                required
-                name="cus_donationId"
-                placeholder="Donation Id"
-                defaultValue={`${donationInfo?.title} , id : ${donationInfo?._id}`}
-                className="input input-bordered w-full "
-              />
             </div>
             <button className="px-6 py-4 mt-5 w-full rounded-lg bg-primary text-white font-semibold">
               Place Donation

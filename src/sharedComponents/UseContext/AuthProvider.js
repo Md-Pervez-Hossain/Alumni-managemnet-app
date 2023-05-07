@@ -29,15 +29,6 @@ const AuthProvider = ({ children }) => {
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  //  Update Name
-  const updateUserProfile = (name, photo) => {
-    setLoading(true);
-    return updateProfile(auth.currentUser, {
-      displayName: name,
-      photoURL: photo,
-    });
-  };
-
   //   Email Verify
   const verifyEmail = () => {
     setLoading(true);
@@ -67,6 +58,23 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return sendPasswordResetEmail(auth, email);
   };
+
+  const updateUserProfile = (user) => {
+    setLoading(true);
+    return updateProfile(auth.currentUser, {
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+    });
+  };
+
+  // //  Update Name
+  // const updateUserProfile = (name, photo) => {
+  //   setLoading(true);
+  //   return updateProfile(auth.currentUser, {
+  //     displayName: name,
+  //     photoURL: photo,
+  //   });
+  // };
 
   useEffect(() => {
     //this part will execute once the component is mounted.

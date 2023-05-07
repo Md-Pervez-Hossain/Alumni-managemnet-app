@@ -41,6 +41,9 @@ import AllGallery from "../Dashboard/DashboardPages/AllGallery/AllGallery";
 import AllAlumni from "../Dashboard/DashboardPages/Alumni/AllAlumni";
 import MembershipForm from "../Dashboard/DashboardPages/MembershipForm/MembershipForm";
 import Donation from "../sharedComponents/Donation/Donation";
+import RegisterPage from "../Pages/SignUp/RegisterPage";
+import PaymentSuccessful from "../sharedComponents/PaymnetSuccessfull/PaymnetSuccessfull";
+import CharityPaymentFail from "../sharedComponents/PaymnetSuccessfull/CharityPaymentFail";
 
 const routes = createBrowserRouter([
   {
@@ -60,6 +63,17 @@ const routes = createBrowserRouter([
       {
         path: "/events",
         element: <Events />,
+      },
+      {
+        path: "/payment/success/:id",
+        loader: ({ params }) => {
+          return fetch(`http://localhost:8000/payment/success/${params.id}`);
+        },
+        element: <PaymentSuccessful></PaymentSuccessful>,
+      },
+      {
+        path: "/payment/fail",
+        element: <CharityPaymentFail></CharityPaymentFail>,
       },
       {
         path: "/successFullStory/:id",
@@ -146,7 +160,7 @@ const routes = createBrowserRouter([
 
       {
         path: "/signup",
-        element: <SignUp></SignUp>,
+        element: <RegisterPage />,
       },
       {
         path: "/newsUpdatePage",
