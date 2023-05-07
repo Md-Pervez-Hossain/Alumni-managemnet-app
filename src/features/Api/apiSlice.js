@@ -136,6 +136,7 @@ export const apiSlice = createApi({
     //  all charity
     getAllCharity: builder.query({
       query: () => `/charity/`,
+      providesTags: ["charity"],
     }),
 
     //  single charity

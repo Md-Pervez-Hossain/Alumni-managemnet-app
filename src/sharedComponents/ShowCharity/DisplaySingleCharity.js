@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Counter from "../Counter/Counter";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import InnerPageHeader from "../InnerPageHeader/InnerPageHeader";
 import { useGetSingleCharityQuery } from "../../features/Api/apiSlice";
 import Loading from "../Loading/Loading";
@@ -83,9 +83,12 @@ const DisplaySingleCharity = () => {
                 Address :{" "}
                 <span className="font-normal">{`${city} ${state} ${country}`}</span>
               </p>
-              <button className="bg-primary px-6 py-2 text-white mt-3">
-                Donation
-              </button>
+              <Link to={`/charity/donation/${_id}`}>
+                {" "}
+                <button className="bg-primary px-6 py-2 text-white mt-3">
+                  Donation
+                </button>
+              </Link>
             </div>
           </div>
           <div>

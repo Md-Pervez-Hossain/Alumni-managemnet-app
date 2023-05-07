@@ -42,8 +42,12 @@ import AllGallery from "../Dashboard/DashboardPages/AllGallery/AllGallery";
 import AllAlumni from "../Dashboard/DashboardPages/Alumni/AllAlumni";
 import EventUpdate from "../Dashboard/DashboardPages/EventUpdate/EventUpdate";
 import MembershipForm from "../Dashboard/DashboardPages/MembershipForm/MembershipForm";
-import CreateCharity from "../Dashboard/DashboardPages/Charity/CreateCharity";
+import Donation from "../sharedComponents/Donation/Donation";
+import RegisterPage from "../Pages/SignUp/RegisterPage";
+import PaymentSuccessful from "../sharedComponents/PaymnetSuccessfull/PaymnetSuccessfull";
+import CharityPaymentFail from "../sharedComponents/PaymnetSuccessfull/CharityPaymentFail";
 import AllCharity from "../Dashboard/DashboardPages/OldAllCharity/AllCharity";
+import CreateCharity from "../Dashboard/DashboardPages/Charity/CreateCharity";
 
 const routes = createBrowserRouter([
   {
@@ -63,6 +67,17 @@ const routes = createBrowserRouter([
       {
         path: "/events",
         element: <Events />,
+      },
+      {
+        path: "/payment/success/:id",
+        loader: ({ params }) => {
+          return fetch(`http://localhost:8000/payment/success/${params.id}`);
+        },
+        element: <PaymentSuccessful></PaymentSuccessful>,
+      },
+      {
+        path: "/payment/fail",
+        element: <CharityPaymentFail></CharityPaymentFail>,
       },
       {
         path: "/successFullStory/:id",
@@ -113,6 +128,13 @@ const routes = createBrowserRouter([
         element: <DisplaySingleCharity></DisplaySingleCharity>,
       },
       {
+        path: "/charity/donation/:id",
+        loader: async ({ params }) => {
+          return fetch(`http://localhost:8000/charity/donation/${params.id}`);
+        },
+        element: <Donation></Donation>,
+      },
+      {
         path: "/events/:singleEventId",
         element: <SingleEvent />,
       },
@@ -152,7 +174,9 @@ const routes = createBrowserRouter([
         path: "/newsUpdate/:id",
         element: <NewsUpdate></NewsUpdate>,
         loader: ({ params }) =>
-          fetch(`https://alumni-managemnet-app-server.vercel.app/news/${params.id}`),
+          fetch(
+            `https://alumni-managemnet-app-server.vercel.app/news/${params.id}`
+          ),
       },
       {
         path: "/eventUpdate/:id",

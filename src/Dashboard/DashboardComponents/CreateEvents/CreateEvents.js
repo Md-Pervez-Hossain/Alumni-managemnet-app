@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
 import {
@@ -20,6 +20,7 @@ const CreateEvents = () => {
     addEvents,
     {
       data: events,
+      isSuccess,
       isLoading: isEventsAddLoading,
       isError: isEventsAddError,
       error: eventsAddError,
@@ -45,15 +46,10 @@ const CreateEvents = () => {
     console.log(category);
     console.log(formData);
 
-    // addEvents({});
-
-    fetch(
-      "https://api.imgbb.com/1/upload?key=dd1a5cd35aa9d832298beb50053079da",
-      {
-        method: "POST",
-        body: formData,
-      }
-    )
+    fetch("https://api.imgbb.com/1/upload?key=dd1a5cd35aa9d832298beb50053079da", {
+      method: "POST",
+      body: formData,
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -68,19 +64,21 @@ const CreateEvents = () => {
           category,
           image_url: data.data.display_url,
         });
-        toast.success("Success Notification!", {
-          position: toast.POSITION.TOP_CENTER,
-        });
-
         form.reset();
       })
       .catch((error) => {
         console.log(error);
-        toast.error(`${error.message}`, {
-          position: toast.POSITION.TOP_LEFT,
-        });
       });
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("Charity created!");
+    } else if (isEventsAddError) {
+      toast.error(eventsAddError.message);
+      console.log(eventsAddError);
+    }
+  }, [isSuccess, isEventsAddError, eventsAddError]);
 
   //  redux fetch event categories
   const {
@@ -134,10 +132,7 @@ const CreateEvents = () => {
     allBatchesOptionsContent = (
       <>
         {allBatches.map((allUniversityNames) => (
-          <option
-            value={allUniversityNames.batchNumber}
-            key={allUniversityNames._id}
-          >
+          <option value={allUniversityNames.batchNumber} key={allUniversityNames._id}>
             {allUniversityNames.batchNumber}
           </option>
         ))}
@@ -168,21 +163,13 @@ const CreateEvents = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-5">
           <div className="form-control w-full ">
-            <select
-              className="select select-bordered "
-              name="eventsBatch"
-              required
-            >
+            <select className="select select-bordered " name="eventsBatch" required>
               <option value="">Select Batch</option>
               {allBatchesOptionsContent}
             </select>
           </div>
           <div className="form-control w-full ">
-            <select
-              className="select select-bordered "
-              name="eventsCategory"
-              required
-            >
+            <select className="select select-bordered " name="eventsCategory" required>
               {eventCategoryNames}
             </select>
           </div>

@@ -18,7 +18,7 @@ const Header = () => {
       });
   };
   return (
-    <nav className="bg-primary text-white sticky top-0 z-50 ">
+    <nav className="bg-primary text-white sticky top-0 z-50 print:hidden">
       <div className="w-9/12 mx-auto flex flex-wrap  list-none justify-between items-center py-5 text-xl font-bold">
         <div>
           <Link to="/">
@@ -79,7 +79,10 @@ const Header = () => {
             ) : (
               <>
                 <div className="dropdown lg:dropdown-end text-black">
-                  <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                  <label
+                    tabIndex={0}
+                    className="btn btn-ghost btn-circle avatar"
+                  >
                     <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                       {user?.photoURL ? (
                         <img src={user?.photoURL} alt="" />
