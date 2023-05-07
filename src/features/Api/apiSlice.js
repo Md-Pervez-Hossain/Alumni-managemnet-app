@@ -5,7 +5,7 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://alumni-managemnet-app-server.vercel.app",
   }),
-  tagTypes: ["alumni", "events", "news", "stroy", "gallery"],
+  tagTypes: ["alumni", "events", "news", "stroy", "gallery", "charity"],
   endpoints: (builder) => ({
     // * Gallery  //
     getGalleries: builder.query({
@@ -133,7 +133,7 @@ export const apiSlice = createApi({
     }),
     // *  CHARITY * //
 
-    //  single charity
+    //  all charity
     getAllCharity: builder.query({
       query: () => `/charity/`,
     }),
@@ -144,7 +144,27 @@ export const apiSlice = createApi({
       query: (id) => `/charity/${id}`,
     }),
 
-    // // extras
+    // add a new Charity
+    addCharity: builder.mutation({
+      query: (data) => ({
+        url: "/charity/",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["charity"],
+    }),
+
+    // edit charity
+    editCharity: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/charity/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["charity"],
+    }),
+
+    // * extras
 
     //  all university names
     getAllUniversityName: builder.query({
@@ -178,6 +198,9 @@ export const {
   //charity
   useGetAllCharityQuery,
   useGetSingleCharityQuery,
+  useAddCharityMutation,
+  useEditCharityMutation,
+
   // NEWS
   useGetaLLNewsQuery,
   useGetSingleNewsQuery,

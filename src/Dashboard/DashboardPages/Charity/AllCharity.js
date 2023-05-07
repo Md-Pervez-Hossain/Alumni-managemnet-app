@@ -1,5 +1,4 @@
 import React from "react";
-import DashboardTable from "../../DashboardComponents/DashboardTable";
 import { Link } from "react-router-dom";
 import Loading from "../../../sharedComponents/Loading/Loading";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
@@ -31,11 +30,7 @@ const AllCharity = () => {
   if (!isCharityLoading && isCharityError) {
     charityContent = <ErrorAlert text={charityError} />;
   }
-  if (
-    !isCharityLoading &&
-    !isCharityError &&
-    charityContentData?.length === 0
-  ) {
+  if (!isCharityLoading && !isCharityError && charityContentData?.length === 0) {
     charityContent = <ErrorAlert text="No Category Find" />;
   }
   if (!isCharityLoading && !isCharityError && charityContentData?.length > 0) {
@@ -54,9 +49,7 @@ const AllCharity = () => {
                   />
                 </div>
                 <div className="flex flex-col justify-center">
-                  <h6 className="mb-0 leading-normal text-sm">
-                    {charity.title}
-                  </h6>
+                  <h6 className="mb-0 leading-normal text-sm">{charity.title}</h6>
                   <p className="mb-0 leading-tight text-xs text-slate-400">
                     {/* john@creative-tim.com */}
                   </p>
@@ -110,10 +103,7 @@ const AllCharity = () => {
                     />
                   </svg>
                 </Link>
-                <Link
-                  to=""
-                  className="font-semibold leading-tight text-xs  px-2 ml-2"
-                >
+                <Link to="" className="font-semibold leading-tight text-xs  px-2 ml-2">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

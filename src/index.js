@@ -20,7 +20,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <AuthProvider>
-        <ToastContainer position="top-center" />
+        {/* <ToastContainer position="top-center" /> */}
         <Toaster />
         <RouterProvider router={routes}>
           <App />

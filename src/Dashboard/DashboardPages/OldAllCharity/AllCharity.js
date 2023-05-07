@@ -22,8 +22,6 @@ const AllCharity = () => {
   }, [user?.email]);
 
   const handleCharityDelete = (_id) => {
-    console.log(_id);
-
     const agree = window.confirm(`Are You Sure ! You want to delete ${_id}`);
     if (agree) {
       fetch(`https://alumni-managemnet-app-server.vercel.app/charity/${_id}`, {
