@@ -9,7 +9,6 @@ import MegaMenu from "./MegaMenu";
 const Header = () => {
   const [open, setOpen] = useState(false);
   const { user, logout } = useContext(AuthContext);
-  console.log(user);
 
   const handleLogout = () => {
     logout()
@@ -86,7 +85,7 @@ const Header = () => {
                   >
                     <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                       {user?.photoURL ? (
-                        <img src={user?.photoURL} />
+                        <img src={user?.photoURL} alt="" />
                       ) : (
                         <img
                           src="https://static.thenounproject.com/png/5572537-200.png"
@@ -103,7 +102,7 @@ const Header = () => {
                     <li>
                       <Link
                         className="active:bg-secondary active:text-primary"
-                        to="/dashboard/profile"
+                        to={`/alumni/${user.email}`}
                       >
                         {user?.displayName}
                       </Link>
@@ -120,7 +119,7 @@ const Header = () => {
                     <li>
                       <Link
                         className="active:bg-secondary active:text-primary"
-                        to="/dashboard/profile"
+                        to={`/dashboard/profile/${user.email}`}
                       >
                         Update Profile
                       </Link>

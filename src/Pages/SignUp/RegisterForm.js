@@ -3,6 +3,7 @@ import { AuthContext } from "../../sharedComponents/UseContext/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import {
+  useAddAlumniMutation,
   useGetAllBatchesQuery,
   useGetAllGraduationMajorQuery,
 } from "../../features/Api/apiSlice";
@@ -80,7 +81,6 @@ const RegisterForm = () => {
     const formData = new FormData();
     formData.append("image", image_url);
 
-    console.log(data);
     fetch("https://api.imgbb.com/1/upload?key=dd1a5cd35aa9d832298beb50053079da", {
       method: "POST",
       body: formData,

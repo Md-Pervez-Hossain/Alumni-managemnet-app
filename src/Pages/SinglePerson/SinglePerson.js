@@ -98,8 +98,22 @@ const SinglePerson = () => {
                     <>
                       {" "}
                       <div className="flex items-center gap-2">
-                        <FaLocationArrow className="text-primary"></FaLocationArrow>
-                        <p> Email : {email}</p>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="w-5 h-5"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
+                          />
+                        </svg>
+
+                        <p> {email}</p>
                       </div>
                     </>
                   ) : (
@@ -109,26 +123,27 @@ const SinglePerson = () => {
                   {phone ? (
                     <>
                       <div className="flex items-center gap-2">
-                        <FaPhone className="text-primary"></FaPhone>{" "}
-                        <p>Phone : {phone}</p>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="w-5 h-5"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M20.25 3.75v4.5m0-4.5h-4.5m4.5 0l-6 6m3 12c-8.284 0-15-6.716-15-15V4.5A2.25 2.25 0 014.5 2.25h1.372c.516 0 .966.351 1.091.852l1.106 4.423c.11.44-.054.902-.417 1.173l-1.293.97a1.062 1.062 0 00-.38 1.21 12.035 12.035 0 007.143 7.143c.441.162.928-.004 1.21-.38l.97-1.293a1.125 1.125 0 011.173-.417l4.423 1.106c.5.125.852.575.852 1.091V19.5a2.25 2.25 0 01-2.25 2.25h-2.25z"
+                          />
+                        </svg>
+
+                        <p> {phone}</p>
                       </div>
                     </>
                   ) : (
                     <></>
                   )}
-
-                  <p>
-                    {phone_2 ? (
-                      <>
-                        <div className="flex items-center gap-2">
-                          <FaPhone className="text-primary"></FaPhone>{" "}
-                          <p>Phone 2 : {phone_2}</p>
-                        </div>
-                      </>
-                    ) : (
-                      <></>
-                    )}
-                  </p>
 
                   <p>
                     {address?.street === "" &&
@@ -138,10 +153,24 @@ const SinglePerson = () => {
                       <></>
                     ) : (
                       <>
-                        <div className="flex items-center gap-2">
-                          <FaAddressCard className="text-primary"></FaAddressCard>{" "}
-                          Address :{" "}
-                          {`${address?.street} ${address?.city} ${address?.state} ${address?.zip}`}
+                        <div className="flex items-start gap-2">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="w-5 h-5"
+                          >
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+                            />
+                          </svg>
+                          <p className="break-words	">
+                            {` ${address?.city} ${address?.state} ${address?.zip}`}
+                          </p>
                         </div>
                       </>
                     )}
@@ -156,8 +185,24 @@ const SinglePerson = () => {
                 <FaGoogle className="text-primary hover:text-secondary duration-500 ease-in-out"></FaGoogle>
                 <FaLinkedin className="text-primary hover:text-secondary duration-500 ease-in-out"></FaLinkedin>
               </div>
-              <button className="bg-primary px-6 py-2 flex gap-2 items-center text-white font-semibold shadow-soft-xl  rounded-md mt-3">
-                <FaRegComment className="inline-block" /> <h2>Message Me</h2>
+              <button className="bg-primary px-6 py-2  items-center text-white font-semibold shadow-soft-xl  rounded-md mt-3">
+                <a href={`mailto: ${email}`} alt="" className="flex gap-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-6 h-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M21.75 9v.906a2.25 2.25 0 01-1.183 1.981l-6.478 3.488M2.25 9v.906a2.25 2.25 0 001.183 1.981l6.478 3.488m8.839 2.51l-4.66-2.51m0 0l-1.023-.55a2.25 2.25 0 00-2.134 0l-1.022.55m0 0l-4.661 2.51m16.5 1.615a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V8.844a2.25 2.25 0 011.183-1.98l7.5-4.04a2.25 2.25 0 012.134 0l7.5 4.04a2.25 2.25 0 011.183 1.98V19.5z"
+                    />
+                  </svg>
+                  <h2>Contact Me</h2>
+                </a>
               </button>
             </div>
           </div>
@@ -227,17 +272,15 @@ const SinglePerson = () => {
                           {personal_information?.languages ? (
                             <>
                               {" "}
-                              {personal_information?.languages?.map(
-                                (language, i) => {
-                                  return (
-                                    <>
-                                      <p key={i} className="inline-block ">
-                                        {language}
-                                      </p>
-                                    </>
-                                  );
-                                }
-                              )}{" "}
+                              {personal_information?.languages?.map((language, i) => {
+                                return (
+                                  <>
+                                    <p key={i} className="inline-block ">
+                                      {language}
+                                    </p>
+                                  </>
+                                );
+                              })}{" "}
                             </>
                           ) : (
                             <></>
@@ -265,9 +308,7 @@ const SinglePerson = () => {
                   <tbody>
                     {
                       <tr>
-                        <th>
-                          {education?.degree ? <>{education?.degree}</> : <></>}
-                        </th>
+                        <th>{education?.degree ? <>{education?.degree}</> : <></>}</th>
                         <td>
                           {education?.institution ? (
                             <> {education?.institution}</>
@@ -275,9 +316,7 @@ const SinglePerson = () => {
                             <></>
                           )}
                         </td>
-                        <td>
-                          {education?.major ? <>{education?.major}</> : <></>}
-                        </td>
+                        <td>{education?.major ? <>{education?.major}</> : <></>}</td>
                         <td>
                           {education?.graduation_year ? (
                             <>{education?.graduation_year}</>
@@ -369,8 +408,14 @@ const SinglePerson = () => {
           <h2 className="md:text-4xl text-2xl mb-5">About {name}</h2>
           <hr className="border-2 w-24 mx-auto border-secondary " />
           <p className="mt-5">
-            There are many company Lorem ipsm dolor sitg amet, csetur adipicing
-            elit, sed do eiusmod tempor
+            {`${name} is a valued member of our alumni community
+            ${
+              personal_information?.blood_group
+                ? `, with a blood group of ${personal_information?.blood_group}`
+                : ""
+            }. Stay connected with ${name} 
+            ${email ? `through their email at ${email}` : ""}
+          `}
           </p>
         </div>
       </div>

@@ -11,6 +11,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import AuthProvider from "./sharedComponents/UseContext/AuthProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Toaster } from "react-hot-toast";
 
 const container = document.getElementById("root");
 const root = createRoot(container);
@@ -20,6 +21,7 @@ root.render(
     <Provider store={store}>
       <AuthProvider>
         <ToastContainer position="top-center" />
+        <Toaster />
         <RouterProvider router={routes}>
           <App />
         </RouterProvider>
