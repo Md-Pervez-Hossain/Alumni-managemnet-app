@@ -37,7 +37,7 @@ const Donation = () => {
     };
     console.log(charityDonationInfo);
 
-    fetch("http://localhost:8000/charityDonation", {
+    fetch("https://alumni-managemnet-app-server.vercel.app/charityDonation", {
       method: "POST",
       headers: {
         "content-type": "application/json",

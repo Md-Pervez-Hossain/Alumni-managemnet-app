@@ -46,6 +46,7 @@ import Donation from "../sharedComponents/Donation/Donation";
 import RegisterPage from "../Pages/SignUp/RegisterPage";
 import PaymentSuccessful from "../sharedComponents/PaymnetSuccessfull/PaymnetSuccessfull";
 import CharityPaymentFail from "../sharedComponents/PaymnetSuccessfull/CharityPaymentFail";
+import TotalCharityDonation from "../sharedComponents/TotalCharityDonation/TotalCharityDonation";
 import AllCharity from "../Dashboard/DashboardPages/OldAllCharity/AllCharity";
 import CreateCharity from "../Dashboard/DashboardPages/Charity/CreateCharity";
 
@@ -70,8 +71,10 @@ const routes = createBrowserRouter([
       },
       {
         path: "/payment/success/:id",
-        loader: ({ params }) => {
-          return fetch(`http://localhost:8000/payment/success/${params.id}`);
+        loader: async ({ params }) => {
+          return fetch(
+            `https://alumni-managemnet-app-server.vercel.app/payment/success/${params.id}`
+          );
         },
         element: <PaymentSuccessful></PaymentSuccessful>,
       },
@@ -143,6 +146,10 @@ const routes = createBrowserRouter([
         path: "/alumni",
         element: <AlumniPage />,
       },
+      {
+        path: "/charityDonation",
+        element: <TotalCharityDonation></TotalCharityDonation>,
+      },
 
       {
         path: "/alumni/batch/:year",
@@ -182,11 +189,10 @@ const routes = createBrowserRouter([
         path: "/eventUpdate/:id",
         element: <EventUpdate></EventUpdate>,
         loader: ({ params }) =>
-          fetch(`https://alumni-managemnet-app-server.vercel.app/events/${params.id}`),
+          fetch(
+            `https://alumni-managemnet-app-server.vercel.app/events/${params.id}`
+          ),
       },
-
-
-
     ],
     errorElement: <ErrorPage></ErrorPage>,
   },
@@ -209,7 +215,10 @@ const routes = createBrowserRouter([
       { path: "/dashboard/events/add-a-event", element: <AddAEvent /> },
 
       { path: "/dashboard/charity", element: <AllCharity></AllCharity> },
-      { path: "/dashboard/charity/add-a-charity", element: <CreateCharity></CreateCharity> },
+      {
+        path: "/dashboard/charity/add-a-charity",
+        element: <CreateCharity></CreateCharity>,
+      },
 
       { path: "/dashboard/gallery/", element: <CreateGallery /> },
 
