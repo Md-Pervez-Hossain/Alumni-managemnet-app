@@ -44,6 +44,7 @@ import Donation from "../sharedComponents/Donation/Donation";
 import RegisterPage from "../Pages/SignUp/RegisterPage";
 import PaymentSuccessful from "../sharedComponents/PaymnetSuccessfull/PaymnetSuccessfull";
 import CharityPaymentFail from "../sharedComponents/PaymnetSuccessfull/CharityPaymentFail";
+import TotalCharityDonation from "../sharedComponents/TotalCharityDonation/TotalCharityDonation";
 
 const routes = createBrowserRouter([
   {
@@ -66,7 +67,7 @@ const routes = createBrowserRouter([
       },
       {
         path: "/payment/success/:id",
-        loader: ({ params }) => {
+        loader: async ({ params }) => {
           return fetch(`http://localhost:8000/payment/success/${params.id}`);
         },
         element: <PaymentSuccessful></PaymentSuccessful>,
@@ -138,6 +139,10 @@ const routes = createBrowserRouter([
       {
         path: "/alumni",
         element: <AlumniPage />,
+      },
+      {
+        path: "/charityDonation",
+        element: <TotalCharityDonation></TotalCharityDonation>,
       },
 
       {
