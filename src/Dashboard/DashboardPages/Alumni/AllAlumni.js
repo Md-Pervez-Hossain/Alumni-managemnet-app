@@ -47,9 +47,12 @@ const AllAlumni = () => {
                   />
                 </div>
                 <div className="flex flex-col justify-center">
-                  <h6 className="mb-0 leading-normal text-sm text-primary">
+                  <Link
+                    to={`/alumni/${charity.email}`}
+                    className="mb-0 leading-normal text-sm text-primary"
+                  >
                     {charity.name}
-                  </h6>
+                  </Link>
                   <a
                     href={`mailto:${charity.email}`}
                     className=" mb-0 leading-tight text-xs text-slate-400"

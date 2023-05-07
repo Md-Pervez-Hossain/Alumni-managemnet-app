@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useForm, Controller } from "react-hook-form";
 import {
   useEditAlumniMutation,
@@ -9,16 +9,21 @@ import {
   useGetSingleAlumniQuery,
 } from "../../../features/Api/apiSlice";
 import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
-import AlertElement from "../../DashboardComponents/AlertElement";
 import { toast } from "react-hot-toast";
+import { useLocation, useParams } from "react-router-dom";
 const MembershipForm = () => {
   const [
     editAlumni,
     { data: alumniData, isLoading, isError, error: editError, isSuccess },
   ] = useEditAlumniMutation();
 
+  const location = useLocation();
+  const pathname = location.pathname.split("/dashboard/profile/")[1];
+
+  console.log(pathname);
+
   const { user } = useContext(AuthContext);
-  const { data: singleAlumni } = useGetSingleAlumniQuery(user.email);
+  const { data: singleAlumni } = useGetSingleAlumniQuery(pathname);
   const { data: universityName } = useGetAllUniversityNameQuery();
   const { data: majorSubject } = useGetAllGraduationMajorQuery();
   const { data: degreeNames } = useGetAllDegreeProgramsQuery();
@@ -40,6 +45,9 @@ const MembershipForm = () => {
     personal_information: initialPersonal_information,
   } = singleAlumni || {};
 
+  console.log(singleAlumni);
+
+  console.log(initialPhone);
   const {
     register,
     handleSubmit,
@@ -177,8 +185,8 @@ const MembershipForm = () => {
                     required: true,
                     pattern: /^\S+@\S+$/i, // regular expression for email validation
                   })}
-                  defaultValue={user?.email || initialEmail}
-                  readOnly
+                  defaultValue={initialEmail}
+                  // readOnly
                   type="text"
                   name="email"
                   id="email"
@@ -199,12 +207,12 @@ const MembershipForm = () => {
               <div class="relative z-0 w-full mb-6 group">
                 <input
                   {...register("mobile", { required: true })}
-                  type="number"
+                  defaultValue={initialPhone}
+                  type="tel"
                   name="mobile"
                   id="floating_phone"
                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
                   placeholder=" "
-                  defaultValue={initialPhone}
                   required
                 />
                 <label
@@ -429,9 +437,16 @@ const MembershipForm = () => {
                   id="bloodGroup"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                 >
-                  <option selected disabled value="">
-                    Gender
+                  <option
+                    selected
+                    disabled={!initialPersonal_information?.gender}
+                    value={initialPersonal_information?.gender}
+                  >
+                    {initialPersonal_information?.gender
+                      ? initialPersonal_information?.gender
+                      : "Gender"}
                   </option>
+
                   <option value="Male">Male</option>
                   <option value="Female">Female</option>
                 </select>
