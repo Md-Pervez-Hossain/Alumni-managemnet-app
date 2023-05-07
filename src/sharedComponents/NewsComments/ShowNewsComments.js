@@ -20,6 +20,29 @@ const ShowNewsComments = ({ data }) => {
       });
   }, [data._id]);
 
+  const handleCommentsDelete = (_id) => {
+    console.log(_id);
+    const agree = window.confirm(`Are You Sure You want To Delete ! ...`);
+    if (agree) {
+      fetch(
+        `https://alumni-managemnet-app-server.vercel.app/newsComments/${_id}`,
+        {
+          method: "DELETE",
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.deletedCount > 0) {
+            const remaining = newsComments.filter(
+              (comments) => comments?._id !== _id
+            );
+            setNewsComments(remaining);
+          }
+        });
+    }
+  };
+
   //newsComments, data._id plese solve iuuse , its not provide real time update
 
   const handlePrevious = () => {
@@ -45,6 +68,7 @@ const ShowNewsComments = ({ data }) => {
             <DisplayNewsComments
               comment={comment}
               keys={comment._id}
+              handleCommentsDelete={handleCommentsDelete}
             ></DisplayNewsComments>
           ))}
         </>

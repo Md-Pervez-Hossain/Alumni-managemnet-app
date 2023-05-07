@@ -5,7 +5,7 @@ import ShowComments from "./ShowComments";
 import { useQuery } from "@tanstack/react-query";
 import { AiFillDislike, AiFillLike } from "react-icons/ai";
 
-const Comments = ({ successFullStoryData }) => {
+const Comments = ({ data }) => {
   const { user } = useContext(AuthContext);
 
   const handleComments = (event) => {
@@ -19,7 +19,7 @@ const Comments = ({ successFullStoryData }) => {
       img: user?.photoURL,
       email: user?.email,
       time,
-      commentsId: successFullStoryData._id,
+      commentsId: data._id,
     };
     console.log(commentsInfo);
     fetch(

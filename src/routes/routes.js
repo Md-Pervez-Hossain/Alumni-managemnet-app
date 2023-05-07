@@ -40,6 +40,7 @@ import AllNewsPage from "../Pages/AllNews/AllNews";
 import AllGallery from "../Dashboard/DashboardPages/AllGallery/AllGallery";
 import AllAlumni from "../Dashboard/DashboardPages/Alumni/AllAlumni";
 import MembershipForm from "../Dashboard/DashboardPages/MembershipForm/MembershipForm";
+import RegisterPage from "../Pages/SignUp/RegisterPage";
 
 const routes = createBrowserRouter([
   {
@@ -97,7 +98,7 @@ const routes = createBrowserRouter([
       },
       {
         path: "/gallery",
-        element: <AllGallery></AllGallery>,
+        element: <AllGalleryImage></AllGalleryImage>,
       },
 
       {
@@ -138,7 +139,7 @@ const routes = createBrowserRouter([
 
       {
         path: "/signup",
-        element: <SignUp></SignUp>,
+        element: <RegisterPage />,
       },
       {
         path: "/newsUpdatePage",
