@@ -68,7 +68,9 @@ const routes = createBrowserRouter([
       {
         path: "/payment/success/:id",
         loader: async ({ params }) => {
-          return fetch(`http://localhost:8000/payment/success/${params.id}`);
+          return fetch(
+            `https://alumni-managemnet-app-server.vercel.app/payment/success/${params.id}`
+          );
         },
         element: <PaymentSuccessful></PaymentSuccessful>,
       },
