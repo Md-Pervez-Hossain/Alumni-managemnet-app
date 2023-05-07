@@ -157,10 +157,9 @@ const routes = createBrowserRouter([
   {
     path: "/dashboard/",
     element: (
-      // <PrivateRoutes>
-
-      <DashboardLayout />
-      // </PrivateRoutes>
+      <PrivateRoutes>
+        <DashboardLayout />
+      </PrivateRoutes>
     ),
     children: [
       { path: "/dashboard/", element: <DashboardMain /> },

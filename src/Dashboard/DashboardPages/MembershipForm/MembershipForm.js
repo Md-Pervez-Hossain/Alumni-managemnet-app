@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { toast } from "react-toastify";
 import {
+  useEditAlumniMutation,
   useGetAllBatchesQuery,
   useGetAllDegreeProgramsQuery,
   useGetAllGraduationMajorQuery,
@@ -9,46 +9,35 @@ import {
   useGetSingleAlumniQuery,
 } from "../../../features/Api/apiSlice";
 import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
+import AlertElement from "../../DashboardComponents/AlertElement";
+import { toast } from "react-hot-toast";
 const MembershipForm = () => {
-  // const [photo, setPhoto] = useState(null);
-  const [userEmail, setUserEmail] = useState(null);
+  const [
+    editAlumni,
+    { data: alumniData, isLoading, isError, error: editError, isSuccess },
+  ] = useEditAlumniMutation();
 
   const { user } = useContext(AuthContext);
-  console.log(user?.email);
-
-  const getUserEmail = async () => {
-    const userEmail = await user?.email;
-    return await userEmail;
-  };
-
-  // getUserEmail(user)
-  //   .then((userEmail) => {
-  //     setUserEmail(userEmail);
-  //   })
-  //   .catch((err) => console.error(err));
-
   const { data: singleAlumni } = useGetSingleAlumniQuery(user.email);
   const { data: universityName } = useGetAllUniversityNameQuery();
   const { data: majorSubject } = useGetAllGraduationMajorQuery();
   const { data: degreeNames } = useGetAllDegreeProgramsQuery();
   const { data: graduationYear } = useGetAllBatchesQuery();
 
-  console.log(singleAlumni);
-
   const {
-    firstName,
-    lastName,
-    profile_picture,
-    name,
-    email,
-    phone,
-    education,
-    graduation_year,
-    degree,
-    department,
-    major,
-    address,
-    personal_information,
+    firstName: initialFirstName,
+    lastName: initialLastName,
+    profile_picture: initialProfile_picture,
+    name: initialName,
+    email: initialEmail,
+    phone: initialPhone,
+    education: initialEducation,
+    graduation_year: initialGraduation_year,
+    degree: initialDegree,
+    department: initialDepartment,
+    major: initialMajor,
+    address: initialAddress,
+    personal_information: initialPersonal_information,
   } = singleAlumni || {};
 
   const {
@@ -121,26 +110,13 @@ const MembershipForm = () => {
         hobbies: [],
       },
     };
-    console.log(userData);
 
-    fetch(`https://alumni-managemnet-app-server.vercel.app/alumni/${data.email}`, {
-      method: "PUT",
-      body: JSON.stringify(userData),
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        toast.success("Success Notification!", {
-          position: toast.POSITION.TOP_CENTER,
-        });
-        console.log("Data updated successfully:", data);
-        // reset();
-      })
-      .catch((error) => {
-        console.error("Error updating data:", error);
-      });
+    editAlumni({
+      email: initialEmail,
+      data: userData,
+    });
+    <>{isSuccess && toast.success(`UPDATED PROFILE`)}</>;
+    <>{isError && toast.error(`Error Updating Profile`)}</>;
   };
 
   return (
@@ -157,7 +133,7 @@ const MembershipForm = () => {
                   name="firstName"
                   id="floating_first_name"
                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
-                  defaultValue={firstName}
+                  defaultValue={initialFirstName}
                   required
                 />
                 <label
@@ -178,7 +154,7 @@ const MembershipForm = () => {
                   id="floating_last_name"
                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
                   placeholder=" "
-                  defaultValue={lastName}
+                  defaultValue={initialLastName}
                   required
                 />
                 <label
@@ -201,7 +177,7 @@ const MembershipForm = () => {
                     required: true,
                     pattern: /^\S+@\S+$/i, // regular expression for email validation
                   })}
-                  defaultValue={user?.email || email}
+                  defaultValue={user?.email || initialEmail}
                   readOnly
                   type="text"
                   name="email"
@@ -228,7 +204,7 @@ const MembershipForm = () => {
                   id="floating_phone"
                   class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-primary focus:outline-none focus:ring-0 focus:border-primary peer"
                   placeholder=" "
-                  defaultValue={phone}
+                  defaultValue={initialPhone}
                   required
                 />
                 <label
@@ -260,12 +236,14 @@ const MembershipForm = () => {
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                 >
                   <option
-                    value={education?.institution ? education?.institution : ""}
+                    value={
+                      initialEducation?.institution ? initialEducation?.institution : ""
+                    }
                     disabled
                     selected
                   >
-                    {education?.institution
-                      ? education?.institution
+                    {initialEducation?.institution
+                      ? initialEducation?.institution
                       : " Select your university"}
                   </option>
                   {universityName &&
@@ -284,8 +262,8 @@ const MembershipForm = () => {
                   id="majorSubject"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                 >
-                  <option value={major ? major : ""} disabled selected>
-                    {major ? major : " Select your major"}
+                  <option value={initialMajor ? initialMajor : ""} disabled selected>
+                    {initialMajor ? initialMajor : " Select your major"}
                   </option>
                   {majorSubject &&
                     majorSubject.map((e) => (
@@ -313,11 +291,13 @@ const MembershipForm = () => {
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                 >
                   <option
-                    value={education?.degree ? education?.degree : ""}
+                    value={initialEducation?.degree ? initialEducation?.degree : ""}
                     disabled
                     selected
                   >
-                    {education?.degree ? education?.degree : " Select your degree"}
+                    {initialEducation?.degree
+                      ? initialEducation?.degree
+                      : " Select your degree"}
                   </option>
 
                   {degreeNames &&
@@ -342,11 +322,13 @@ const MembershipForm = () => {
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                 >
                   <option
-                    value={graduation_year ? graduation_year : ""}
+                    value={initialGraduation_year ? initialGraduation_year : ""}
                     disabled
                     selected
                   >
-                    {graduation_year ? graduation_year : "Select your Graduation Year"}
+                    {initialGraduation_year
+                      ? initialGraduation_year
+                      : "Select your Graduation Year"}
                   </option>
 
                   {graduationYear &&
@@ -366,7 +348,7 @@ const MembershipForm = () => {
               <div class="relative z-0 w-full mb-6 group">
                 <input
                   {...register("fatherName")}
-                  defaultValue={personal_information?.fathers_name}
+                  defaultValue={initialPersonal_information?.fathers_name}
                   type="text"
                   name="fatherName"
                   id="floating_father_name"
@@ -383,7 +365,7 @@ const MembershipForm = () => {
               <div class="relative z-0 w-full mb-6 group">
                 <input
                   {...register("motherName")}
-                  defaultValue={personal_information?.mothers_name}
+                  defaultValue={initialPersonal_information?.mothers_name}
                   type="text"
                   name="motherName"
                   id="floating_mother_name"
@@ -413,9 +395,13 @@ const MembershipForm = () => {
                   id="bloodGroup"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                 >
-                  <option selected disabled value={personal_information?.blood_group}>
-                    {personal_information?.blood_group
-                      ? personal_information?.blood_group
+                  <option
+                    selected
+                    disabled
+                    value={initialPersonal_information?.blood_group}
+                  >
+                    {initialPersonal_information?.blood_group
+                      ? initialPersonal_information?.blood_group
                       : "Blood Group"}
                   </option>
                   <option value="A+">A+</option>
@@ -497,7 +483,7 @@ const MembershipForm = () => {
               <div class="relative z-0 w-full mb-6 group">
                 <input
                   {...register("streetAddress")}
-                  defaultValue={address?.street}
+                  defaultValue={initialAddress?.street}
                   type="text"
                   name="streetAddress"
                   id="floating_street"
@@ -514,7 +500,7 @@ const MembershipForm = () => {
               <div class="relative z-0 w-full mb-6 group">
                 <input
                   {...register("city")}
-                  defaultValue={address?.city}
+                  defaultValue={initialAddress?.city}
                   type="text"
                   name="city"
                   id="floating_city"
@@ -534,7 +520,7 @@ const MembershipForm = () => {
               <div class="relative z-0 w-full mb-6 group">
                 <input
                   {...register("stateName")}
-                  defaultValue={address?.state}
+                  defaultValue={initialAddress?.state}
                   type="text"
                   name="stateName"
                   id="floating_state"
@@ -551,7 +537,7 @@ const MembershipForm = () => {
               <div class="relative z-0 w-full mb-6 group">
                 <input
                   {...register("zipCode")}
-                  defaultValue={address?.zip}
+                  defaultValue={initialAddress?.zip}
                   type="number"
                   name="zipCode"
                   id="floating_zip"
@@ -569,19 +555,20 @@ const MembershipForm = () => {
 
             {/* submit button */}
             <button
+              disabled={isLoading}
               type="submit"
               class="text-white bg-primary hover:bg-primary focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-primary dark:hover:bg-primary dark:focus:ring-primary"
             >
-              Submit
+              Update Profile
             </button>
           </div>
           <div className="w-full md:w-1/4">
             <div className="space-y-2 col-span-full lg:col-span-1 flex  justify-center ">
               <div>
                 <p className="font-medium">Photo *</p>
-                {profile_picture ? (
+                {initialProfile_picture ? (
                   <img
-                    src={profile_picture}
+                    src={initialProfile_picture}
                     alt="user"
                     className="object-cover mb-6 rounded shadow-lg h-28 sm:h-48 xl:h-56 w-28 sm:w-48 xl:w-56"
                   />
@@ -608,7 +595,7 @@ const MembershipForm = () => {
         </div>
       </form>
 
-      <h1 className="text-xl">OLD</h1>
+      {/* {isError && <AlertElement text="error"></AlertElement>} */}
     </section>
   );
 };

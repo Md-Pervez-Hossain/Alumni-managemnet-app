@@ -1,5 +1,5 @@
 import React from "react";
-import Alert from "../DashboardComponents/Alert";
+import AlertElement from "../DashboardComponents/AlertElement";
 import AvatarRounder from "../DashboardComponents/AvatarRounder";
 import StatsCard from "../DashboardComponents/StatsCard";
 import ProfileProjectCards from "../DashboardComponents/ProfileProjectCards";
@@ -9,7 +9,7 @@ const DashboardTestPage = () => {
   const increment = 55;
   return (
     <div className="flex flex-col align-middle mb-5 pb-5 gap-5 items-center">
-      <Alert text="warning"></Alert>
+      <AlertElement text="warning"></AlertElement>
       <AvatarRounder />
       <StatsCard
         icon="fa-solid fa-coins"

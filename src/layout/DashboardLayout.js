@@ -10,7 +10,6 @@ const DashboardLayout = () => {
   const location = useLocation();
   const isActive = location.pathname === "/dashboard";
   const elementRef = useRef(null);
-
   const pathname = location.pathname;
   console.log(pathname);
 
