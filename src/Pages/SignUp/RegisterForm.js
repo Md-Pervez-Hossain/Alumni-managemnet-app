@@ -28,6 +28,9 @@ const RegisterForm = () => {
   const [photo, setPhoto] = useState(null);
   const [photoURL, setPhotoURL] = useState(null);
 
+  const [addAlumni, { data, isSuccess, isError, isLoading, error }] =
+    useAddAlumniMutation();
+
   // use navigate
   const navigate = useNavigate();
 
@@ -65,6 +68,14 @@ const RegisterForm = () => {
     dispatch(addGraduationYear(data));
   };
 
+  const handleSaveAlumniToDB = (data) => {
+    addAlumni(data);
+    if (isSuccess) {
+      reset();
+      navigate(`/dashboard/profile/${data.email}`);
+    }
+  };
+
   const handleSignUp = (data) => {
     const firstName = data.firstName;
     const lastName = data.lastName;
@@ -76,7 +87,6 @@ const RegisterForm = () => {
     const graduation_year = data.GraduationYear;
     const major = data.major;
     const phone = data.phone;
-
     const image_url = data.image[0];
     const formData = new FormData();
     formData.append("image", image_url);
@@ -136,25 +146,13 @@ const RegisterForm = () => {
               displayName: name,
               photoURL: photoURL,
             })
-              .then(() => {})
+              .then(() => {
+                // addAlumni(user);
+                handleSaveAlumniToDB(user);
+              })
               .catch((error) => {
                 console.log(error);
               });
-
-            fetch("https://alumni-managemnet-app-server.vercel.app/alumni", {
-              method: "POST",
-              body: JSON.stringify(user),
-              headers: { "Content-Type": "application/json" },
-            })
-              .then((res) => res.json())
-              .then((data) => {})
-              .catch((error) => {
-                console.error(error);
-              });
-
-            reset();
-
-            navigate(`/dashboard/profile`);
           })
 
           .catch((error) => {
@@ -174,7 +172,6 @@ const RegisterForm = () => {
     signInWithGoogle()
       .then((result) => {
         const user = result.user;
-        console.log(user);
         toast.success("SuccessFully  Signup");
       })
       .catch((error) => {
@@ -189,11 +186,11 @@ const RegisterForm = () => {
         {/* <div className="flex flex-col items-center min-h-screen pt-6 sm:justify-center sm:pt-0 "> */}
         <div className="w-full px-6 py-4 mt-6 overflow-hidden bg-white shadow-md sm:rounded-lg">
           <form onSubmit={handleSubmit(handleSignUp)}>
-            <div class="grid gap-6 mb-6 md:grid-cols-2">
+            <div className="grid gap-6 mb-6 md:grid-cols-2">
               <div>
                 <label
                   for="first_name"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   First name
                 </label>
@@ -204,7 +201,7 @@ const RegisterForm = () => {
                   onKeyUp={(e) => setFirstName(e.target.value)}
                   type="text"
                   id="first_name"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                   placeholder="John"
                   required
                 />
@@ -215,7 +212,7 @@ const RegisterForm = () => {
               <div>
                 <label
                   for="last_name"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Last name
                 </label>
@@ -226,7 +223,7 @@ const RegisterForm = () => {
                   })}
                   type="text"
                   id="last_name"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                   placeholder="Doe"
                   required
                 />
@@ -237,7 +234,7 @@ const RegisterForm = () => {
               <div>
                 <label
                   for="EmailAddress"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Email Address
                 </label>
@@ -248,7 +245,7 @@ const RegisterForm = () => {
                     required: "Email Address is required",
                   })}
                   id="EmailAddress"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                   placeholder="your@email.com"
                   required
                 />
@@ -257,7 +254,7 @@ const RegisterForm = () => {
               <div>
                 <label
                   for="phone"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Phone number
                 </label>
@@ -268,7 +265,7 @@ const RegisterForm = () => {
                   })}
                   type="tel"
                   id="phone"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                   placeholder="123-4567-8910"
                   required
                 />
@@ -277,7 +274,7 @@ const RegisterForm = () => {
               <div>
                 <label
                   for="bloodGroup"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Select your blood group
                 </label>
@@ -287,7 +284,7 @@ const RegisterForm = () => {
                   {...register("bloodGroup", {
                     required: "blood Group is required",
                   })}
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                 >
                   <option value="A+">A+</option>
                   <option value="A-">A-</option>
@@ -306,7 +303,7 @@ const RegisterForm = () => {
               <div>
                 <label
                   for="dateOfBirth"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Date Of Birth
                 </label>
@@ -316,7 +313,7 @@ const RegisterForm = () => {
                     required: "Date of Birth is required",
                   })}
                   id="dateOfBirth"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                   placeholder=""
                   required
                 />
@@ -325,7 +322,7 @@ const RegisterForm = () => {
               <div>
                 <label
                   for="GraduationYear"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Graduation Year
                 </label>
@@ -335,7 +332,7 @@ const RegisterForm = () => {
                   {...register("GraduationYear", {
                     required: "Student of years required",
                   })}
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                 >
                   {graduationYear &&
                     graduationYear.map((e) => (
@@ -352,7 +349,7 @@ const RegisterForm = () => {
               <div>
                 <label
                   for="major"
-                  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Major Subject
                 </label>
@@ -362,7 +359,7 @@ const RegisterForm = () => {
                   {...register("major", {
                     required: "Major Subject is required",
                   })}
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                 >
                   {majorSubject &&
                     majorSubject.map((e) => (
@@ -380,7 +377,7 @@ const RegisterForm = () => {
 
             <div>
               <label
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 for="file_input"
               >
                 Upload file
@@ -390,12 +387,12 @@ const RegisterForm = () => {
                   required: "Image is required",
                 })}
                 onChange={(e) => setProfilePhoto(e.target.files[0])}
-                class="file-input block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                className="file-input block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                 id="file_input"
                 type="file"
               />
               <p
-                class="mt-1 text-sm text-gray-500 dark:text-gray-300"
+                className="mt-1 text-sm text-gray-500 dark:text-gray-300"
                 id="file_input_help"
               >
                 SVG, PNG, JPG or GIF (MAX. 800x400px).
@@ -404,10 +401,10 @@ const RegisterForm = () => {
               {errors.file && <p className="text-red-600">{errors.file?.message}</p>}
             </div>
 
-            <div class="mb-6">
+            <div className="mb-6">
               <label
                 for="password"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Password
               </label>
@@ -417,44 +414,44 @@ const RegisterForm = () => {
                 })}
                 type="password"
                 id="password"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                 placeholder="•••••••••"
                 required
               />
             </div>
-            {/* <div class="mb-6">
+            {/* <div className="mb-6">
               <label
                 for="confirm_password"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
               >
                 Confirm password
               </label>
               <input
                 type="password"
                 id="confirm_password"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary dark:focus:border-primary"
                 placeholder="•••••••••"
                 required
               />
             </div> */}
-            <div class="flex items-start mb-6">
-              <div class="flex items-center h-5">
+            <div className="flex items-start mb-6">
+              <div className="flex items-center h-5">
                 <input
                   id="remember"
                   type="checkbox"
                   value=""
-                  class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-secondary dark:ring-offset-gray-800"
+                  className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-secondary dark:ring-offset-gray-800"
                   required
                 />
               </div>
               <label
                 for="remember"
-                class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
               >
                 I agree with the{" "}
                 <a
                   href="#"
-                  class="text-primary font-semibold hover:underline dark:text-primary"
+                  className="text-primary font-semibold hover:underline dark:text-primary"
                 >
                   terms and conditions
                 </a>
@@ -462,8 +459,9 @@ const RegisterForm = () => {
               </label>
             </div>
             <button
+              disabled={isLoading}
               type="submit"
-              class="text-white bg-primary hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-secondary dark:hover:bg-primary dark:focus:ring-blue-800"
+              className="text-white bg-primary hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-secondary dark:hover:bg-primary dark:focus:ring-blue-800"
             >
               Submit
             </button>

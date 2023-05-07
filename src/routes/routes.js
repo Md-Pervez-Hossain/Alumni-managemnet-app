@@ -23,7 +23,7 @@ import BatchWiseStudent from "../Pages/BatchwiseStudent/BatchwiseStudent";
 import DisplaySingleCharity from "../sharedComponents/ShowCharity/DisplaySingleCharity";
 import AllGalleryImage from "../Pages/Home/Gallery/AllGalleryImage";
 import PrivateRoutes from "./PrivateRoutes";
-import NewsCreateForm from "../Dashboard/DashboardComponents/NewsCreateForm/NewsCreateForm";
+import NewsCreateForm from "../Dashboard/DashboardPages/News/NewsCreateForm";
 import CreateGallery from "../Dashboard/DashboardPages/CreateGallery/CreateGallery";
 import CreateSuccessFullStory from "../Dashboard/DashboardPages/CreateSuccessFullStory/CreateSuccessFullStory";
 import SingleSuccessFullStory from "../Pages/singleSuccessfulStory/SingleSuccessFullStory";
@@ -183,17 +183,13 @@ const routes = createBrowserRouter([
         path: "/newsUpdate/:id",
         element: <NewsUpdate></NewsUpdate>,
         loader: ({ params }) =>
-          fetch(
-            `https://alumni-managemnet-app-server.vercel.app/news/${params.id}`
-          ),
+          fetch(`https://alumni-managemnet-app-server.vercel.app/news/${params.id}`),
       },
       {
         path: "/eventUpdate/:id",
         element: <EventUpdate></EventUpdate>,
         loader: ({ params }) =>
-          fetch(
-            `https://alumni-managemnet-app-server.vercel.app/events/${params.id}`
-          ),
+          fetch(`https://alumni-managemnet-app-server.vercel.app/events/${params.id}`),
       },
     ],
     errorElement: <ErrorPage></ErrorPage>,
@@ -211,7 +207,7 @@ const routes = createBrowserRouter([
       { path: "/dashboard/alumni/", element: <AllAlumni /> },
 
       { path: "/dashboard/news/", element: <AllNews /> },
-      { path: "/dashboard/news/add-a-news", element: <AddAEvent /> },
+      { path: "/dashboard/news/add-a-news", element: <NewsCreateForm /> },
 
       { path: "/dashboard/events", element: <AllEvents /> },
       { path: "/dashboard/events/add-a-event", element: <AddAEvent /> },

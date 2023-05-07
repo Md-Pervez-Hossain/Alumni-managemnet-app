@@ -154,7 +154,7 @@ const DashboardLayout = () => {
                       : "bg-transparent text-slate-700"
                   }`}
                 >
-                  <i class="fa-solid fa-right-from-bracket"></i>
+                  <i className="fa-solid fa-right-from-bracket"></i>
                 </div>
                 <span
                   className={`text-white ml-1 duration-300 opacity-100 pointer-events-none ease-soft text-slate-500 font-sans`}
