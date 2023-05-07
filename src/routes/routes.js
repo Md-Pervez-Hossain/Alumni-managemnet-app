@@ -173,7 +173,7 @@ const routes = createBrowserRouter([
 
       {
         path: "/signup",
-        element: <SignUp></SignUp>,
+        element: <RegisterPage />,
       },
       {
         path: "/newsUpdatePage",
