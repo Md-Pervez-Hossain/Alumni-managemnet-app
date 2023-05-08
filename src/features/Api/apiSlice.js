@@ -6,34 +6,49 @@ export const apiSlice = createApi({
     baseUrl: "https://alumni-managemnet-app-server.vercel.app",
     // baseUrl: "http://localhost:8000/",
   }),
-  tagTypes: ["alumni", "events", "news", "stroy", "gallery", "charity"],
+  tagTypes: [
+    "alumni",
+    "person",
+    "events",
+    "event",
+    "allNews",
+    "news",
+    "stories",
+    "story",
+    "galleries",
+    "gallery",
+    "charities",
+    "charity",
+  ],
   endpoints: (builder) => ({
     // * Gallery  //
     getGalleries: builder.query({
       query: () => "/galleries ",
+      providesTags: ["galleries"],
     }),
     getCategoryWiseGallery: builder.query({
       query: (id) => `/galleryCategories/${id}`,
     }),
-    // /galleryCategories/:id GET endpoint that returns a single gallery category data based on the id parameter
-    // /galleries/batch/:batchNumber GET endpoint that returns gallery data based on batch number
-    // /galleries/:id GET endpoint that returns gallery data based on category ID
+
     getGalleryCategories: builder.query({
       query: () => "/galleryCategories",
     }),
     getGalleriesFeatured: builder.query({
       query: () => "/galleries/featured",
+      providesTags: ["galleries"],
     }),
     getGalleriesTrending: builder.query({
       query: () => "/galleries/trending ",
+      providesTags: ["galleries"],
     }),
 
     // BatchWise Gallery data
     getBatchWiseGallery: builder.query({
       query: (id) => `/galleries/batch/${id}`,
+      providesTags: ["galleries"],
     }),
 
-    // // EVENTS  //
+    //* EVENTS  //
 
     // get all events
     getEvents: builder.query({
@@ -44,6 +59,18 @@ export const apiSlice = createApi({
     //  batchWise events data
     getBatchWiseEvents: builder.query({
       query: (id) => `/events/batch/${id}`,
+      providesTags: ["events"],
+    }),
+
+    //  single event
+    getSingleEvent: builder.query({
+      query: (id) => `/events/${id}`,
+      providesTags: (result, error, arg) => [{ type: "event", id: arg }],
+    }),
+
+    // events categories
+    getEventsCategories: builder.query({
+      query: () => "/eventCategories",
     }),
 
     // create event
@@ -56,18 +83,6 @@ export const apiSlice = createApi({
       invalidatesTags: ["events"],
     }),
 
-    //  single event
-    getSingleEvent: builder.query({
-      query: (id) => `/events/${id}`,
-    }),
-
-    // events categories
-    getEventsCategories: builder.query({
-      query: () => "/eventCategories",
-    }),
-
-    //  /event/delete/
-
     //   Edit a  event
     editEvent: builder.mutation({
       query: ({ id, data }) => ({
@@ -76,7 +91,7 @@ export const apiSlice = createApi({
         body: data,
       }),
 
-      invalidatesTags: ["events"],
+      invalidatesTags: (result, error, arg) => ["events", { type: "event", id: arg.id }],
     }),
 
     /// delete a event
@@ -91,11 +106,12 @@ export const apiSlice = createApi({
     // // news
     getaLLNews: builder.query({
       query: () => "/news",
-      providesTags: ["news"],
+      providesTags: ["allNews"],
     }),
 
     getSingleNews: builder.query({
       query: (id) => `/news/${id}`,
+      providesTags: (result, error, arg) => [{ type: "news", id: arg }],
     }),
 
     getNewsCategories: builder.query({
@@ -109,7 +125,7 @@ export const apiSlice = createApi({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["news"],
+      invalidatesTags: ["allNews"],
     }),
 
     //  Edit a  NEWS
@@ -119,7 +135,7 @@ export const apiSlice = createApi({
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: ["news"],
+      invalidatesTags: (result, error, arg) => ["allNews", { type: "news", id: arg.id }],
     }),
 
     /// delete a news
@@ -128,7 +144,7 @@ export const apiSlice = createApi({
         url: `/news/delete/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["news"],
+      invalidatesTags: ["allNews"],
     }),
 
     // * Alumni * //
@@ -142,11 +158,13 @@ export const apiSlice = createApi({
     // yearWise Alumni Data
     getYearWiseAlumni: builder.query({
       query: (id) => `/alumni/batch/${id}`,
+      providesTags: ["alumni"],
     }),
 
     // single Alumni Data
     getSingleAlumni: builder.query({
       query: (email) => `/alumni/${email}`,
+      providesTags: (result, error, arg) => [{ type: "person", id: arg }],
     }),
 
     // add a new Alumni
@@ -166,7 +184,10 @@ export const apiSlice = createApi({
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: ["alumni"],
+      invalidatesTags: (result, error, arg) => [
+        "alumni",
+        { type: "person", id: arg.email },
+      ],
     }),
 
     deleteAlumni: builder.mutation({
@@ -182,33 +203,66 @@ export const apiSlice = createApi({
     // All  successful stories Data
     getAllSuccessfulStories: builder.query({
       query: () => "/successFullStory",
+      providesTags: ["stories"],
     }),
     // All  successful stories Data of a  user, based on email
     getAllSuccessfulStoriesOfAUser: builder.query({
       query: (email) => `/successFullStory/email/${email}`,
+      providesTags: ["stories"],
     }),
 
     //  single successful stories
     getSingleSuccessfulStories: builder.query({
       query: (id) => `/successFullStory/${id}`,
+      providesTags: (result, error, arg) => [{ type: "story", id: arg }],
     }),
+
+    // add a successful stories
+    addSuccessfulStories: builder.mutation({
+      query: (data) => ({
+        url: "/successFullStory/",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["stories"],
+    }),
+
+    // edit successful stories
+    editSuccessfulStories: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/successFullStory/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: (result, error, arg) => ["stories", { type: "story", id: arg.id }],
+    }),
+
+    // delete stroy
+    deleteSuccessfulStories: builder.mutation({
+      query: (id) => ({
+        url: `/successFullStory/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["stories"],
+    }),
+
     // *  CHARITY * //
 
     //  all charity
     getAllCharity: builder.query({
       query: () => `/charity/`,
-      providesTags: ["charity"],
+      providesTags: ["charities"],
     }),
     // get individual  all charity
     getIndividualAllCharity: builder.query({
       query: (email) => `/charity/email/${email}`,
-      providesTags: ["charity"],
+      providesTags: ["charities"],
     }),
 
     //  single charity
-
     getSingleCharity: builder.query({
       query: (id) => `/charity/${id}`,
+      providesTags: (result, error, arg) => [{ type: "charity", id: arg }],
     }),
 
     // add a new Charity
@@ -218,7 +272,7 @@ export const apiSlice = createApi({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["charity"],
+      invalidatesTags: ["charities"],
     }),
 
     // edit charity
@@ -228,7 +282,10 @@ export const apiSlice = createApi({
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: ["charity"],
+      invalidatesTags: (result, error, arg) => [
+        "charities",
+        { type: "charity", id: arg.id },
+      ],
     }),
 
     deleteCharity: builder.mutation({
@@ -236,7 +293,7 @@ export const apiSlice = createApi({
         url: `/charity/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["charity"],
+      invalidatesTags: ["charities"],
     }),
 
     // * extras
@@ -269,7 +326,9 @@ export const {
   useGetAllSuccessfulStoriesQuery,
   useGetAllSuccessfulStoriesOfAUserQuery,
   useGetSingleSuccessfulStoriesQuery,
-
+  useAddSuccessfulStoriesMutation,
+  useEditSuccessfulStoriesMutation,
+  useDeleteSuccessfulStoriesMutation,
   //charity
   useGetAllCharityQuery,
   useGetSingleCharityQuery,

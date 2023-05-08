@@ -25,18 +25,18 @@ import AllGalleryImage from "../Pages/Home/Gallery/AllGalleryImage";
 import PrivateRoutes from "./PrivateRoutes";
 import NewsCreateForm from "../Dashboard/DashboardPages/News/NewsCreateForm";
 import CreateGallery from "../Dashboard/DashboardPages/CreateGallery/CreateGallery";
-import CreateSuccessFullStory from "../Dashboard/DashboardPages/CreateSuccessFullStory/CreateSuccessFullStory";
+import CreateSuccessFullStory from "../Dashboard/DashboardPages/successFullStory/CreateSuccessFullStory";
 import SingleSuccessFullStory from "../Pages/singleSuccessfulStory/SingleSuccessFullStory";
 // import CreateCharity from "../Dashboard/DashboardPages/CreateCharity/CreateCharity";
 import AllEvents from "../Dashboard/DashboardPages/Events/AllEvents";
-import UpdateStory from "../sharedComponents/UpdateStory/UpdateStory";
+import UpdateSuccessFullStory from "../Dashboard/DashboardPages/successFullStory/updateSuccessFullStory";
 import UpdateCharity from "../Dashboard/DashboardPages/Charity/UpdateCharity";
 import UpdateGallery from "../sharedComponents/UpdateGallery/UpdateGallery";
 import NewsUpdatePage from "../sharedComponents/NewsUpdatePage/NewsUpdatePage";
 import NewsUpdate from "../Dashboard/DashboardPages/News/NewsUpdate";
 // import AllCharity from "../Dashboard/DashboardPages/CreateCharity/AllCharity";
 import AllNews from "../Dashboard/DashboardPages/News/AllNews";
-import AllSuccessFullStory from "../Dashboard/DashboardPages/AllSuccessFullStory/AllSuccessFullStory";
+import AllSuccessFullStory from "../Dashboard/DashboardPages/successFullStory/AllSuccessFullStory";
 import AllNewsPage from "../Pages/AllNews/AllNews";
 import AllGallery from "../Dashboard/DashboardPages/AllGallery/AllGallery";
 import AllAlumni from "../Dashboard/DashboardPages/Alumni/AllAlumni";
@@ -85,15 +85,6 @@ const routes = createBrowserRouter([
       {
         path: "/successFullStory/:id",
         element: <SingleSuccessFullStory></SingleSuccessFullStory>,
-      },
-      {
-        path: "/updateStory/:id",
-        loader: async ({ params }) => {
-          return fetch(
-            `https://alumni-managemnet-app-server.vercel.app/successFullStory/${params.id}`
-          );
-        },
-        element: <UpdateStory></UpdateStory>,
       },
 
       {
@@ -167,27 +158,26 @@ const routes = createBrowserRouter([
         path: "/signup",
         element: <RegisterPage />,
       },
-      {
-        path: "/newsUpdatePage",
-        element: <NewsUpdatePage></NewsUpdatePage>,
-      },
+      // {
+      //   path: "/newsUpdatePage",
+      //   element: <NewsUpdatePage></NewsUpdatePage>,
+      // },
 
-      {
-        path: "/eventUpdate/:id",
-        element: <EventUpdate></EventUpdate>,
-        loader: ({ params }) =>
-          fetch(`https://alumni-managemnet-app-server.vercel.app/events/${params.id}`),
-      },
+      // {
+      //   path: "/eventUpdate/:id",
+      //   element: <EventUpdate></EventUpdate>,
+      //   loader: ({ params }) =>
+      //     fetch(`https://alumni-managemnet-app-server.vercel.app/events/${params.id}`),
+      // },
     ],
     errorElement: <ErrorPage></ErrorPage>,
   },
   {
     path: "/dashboard/",
     element: (
-      // <PrivateRoutes>
-
-      <DashboardLayout />
-      // </PrivateRoutes>
+      <PrivateRoutes>
+        <DashboardLayout />
+      </PrivateRoutes>
     ),
     children: [
       { path: "/dashboard/", element: <DashboardMain /> },
@@ -215,11 +205,6 @@ const routes = createBrowserRouter([
       },
       {
         path: "/dashboard/charity/edit/:id",
-        loader: async ({ params }) => {
-          return fetch(
-            `https://alumni-managemnet-app-server.vercel.app/charity/${params.id}`
-          );
-        },
         element: <UpdateCharity></UpdateCharity>,
       },
 
@@ -231,9 +216,20 @@ const routes = createBrowserRouter([
         path: "/dashboard/successfulStory/",
         element: <AllSuccessFullStory />,
       },
+      // create a new  Successful story
       {
         path: "/dashboard/successfulStory/add-a-successfulStory",
         element: <CreateSuccessFullStory />,
+      },
+
+      {
+        path: "/dashboard/successfulStory/edit/:id",
+        loader: async ({ params }) => {
+          return fetch(
+            `https://alumni-managemnet-app-server.vercel.app/successFullStory/${params.id}`
+          );
+        },
+        element: <UpdateSuccessFullStory></UpdateSuccessFullStory>,
       },
 
       { path: "/dashboard/Checkout/", element: <CheckoutPage /> },
