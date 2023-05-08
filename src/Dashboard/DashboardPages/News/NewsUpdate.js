@@ -1,15 +1,14 @@
 import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import ErrorAlert from "../Skeletion/ErrorAlert";
-import ButtonSizeSkeletion from "../Skeletion/ButtonSizeSkeletion";
+import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
+import ButtonSizeSkeletion from "../../../sharedComponents/Skeletion/ButtonSizeSkeletion";
 import {
   useEditNewsMutation,
   useGetNewsCategoriesQuery,
   useGetSingleNewsQuery,
-} from "../../features/Api/apiSlice";
-import { AuthContext } from "../UseContext/AuthProvider";
+} from "../../../features/Api/apiSlice";
+import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
 import { toast } from "react-hot-toast";
-import { cloneWith } from "lodash";
 
 const NewsUpdate = () => {
   const { user } = useContext(AuthContext);
@@ -95,8 +94,6 @@ const NewsUpdate = () => {
   const selectedNewsCategories = newsCategories?.find(
     (news) => news?._id === NewsCategory
   );
-
-  console.log(selectedNewsCategories?.categoryName);
 
   let newsNameContent;
 

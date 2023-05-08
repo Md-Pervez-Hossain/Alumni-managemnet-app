@@ -1,18 +1,29 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Loading from "../../../sharedComponents/Loading/Loading";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
-import { useGetAllCharityQuery } from "../../../features/Api/apiSlice";
+import {
+  useDeleteCharityMutation,
+  useGetAllCharityQuery,
+  useGetIndividualAllCharityQuery,
+} from "../../../features/Api/apiSlice";
+import { toast } from "react-hot-toast";
 
 const AllCharity = () => {
   const tableHeading = [
     { name: "Title", id: 1 },
-    { name: "Target", id: 2 },
     { name: "Location", id: 3 },
     { name: "Batch", id: 4 },
-    { name: "Target ", id: 5 },
+    { name: "Target", id: 2 },
+    { name: "Collected ", id: 5 },
     { name: "Date ", id: 6 },
   ];
+
+  // const userRole = "admin";
+
+  // if (userRole === "admin") {
+  //
+  // } else {
 
   const {
     data: charityContentData,
@@ -20,8 +31,52 @@ const AllCharity = () => {
     isError: isCharityError,
     error: charityError,
   } = useGetAllCharityQuery();
-  console.log(charityContentData);
 
+  const dateConvert = (dateString) => {
+    const options = {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat("en-US", options).format(date);
+  };
+
+  //
+
+  // mutation for deleting data
+  const [
+    deleteAlumni,
+    {
+      data,
+      isSuccess: isDeleteSuccess,
+      isLoading: isDeleteLoading,
+      isError: isDeleteError,
+      error: errorDelete,
+    },
+  ] = useDeleteCharityMutation();
+
+  // delete function handler
+  const handleDelete = (_id) => {
+    const confirmDelete = window.confirm("do you want to delete?");
+    if (confirmDelete) {
+      deleteAlumni(_id);
+    }
+  };
+  // re render components on status change
+  useEffect(() => {
+    if (isDeleteSuccess) {
+      toast.success("Successfully toasted!");
+    }
+    if (isDeleteError) {
+      toast.error(errorDelete.message);
+    }
+  }, [errorDelete, isDeleteError, isDeleteSuccess]);
+
+  //
   let charityContent;
 
   if (isCharityLoading && !isCharityError) {
@@ -38,7 +93,7 @@ const AllCharity = () => {
       <>
         {" "}
         {charityContentData?.map((charity) => (
-          <tr>
+          <tr className="">
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               <div className="flex px-2 py-1">
                 <div>
@@ -49,21 +104,22 @@ const AllCharity = () => {
                   />
                 </div>
                 <div className="flex flex-col justify-center">
-                  <h6 className="mb-0 leading-normal text-sm">{charity.title}</h6>
+                  <Link to={`/charity/${charity?._id}`}>
+                    <p className="mb-0 leading-normal text-sm break-normal">
+                      {charity.title?.slice(0, 50)}
+                    </p>
+                  </Link>
                   <p className="mb-0 leading-tight text-xs text-slate-400">
                     {/* john@creative-tim.com */}
                   </p>
                 </div>
               </div>
             </td>
-            <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-              {/* <p className="mb-0 font-semibold leading-tight text-xs">{event.location}</p> */}
-              <p className="mb-0 leading-tight text-xs text-slate-400">
-                {charity.goal_amount}
-              </p>
-            </td>
+
             <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
-              <p className="mb-0 leading-tight text-xs text-slate-400">{` ${charity.state}, ${charity.city}, ${charity.country}  `}</p>
+              <p className="mb-0 leading-tight text-xs text-slate-400">
+                {` ${charity.state}, ${charity.city}, ${charity.country}  `?.slice(0, 20)}
+              </p>
             </td>
             <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
               <p className="mb-0 leading-tight text-xs text-slate-400">
@@ -72,12 +128,18 @@ const AllCharity = () => {
             </td>
             <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
               <p className="mb-0 leading-tight text-xs text-slate-400">
-                {charity.goal_amount}
+                {charity.goal_amount?.slice(0, 14)}
+              </p>
+            </td>
+            <td className="p-2 align-middle text-left bg-transparent border-b whitespace-nowrap shadow-transparent">
+              {/* <p className="mb-0 font-semibold leading-tight text-xs">{event.location}</p> */}
+              <p className="mb-0 leading-tight text-xs text-slate-400">
+                {charity.goal_amount?.slice(0, 14)}
               </p>
             </td>
             <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               <span className="font-semibold leading-tight text-xs text-slate-400">
-                {Date(charity.deadline)?.replace(/ GMT[+\-]\d{4}.*$/, "")}
+                {dateConvert(charity.deadline)}
               </span>
             </td>
 
@@ -85,7 +147,7 @@ const AllCharity = () => {
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent ">
               <div className="flex">
                 <Link
-                  to=""
+                  to={`/dashboard/charity/edit/${charity._id}`}
                   className="font-semibold leading-tight text-xs text-slate-400 px-2 ml-2"
                 >
                   <svg
@@ -103,7 +165,11 @@ const AllCharity = () => {
                     />
                   </svg>
                 </Link>
-                <Link to="" className="font-semibold leading-tight text-xs  px-2 ml-2">
+                <Link
+                  to=""
+                  onClick={() => handleDelete(charity._id)}
+                  className="font-semibold leading-tight text-xs  px-2 ml-2"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -130,8 +196,8 @@ const AllCharity = () => {
   return (
     <div className="w-full px-8">
       <div className="relative flex flex-col w-full min-w-0 mb-0 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
-        <div className="p-6 pb-0 mb-0 bg-white rounded-t-2xl">
-          <h6>All Events</h6>
+        <div className=" p-6 pb-0 mb-0 bg-white rounded-t-2xl">
+          <h6 className="font-sans font-semibold">All Charity</h6>
         </div>
         <div className="flex-auto px-0 pt-0 pb-2">
           <div className="p-0 overflow-x-auto">

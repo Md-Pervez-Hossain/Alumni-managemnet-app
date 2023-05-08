@@ -96,7 +96,9 @@ const AllEvents = () => {
                   />
                 </div>
                 <div className="flex flex-col justify-center">
-                  <h6 className="mb-0 leading-normal text-sm">{event.event_title}</h6>
+                  <Link to={`/events/${event._id}`}>
+                    <h6 className="mb-0 leading-normal text-sm">{event.event_title}</h6>
+                  </Link>
                   <p className="mb-0 leading-tight text-xs text-slate-400">
                     {/* john@creative-tim.com */}
                   </p>

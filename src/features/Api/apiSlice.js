@@ -3,8 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    // baseUrl: "https://alumni-managemnet-app-server.vercel.app",
-    baseUrl: "http://localhost:8000/",
+    baseUrl: "https://alumni-managemnet-app-server.vercel.app",
+    // baseUrl: "http://localhost:8000/",
   }),
   tagTypes: ["alumni", "events", "news", "stroy", "gallery", "charity"],
   endpoints: (builder) => ({
@@ -199,6 +199,11 @@ export const apiSlice = createApi({
       query: () => `/charity/`,
       providesTags: ["charity"],
     }),
+    // get individual  all charity
+    getIndividualAllCharity: builder.query({
+      query: (email) => `/charity/email/${email}`,
+      providesTags: ["charity"],
+    }),
 
     //  single charity
 
@@ -222,6 +227,14 @@ export const apiSlice = createApi({
         url: `/charity/${id}`,
         method: "PUT",
         body: data,
+      }),
+      invalidatesTags: ["charity"],
+    }),
+
+    deleteCharity: builder.mutation({
+      query: (id) => ({
+        url: `/charity/${id}`,
+        method: "DELETE",
       }),
       invalidatesTags: ["charity"],
     }),
@@ -260,8 +273,11 @@ export const {
   //charity
   useGetAllCharityQuery,
   useGetSingleCharityQuery,
+  useGetIndividualAllCharityQuery,
+
   useAddCharityMutation,
   useEditCharityMutation,
+  useDeleteCharityMutation,
 
   // NEWS
   useGetaLLNewsQuery,
