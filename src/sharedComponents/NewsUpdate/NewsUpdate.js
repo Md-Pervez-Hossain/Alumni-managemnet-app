@@ -49,7 +49,7 @@ const NewsUpdate = () => {
         };
         console.log(newsInfo);
         fetch(
-          `https://alumni-managemnet-app-server.vercel.app/news/${news._id}`,
+          `https://alumni-managemnet-app-server.vercel.app/news/${news?._id}`,
           {
             method: "PUT",
             headers: {
@@ -108,7 +108,7 @@ const NewsUpdate = () => {
           <div className="grid md:grid-cols-2 gap-5">
             <input
               type="text"
-              placeholder={news.heading}
+              defaultValue={news?.heading}
               className="input input-bordered w-full "
               name="heading"
               required
@@ -123,7 +123,7 @@ const NewsUpdate = () => {
             </div>
             <input
               type="text"
-              defaultValue={news.author}
+              defaultValue={news?.author}
               className="input input-bordered w-full "
               name="author"
               readOnly
@@ -131,7 +131,7 @@ const NewsUpdate = () => {
             />
             <input
               type="text"
-              placeholder={news.authorProfession}
+              defaultValue={news?.authorProfession}
               className="input input-bordered w-full "
               name="profession"
               required
@@ -144,7 +144,7 @@ const NewsUpdate = () => {
           </div>
           <textarea
             className="textarea textarea-bordered w-full my-5"
-            placeholder={news.newsDetails}
+            defaultValue={news?.newsDetails}
             name="newsDetails"
             required
           ></textarea>

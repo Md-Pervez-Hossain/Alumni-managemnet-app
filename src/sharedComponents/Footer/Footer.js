@@ -14,10 +14,8 @@ const Footer = () => {
       <div className="w-9/12 mx-auto grid md:grid-cols-2 md:gap-72 py-16 ">
         <div>
           <img src={logo} alt="" className="h-16 mb-4" />
-          <p className="mb-5">
-            There are many company Lorem ipsm dolor sitg amet, csetur adipicing
-            elit, sed do eiusmod tempor dncint ut labore et dolore magna alis
-            enim ad minim veniam, quis
+          <p className="mb-5 text-justify">
+          Our alumni management system helps institutions stay connected with graduates, foster engagement and philanthropy, and support lifelong learning. With a robust alumni directory, event management capabilities, and targeted communication tools, our system empowers institutions to build stronger relationships with alumni and leverage their expertise and influence for the benefit of all.
           </p>
           <input
             className="py-2 px-4 font-semibold"
