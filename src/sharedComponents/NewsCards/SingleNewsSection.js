@@ -130,7 +130,6 @@ const SingleNewsSection = () => {
             </div>
             {}
             <div>
-              <h2 className="text-2xl mb-8">Explore More News</h2>
               <MoreNews _id={_id}></MoreNews>
             </div>
           </div>

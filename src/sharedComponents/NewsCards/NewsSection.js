@@ -33,9 +33,12 @@ const NewsSection = () => {
       <>
         {" "}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center justify-between gap-5">
-          {newsData?.slice(previous, next).map((data, i) => (
-            <NewsCard key={i} data={data}></NewsCard>
-          ))}
+          {newsData
+            ?.filter((news) => news?.status === true)
+            .slice(previous, next)
+            .map((data, i) => (
+              <NewsCard key={i} data={data}></NewsCard>
+            ))}
         </div>
       </>
     );
@@ -55,9 +58,12 @@ const NewsSection = () => {
   };
 
   return (
-    <div data-aos="fade-right"
-    data-aos-offset="900"
-    data-aos-easing="ease-in-sine" className="mx-auto mt-[5.5rem]">
+    <div
+      data-aos="fade-right"
+      data-aos-offset="900"
+      data-aos-easing="ease-in-sine"
+      className="mx-auto mt-[5.5rem]"
+    >
       <h1 className="mt-[3.75rem] mb-[1rem] text-3xl font-semibold text-center">
         Recent News
       </h1>
