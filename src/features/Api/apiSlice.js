@@ -19,6 +19,8 @@ export const apiSlice = createApi({
     "gallery",
     "charities",
     "charity",
+    "donations",
+    "donation",
   ],
   endpoints: (builder) => ({
     // * Gallery  //
@@ -103,7 +105,7 @@ export const apiSlice = createApi({
       invalidatesTags: ["events"],
     }),
 
-    // // news
+    // * NEWS
     getaLLNews: builder.query({
       query: () => "/news",
       providesTags: ["allNews"],
@@ -174,7 +176,10 @@ export const apiSlice = createApi({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: ["alumni"],
+      invalidatesTags: (result, error, arg) => [
+        { type: "person", id: arg.email },
+        "alumni",
+      ],
     }),
 
     // Alumni Edit

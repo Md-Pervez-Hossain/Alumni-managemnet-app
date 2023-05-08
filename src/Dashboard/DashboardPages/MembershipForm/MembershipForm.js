@@ -186,7 +186,7 @@ const MembershipForm = () => {
                     pattern: /^\S+@\S+$/i, // regular expression for email validation
                   })}
                   defaultValue={initialEmail}
-                  // readOnly
+                  readOnly
                   type="text"
                   name="email"
                   id="email"
