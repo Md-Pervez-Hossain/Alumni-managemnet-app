@@ -1,14 +1,41 @@
 import React, { useContext } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
 import ErrorAlert from "../Skeletion/ErrorAlert";
 import ButtonSizeSkeletion from "../Skeletion/ButtonSizeSkeletion";
-import { useGetNewsCategoriesQuery } from "../../features/Api/apiSlice";
+import {
+  useAddNewsMutation,
+  useEditNewsMutation,
+  useGetNewsCategoriesQuery,
+  useGetSingleNewsQuery,
+} from "../../features/Api/apiSlice";
 import { AuthContext } from "../UseContext/AuthProvider";
 import { toast } from "react-toastify";
 
 const NewsUpdate = () => {
   const { user } = useContext(AuthContext);
-  const news = useLoaderData();
+
+  console.log(user);
+  const param = useParams();
+
+  const {
+    data: news,
+    isLoading: isNewsLoading,
+    isError: isNewsError,
+    error: newsError,
+  } = useGetSingleNewsQuery(param.id);
+
+  const [
+    editNews,
+    {
+      data,
+      isLoading: isEditNewsLoading,
+      isError: isEditNewsError,
+      error: errorEditNews,
+    },
+  ] = useEditNewsMutation();
+
+  const { _id, heading, image, authorProfession, newsDetails, author, NewsCategory } =
+    news || {};
 
   const handleNewsUpdate = (event) => {
     event.preventDefault();
@@ -23,15 +50,11 @@ const NewsUpdate = () => {
     const time = new Date().toLocaleDateString();
     const formData = new FormData();
     formData.append("image", image);
-    // console.log(heading, author, authorProfession, newsDetails);
 
-    fetch(
-      "https://api.imgbb.com/1/upload?key=86fe1764d78f51c15b1a9dfe4b9175cf",
-      {
-        method: "POST",
-        body: formData,
-      }
-    )
+    fetch("https://api.imgbb.com/1/upload?key=86fe1764d78f51c15b1a9dfe4b9175cf", {
+      method: "POST",
+      body: formData,
+    })
       .then((res) => res.json())
       .then((data) => {
         const newsInfo = {
@@ -47,47 +70,37 @@ const NewsUpdate = () => {
           likes: 0,
           comments: 0,
         };
-        console.log(newsInfo);
-        fetch(
-          `https://alumni-managemnet-app-server.vercel.app/news/${news?._id}`,
-          {
-            method: "PUT",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(newsInfo),
-          }
-        )
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-            toast.success("Update Successfully.");
-          });
+
+        editNews({
+          id: _id,
+          data: newsInfo,
+        });
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const {
-    data: newsCategories,
-    isError,
-    isLoading,
-    error,
-  } = useGetNewsCategoriesQuery();
+  const { data: newsCategories, isError, isLoading, error } = useGetNewsCategoriesQuery();
+
+  const selectedNewsCategories = newsCategories?.find(
+    (news) => news?._id === NewsCategory
+  );
+
+  console.log(selectedNewsCategories?.categoryName);
 
   let newsNameContent;
 
-  if (isLoading && !isError) {
+  if (isEditNewsLoading && !isEditNewsError) {
     newsNameContent = <ButtonSizeSkeletion />;
   }
-  if (!isLoading && isError) {
-    newsNameContent = <ErrorAlert text={error} />;
+  if (!isEditNewsLoading && isEditNewsError) {
+    newsNameContent = <ErrorAlert text={errorEditNews} />;
   }
-  if (!isLoading && !isError && newsCategories?.length === 0) {
+  if (!isEditNewsLoading && !isEditNewsError && newsCategories?.length === 0) {
     newsNameContent = <ErrorAlert text="No Category Find" />;
   }
-  if (!isLoading && !isError && newsCategories?.length > 0) {
+  if (!isEditNewsLoading && !isEditNewsError && newsCategories?.length > 0) {
     newsNameContent = (
       <>
         {newsCategories.map((newsCategory) => (
@@ -100,60 +113,57 @@ const NewsUpdate = () => {
   }
 
   return (
-    <div>
-      <div className="w-9/12 mx-auto my-16">
-        <h2 className="text-4xl my-5">News</h2>
+    <div className="w-9/12 mx-auto my-16">
+      <h2 className="text-xl my-5 font-sans font-semibold">Edit News</h2>
 
-        <form onSubmit={(event) => handleNewsUpdate(event)}>
-          <div className="grid md:grid-cols-2 gap-5">
+      <form onSubmit={(event) => handleNewsUpdate(event)}>
+        <div className="grid md:grid-cols-2 gap-5">
+          <input
+            type="text"
+            defaultValue={heading}
+            className="input input-bordered w-full "
+            name="heading"
+          />
+          <div className="form-control w-full ">
             <input
-              type="text"
-              defaultValue={news?.heading}
-              className="input input-bordered w-full "
-              name="heading"
-              required
-            />
-            <div className="form-control w-full ">
-              <input
-                type="file"
-                className="file-input file-input-bordered w-full "
-                name="image"
-                required
-              />
-            </div>
-            <input
-              type="text"
-              defaultValue={news?.author}
-              className="input input-bordered w-full "
-              name="author"
-              readOnly
-              required
-            />
-            <input
-              type="text"
-              defaultValue={news?.authorProfession}
-              className="input input-bordered w-full "
-              name="profession"
-              required
+              type="file"
+              defaultValue={image}
+              className="file-input file-input-bordered w-full "
+              name="image"
             />
           </div>
-          <div className="form-control w-full mt-5">
-            <select className="select select-bordered " name="newsCategory">
-              {newsNameContent}
-            </select>
-          </div>
-          <textarea
-            className="textarea textarea-bordered w-full my-5"
-            defaultValue={news?.newsDetails}
-            name="newsDetails"
-            required
-          ></textarea>
-          <button className="px-6 py-4 w-full rounded-lg bg-primary text-white font-semibold">
-            {" "}
-            Submit News
-          </button>
-        </form>
-      </div>
+          <input
+            type="text"
+            defaultValue={author}
+            className="input input-bordered w-full "
+            name="author"
+            readOnly
+          />
+          <input
+            type="text"
+            defaultValue={authorProfession}
+            className="input input-bordered w-full "
+            name="profession"
+          />
+        </div>
+        <div className="form-control w-full mt-5">
+          <select className="select select-bordered " name="newsCategory">
+            <option selected value={NewsCategory}>
+              {selectedNewsCategories?.categoryName}
+            </option>
+            {newsNameContent}
+          </select>
+        </div>
+        <textarea
+          className="textarea textarea-bordered w-full my-5"
+          defaultValue={newsDetails}
+          name="newsDetails"
+        ></textarea>
+        <button className="px-6 py-4 w-full rounded-lg bg-primary text-white font-semibold">
+          {" "}
+          Update News
+        </button>
+      </form>
     </div>
   );
 };

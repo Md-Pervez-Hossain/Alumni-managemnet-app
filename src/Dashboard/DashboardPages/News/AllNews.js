@@ -73,7 +73,7 @@ const AllNews = () => {
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent ">
               <div className="flex">
                 <Link
-                  to=""
+                  to={`/dashboard/news/edit/${event._id}`}
                   className="font-semibold leading-tight text-xs text-slate-400 px-2 ml-2"
                 >
                   <svg

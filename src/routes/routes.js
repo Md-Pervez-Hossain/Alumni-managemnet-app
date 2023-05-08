@@ -187,6 +187,7 @@ const routes = createBrowserRouter([
             `https://alumni-managemnet-app-server.vercel.app/news/${params.id}`
           ),
       },
+
       {
         path: "/eventUpdate/:id",
         element: <EventUpdate></EventUpdate>,
@@ -212,6 +213,14 @@ const routes = createBrowserRouter([
 
       { path: "/dashboard/news/", element: <AllNews /> },
       { path: "/dashboard/news/add-a-news", element: <NewsCreateForm /> },
+      {
+        path: "/dashboard/news/edit/:id",
+        element: <NewsUpdate></NewsUpdate>,
+        loader: ({ params }) =>
+          fetch(
+            `https://alumni-managemnet-app-server.vercel.app/news/${params.id}`
+          ),
+      },
 
       { path: "/dashboard/events", element: <AllEvents /> },
       { path: "/dashboard/events/add-a-event", element: <AddAEvent /> },

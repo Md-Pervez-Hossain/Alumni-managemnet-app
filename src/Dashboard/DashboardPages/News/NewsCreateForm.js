@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import {
+  useAddNewsMutation,
   useGetEventsCategoriesQuery,
   useGetNewsCategoriesQuery,
 } from "../../../features/Api/apiSlice";
@@ -9,6 +10,9 @@ import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
 
 const NewsCreateForm = () => {
   const { user } = useContext(AuthContext);
+
+  const [addNews, { data }] = useAddNewsMutation();
+
   const handleNews = (event) => {
     event.preventDefault();
     console.log("clicked");
@@ -24,13 +28,10 @@ const NewsCreateForm = () => {
     formData.append("image", image);
     // console.log(heading, author, authorProfession, newsDetails);
 
-    fetch(
-      "https://api.imgbb.com/1/upload?key=86fe1764d78f51c15b1a9dfe4b9175cf",
-      {
-        method: "POST",
-        body: formData,
-      }
-    )
+    fetch("https://api.imgbb.com/1/upload?key=86fe1764d78f51c15b1a9dfe4b9175cf", {
+      method: "POST",
+      body: formData,
+    })
       .then((res) => res.json())
       .then((data) => {
         const newsInfo = {
@@ -65,12 +66,7 @@ const NewsCreateForm = () => {
       });
   };
 
-  const {
-    data: newsCategories,
-    isError,
-    isLoading,
-    error,
-  } = useGetNewsCategoriesQuery();
+  const { data: newsCategories, isError, isLoading, error } = useGetNewsCategoriesQuery();
 
   let newsNameContent;
 
