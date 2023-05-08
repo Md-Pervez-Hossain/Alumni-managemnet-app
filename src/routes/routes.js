@@ -72,9 +72,7 @@ const routes = createBrowserRouter([
       {
         path: "/payment/success/:id",
         loader: async ({ params }) => {
-          return fetch(
-            `https://alumni-managemnet-app-server.vercel.app/payment/success/${params.id}`
-          );
+          return fetch(`http://localhost:8000/payment/success/${params.id}`);
         },
         element: <PaymentSuccessful></PaymentSuccessful>,
       },
@@ -183,13 +181,17 @@ const routes = createBrowserRouter([
         path: "/newsUpdate/:id",
         element: <NewsUpdate></NewsUpdate>,
         loader: ({ params }) =>
-          fetch(`https://alumni-managemnet-app-server.vercel.app/news/${params.id}`),
+          fetch(
+            `https://alumni-managemnet-app-server.vercel.app/news/${params.id}`
+          ),
       },
       {
         path: "/eventUpdate/:id",
         element: <EventUpdate></EventUpdate>,
         loader: ({ params }) =>
-          fetch(`https://alumni-managemnet-app-server.vercel.app/events/${params.id}`),
+          fetch(
+            `https://alumni-managemnet-app-server.vercel.app/events/${params.id}`
+          ),
       },
     ],
     errorElement: <ErrorPage></ErrorPage>,

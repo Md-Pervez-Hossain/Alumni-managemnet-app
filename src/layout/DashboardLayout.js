@@ -1,6 +1,12 @@
 import React, { useContext, useEffect, useRef } from "react";
 import DashBoardNavbar from "../Dashboard/DashboardComponents/DashBoardNavbar";
-import { Link, NavLink, Outlet, useLocation, useParams } from "react-router-dom";
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useLocation,
+  useParams,
+} from "react-router-dom";
 import logo from "../../src/assets/logo/logo-black.png";
 import DashBoardNavItem from "../Dashboard/DashboardComponents/DashBoardNavItem/DashBoardNavItem";
 import ResizeObserver from "resize-observer-polyfill";
@@ -122,7 +128,8 @@ const DashboardLayout = () => {
               url="/dashboard/successfulStory"
             />
             {(pathname === "/dashboard/successfulStory" ||
-              pathname === "/dashboard/successfulStory/add-a-successfulStory") && (
+              pathname ===
+                "/dashboard/successfulStory/add-a-successfulStory") && (
               <DashBoardNavItem
                 name="Add a Story"
                 fontAwesome="fa-regular fa-file-lines"
@@ -133,7 +140,7 @@ const DashboardLayout = () => {
             <DashBoardNavItem
               name="Profile"
               fontAwesome="fa-solid fa-user"
-              url={`/dashboard/profile/${user.email}`}
+              url={`/dashboard/profile/${user?.email}`}
             />
 
             {/* LOG OUT BUTTON */}
