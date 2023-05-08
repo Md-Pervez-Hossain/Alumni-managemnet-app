@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import DashboardTable from "../../DashboardComponents/DashboardTable";
 import { Link } from "react-router-dom";
-import { useGetEventsQuery } from "../../../features/Api/apiSlice";
+import {
+  useDeleteEventMutation,
+  useGetEventsQuery,
+} from "../../../features/Api/apiSlice";
 import Loading from "../../../sharedComponents/Loading/Loading";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
+import { toast } from "react-hot-toast";
 
 const AllEvents = () => {
   const tableHeading = [
@@ -21,7 +25,6 @@ const AllEvents = () => {
   } = useGetEventsQuery();
   const { event_title, _id, category, batch, date, location, image_url } =
     eventsContentData || {};
-  console.log(eventsContentData);
 
   // to convert the date string into a format like "12 Jan 2022, 12:45 PM" this
   const formatDate = (dateString) => {
@@ -36,6 +39,35 @@ const AllEvents = () => {
     const date = new Date(dateString);
     return new Intl.DateTimeFormat("en-US", options).format(date);
   };
+
+  // mutation for deleting data
+  const [
+    deleteAlumni,
+    {
+      data,
+      isSuccess: isDeleteSuccess,
+      isLoading: isDeleteLoading,
+      isError: isDeleteError,
+      error: errorDelete,
+    },
+  ] = useDeleteEventMutation();
+
+  // delete function handler
+  const handleDelete = (_id) => {
+    const confirmDelete = window.confirm("do you want to delete?");
+    if (confirmDelete) {
+      deleteAlumni(_id);
+    }
+  };
+  // re render components on status change
+  useEffect(() => {
+    if (isDeleteSuccess) {
+      toast.success("Successfully toasted!");
+    }
+    if (isDeleteError) {
+      toast.error(errorDelete.message);
+    }
+  }, [errorDelete, isDeleteError, isDeleteSuccess]);
 
   let eventsContent;
 
@@ -90,7 +122,7 @@ const AllEvents = () => {
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent ">
               <div className="flex">
                 <Link
-                  to=""
+                  to={`/dashboard/events/edit/${event._id}`}
                   className="font-semibold leading-tight text-xs text-slate-400 px-2 ml-2"
                 >
                   <svg
@@ -108,7 +140,11 @@ const AllEvents = () => {
                     />
                   </svg>
                 </Link>
-                <Link to="" className="font-semibold leading-tight text-xs  px-2 ml-2">
+                <Link
+                  onClick={() => handleDelete(event._id)}
+                  to=""
+                  className="font-semibold leading-tight text-xs  px-2 ml-2"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

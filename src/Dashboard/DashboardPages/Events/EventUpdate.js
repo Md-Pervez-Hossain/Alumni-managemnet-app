@@ -2,19 +2,23 @@ import React, { useContext, useState } from "react";
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
 import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useParams } from "react-router-dom";
 import Loading from "../../../sharedComponents/Loading/Loading";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
 import {
-  useAddEventsMutation,
   useGetAllBatchesQuery,
   useGetEventsCategoriesQuery,
+  useGetSingleEventQuery,
 } from "../../../features/Api/apiSlice";
 import { toast } from "react-toastify";
 
 const EventUpdate = () => {
   const { user } = useContext(AuthContext);
-  const singleEvent = useLoaderData();
+  // const singleEvent = useLoaderData();
+
+  const params = useParams();
+  console.log(params.id);
+  const { data: singleEvent } = useGetSingleEventQuery(params?.id);
 
   const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -137,7 +141,7 @@ const EventUpdate = () => {
 
   return (
     <div className="w-full mx-auto my-4 px-10">
-      <h2 className="text-xl  font-sans font-semibold">Add a Event</h2>
+      <h2 className="text-xl  font-sans font-semibold">Edit a Event</h2>
 
       <form onSubmit={(event) => handleCreateEvents(event)}>
         <div className="grid md:grid-cols-2 gap-3 !my-2">

@@ -40,7 +40,7 @@ export const apiSlice = createApi({
       providesTags: ["events"],
     }),
 
-    //  single event
+    //  batchWise events data
     getBatchWiseEvents: builder.query({
       query: (id) => `/events/batch/${id}`,
     }),
@@ -65,9 +65,31 @@ export const apiSlice = createApi({
       query: () => "/eventCategories",
     }),
 
+    //  /event/delete/
+
+    //   Edit a  event
+    editEvent: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/event/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["events"],
+    }),
+
+    /// delete a event
+    deleteEvent: builder.mutation({
+      query: (id) => ({
+        url: `/event/delete/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["events"],
+    }),
+
     // // news
     getaLLNews: builder.query({
       query: () => "/news",
+      providesTags: ["news"],
     }),
 
     getSingleNews: builder.query({
@@ -94,6 +116,15 @@ export const apiSlice = createApi({
         url: `/news/${id}`,
         method: "PUT",
         body: data,
+      }),
+      invalidatesTags: ["news"],
+    }),
+
+    /// delete a news
+    deleteNews: builder.mutation({
+      query: (id) => ({
+        url: `/news/delete/${id}`,
+        method: "DELETE",
       }),
       invalidatesTags: ["news"],
     }),
@@ -132,6 +163,14 @@ export const apiSlice = createApi({
         url: `/alumni/${email}`,
         method: "PUT",
         body: data,
+      }),
+      invalidatesTags: ["alumni"],
+    }),
+
+    deleteAlumni: builder.mutation({
+      query: (email) => ({
+        url: `/alumni/${email}`,
+        method: "DELETE",
       }),
       invalidatesTags: ["alumni"],
     }),
@@ -228,6 +267,7 @@ export const {
   useGetNewsCategoriesQuery,
   useAddNewsMutation,
   useEditNewsMutation,
+  useDeleteNewsMutation,
 
   // UTILS
   useGetAllBatchesQuery,
@@ -250,6 +290,8 @@ export const {
 
   // mutations of events
   useAddEventsMutation,
+  useEditEventMutation,
+  useDeleteEventMutation,
 
   //  All Alumni
   useGetAllAlumniQuery,
@@ -258,4 +300,5 @@ export const {
   // Mutations of ALUMNI
   useAddAlumniMutation,
   useEditAlumniMutation,
+  useDeleteAlumniMutation,
 } = apiSlice;

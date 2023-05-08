@@ -8,7 +8,7 @@ import NewsUpdatePage from "../../sharedComponents/NewsUpdatePage/NewsUpdatePage
 import EventUpdatePages from "../../Dashboard/DashboardPages/EventUpdatePage/EventUpdatePages";
 import AddAEvent from "../../Dashboard/DashboardPages/Events/AddAEvent";
 import JoinedEventUpdatePage from "../../Dashboard/DashboardPages/JoinedEventUpdatePage/JoinedEventUpdatePage";
-import EventUpdate from "../../Dashboard/DashboardPages/EventUpdate/EventUpdate";
+import EventUpdate from "../../Dashboard/DashboardPages/Events/EventUpdate";
 
 const Uhai = () => {
   return (

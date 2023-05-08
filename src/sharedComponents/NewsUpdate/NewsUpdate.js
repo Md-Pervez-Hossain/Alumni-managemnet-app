@@ -1,20 +1,17 @@
-import React, { useContext } from "react";
-import { useLoaderData, useParams } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import ErrorAlert from "../Skeletion/ErrorAlert";
 import ButtonSizeSkeletion from "../Skeletion/ButtonSizeSkeletion";
 import {
-  useAddNewsMutation,
   useEditNewsMutation,
   useGetNewsCategoriesQuery,
   useGetSingleNewsQuery,
 } from "../../features/Api/apiSlice";
 import { AuthContext } from "../UseContext/AuthProvider";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 const NewsUpdate = () => {
   const { user } = useContext(AuthContext);
-
-  console.log(user);
   const param = useParams();
 
   const {
@@ -28,6 +25,7 @@ const NewsUpdate = () => {
     editNews,
     {
       data,
+      isSuccess: isEditNewsSuccess,
       isLoading: isEditNewsLoading,
       isError: isEditNewsError,
       error: errorEditNews,
@@ -75,11 +73,21 @@ const NewsUpdate = () => {
           id: _id,
           data: newsInfo,
         });
+        form.reset();
       })
       .catch((error) => {
         console.log(error);
       });
   };
+
+  useEffect(() => {
+    if (isEditNewsSuccess) {
+      toast.success("News Creation Success");
+    }
+    if (isEditNewsError) {
+      toast.error("News Creation Error");
+    }
+  }, [isEditNewsError, isEditNewsSuccess]);
 
   const { data: newsCategories, isError, isLoading, error } = useGetNewsCategoriesQuery();
 
@@ -130,6 +138,7 @@ const NewsUpdate = () => {
               defaultValue={image}
               className="file-input file-input-bordered w-full "
               name="image"
+              required
             />
           </div>
           <input

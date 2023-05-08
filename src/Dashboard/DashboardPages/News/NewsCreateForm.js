@@ -1,17 +1,17 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   useAddNewsMutation,
-  useGetEventsCategoriesQuery,
   useGetNewsCategoriesQuery,
 } from "../../../features/Api/apiSlice";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
-import ButtonSizeSkeletion from "../../../sharedComponents/Skeletion/ButtonSizeSkeletion";
 import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
+import Loading from "../../../sharedComponents/Loading/Loading";
+import { toast } from "react-hot-toast";
 
 const NewsCreateForm = () => {
   const { user } = useContext(AuthContext);
 
-  const [addNews, { data }] = useAddNewsMutation();
+  const [addNews, { data, isSuccess, isError, error, isLoading }] = useAddNewsMutation();
 
   const handleNews = (event) => {
     event.preventDefault();
@@ -26,7 +26,6 @@ const NewsCreateForm = () => {
     const time = new Date().toLocaleDateString();
     const formData = new FormData();
     formData.append("image", image);
-    // console.log(heading, author, authorProfession, newsDetails);
 
     fetch("https://api.imgbb.com/1/upload?key=86fe1764d78f51c15b1a9dfe4b9175cf", {
       method: "POST",
@@ -47,39 +46,47 @@ const NewsCreateForm = () => {
           likes: 0,
           comments: 0,
         };
-        fetch("https://alumni-managemnet-app-server.vercel.app/news", {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(newsInfo),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-            form.reset();
-          });
-        console.log(newsInfo);
+
+        addNews(newsInfo);
+        form.reset();
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const { data: newsCategories, isError, isLoading, error } = useGetNewsCategoriesQuery();
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("News has been successfully added");
+    }
+    if (isError) {
+      toast.error(error?.message);
+    }
+  }, [error?.message, isError, isSuccess]);
+
+  const {
+    data: newsCategories,
+    isError: isNewsCategoriesError,
+    isLoading: isNewsCategoriesLoading,
+    error: newsCategoriesError,
+  } = useGetNewsCategoriesQuery();
 
   let newsNameContent;
 
-  if (isLoading && !isError) {
-    newsNameContent = <ButtonSizeSkeletion />;
+  if (isNewsCategoriesLoading && !isNewsCategoriesError) {
+    newsNameContent = <Loading />;
   }
-  if (!isLoading && isError) {
-    newsNameContent = <ErrorAlert text={error} />;
+  if (!isNewsCategoriesLoading && isNewsCategoriesError) {
+    newsNameContent = <ErrorAlert text={newsCategoriesError} />;
   }
-  if (!isLoading && !isError && newsCategories?.length === 0) {
+  if (
+    !isNewsCategoriesLoading &&
+    !isNewsCategoriesError &&
+    newsCategories?.length === 0
+  ) {
     newsNameContent = <ErrorAlert text="No Category Find" />;
   }
-  if (!isLoading && !isError && newsCategories?.length > 0) {
+  if (!isNewsCategoriesLoading && !isNewsCategoriesError && newsCategories?.length > 0) {
     newsNameContent = (
       <>
         {newsCategories.map((newsCategory) => (
@@ -139,8 +146,10 @@ const NewsCreateForm = () => {
           name="newsDetails"
           required
         ></textarea>
-        <button className="px-6 py-4 w-full rounded-lg bg-primary text-white font-semibold">
-          {" "}
+        <button
+          className="px-6 py-4 w-full rounded-lg bg-primary text-white font-semibold"
+          disabled={isLoading}
+        >
           Submit News
         </button>
       </form>

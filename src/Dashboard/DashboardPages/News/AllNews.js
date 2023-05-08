@@ -1,10 +1,15 @@
 //  AllNews
-import React from "react";
+import React, { useEffect } from "react";
 import DashboardTable from "../../DashboardComponents/DashboardTable";
 import { Link } from "react-router-dom";
-import { useGetEventsQuery, useGetaLLNewsQuery } from "../../../features/Api/apiSlice";
+import {
+  useDeleteNewsMutation,
+  useGetEventsQuery,
+  useGetaLLNewsQuery,
+} from "../../../features/Api/apiSlice";
 import Loading from "../../../sharedComponents/Loading/Loading";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
+import { toast } from "react-hot-toast";
 
 const AllNews = () => {
   const tableHeading = [
@@ -19,8 +24,6 @@ const AllNews = () => {
     isError: isNewsError,
     error: newsError,
   } = useGetaLLNewsQuery();
-
-  console.log(newsContentData);
 
   let newsContent;
 
@@ -91,7 +94,11 @@ const AllNews = () => {
                     />
                   </svg>
                 </Link>
-                <Link to="" className="font-semibold leading-tight text-xs  px-2 ml-2">
+                <Link
+                  onClick={() => handleDelete(event._id)}
+                  to=""
+                  className="font-semibold leading-tight text-xs  px-2 ml-2"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -114,6 +121,35 @@ const AllNews = () => {
       </>
     );
   }
+
+  // mutation for deleting data
+  const [
+    deleteAlumni,
+    {
+      data,
+      isSuccess: isDeleteSuccess,
+      isLoading: isDeleteLoading,
+      isError: isDeleteError,
+      error: errorDelete,
+    },
+  ] = useDeleteNewsMutation();
+
+  // delete function handler
+  const handleDelete = (_id) => {
+    const confirmDelete = window.confirm("do you want to delete?");
+    if (confirmDelete) {
+      deleteAlumni(_id);
+    }
+  };
+  // re render components on status change
+  useEffect(() => {
+    if (isDeleteSuccess) {
+      toast.success("Successfully toasted!");
+    }
+    if (isDeleteError) {
+      toast.error(errorDelete.message);
+    }
+  }, [errorDelete, isDeleteError, isDeleteSuccess]);
 
   return (
     <div className="w-full px-8">

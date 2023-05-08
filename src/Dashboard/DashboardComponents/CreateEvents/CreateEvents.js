@@ -8,19 +8,17 @@ import {
 } from "../../../features/Api/apiSlice";
 import Loading from "../../../sharedComponents/Loading/Loading";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
-import { toast } from "react-toastify";
 import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
+import { toast } from "react-hot-toast";
 
 const CreateEvents = () => {
-
-  const {user} = useContext(AuthContext);
-  // console.log(user?.email)
+  const { user } = useContext(AuthContext);
 
   const [
     addEvents,
     {
       data: events,
-      isSuccess,
+      isSuccess: isEventsAddSuccess,
       isLoading: isEventsAddLoading,
       isError: isEventsAddError,
       error: eventsAddError,
@@ -55,7 +53,7 @@ const CreateEvents = () => {
         console.log(data);
 
         addEvents({
-          authorEmail:authorEmail,
+          authorEmail: authorEmail,
           batch,
           event_title,
           date,
@@ -64,6 +62,7 @@ const CreateEvents = () => {
           category,
           image_url: data.data.display_url,
         });
+
         form.reset();
       })
       .catch((error) => {
@@ -72,13 +71,13 @@ const CreateEvents = () => {
   };
 
   useEffect(() => {
-    if (isSuccess) {
-      toast.success("Charity created!");
+    if (isEventsAddSuccess) {
+      toast.success("Event created!");
     } else if (isEventsAddError) {
       toast.error(eventsAddError.message);
       console.log(eventsAddError);
     }
-  }, [isSuccess, isEventsAddError, eventsAddError]);
+  }, [isEventsAddSuccess, isEventsAddError, eventsAddError]);
 
   //  redux fetch event categories
   const {
@@ -178,7 +177,6 @@ const CreateEvents = () => {
               data-enable-time
               value={selectedDate}
               onChange={(date) => setSelectedDate(date[0])}
-              c
             />
           </div>
         </div>

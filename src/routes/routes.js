@@ -40,7 +40,7 @@ import AllSuccessFullStory from "../Dashboard/DashboardPages/AllSuccessFullStory
 import AllNewsPage from "../Pages/AllNews/AllNews";
 import AllGallery from "../Dashboard/DashboardPages/AllGallery/AllGallery";
 import AllAlumni from "../Dashboard/DashboardPages/Alumni/AllAlumni";
-import EventUpdate from "../Dashboard/DashboardPages/EventUpdate/EventUpdate";
+import EventUpdate from "../Dashboard/DashboardPages/Events/EventUpdate";
 import MembershipForm from "../Dashboard/DashboardPages/MembershipForm/MembershipForm";
 import Donation from "../sharedComponents/Donation/Donation";
 import RegisterPage from "../Pages/SignUp/RegisterPage";
@@ -199,28 +199,32 @@ const routes = createBrowserRouter([
     ),
     children: [
       { path: "/dashboard/", element: <DashboardMain /> },
-      { path: "/dashboard/alumni/", element: <AllAlumni /> },
 
+      // Alumni //
+      { path: "/dashboard/alumni/", element: <AllAlumni /> },
+      { path: "/dashboard/profile/:email", element: <MembershipForm /> },
+      // All News
       { path: "/dashboard/news/", element: <AllNews /> },
       { path: "/dashboard/news/add-a-news", element: <NewsCreateForm /> },
       {
         path: "/dashboard/news/edit/:id",
         element: <NewsUpdate></NewsUpdate>,
-        loader: ({ params }) =>
-          fetch(`https://alumni-managemnet-app-server.vercel.app/news/${params.id}`),
       },
-
+      // E V E N T S
       { path: "/dashboard/events", element: <AllEvents /> },
       { path: "/dashboard/events/add-a-event", element: <AddAEvent /> },
+      { path: "/dashboard/events/edit/:id", element: <EventUpdate /> },
 
+      // CHARITY
       { path: "/dashboard/charity", element: <AllCharity></AllCharity> },
       {
         path: "/dashboard/charity/add-a-charity",
         element: <CreateCharity></CreateCharity>,
       },
-
+      //  GALLERY
       { path: "/dashboard/gallery/", element: <CreateGallery /> },
 
+      // Successful Story
       {
         path: "/dashboard/successfulStory/",
         element: <AllSuccessFullStory />,
@@ -230,7 +234,6 @@ const routes = createBrowserRouter([
         element: <CreateSuccessFullStory />,
       },
 
-      { path: "/dashboard/profile/", element: <MembershipForm /> },
       { path: "/dashboard/Checkout/", element: <CheckoutPage /> },
     ],
   },
