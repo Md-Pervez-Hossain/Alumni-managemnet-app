@@ -3,31 +3,31 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
 
 const PaymentSuccessful = () => {
-  const paymentInfo = useLoaderData();
-  console.log(paymentInfo);
-  const {
-    transactionId,
-    currency,
-    cus_add1,
-    cus_city,
-    cus_country,
-    cus_postcode,
-    cus_state,
-    cus_donationAmount,
-    cus_name,
-    cus_phone,
-    donationId,
-    donationTitle,
-    paidAt,
-  } = paymentInfo;
+  // const paymentInfo = useLoaderData();
+  // console.log(paymentInfo);
+  // const {
+  //   transactionId,
+  //   currency,
+  //   cus_add1,
+  //   cus_city,
+  //   cus_country,
+  //   cus_postcode,
+  //   cus_state,
+  //   cus_donationAmount,
+  //   cus_name,
+  //   cus_phone,
+  //   donationId,
+  //   donationTitle,
+  //   paidAt,
+  // } = paymentInfo;
 
-  if (!paymentInfo?.transactionId) {
-    return (
-      <div className="w-9/12 mx-auto my-16">
-        <p>No Order Found</p>
-      </div>
-    );
-  }
+  // if (!paymentInfo?.transactionId) {
+  //   return (
+  //     <div className="w-9/12 mx-auto my-16">
+  //       <p>No Order Found</p>
+  //     </div>
+  //   );
+  // }
   return (
     <div className="w-9/12 mx-auto my-16">
       <div>
@@ -46,10 +46,10 @@ const PaymentSuccessful = () => {
             </thead>
             <tbody>
               <tr>
-                <td>{cus_name}</td>
+                {/* <td>{cus_name}</td>
                 <td>{`${cus_donationAmount} ${currency}`}</td>
                 <td>{transactionId}</td>
-                <td>{`${cus_add1} , ${cus_postcode} `}</td>
+                <td>{`${cus_add1} , ${cus_postcode} `}</td> */}
               </tr>
               {/* row 2 */}
             </tbody>

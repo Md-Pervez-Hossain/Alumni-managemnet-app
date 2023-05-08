@@ -1,20 +1,43 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
 import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
-import { useLoaderData } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Loading from "../../../sharedComponents/Loading/Loading";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
 import {
-  useAddEventsMutation,
+  useEditEventMutation,
   useGetAllBatchesQuery,
   useGetEventsCategoriesQuery,
+  useGetSingleEventQuery,
 } from "../../../features/Api/apiSlice";
-import { toast } from "react-toastify";
+import { toast } from "react-hot-toast";
 
 const EventUpdate = () => {
   const { user } = useContext(AuthContext);
-  const singleEvent = useLoaderData();
+
+  const params = useParams();
+  const { data: singleEvent } = useGetSingleEventQuery(params?.id);
+
+  const [
+    editEvent,
+    {
+      data,
+      isLoading: isEditLoading,
+      isSuccess: isEditSuccess,
+      isError: isEditError,
+      error: editError,
+    },
+  ] = useEditEventMutation();
+
+  useEffect(() => {
+    if (isEditSuccess) {
+      toast.success("Successfully toasted!");
+    }
+    if (isEditError) {
+      toast.error(editError?.message);
+    }
+  }, [editError, isEditError, isEditSuccess]);
 
   const [selectedDate, setSelectedDate] = useState(new Date());
 
@@ -25,7 +48,6 @@ const EventUpdate = () => {
     const batch = form.eventsBatch.value;
     const event_title = form?.eventsHeading?.value;
     const date = selectedDate;
-    // console.log(date);
     const location = form.eventsLocation.value;
     const description = form.eventsDetails.value;
     const category = form.eventsCategory.value;
@@ -52,22 +74,11 @@ const EventUpdate = () => {
           image_url: data.data.display_url,
         };
 
-        fetch(
-          `https://alumni-managemnet-app-server.vercel.app/event/${singleEvent?._id}`,
-          {
-            method: "PUT",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify(eventInfo),
-          }
-        )
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-            toast.success("Update Successfully.");
-            form.reset();
-          });
+        editEvent({
+          id: singleEvent._id,
+          data: eventInfo,
+        });
+        form.reset();
       })
       .catch((error) => {
         console.log(error);
@@ -137,7 +148,7 @@ const EventUpdate = () => {
 
   return (
     <div className="w-full mx-auto my-4 px-10">
-      <h2 className="text-xl  font-sans font-semibold">Add a Event</h2>
+      <h2 className="text-xl  font-sans font-semibold">Edit a Event</h2>
 
       <form onSubmit={(event) => handleCreateEvents(event)}>
         <div className="grid md:grid-cols-2 gap-3 !my-2">
