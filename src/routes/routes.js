@@ -70,6 +70,16 @@ const routes = createBrowserRouter([
         element: <Events />,
       },
       {
+        path: "/charity/donation/:id",
+        loader: async ({ params }) => {
+          return fetch(
+            `https://alumni-managemnet-app-server.vercel.app/charity/donation/${params.id}`
+          );
+        },
+        element: <Donation></Donation>,
+      },
+
+      {
         path: "/payment/success/:id",
         loader: async ({ params }) => {
           return fetch(
@@ -130,15 +140,7 @@ const routes = createBrowserRouter([
         path: "/charity/:id",
         element: <DisplaySingleCharity></DisplaySingleCharity>,
       },
-      {
-        path: "/charity/donation/:id",
-        loader: async ({ params }) => {
-          return fetch(
-            `https://alumni-managemnet-app-server.vercel.app/charity/donation/${params.id}`
-          );
-        },
-        element: <Donation></Donation>,
-      },
+
       {
         path: "/events/:singleEventId",
         element: <SingleEvent />,
