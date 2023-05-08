@@ -2,50 +2,17 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { useGetAllSuccessfulStoriesOfAUserQuery } from "../../../features/Api/apiSlice";
+import {
+  useDeleteSuccessfulStoriesMutation,
+  useGetAllSuccessfulStoriesOfAUserQuery,
+  useGetAllSuccessfulStoriesQuery,
+} from "../../../features/Api/apiSlice";
 import Loading from "../../../sharedComponents/Loading/Loading";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
+import { toast } from "react-hot-toast";
 
 const AllSuccessFullStory = () => {
   const { user } = useContext(AuthContext);
-  console.log(user);
-  const [showSuccessStory, setShowSuccessStory] = useState([]);
-  useEffect(() => {
-    fetch(
-      `https://alumni-managemnet-app-server.vercel.app/successFullStory/email/${user?.email}`
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setShowSuccessStory(data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [user?.email]);
-
-  const handleGalleryDelete = (_id) => {
-    const agree = window.confirm(`Are You Sure ! You want To Delete ${_id}`);
-    console.log(_id);
-    if (agree) {
-      fetch(`https://alumni-managemnet-app-server.vercel.app/successFullStory/${_id}`, {
-        method: "DELETE",
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.deletedCount > 0) {
-            toast.success("SuccessFully deleted");
-            const remaining = showSuccessStory?.filter((story) => story._id !== _id);
-            setShowSuccessStory(remaining);
-          }
-          console.log(data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-  };
 
   const handleSuccessStoryEdit = (story) => {
     console.log(story);
@@ -57,30 +24,60 @@ const AllSuccessFullStory = () => {
   ];
 
   const {
-    data: newsContentData,
-    isLoading: isNewsLoading,
-    isError: isNewsError,
-    error: newsError,
-  } = useGetAllSuccessfulStoriesOfAUserQuery(user?.email);
+    data: successContentData,
+    isLoading: isSuccessLoading,
+    isError: isSuccessError,
+    error: successError,
+  } = useGetAllSuccessfulStoriesQuery();
+  // } = useGetAllSuccessfulStoriesOfAUserQuery(user?.email);
 
-  console.log(newsContentData);
+  // mutation for deleting data
+  const [
+    deleteAlumni,
+    {
+      data,
+      isSuccess: isDeleteSuccess,
+      isLoading: isDeleteLoading,
+      isError: isDeleteError,
+      error: errorDelete,
+    },
+  ] = useDeleteSuccessfulStoriesMutation();
 
-  let newsContent;
+  // delete function handler
+  const handleDelete = (_id) => {
+    const confirmDelete = window.confirm("do you want to delete?");
+    if (confirmDelete) {
+      deleteAlumni(_id);
+    }
+  };
+  // re render components on status change
+  useEffect(() => {
+    if (isDeleteSuccess) {
+      toast.success("Successfully toasted!");
+    }
+    if (isDeleteError) {
+      toast.error(errorDelete.message);
+    }
+  }, [errorDelete, isDeleteError, isDeleteSuccess]);
 
-  if (isNewsLoading && !isNewsError) {
-    newsContent = <Loading />;
+  // render components conditionally
+
+  let successContent;
+
+  if (isSuccessLoading && !isSuccessError) {
+    successContent = <Loading />;
   }
-  if (!isNewsLoading && isNewsError) {
-    newsContent = <ErrorAlert text={newsError} />;
+  if (!isSuccessLoading && isSuccessError) {
+    successContent = <ErrorAlert text={successError} />;
   }
-  if (!isNewsLoading && !isNewsError && newsContentData?.length === 0) {
-    newsContent = <ErrorAlert text="No Category Find" />;
+  if (!isSuccessLoading && !isSuccessError && successContentData?.length === 0) {
+    successContent = <ErrorAlert text="No Category Find" />;
   }
-  if (!isNewsLoading && !isNewsError && newsContentData?.length > 0) {
-    newsContent = (
+  if (!isSuccessLoading && !isSuccessError && successContentData?.length > 0) {
+    successContent = (
       <>
         {" "}
-        {newsContentData?.map((event) => (
+        {successContentData?.map((event) => (
           <tr>
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               <div className="flex px-2 py-1">
@@ -93,14 +90,11 @@ const AllSuccessFullStory = () => {
                 </div>
                 <div className="flex flex-col justify-center">
                   <h6 className="mb-0 leading-normal text-sm">{event.title}</h6>
-                  <p className="mb-0 leading-tight text-xs text-slate-400">
-                    {/* john@creative-tim.com */}
-                  </p>
+                  <p className="mb-0 leading-tight text-xs text-slate-400"></p>
                 </div>
               </div>
             </td>
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-              {/* <p className="mb-0 font-semibold leading-tight text-xs">{event.location}</p> */}
               <p className="mb-0 leading-tight text-xs text-slate-400">
                 {event.batchNumber}
               </p>
@@ -116,7 +110,7 @@ const AllSuccessFullStory = () => {
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent ">
               <div className="flex">
                 <Link
-                  to=""
+                  to={`/dashboard/successfulStory/edit/${event._id}`}
                   className="font-semibold leading-tight text-xs text-slate-400 px-2 ml-2"
                 >
                   <svg
@@ -134,7 +128,11 @@ const AllSuccessFullStory = () => {
                     />
                   </svg>
                 </Link>
-                <Link to="" className="font-semibold leading-tight text-xs  px-2 ml-2">
+                <Link
+                  onClick={() => handleDelete(event._id)}
+                  to=""
+                  className="font-semibold leading-tight text-xs  px-2 ml-2"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -162,7 +160,7 @@ const AllSuccessFullStory = () => {
     <div className="w-full px-8">
       <div className="relative flex flex-col w-full min-w-0 mb-0 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
         <div className="p-6 pb-0 mb-0 bg-white rounded-t-2xl">
-          <h6>All News</h6>
+          <h6>All SuccessFull Story</h6>
         </div>
         <div className="flex-auto px-0 pt-0 pb-2">
           <div className="p-0 overflow-x-auto">
@@ -178,7 +176,7 @@ const AllSuccessFullStory = () => {
                   <th className="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-400 opacity-70"></th>
                 </tr>
               </thead>
-              <tbody>{newsContent}</tbody>
+              <tbody>{successContent}</tbody>
             </table>
           </div>
         </div>
