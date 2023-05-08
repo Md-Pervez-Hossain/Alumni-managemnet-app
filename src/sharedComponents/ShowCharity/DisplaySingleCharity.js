@@ -6,10 +6,26 @@ import { useGetSingleCharityQuery } from "../../features/Api/apiSlice";
 import Loading from "../Loading/Loading";
 import ErrorAlert from "../Skeletion/ErrorAlert";
 import MoreCharity from "./MoreCharity";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 const DisplaySingleCharity = () => {
   const [showCharity, setShowCharity] = useState([]);
   console.log(showCharity.length);
+  const [previous, setPrevious] = useState(0);
+  const [next, setNext] = useState(6);
+
+  const handlePrevious = () => {
+    console.log("previous");
+    if (previous > 0) {
+      setNext(next - 6);
+      setPrevious(previous - 6);
+    }
+  };
+  const handleNext = () => {
+    console.log("next");
+    setNext(next + 6);
+    setPrevious(previous + 6);
+  };
 
   useEffect(() => {
     fetch("https://alumni-managemnet-app-server.vercel.app/charity")
@@ -101,6 +117,7 @@ const DisplaySingleCharity = () => {
                 <div className="grid lg:grid-cols-3 gap-5">
                   {showCharity
                     ?.filter((charity) => charity._id !== _id)
+                    .slice(previous, next)
                     .map((charity) => (
                       <MoreCharity
                         key={charity._id}
@@ -111,6 +128,21 @@ const DisplaySingleCharity = () => {
               </>
             )}
           </div>
+          {showCharity?.length > 3 && (
+            <div className="flex gap-2 justify-end">
+              <button onClick={() => handlePrevious()}>
+                <FaArrowLeft></FaArrowLeft>
+              </button>
+              <button
+                disabled={
+                  next === showCharity?.length || next > showCharity?.length
+                }
+                onClick={() => handleNext()}
+              >
+                <FaArrowRight></FaArrowRight>
+              </button>
+            </div>
+          )}
         </div>
       </>
     );
