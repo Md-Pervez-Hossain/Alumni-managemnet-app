@@ -3,7 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://alumni-managemnet-app-server.vercel.app",
+    // baseUrl: "https://alumni-managemnet-app-server.vercel.app",
+    baseUrl: "http://localhost:8000/",
   }),
   tagTypes: ["alumni", "events", "news", "stroy", "gallery", "charity"],
   endpoints: (builder) => ({
@@ -74,6 +75,7 @@ export const apiSlice = createApi({
         method: "PUT",
         body: data,
       }),
+
       invalidatesTags: ["events"],
     }),
 
@@ -290,8 +292,8 @@ export const {
 
   // mutations of events
   useAddEventsMutation,
-  useEditEventMutation,
   useDeleteEventMutation,
+  useEditEventMutation,
 
   //  All Alumni
   useGetAllAlumniQuery,
