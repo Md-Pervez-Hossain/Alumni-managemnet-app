@@ -70,12 +70,22 @@ const routes = createBrowserRouter([
         element: <Events />,
       },
       {
-        path: "/payment/success/:id",
+        path: "/charity/donation/:id",
         loader: async ({ params }) => {
           return fetch(
-            `https://alumni-managemnet-app-server.vercel.app/payment/success/${params.id}`
+            `https://alumni-managemnet-app-server.vercel.app/charity/donation/${params.id}`
           );
         },
+        element: <Donation></Donation>,
+      },
+
+      {
+        path: "/payment/success",
+        // loader: async ({ params }) => {
+        //   return fetch(
+        //     `https://alumni-managemnet-app-server.vercel.app/payment/success/${params.id}`
+        //   );
+        // },
         element: <PaymentSuccessful></PaymentSuccessful>,
       },
       {
@@ -102,7 +112,7 @@ const routes = createBrowserRouter([
       },
       {
         path: "/gallery",
-        element: <AllGallery></AllGallery>,
+        element: <AllGalleryImage></AllGalleryImage>,
       },
 
       {
@@ -113,15 +123,7 @@ const routes = createBrowserRouter([
         path: "/charity/:id",
         element: <DisplaySingleCharity></DisplaySingleCharity>,
       },
-      {
-        path: "/charity/donation/:id",
-        loader: async ({ params }) => {
-          return fetch(
-            `https://alumni-managemnet-app-server.vercel.app/charity/donation/${params.id}`
-          );
-        },
-        element: <Donation></Donation>,
-      },
+
       {
         path: "/events/:singleEventId",
         element: <SingleEvent />,
