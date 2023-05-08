@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../sharedComponents/UseContext/AuthProvider";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -7,7 +7,6 @@ import {
   useGetAllBatchesQuery,
   useGetAllGraduationMajorQuery,
 } from "../../features/Api/apiSlice";
-import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addBlood,
@@ -19,6 +18,7 @@ import {
   addPhone,
   addProfilePhoto,
 } from "../../features/userCreate/userCreate";
+import { toast } from "react-hot-toast";
 
 const RegisterForm = () => {
   const { createUser, updateUserProfile, signInWithGoogle } = useContext(AuthContext);
@@ -70,10 +70,7 @@ const RegisterForm = () => {
 
   const handleSaveAlumniToDB = (data) => {
     addAlumni(data);
-    if (isSuccess) {
-      reset();
-      navigate(`/dashboard/profile/${data.email}`);
-    }
+    navigate(`/dashboard/profile/${data.email}`);
   };
 
   const handleSignUp = (data) => {
@@ -147,7 +144,6 @@ const RegisterForm = () => {
               photoURL: photoURL,
             })
               .then(() => {
-                // addAlumni(user);
                 handleSaveAlumniToDB(user);
               })
               .catch((error) => {
@@ -167,6 +163,13 @@ const RegisterForm = () => {
         });
       });
   };
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("SuccessFully  Signup  from userEffect");
+      reset();
+    }
+  }, [isSuccess, reset]);
 
   const handleGoogleSignup = () => {
     signInWithGoogle()
