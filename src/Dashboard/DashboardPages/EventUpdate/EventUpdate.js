@@ -16,7 +16,6 @@ const EventUpdate = () => {
   const { user } = useContext(AuthContext);
   const singleEvent = useLoaderData();
 
-  console.log(singleEvent._id);
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const handleCreateEvents = (event) => {
@@ -24,7 +23,7 @@ const EventUpdate = () => {
     const authorEmail = user?.email;
     const form = event.target;
     const batch = form.eventsBatch.value;
-    const event_title = form.eventsHeading.value;
+    const event_title = form?.eventsHeading?.value;
     const date = selectedDate;
     // console.log(date);
     const location = form.eventsLocation.value;
@@ -33,18 +32,11 @@ const EventUpdate = () => {
     const image_url = form.image.files[0];
     const formData = new FormData();
     formData.append("image", image_url);
-    // console.log(category);
-    // console.log(formData);
 
-    // addEvents({});
-
-    fetch(
-      "https://api.imgbb.com/1/upload?key=dd1a5cd35aa9d832298beb50053079da",
-      {
-        method: "POST",
-        body: formData,
-      }
-    )
+    fetch("https://api.imgbb.com/1/upload?key=dd1a5cd35aa9d832298beb50053079da", {
+      method: "POST",
+      body: formData,
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -61,7 +53,7 @@ const EventUpdate = () => {
         };
 
         fetch(
-          `https://alumni-managemnet-app-server.vercel.app/event/${singleEvent._id}`,
+          `https://alumni-managemnet-app-server.vercel.app/event/${singleEvent?._id}`,
           {
             method: "PUT",
             headers: {
@@ -105,7 +97,7 @@ const EventUpdate = () => {
     eventCategoryNames = (
       <>
         {eventsCategories.map((eventCategory) => (
-          <option key={eventCategory._id} value={eventCategory._id}>
+          <option key={eventCategory?._id} value={eventCategory?._id}>
             {eventCategory.eventCategory}
           </option>
         ))}
@@ -135,10 +127,7 @@ const EventUpdate = () => {
     allBatchesOptionsContent = (
       <>
         {allBatches.map((allUniversityNames) => (
-          <option
-            value={allUniversityNames.batchNumber}
-            key={allUniversityNames._id}
-          >
+          <option value={allUniversityNames?.batchNumber} key={allUniversityNames?._id}>
             {allUniversityNames.batchNumber}
           </option>
         ))}
@@ -169,21 +158,13 @@ const EventUpdate = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mt-5">
           <div className="form-control w-full ">
-            <select
-              className="select select-bordered "
-              name="eventsBatch"
-              required
-            >
+            <select className="select select-bordered " name="eventsBatch" required>
               <option value="">Select Batch</option>
               {allBatchesOptionsContent}
             </select>
           </div>
           <div className="form-control w-full ">
-            <select
-              className="select select-bordered "
-              name="eventsCategory"
-              required
-            >
+            <select className="select select-bordered " name="eventsCategory" required>
               {eventCategoryNames}
             </select>
           </div>

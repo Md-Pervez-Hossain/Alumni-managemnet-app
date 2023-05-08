@@ -78,6 +78,26 @@ export const apiSlice = createApi({
       query: () => "/alumniNewsCategories",
     }),
 
+    // add a new News
+    addNews: builder.mutation({
+      query: (data) => ({
+        url: "/news",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["news"],
+    }),
+
+    //  Edit a  NEWS
+    editNews: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/news/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["news"],
+    }),
+
     // * Alumni * //
 
     // All Alumni Data
@@ -206,6 +226,8 @@ export const {
   useGetaLLNewsQuery,
   useGetSingleNewsQuery,
   useGetNewsCategoriesQuery,
+  useAddNewsMutation,
+  useEditNewsMutation,
 
   // UTILS
   useGetAllBatchesQuery,

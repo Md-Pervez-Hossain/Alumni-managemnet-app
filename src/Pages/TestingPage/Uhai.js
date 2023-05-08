@@ -8,6 +8,7 @@ import NewsUpdatePage from "../../sharedComponents/NewsUpdatePage/NewsUpdatePage
 import EventUpdatePages from "../../Dashboard/DashboardPages/EventUpdatePage/EventUpdatePages";
 import AddAEvent from "../../Dashboard/DashboardPages/Events/AddAEvent";
 import JoinedEventUpdatePage from "../../Dashboard/DashboardPages/JoinedEventUpdatePage/JoinedEventUpdatePage";
+import EventUpdate from "../../Dashboard/DashboardPages/EventUpdate/EventUpdate";
 
 const Uhai = () => {
   return (
@@ -15,13 +16,13 @@ const Uhai = () => {
       {/* <UpComingEventsCard /> */}
       {/* <AllEvents /> */}
       {/* <SuccessStoriesSection /> */}
+      <EventUpdate></EventUpdate>
+      {/* <NewsUpdatePage></NewsUpdatePage> */}
+      {/* <EventUpdatePages></EventUpdatePages> */}
 
-      <NewsUpdatePage></NewsUpdatePage>
-      <EventUpdatePages></EventUpdatePages>
+      {/* <JoinedEventUpdatePage></JoinedEventUpdatePage> */}
 
-      <JoinedEventUpdatePage></JoinedEventUpdatePage>
-
-      <AddAEvent></AddAEvent>
+      {/* <AddAEvent></AddAEvent> */}
       {/* <NewsSection /> */}
       {/* <EmailSubScribe /> */}
       {/* <NewsCreateForm></NewsCreateForm> */}

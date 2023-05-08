@@ -133,7 +133,7 @@ const DashboardLayout = () => {
             <DashBoardNavItem
               name="Profile"
               fontAwesome="fa-solid fa-user"
-              url={`/dashboard/profile/${user.email}`}
+              url={`/dashboard/profile/${user?.email}`}
             />
 
             {/* LOG OUT BUTTON */}
