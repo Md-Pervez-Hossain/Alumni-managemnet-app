@@ -37,7 +37,7 @@ const ShowCharity = () => {
     <div className="w-9/12 mx-auto ">
       {showCharity?.length > 0 ? (
         <>
-          <h2 className="text-3xl text-center mb-10">Explore Charity</h2>
+          <h2 className="text-2xl md:text-3xl text-center mb-10">Explore Charity</h2>
           <div className="grid lg:grid-cols-3 gap-10 ">
             {showCharity?.slice(previous, next).map((charity) => (
               <DisplayCharity

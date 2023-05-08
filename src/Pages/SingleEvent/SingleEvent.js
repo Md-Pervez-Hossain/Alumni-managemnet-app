@@ -208,26 +208,26 @@ const SingleEvent = () => {
               {/* The button to open modal */}
 
               {eventData.email === user?.email && eventData.event_id === _id ? (
-                <div>
-                  <button className="text-center mt-2 bg-primary p-2   text-white">
+                <div className="flex flex-col md:flex-row">
+                  <button className="text-center  bg-primary p-2  my-2 text-white">
                     Already Joined
                   </button>
 
                   <label
                     htmlFor="event-modal-edit"
-                    className="text-center mx-4 cursor-pointer bg-primary p-2   text-white"
+                    className="text-center lg:mx-4 cursor-pointer bg-primary p-2  my-2 text-white"
                   >
-                    <span> Edit</span>{" "}
-                    <FaEdit className=" inline-block mb-1"></FaEdit>{" "}
+                    <span className="text-lg"> Edit</span>{" "}
+                    <FaEdit className=" inline-block mb-1 mx-2"></FaEdit>{" "}
                   </label>
 
                   <button
                     onClick={handleDelete}
-                    className="text-center bg-primary p-2   text-white"
+                    className="flex items-center bg-primary p-2  text-white my-2"
                   >
-                    <div className="flex items-center gap-2">
-                      <span>Delete</span>
-                      <FaTrash></FaTrash>
+                    <div >
+                      <span className="flex items-center ml-24 md:m-0 gap-2"> Delete <FaTrash></FaTrash></span>
+                      
                     </div>
                   </button>
                 </div>
