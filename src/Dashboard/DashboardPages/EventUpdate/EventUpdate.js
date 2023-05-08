@@ -143,14 +143,14 @@ const EventUpdate = () => {
         <div className="grid md:grid-cols-2 gap-3 !my-2">
           <input
             type="text"
-            defaultValue={singleEvent.event_title}
+            defaultValue={singleEvent?.event_title}
             className="input input-bordered w-full"
             name="eventsHeading"
             required
           />
           <input
             type="text"
-            defaultValue={singleEvent.location}
+            defaultValue={singleEvent?.location}
             className="input input-bordered w-full "
             name="eventsLocation"
             required
@@ -188,7 +188,7 @@ const EventUpdate = () => {
         <div className="form-control w-full">
           <textarea
             className="textarea textarea-bordered w-full my-5"
-            defaultValue={singleEvent.description}
+            defaultValue={singleEvent?.description}
             name="eventsDetails"
             required
           ></textarea>
