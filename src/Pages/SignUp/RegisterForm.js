@@ -20,9 +20,16 @@ import {
 } from "../../features/userCreate/userCreate";
 import { toast } from "react-hot-toast";
 import { useAddAImageMutation } from "../../features/Api/imgbbSlice";
+import useToken from "../../customHooksReact/useToken";
 
 const RegisterForm = () => {
   const [addAImage, { data }] = useAddAImageMutation();
+  const [loginUserEmail, setLoginUserEmail] = useState();
+  const [token] = useToken(loginUserEmail);
+  const navigate = useNavigate();
+  if (token) {
+    navigate("/");
+  }
 
   const { createUser, updateUserProfile, signInWithGoogle } = useContext(AuthContext);
   const { user } = useContext(AuthContext);
@@ -36,8 +43,6 @@ const RegisterForm = () => {
     useAddAlumniMutation();
 
   const [emailAddress, setEmailAddress] = useState();
-  // use navigate
-  const navigate = useNavigate();
 
   const {
     register,
@@ -80,17 +85,6 @@ const RegisterForm = () => {
     dispatch(addGraduationYear(data));
   };
 
-  const getUserToken = (email) => {
-    fetch(`https://alumni-managemnet-app-server.vercel.app/jwt?email=${email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.accessToken) {
-          localStorage.setItem("access_token", data.accessToken);
-          navigate(`/dashboard/profile/${email}`);
-        }
-      });
-  };
-
   const handleSignUp = (data) => {
     const firstName = data.firstName;
     const lastName = data.lastName;
@@ -118,7 +112,6 @@ const RegisterForm = () => {
         // setPhotoURL(data.data.display_url);
         createUser(email, password)
           .then((result) => {
-            const userfromData = result.user;
             const user = {
               firstName: firstName,
               lastName: lastName,
@@ -147,7 +140,8 @@ const RegisterForm = () => {
               .then(() => {
                 addAlumni(user);
                 toast.success("SuccessFully Signup");
-                console.log(email);
+                reset();
+                navigate(`/dashboard/profile/${email}`);
               })
               .catch((error) => {
                 console.log(error);
@@ -167,27 +161,11 @@ const RegisterForm = () => {
       });
   };
 
-  useEffect(() => {
-    if (isSuccess) {
-      toast.success("SuccessFully  Signup  from userEffect");
-      getUserToken(emailAddress);
-      console.log("SuccessFully  Signup  from userEffect");
-      reset();
-    }
-
-    if (isError) {
-    }
-
-    if (isLoading) {
-      // getUserToken(emailAddress);
-      console.log("admin is loading");
-    }
-  }, [emailAddress, getUserToken, isError, isLoading, isSuccess, reset]);
-
   const handleGoogleSignup = () => {
     signInWithGoogle()
       .then((result) => {
         const user = result.user;
+        setLoginUserEmail(user.email);
         toast.success("SuccessFully Signup with Google Account");
       })
       .catch((error) => {
