@@ -66,9 +66,12 @@ const AllEvents = () => {
       `Are you Sure . You want to Approve The Charity`
     );
     if (agree) {
-      fetch(`http://localhost:8000/approveEvents/${_id}`, {
-        method: "PUT",
-      })
+      fetch(
+        `https://alumni-managemnet-app-server.vercel.app/approveEvents/${_id}`,
+        {
+          method: "PUT",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
@@ -86,9 +89,12 @@ const AllEvents = () => {
       `Are you Sure . You want to unApprove The Charity`
     );
     if (agree) {
-      fetch(`http://localhost:8000/unApproveEvents/${_id}`, {
-        method: "PUT",
-      })
+      fetch(
+        `https://alumni-managemnet-app-server.vercel.app/unApproveEvents/${_id}`,
+        {
+          method: "PUT",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);

@@ -69,9 +69,12 @@ const AllSuccessFullStory = () => {
       `Are you Sure . You want to Approve The SuccessStory`
     );
     if (agree) {
-      fetch(`http://localhost:8000/approveSuccessStory/${_id}`, {
-        method: "PUT",
-      })
+      fetch(
+        `https://alumni-managemnet-app-server.vercel.app/approveSuccessStory/${_id}`,
+        {
+          method: "PUT",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
@@ -90,9 +93,12 @@ const AllSuccessFullStory = () => {
       `Are you Sure . You want to unApprove The SuccessStory`
     );
     if (agree) {
-      fetch(`http://localhost:8000/unApproveSuccessStory/${_id}`, {
-        method: "PUT",
-      })
+      fetch(
+        `https://alumni-managemnet-app-server.vercel.app/unApproveSuccessStory/${_id}`,
+        {
+          method: "PUT",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
