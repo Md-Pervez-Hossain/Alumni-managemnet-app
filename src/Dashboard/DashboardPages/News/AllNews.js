@@ -30,9 +30,12 @@ const AllNews = () => {
     console.log(_id);
     const agree = window.confirm(`Are you Sure . You want to Approve The News`);
     if (agree) {
-      fetch(`http://localhost:8000/approveNews/${_id}`, {
-        method: "PUT",
-      })
+      fetch(
+        `https://alumni-managemnet-app-server.vercel.app/approveNews/${_id}`,
+        {
+          method: "PUT",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
@@ -51,9 +54,12 @@ const AllNews = () => {
       `Are you Sure . You want to unApprove The News`
     );
     if (agree) {
-      fetch(`http://localhost:8000/unApproveNews/${_id}`, {
-        method: "PUT",
-      })
+      fetch(
+        `https://alumni-managemnet-app-server.vercel.app/unApproveNews/${_id}`,
+        {
+          method: "PUT",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
