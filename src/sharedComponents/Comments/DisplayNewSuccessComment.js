@@ -20,7 +20,7 @@ const DisplayNewSuccessComments = ({ comment, handleCommentsDelete }) => {
     if (user?.email && id) {
       axios
         .get(
-          `http://localhost:8000/single-successful-comment?email=${user?.email}&id=${id}`
+          `https://alumni-managemnet-app-server.vercel.app/single-successful-comment?email=${user?.email}&id=${id}`
         )
         .then((data) => setNewComment(data.data))
         .catch((error) => console.error(error));
@@ -41,7 +41,7 @@ const DisplayNewSuccessComments = ({ comment, handleCommentsDelete }) => {
       time,
     };
     fetch(
-      `http://localhost:8000/update-successful-comment/${id}`,
+      `https://alumni-managemnet-app-server.vercel.app/update-successful-comment/${id}`,
       {
         method: "PUT",
         headers: {
