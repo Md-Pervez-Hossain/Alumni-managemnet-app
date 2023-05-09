@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../sharedComponents/UseContext/AuthProvider";
 import { toast } from "react-toastify";
 import useToken from "../../customHooksReact/useToken";
@@ -10,8 +10,12 @@ const LogIn = () => {
   const [loginUserEmail, setLoginUserEmail] = useState();
   const [token] = useToken(loginUserEmail);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/dashboard/updateProfile";
+
   if (token) {
-    navigate("/");
+    navigate(from, { replace: true });
   }
 
   const {
