@@ -10,6 +10,9 @@ import AddAEvent from "../../Dashboard/DashboardPages/Events/AddAEvent";
 import JoinedEventUpdatePage from "../../Dashboard/DashboardPages/JoinedEventUpdatePage/JoinedEventUpdatePage";
 import EventUpdate from "../../Dashboard/DashboardPages/Events/EventUpdate";
 import AllDonation from "../../Dashboard/DashboardPages/Dontation/allDonation";
+import BatchWiseCharity from "../../Dashboard/DashboardPages/Charity/BatchWiseCharity";
+import BatchWiseSuccessfulStory from "../../Dashboard/DashboardPages/successFullStory/BatchWiseSuccessfulStory";
+import BatchWiseEvents from "../../Dashboard/DashboardPages/Events/BatchWiseEvents";
 
 const Uhai = () => {
   return (
@@ -22,6 +25,9 @@ const Uhai = () => {
       {/* <EventUpdatePages></EventUpdatePages> */}
 
       <AllDonation></AllDonation>
+      {/* <BatchWiseCharity></BatchWiseCharity> */}
+      {/* <BatchWiseSuccessfulStory></BatchWiseSuccessfulStory> */}
+      {/* <BatchWiseEvents></BatchWiseEvents> */}
 
       {/* <JoinedEventUpdatePage></JoinedEventUpdatePage> */}
 
