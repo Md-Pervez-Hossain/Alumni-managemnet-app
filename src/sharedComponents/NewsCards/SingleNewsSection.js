@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaRegComment } from "react-icons/fa";
 import { MdFavoriteBorder } from "react-icons/md";
 import MoreNews from "./MoreNews";
@@ -15,6 +15,7 @@ import ShowNewsComments from "../NewsComments/ShowNewsComments";
 
 const SingleNewsSection = () => {
   const { user } = useContext(AuthContext);
+  const [newsComments, setNewsComments] = useState([]);
   console.log(user?.email);
   //  get location using react-router-dom
   const location = useLocation();
@@ -42,6 +43,18 @@ const SingleNewsSection = () => {
     _id,
   } = data || {};
 
+  useEffect(() => {
+    fetch(`http://localhost:8000/newsComment/${data?._id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setNewsComments(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [data?._id]);
+
   let content;
 
   if (isLoading && !isError) {
@@ -64,32 +77,87 @@ const SingleNewsSection = () => {
               <div className="grid lg:grid-cols-3 gap-10">
                 <div className="lg:col-span-2">
                   <div>
-                    <div
-                      style={{
-                        backgroundImage: `url(${image})`,
-                        backgroundPosition: "center",
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "cover",
-                        height: "400px",
-                      }}
-                    ></div>
+                    {image ? (
+                      <>
+                        {" "}
+                        <div
+                          style={{
+                            backgroundImage: `url(${image})`,
+                            backgroundPosition: "center",
+                            backgroundRepeat: "no-repeat",
+                            backgroundSize: "cover",
+                            height: "400px",
+                          }}
+                        ></div>
+                      </>
+                    ) : (
+                      <>
+                        {" "}
+                        <div
+                          style={{
+                            backgroundImage: `url('https://ionicframework.com/docs/img/demos/avatar.svg')`,
+                            backgroundPosition: "center",
+                            backgroundRepeat: "no-repeat",
+                            backgroundSize: "cover",
+                            height: "400px",
+                          }}
+                        ></div>
+                      </>
+                    )}
 
-                    <h2 className="text-2xl my-5">{heading}</h2>
-                    <p className="mb-5">{newsDetails}</p>
+                    <h2 className="text-2xl my-5">
+                      {heading ? (
+                        <>{heading}</>
+                      ) : (
+                        <>
+                          <h2>Title Missing</h2>
+                        </>
+                      )}
+                    </h2>
+                    <p className="mb-5">
+                      {newsDetails ? (
+                        <> {newsDetails}</>
+                      ) : (
+                        <>
+                          <p>Details Missing</p>
+                        </>
+                      )}
+                    </p>
                   </div>
                   <div className="flex items-center justify-between ">
                     <div className="flex items-center gap-3">
-                      <div
-                        className="rounded-full"
-                        style={{
-                          backgroundImage: `url(${img})`,
-                          backgroundPosition: "center",
-                          backgroundRepeat: "no-repeat",
-                          backgroundSize: "cover",
-                          height: "50px",
-                          width: "50px",
-                        }}
-                      ></div>
+                      {img ? (
+                        <>
+                          {" "}
+                          <div
+                            className="rounded-full"
+                            style={{
+                              backgroundImage: `url(${img})`,
+                              backgroundPosition: "center",
+                              backgroundRepeat: "no-repeat",
+                              backgroundSize: "cover",
+                              height: "50px",
+                              width: "50px",
+                            }}
+                          ></div>
+                        </>
+                      ) : (
+                        <>
+                          {" "}
+                          <div
+                            className="rounded-full"
+                            style={{
+                              backgroundImage: `url('https://ionicframework.com/docs/img/demos/avatar.svg')`,
+                              backgroundPosition: "center",
+                              backgroundRepeat: "no-repeat",
+                              backgroundSize: "cover",
+                              height: "50px",
+                              width: "50px",
+                            }}
+                          ></div>
+                        </>
+                      )}
+
                       <div>
                         <p>{author}</p>
                         <p>{time}</p>
@@ -98,11 +166,13 @@ const SingleNewsSection = () => {
                     <div className="flex items-center gap-5">
                       <div className="flex items-center gap-2">
                         <FaRegComment className="inline-block cursor-pointer" />
-                        <span>{comments}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <MdFavoriteBorder className="inline-block cursor-pointer" />
-                        <span>{likes}</span>
+                        <span>
+                          {newsComments?.length ? (
+                            <>{newsComments?.length}</>
+                          ) : (
+                            <></>
+                          )}
+                        </span>
                       </div>
                     </div>
                   </div>

@@ -99,7 +99,15 @@ const DisplaySingleCharity = () => {
       <>
         <InnerPageHeader
           img={`${image_url}`}
-          title={`${title}`}
+          title={
+            title ? (
+              <>{`${title}`}</>
+            ) : (
+              <>
+                <h2>Title Missing</h2>
+              </>
+            )
+          }
         ></InnerPageHeader>
         <div className="w-9/12 mx-auto my-16">
           {status === true ? <></> : <></>}
@@ -267,7 +275,6 @@ const DisplaySingleCharity = () => {
               <></>
             ) : (
               <>
-                {" "}
                 <h2 className="mt-12 mb-8 text-2xl">Explore More Charity</h2>
                 <div className="grid lg:grid-cols-3 gap-5">
                   {showCharity
@@ -286,20 +293,24 @@ const DisplaySingleCharity = () => {
               </>
             )}
           </div>
-          {showCharity?.length > 3 && (
-            <div className="flex gap-2 justify-end">
-              <button onClick={() => handlePrevious()}>
-                <FaArrowLeft></FaArrowLeft>
-              </button>
-              <button
-                disabled={
-                  next === showCharity?.length || next > showCharity?.length
-                }
-                onClick={() => handleNext()}
-              >
-                <FaArrowRight></FaArrowRight>
-              </button>
-            </div>
+          {showCharity?.length < 6 ? (
+            <>
+              <div className="flex gap-2 justify-end">
+                <button onClick={() => handlePrevious()}>
+                  <FaArrowLeft></FaArrowLeft>
+                </button>
+                <button
+                  disabled={
+                    next === showCharity?.length || next > showCharity?.length
+                  }
+                  onClick={() => handleNext()}
+                >
+                  <FaArrowRight></FaArrowRight>
+                </button>
+              </div>
+            </>
+          ) : (
+            <></>
           )}
         </div>
       </>

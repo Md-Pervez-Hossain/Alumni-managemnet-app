@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaRegComment } from "react-icons/fa";
 import { MdFavoriteBorder } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 const DisplayAllNews = ({ news }) => {
+  const [newsComments, setNewsComments] = useState([]);
+  useEffect(() => {
+    fetch(`http://localhost:8000/newsComment/${news?._id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setNewsComments(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [news?._id]);
+
   return (
     <div className="w-full shadow-lg">
       <div
@@ -48,10 +61,8 @@ const DisplayAllNews = ({ news }) => {
           </div>
           <div className="flex gap-2">
             <button>
-              <FaRegComment className="inline-block" /> {news?.comments}
-            </button>
-            <button>
-              <MdFavoriteBorder className="inline-block" /> {news?.likes}
+              <FaRegComment className="inline-block" />{" "}
+              {newsComments?.length ? <>{newsComments?.length}</> : <></>}
             </button>
           </div>
         </div>

@@ -75,7 +75,7 @@ const SuccessStoriesSection = () => {
         Successful Stories
       </h1>
       <>{successStoryContent}</>
-      {successStory?.length > 3 && (
+      {successStory?.filter((story) => story?.status === true).length > 3 && (
         <div className="flex gap-2 justify-end">
           <button onClick={() => handlePrevious()}>
             <FaArrowLeft></FaArrowLeft>

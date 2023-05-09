@@ -78,20 +78,26 @@ const ShowNewsComments = ({ data }) => {
           <span>Still No Comments</span>
         </>
       )}
-
-      <div className="flex mt-5 gap-2 justify-end">
-        <button onClick={() => handlePrevious()}>
-          <FaArrowLeft></FaArrowLeft>
-        </button>
-        <button
-          disabled={
-            next === newsComments?.length || next > newsComments?.length
-          }
-          onClick={() => handleNext()}
-        >
-          <FaArrowRight></FaArrowRight>
-        </button>
-      </div>
+      {newsComments?.length > 10 ? (
+        <>
+          {" "}
+          <div className="flex mt-5 gap-2 justify-end">
+            <button onClick={() => handlePrevious()}>
+              <FaArrowLeft></FaArrowLeft>
+            </button>
+            <button
+              disabled={
+                next === newsComments?.length || next > newsComments?.length
+              }
+              onClick={() => handleNext()}
+            >
+              <FaArrowRight></FaArrowRight>
+            </button>
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };
