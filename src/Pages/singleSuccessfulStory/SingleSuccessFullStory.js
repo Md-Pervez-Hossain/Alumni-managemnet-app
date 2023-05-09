@@ -53,7 +53,7 @@ const SingleSuccessFullStory = () => {
             title={`${title}`}
           ></InnerPageHeader>
           <div className="w-9/12 mx-auto my-16">
-            <div className="grid lg:grid-cols-3 gap-10 ">
+            <div className="grid lg:grid-cols-3 lg:gap-10 ">
               <div className="lg:col-span-2">
                 <div>
                   <div
@@ -108,7 +108,7 @@ const SingleSuccessFullStory = () => {
                           <>{name}</>
                         ) : (
                           <>
-                            <span>Author Name Mising</span>
+                            <span>Author Name Missing</span>
                           </>
                         )}
                       </p>
