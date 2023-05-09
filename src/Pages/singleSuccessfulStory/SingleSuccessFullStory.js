@@ -140,7 +140,7 @@ const SingleSuccessFullStory = () => {
                           <>{name}</>
                         ) : (
                           <>
-                            <span>Author Name Mising</span>
+                            <span>Author Name Missing</span>
                           </>
                         )}
                       </p>

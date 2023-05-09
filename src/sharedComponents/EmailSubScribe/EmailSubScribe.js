@@ -38,7 +38,7 @@ const EmailSubScribe = () => {
           </p>
 
           <div className="text-center relative form">
-            <span className="font-semibold text-white peer-focus:text-purple-600 text-left mt-2 absolute email-label">
+            <span className="font-semibold text-white peer-focus:text-purple-600 text-left text-lg mt-2 absolute email-label">
               Email
             </span>
             <br />
@@ -51,7 +51,7 @@ const EmailSubScribe = () => {
             <br />
             <button
               type="submit"
-              className="bg-white text-gray-900 font-semibold p-2 rounded-tl-lg rounded-br-lg mt-6"
+              className="bg-white text-gray-900 font-semibold p-2  mt-6"
             >
               Submit
             </button>

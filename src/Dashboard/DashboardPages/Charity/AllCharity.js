@@ -83,9 +83,12 @@ const AllCharity = () => {
       `Are you Sure . You want to Approve The Charity`
     );
     if (agree) {
-      fetch(`http://localhost:8000/approveCharity/${_id}`, {
-        method: "PUT",
-      })
+      fetch(
+        `https://alumni-managemnet-app-server.vercel.app/approveCharity/${_id}`,
+        {
+          method: "PUT",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
@@ -104,9 +107,12 @@ const AllCharity = () => {
       `Are you Sure . You want to unApprove The Charity`
     );
     if (agree) {
-      fetch(`http://localhost:8000/unApproveCharity/${_id}`, {
-        method: "PUT",
-      })
+      fetch(
+        `https://alumni-managemnet-app-server.vercel.app/unApproveCharity/${_id}`,
+        {
+          method: "PUT",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);

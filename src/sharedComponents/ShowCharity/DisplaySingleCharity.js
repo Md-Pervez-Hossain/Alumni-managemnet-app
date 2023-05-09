@@ -63,7 +63,9 @@ const DisplaySingleCharity = () => {
   } = data || {};
 
   useEffect(() => {
-    fetch(`http://localhost:8000/charityDonations/${_id}`)
+    fetch(
+      `https://alumni-managemnet-app-server.vercel.app/charityDonations/${_id}`
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

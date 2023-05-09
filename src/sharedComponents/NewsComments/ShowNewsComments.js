@@ -7,6 +7,7 @@ const ShowNewsComments = ({ data }) => {
   const [newsComments, setNewsComments] = useState([]);
   const [previous, setPrevious] = useState(0);
   const [next, setNext] = useState(10);
+  console.log(newsComments);
   useEffect(() => {
     fetch(
       `https://alumni-managemnet-app-server.vercel.app/newsComment/${data?._id}`

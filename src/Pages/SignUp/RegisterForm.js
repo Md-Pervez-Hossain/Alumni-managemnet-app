@@ -19,18 +19,23 @@ import {
   addProfilePhoto,
 } from "../../features/userCreate/userCreate";
 import { toast } from "react-hot-toast";
+import { useAddAImageMutation } from "../../features/Api/imgbbSlice";
 
 const RegisterForm = () => {
+  const [addAImage, { data }] = useAddAImageMutation();
+
   const { createUser, updateUserProfile, signInWithGoogle } = useContext(AuthContext);
   const { user } = useContext(AuthContext);
   const { data: majorSubject } = useGetAllGraduationMajorQuery();
   const { data: graduationYear } = useGetAllBatchesQuery();
   const [photo, setPhoto] = useState(null);
-  const [photoURL, setPhotoURL] = useState(null);
+  // const [photoURL, setPhotoURL] = useState(null);
+  const { email: jwtEmail } = useSelector((state) => state.userCreate);
 
-  const [addAlumni, { data, isSuccess, isError, isLoading, error }] =
+  const [addAlumni, { data: NewUserData, isSuccess, isError, isLoading, error }] =
     useAddAlumniMutation();
 
+  const [emailAddress, setEmailAddress] = useState();
   // use navigate
   const navigate = useNavigate();
 
@@ -50,7 +55,14 @@ const RegisterForm = () => {
     dispatch(addLastName(data));
   };
   const setProfilePhoto = (data) => {
-    dispatch(addProfilePhoto(data));
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(data);
+
+    fileReader.onload = () => {
+      const base64String = fileReader.result.replace("data:", "").replace(/^.+,/, "");
+      // base64String can now be stored in the Redux store
+      dispatch(addProfilePhoto(`data:image/jpeg;base64,${base64String}`));
+    };
   };
   const setEmail = (data) => {
     dispatch(addEmail(data));
@@ -68,9 +80,15 @@ const RegisterForm = () => {
     dispatch(addGraduationYear(data));
   };
 
-  const handleSaveAlumniToDB = (data) => {
-    addAlumni(data);
-    navigate(`/dashboard/profile/${data.email}`);
+  const getUserToken = (email) => {
+    fetch(`https://alumni-managemnet-app-server.vercel.app/jwt?email=${email}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.accessToken) {
+          localStorage.setItem("access_token", data.accessToken);
+          navigate(`/dashboard/profile/${email}`);
+        }
+      });
   };
 
   const handleSignUp = (data) => {
@@ -78,6 +96,7 @@ const RegisterForm = () => {
     const lastName = data.lastName;
     const name = `${data.firstName} ${data.lastName}`;
     const email = data.email;
+    setEmailAddress(data.email);
     const password = data.password;
     const blood_group = data.bloodGroup;
     const date_of_birth = data.dateOfBirth;
@@ -94,48 +113,30 @@ const RegisterForm = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        setPhotoURL(data.data.display_url);
+        const photoURL = data.data.display_url;
+
+        // setPhotoURL(data.data.display_url);
         createUser(email, password)
           .then((result) => {
-            toast.success("SuccessFully Signup");
             const userfromData = result.user;
             const user = {
               firstName: firstName,
               lastName: lastName,
               name: `${firstName} ${lastName}`,
-              profile_picture: data.data.display_url,
+              profile_picture: photoURL,
               graduation_year: graduation_year,
-              degree: "",
-              department: "",
               major: major,
               email: email,
               phone: phone,
-              address: {
-                street: "",
-                city: "",
-                state: "",
-                zip: "",
-              },
               education: {
-                degree: "",
                 major: major,
-                institution: "",
                 graduation_year: graduation_year,
-                gpa: "",
               },
-
               is_employed: false,
-
               personal_information: {
                 date_of_birth: date_of_birth,
-                gender: "",
                 blood_group: blood_group,
-                fathers_name: "",
-                mothers_name: "",
-                marital_status: "",
-                nationality: "",
                 languages: ["English", "Bengali"],
-                hobbies: [],
               },
             };
 
@@ -144,7 +145,9 @@ const RegisterForm = () => {
               photoURL: photoURL,
             })
               .then(() => {
-                handleSaveAlumniToDB(user);
+                addAlumni(user);
+                toast.success("SuccessFully Signup");
+                console.log(email);
               })
               .catch((error) => {
                 console.log(error);
@@ -167,15 +170,25 @@ const RegisterForm = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("SuccessFully  Signup  from userEffect");
+      getUserToken(emailAddress);
+      console.log("SuccessFully  Signup  from userEffect");
       reset();
     }
-  }, [isSuccess, reset]);
+
+    if (isError) {
+    }
+
+    if (isLoading) {
+      // getUserToken(emailAddress);
+      console.log("admin is loading");
+    }
+  }, [emailAddress, getUserToken, isError, isLoading, isSuccess, reset]);
 
   const handleGoogleSignup = () => {
     signInWithGoogle()
       .then((result) => {
         const user = result.user;
-        toast.success("SuccessFully  Signup");
+        toast.success("SuccessFully Signup with Google Account");
       })
       .catch((error) => {
         console.log(error);
@@ -468,6 +481,9 @@ const RegisterForm = () => {
             >
               Submit
             </button>
+            {isSuccess && (
+              <p className="bg-green-500 text-white px-8 py-2">wow success</p>
+            )}
           </form>
 
           <div className="mt-4 text-grey-600">

@@ -176,10 +176,6 @@ export const apiSlice = createApi({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: (result, error, arg) => [
-        { type: "person", id: arg.email },
-        "alumni",
-      ],
     }),
 
     // Alumni Edit
