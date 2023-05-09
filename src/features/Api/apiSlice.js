@@ -111,7 +111,9 @@ export const apiSlice = createApi({
     getaLLNews: builder.query({
       query: () => ({
         url: `/news`,
-        headers: { authorization: `bearer ${localStorage.getItem("access_token")}` },
+        headers: {
+          authorization: `bearer ${localStorage.getItem("access_token")}`,
+        },
       }),
       providesTags: ["allNews"],
     }),
@@ -227,6 +229,12 @@ export const apiSlice = createApi({
       providesTags: (result, error, arg) => [{ type: "story", id: arg }],
     }),
 
+    //  single successful stories
+    getBatchWiseSuccessfulStories: builder.query({
+      query: (year) => `/successFullStory/batch/${year}`,
+      providesTags: (result, error, arg) => [{ type: "story", id: arg }],
+    }),
+
     // add a successful stories
     addSuccessfulStories: builder.mutation({
       query: (data) => ({
@@ -275,6 +283,12 @@ export const apiSlice = createApi({
       providesTags: (result, error, arg) => [{ type: "charity", id: arg }],
     }),
 
+    //  batchWise charity
+    getBatchWiseCharity: builder.query({
+      query: (batch) => `/charity/batch/${batch}`,
+      providesTags: (result, error, arg) => [{ type: "charity", id: arg }],
+    }),
+
     // add a new Charity
     addCharity: builder.mutation({
       query: (data) => ({
@@ -304,6 +318,14 @@ export const apiSlice = createApi({
         method: "DELETE",
       }),
       invalidatesTags: ["charities"],
+    }),
+
+    // *
+
+    //  all Donation data
+    getAllCharityDonation: builder.query({
+      query: () => "/charityDonation",
+      providesTags: ["donations"],
     }),
 
     // * extras
@@ -350,11 +372,12 @@ export const {
   useAddSuccessfulStoriesMutation,
   useEditSuccessfulStoriesMutation,
   useDeleteSuccessfulStoriesMutation,
+  useGetBatchWiseSuccessfulStoriesQuery,
   //charity
   useGetAllCharityQuery,
   useGetSingleCharityQuery,
   useGetIndividualAllCharityQuery,
-
+  useGetBatchWiseCharityQuery,
   useAddCharityMutation,
   useEditCharityMutation,
   useDeleteCharityMutation,
@@ -393,6 +416,9 @@ export const {
   useAddAlumniMutation,
   useEditAlumniMutation,
   useDeleteAlumniMutation,
+
+  /// all donations
+  useGetAllCharityDonationQuery,
 
   // UTILS - EXTRAS
   useGetAllBatchesQuery,

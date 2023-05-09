@@ -9,6 +9,7 @@ import EventUpdatePages from "../../Dashboard/DashboardPages/EventUpdatePage/Eve
 import AddAEvent from "../../Dashboard/DashboardPages/Events/AddAEvent";
 import JoinedEventUpdatePage from "../../Dashboard/DashboardPages/JoinedEventUpdatePage/JoinedEventUpdatePage";
 import EventUpdate from "../../Dashboard/DashboardPages/Events/EventUpdate";
+import AllDonation from "../../Dashboard/DashboardPages/Dontation/allDonation";
 
 const Uhai = () => {
   return (
@@ -16,9 +17,11 @@ const Uhai = () => {
       {/* <UpComingEventsCard /> */}
       {/* <AllEvents /> */}
       {/* <SuccessStoriesSection /> */}
-      <EventUpdate></EventUpdate>
+      {/* <EventUpdate></EventUpdate> */}
       {/* <NewsUpdatePage></NewsUpdatePage> */}
       {/* <EventUpdatePages></EventUpdatePages> */}
+
+      <AllDonation></AllDonation>
 
       {/* <JoinedEventUpdatePage></JoinedEventUpdatePage> */}
 

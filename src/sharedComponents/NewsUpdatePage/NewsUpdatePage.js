@@ -23,7 +23,13 @@ const NewsUpdatePage = () => {
   }, [user?.email]);
 
   const handleDelete = (id) => {
-    fetch(`https://alumni-managemnet-app-server.vercel.app/news/delete/${id}`, {
+
+    const agree = window.confirm(
+      `Are want to Delete ?`
+    );
+
+    if(agree){
+      fetch(`https://alumni-managemnet-app-server.vercel.app/news/delete/${id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -32,6 +38,7 @@ const NewsUpdatePage = () => {
           toast.success(`Delete Successfully.`);
         }
       });
+    }
   };
 
   return (
