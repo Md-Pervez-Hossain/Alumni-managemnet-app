@@ -78,7 +78,7 @@ const Header = () => {
               </>
             ) : (
               <>
-                <div className="dropdown lg:dropdown-end text-black">
+                <div className="dropdown lg:dropdown-end text-black mt-8 md:mt-0">
                   <label
                     tabIndex={0}
                     className="btn btn-ghost btn-circle avatar"
@@ -102,7 +102,7 @@ const Header = () => {
                     <li>
                       <Link
                         className="active:bg-secondary active:text-primary"
-                        to={`/alumni/${user.email}`}
+                        to={`/alumni/${user?.email}`}
                       >
                         {user?.displayName}
                       </Link>
@@ -119,7 +119,7 @@ const Header = () => {
                     <li>
                       <Link
                         className="active:bg-secondary active:text-primary"
-                        to={`/dashboard/profile/${user.email}`}
+                        to={`/dashboard/profile/${user?.email}`}
                       >
                         Update Profile
                       </Link>

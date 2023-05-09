@@ -18,28 +18,61 @@ const MoreCharity = ({ charity }) => {
   } = charity;
   return (
     <div>
-      <div
-        style={{
-          backgroundImage: `url(${image_url})`,
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          height: "150px",
-        }}
-      ></div>
+      {image_url ? (
+        <>
+          <div
+            style={{
+              backgroundImage: `url(${image_url})`,
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              height: "150px",
+            }}
+          ></div>
+        </>
+      ) : (
+        <>
+          <div
+            style={{
+              backgroundImage: `url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyKpQUy8JP90MAZxFjU0P9bPqkUWL35fd8Ag&usqp=CAU')`,
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "cover",
+              height: "150px",
+            }}
+          ></div>
+        </>
+      )}
       <div className="pl-2 pt-3 ">
         <h2 className="text-xl">
-          {title?.length >= 20 ? (
-            <>{`${title?.slice(0, 20)}...`}</>
+          {title ? (
+            <>
+              {" "}
+              {title?.length >= 20 ? (
+                <>{`${title?.slice(0, 20)}...`}</>
+              ) : (
+                <>{`${title}`}</>
+              )}
+            </>
           ) : (
-            <>{`${title}`}</>
+            <>
+              <h2> Title Missing</h2>
+            </>
           )}
         </h2>
         <p className="mb-2">
-          {details?.length >= 70 ? (
-            <> {`${details?.slice(0, 70)} ...`}</>
+          {details ? (
+            <>
+              {details?.length >= 70 ? (
+                <> {`${details?.slice(0, 70)} ...`}</>
+              ) : (
+                <>{`${details}`}</>
+              )}
+            </>
           ) : (
-            <>{`${details}`}</>
+            <>
+              <p>Details Missing</p>
+            </>
           )}
         </p>
         <Link to={`/charity/${_id}`}>

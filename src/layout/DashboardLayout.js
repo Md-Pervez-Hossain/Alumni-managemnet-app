@@ -12,6 +12,7 @@ import DashBoardNavItem from "../Dashboard/DashboardComponents/DashBoardNavItem/
 import ResizeObserver from "resize-observer-polyfill";
 import _ from "lodash";
 import { AuthContext } from "../sharedComponents/UseContext/AuthProvider";
+import { FaStream } from "react-icons/fa";
 const DashboardLayout = () => {
   const location = useLocation();
   const isActive = location.pathname === "/dashboard";
@@ -43,16 +44,20 @@ const DashboardLayout = () => {
     <>
       <div ref={elementRef} className="drawer bg-[#F8F9FA] drawer-mobile">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content w-full flex flex-col items-start justify-start">
+        <div className="drawer-content w-full flex flex-col items-start justify-start relative">
           {/* <!-- Page content here --> */}
-          <DashBoardNavbar />
-          <Outlet />
+
           <label
             htmlFor="my-drawer-2"
-            className="btn btn-primary drawer-button lg:hidden"
+            className="btn btn-primary drawer-button lg:hidden sticky top-1 z-10"
           >
-            Open drawer
+           
+            <FaStream></FaStream>
           </label>
+
+          <DashBoardNavbar />
+          <Outlet />
+          
         </div>
         <div className="drawer-side bg-[#F8F9FA]">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
@@ -63,11 +68,7 @@ const DashboardLayout = () => {
                 <img src={logo} alt="" className="mt-0.5 w-3/4 " />
               </Link>
             </li>
-            <DashBoardNavItem
-              name="Dashboard"
-              fontAwesome="fa-solid fa-store"
-              url="/dashboard"
-            />
+            
             <DashBoardNavItem
               name="Alumni"
               fontAwesome="fa-solid fa-graduation-cap"

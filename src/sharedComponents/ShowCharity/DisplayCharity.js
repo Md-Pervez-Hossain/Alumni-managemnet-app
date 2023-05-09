@@ -23,30 +23,66 @@ const DisplayCharity = ({ charity }) => {
     <div>
       <>
         {" "}
-        <div
-          style={{
-            backgroundImage: `url(${image_url})`,
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            backgroundSize: "cover",
-            height: "300px",
-          }}
-        ></div>
+        {image_url ? (
+          <>
+            {" "}
+            <div
+              style={{
+                backgroundImage: `url(${image_url})`,
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                height: "300px",
+              }}
+            ></div>
+          </>
+        ) : (
+          <>
+            {" "}
+            <div
+              style={{
+                backgroundImage: `url('https://ionicframework.com/docs/img/demos/avatar.svg')`,
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                height: "300px",
+              }}
+            ></div>
+          </>
+        )}
         <div className="pl-2 pt-3">
-          <Link to={`/charity/${_id}`}>
-            <h2 className="text-xl mb-3">
-              {title.length >= 20 ? (
-                <>{`${title.slice(0, 20)} ...`}</>
-              ) : (
-                <>{`${title}`}</>
-              )}
-            </h2>
-          </Link>
-          {details.length >= 70 ? (
-            <>{`${details.slice(0, 70)} ...`}</>
-          ) : (
-            <>{`${details}`}</>
-          )}
+          <h2 className="text-xl mb-3">
+            {title ? (
+              <>
+                {" "}
+                {title?.length >= 20 ? (
+                  <>{`${title.slice(0, 20)} ...`}</>
+                ) : (
+                  <>{`${title}`}</>
+                )}
+              </>
+            ) : (
+              <>
+                <h2>Title Missing</h2>
+              </>
+            )}
+          </h2>
+
+          <p>
+            {details ? (
+              <>
+                {details?.length >= 70 ? (
+                  <>{`${details.slice(0, 70)} ...`}</>
+                ) : (
+                  <>{`${details}`}</>
+                )}
+              </>
+            ) : (
+              <>
+                <p>Detais Missing</p>
+              </>
+            )}
+          </p>
           <p className="mb-3"></p>
           <Link to={`/charity/${_id}`} className=" flex gap-1 items-center  ">
             <span className="font-medium underline"> Read More </span>

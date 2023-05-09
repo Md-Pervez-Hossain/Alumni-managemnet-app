@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { MdFavoriteBorder } from "react-icons/md";
 import { FaArrowLeft, FaArrowRight, FaRegComment } from "react-icons/fa";
@@ -6,12 +6,40 @@ import { Link } from "react-router-dom";
 
 const NewsCard = ({ data }) => {
   console.log(data);
+  const [newsComments, setNewsComments] = useState([]);
+  useEffect(() => {
+    fetch(`http://localhost:8000/newsComment/${data?._id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setNewsComments(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [data?._id]);
   return (
     <div className="w-full shadow-lg">
-      <div
-        className={` h-[269px] m-0 bg-cover bg-center	bg-no-repeat`}
-        style={{ backgroundImage: `url(${data.image})` }}
-      ></div>
+      {data?.image ? (
+        <>
+          {" "}
+          <div
+            className={` h-[269px] m-0 bg-cover bg-center	bg-no-repeat`}
+            style={{ backgroundImage: `url(${data?.image})` }}
+          ></div>
+        </>
+      ) : (
+        <>
+          {" "}
+          <div
+            className={` h-[269px] m-0 bg-cover bg-center	bg-no-repeat`}
+            style={{
+              backgroundImage: `url('https://ionicframework.com/docs/img/demos/avatar.svg')`,
+            }}
+          ></div>
+        </>
+      )}
+
       <div className="pl-2 pt-3">
         <Link to={`/news/${data._id}`}>
           <h5 className="text-xl mb-3 font-medium leading-tight text-gray-900">
@@ -39,24 +67,49 @@ const NewsCard = ({ data }) => {
         {/* news author */}
         <div className="mt-5  flex justify-between items-center text-black ">
           <div className="flex gap-2 items-center ">
-            <div className="w-11 h-11 rounded-full border-2">
-              <img
-                className="w-full h-full object-cover rounded-full"
-                src={data?.img}
-                alt=""
-              />
-            </div>
+            {data?.img ? (
+              <>
+                <div
+                  className={`h-12 w-12 rounded-full  m-0 bg-cover bg-center	bg-no-repeat`}
+                  style={{ backgroundImage: `url(${data?.img})` }}
+                ></div>
+              </>
+            ) : (
+              <>
+                <div
+                  className={`h-12 w-12 rounded-full m-0 bg-cover bg-center	bg-no-repeat`}
+                  style={{
+                    backgroundImage: `url('https://ionicframework.com/docs/img/demos/avatar.svg')`,
+                  }}
+                ></div>
+              </>
+            )}
+
             <div className="leading-none">
-              <p>{data?.author}</p>
-              <span className="text-[14px] mt-1">{data?.time}</span>
+              <p>
+                {data?.author ? (
+                  <>{data?.author}</>
+                ) : (
+                  <>
+                    <p>Author Name Missing</p>
+                  </>
+                )}
+              </p>
+              <span className="text-[14px] mt-1">
+                {data?.time ? (
+                  <> {data?.time}</>
+                ) : (
+                  <>
+                    <p>publish date missing</p>
+                  </>
+                )}
+              </span>
             </div>
           </div>
-          <div className="flex gap-3">
+          <div className="flex gap-">
             <button>
-              <FaRegComment className="inline-block" /> {data?.comments}
-            </button>
-            <button>
-              <MdFavoriteBorder className="inline-block" /> {data?.likes}
+              <FaRegComment className="inline-block mr-2" />
+              {newsComments?.length ? <>{newsComments?.length}</> : <></>}
             </button>
           </div>
         </div>

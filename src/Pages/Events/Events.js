@@ -67,7 +67,7 @@ const Events = () => {
         {" "}
         <div className="grid grid-cols-1 md:grid-cols-2">
           {eventsContentData
-            .filter(filterCategoryWise)
+            .filter((event) => event?.status === true && filterCategoryWise)
             .slice(previous, next)
             .map((item) => (
               <AllEventsCard key={item._id} item={item} />

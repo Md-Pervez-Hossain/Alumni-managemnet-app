@@ -107,7 +107,7 @@ const DisplayNewSuccessComments = ({ comment, handleCommentsDelete }) => {
                 />
 
                 <button className="text-center px-4 cursor-pointer  bg-primary text-white">
-                  Edit
+                  Comment
                 </button>
               </form>
             </div>
