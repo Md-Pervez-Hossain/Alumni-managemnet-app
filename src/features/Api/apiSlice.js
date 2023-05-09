@@ -94,10 +94,7 @@ export const apiSlice = createApi({
         body: data,
       }),
 
-      invalidatesTags: (result, error, arg) => [
-        "events",
-        { type: "event", id: arg.id },
-      ],
+      invalidatesTags: (result, error, arg) => ["events", { type: "event", id: arg.id }],
     }),
 
     /// delete a event
@@ -147,10 +144,7 @@ export const apiSlice = createApi({
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: (result, error, arg) => [
-        "allNews",
-        { type: "news", id: arg.id },
-      ],
+      invalidatesTags: (result, error, arg) => ["allNews", { type: "news", id: arg.id }],
     }),
 
     /// delete a news
@@ -235,6 +229,12 @@ export const apiSlice = createApi({
       providesTags: (result, error, arg) => [{ type: "story", id: arg }],
     }),
 
+    //  single successful stories
+    getBatchWiseSuccessfulStories: builder.query({
+      query: (year) => `/successFullStory/batch/${year}`,
+      providesTags: (result, error, arg) => [{ type: "story", id: arg }],
+    }),
+
     // add a successful stories
     addSuccessfulStories: builder.mutation({
       query: (data) => ({
@@ -252,10 +252,7 @@ export const apiSlice = createApi({
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: (result, error, arg) => [
-        "stories",
-        { type: "story", id: arg.id },
-      ],
+      invalidatesTags: (result, error, arg) => ["stories", { type: "story", id: arg.id }],
     }),
 
     // delete stroy
@@ -283,6 +280,12 @@ export const apiSlice = createApi({
     //  single charity
     getSingleCharity: builder.query({
       query: (id) => `/charity/${id}`,
+      providesTags: (result, error, arg) => [{ type: "charity", id: arg }],
+    }),
+
+    //  batchWise charity
+    getBatchWiseCharity: builder.query({
+      query: (batch) => `/charity/batch/${batch}`,
       providesTags: (result, error, arg) => [{ type: "charity", id: arg }],
     }),
 
@@ -369,11 +372,12 @@ export const {
   useAddSuccessfulStoriesMutation,
   useEditSuccessfulStoriesMutation,
   useDeleteSuccessfulStoriesMutation,
+  useGetBatchWiseSuccessfulStoriesQuery,
   //charity
   useGetAllCharityQuery,
   useGetSingleCharityQuery,
   useGetIndividualAllCharityQuery,
-
+  useGetBatchWiseCharityQuery,
   useAddCharityMutation,
   useEditCharityMutation,
   useDeleteCharityMutation,
@@ -403,8 +407,6 @@ export const {
   useAddEventsMutation,
   useDeleteEventMutation,
   useEditEventMutation,
-  /// all donations
-  useGetAllCharityDonationQuery,
 
   //  All Alumni
   useGetAllAlumniQuery,
@@ -414,6 +416,9 @@ export const {
   useAddAlumniMutation,
   useEditAlumniMutation,
   useDeleteAlumniMutation,
+
+  /// all donations
+  useGetAllCharityDonationQuery,
 
   // UTILS - EXTRAS
   useGetAllBatchesQuery,
