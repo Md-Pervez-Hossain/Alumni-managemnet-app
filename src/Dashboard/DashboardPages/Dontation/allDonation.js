@@ -3,6 +3,7 @@ import Loading from "../../../sharedComponents/Loading/Loading";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
 import { useGetAllCharityDonationQuery } from "../../../features/Api/apiSlice";
 import { toast } from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const AllDonation = () => {
   const tableHeading = [
@@ -42,9 +43,11 @@ const AllDonation = () => {
         {allDonationContentData?.map((donation) => (
           <tr className="">
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-              <div className="flex px-2 py-1">
-                <div>{donation?.donationTitle}</div>
-              </div>
+            
+                    <p className="mb-0 leading-normal text-sm break-normal">
+                      {donation.donationTitle?.slice(0, 50)}
+                    </p>
+            
             </td>
             <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
               <p className="mb-0 leading-tight text-xs text-slate-600">

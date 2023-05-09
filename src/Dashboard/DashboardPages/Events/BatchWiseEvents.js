@@ -4,35 +4,32 @@ import Loading from "../../../sharedComponents/Loading/Loading";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
 import {
   useDeleteCharityMutation,
-  useGetAllCharityQuery,
-  useGetBatchWiseCharityQuery,
-  useGetIndividualAllCharityQuery,
+  useDeleteEventMutation,
+  useGetBatchWiseEventsQuery,
+ 
 } from "../../../features/Api/apiSlice";
 import { toast } from "react-hot-toast";
 
-const AllCharity = () => {
+const BatchWiseEvents = () => {
   const tableHeading = [
     { name: "Title", id: 1 },
-    { name: "Name & Email", id: 1 },
-    { name: "Location", id: 3 },
-    { name: "Batch", id: 4 },
-    { name: "Target", id: 2 },
-    { name: "Collected ", id: 5 },
-    { name: "Date ", id: 6 },
-    { name: "Action ", id: 7 },
+    { name: "Location", id: 2 },
+    { name: "Date", id: 3 },
+    { name: "Action ", id: 4 },
+    
   ];
 
  const batch = 2013;
 
   const {
-    data: batchWiseCharityContentData,
+    data: batchWiseEventContentData,
     isLoading: isCharityLoading,
     isError: isCharityError,
     error: charityError,
-  } = useGetBatchWiseCharityQuery(batch);
+  } = useGetBatchWiseEventsQuery(batch);
 
 
-console.log(batchWiseCharityContentData)
+console.log(batchWiseEventContentData)
   //
 
   // mutation for deleting data
@@ -45,7 +42,7 @@ console.log(batchWiseCharityContentData)
       isError: isDeleteError,
       error: errorDelete,
     },
-  ] = useDeleteCharityMutation();
+  ] = useDeleteEventMutation();
 
   // delete function handler
   const handleDelete = (_id) => {
@@ -71,7 +68,7 @@ console.log(batchWiseCharityContentData)
     );
     if (agree) {
       fetch(
-        `https://alumni-managemnet-app-server.vercel.app/approveCharity/${_id}`,
+        `https://alumni-managemnet-app-server.vercel.app/approveEvents/${_id}`,
         {
           method: "PUT",
         }
@@ -95,7 +92,7 @@ console.log(batchWiseCharityContentData)
     );
     if (agree) {
       fetch(
-        `https://alumni-managemnet-app-server.vercel.app/unApproveCharity/${_id}`,
+        `https://alumni-managemnet-app-server.vercel.app/unApproveEvents/${_id}`,
         {
           method: "PUT",
         }
@@ -125,29 +122,29 @@ console.log(batchWiseCharityContentData)
   if (
     !isCharityLoading &&
     !isCharityError &&
-    batchWiseCharityContentData?.length === 0
+    batchWiseEventContentData?.length === 0
   ) {
     charityContent = <ErrorAlert text="No Category Find" />;
   }
-  if (!isCharityLoading && !isCharityError && batchWiseCharityContentData?.length > 0) {
+  if (!isCharityLoading && !isCharityError && batchWiseEventContentData?.length > 0) {
     charityContent = (
       <>
         {" "}
-        {batchWiseCharityContentData?.map((charity) => (
+        {batchWiseEventContentData?.map((Events) => (
           <tr className="">
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               <div className="flex px-2 py-1">
                 <div>
                   <img
-                    src={charity.image_url}
+                    src={Events.image_url}
                     className="!w-10 !h-10 inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm rounded-xl"
                     alt="user1"
                   />
                 </div>
                 <div className="flex flex-col justify-center">
-                  <Link to={`/charity/${charity?._id}`}>
+                  <Link to={`/events/${Events?._id}`}>
                     <p className="mb-0 leading-normal text-sm break-normal">
-                      {charity.title?.slice(0, 50)}
+                      {Events.event_title?.slice(0, 50)}
                     </p>
                   </Link>
                   <p className="mb-0 leading-tight text-xs text-slate-600">
@@ -159,45 +156,21 @@ console.log(batchWiseCharityContentData)
 
             <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
               <p className="mb-0 leading-tight text-xs text-slate-600">
-                <p className="flex flex-col"><span>{charity.name}</span> <span className="text-opacity-10">{charity.email}</span></p>
+                <p className="flex flex-col"><span>{Events.location}</span> </p>
               </p>
             </td>
             <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
               <p className="mb-0 leading-tight text-xs text-slate-600">
-                {` ${charity.state}, ${charity.city}, ${charity.country}  `?.slice(
-                  0,
-                  30
-                )}
-              </p>
-            </td>
-            <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
-              <p className="mb-0 leading-tight text-xs text-slate-600">
-                {charity.batchNumber}
-              </p>
-            </td>
-            <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
-              <p className="mb-0 leading-tight text-xs text-slate-600">
-                {charity.goal_amount?.slice(0, 14)}
-              </p>
-            </td>
-            <td className="p-2 align-middle text-left bg-transparent border-b whitespace-nowrap shadow-transparent">
-              {/* <p className="mb-0 font-semibold leading-tight text-xs">{event.location}</p> */}
-              <p className="mb-0 leading-tight text-xs text-slate-600">
-                {charity.goal_amount?.slice(0, 14)}
-              </p>
-            </td>
-            <td className="p-2 align-middle text-left bg-transparent border-b whitespace-nowrap shadow-transparent">
-              {/* <p className="mb-0 font-semibold leading-tight text-xs">{event.location}</p> */}
-              <p className="mb-0 leading-tight text-xs text-slate-600">
-                {charity.time}
+              <span className="text-opacity-10">{Events.date?.slice(0, 10)}</span>
               </p>
             </td>
             
+            
             <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               <div className="flex gap-2 font-semibold">
-                {charity?.status === true ? (
+                {Events?.status === true ? (
                   <>
-                    <button onClick={() => handleUnApprove(charity?._id)}>
+                    <button onClick={() => handleUnApprove(Events?._id)}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -216,7 +189,7 @@ console.log(batchWiseCharityContentData)
                   </>
                 ) : (
                   <>
-                    <button onClick={() => handleApprove(charity?._id)}>
+                    <button onClick={() => handleApprove(Events?._id)}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -241,7 +214,7 @@ console.log(batchWiseCharityContentData)
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent ">
               <div className="flex">
                 <Link
-                  to={`/dashboard/charity/edit/${charity._id}`}
+                  to={`/dashboard/charity/edit/${Events._id}`}
                   className="font-semibold leading-tight text-xs text-slate-600 px-2 ml-2"
                 >
                   <svg
@@ -261,7 +234,7 @@ console.log(batchWiseCharityContentData)
                 </Link>
                 <Link
                   to=""
-                  onClick={() => handleDelete(charity._id)}
+                  onClick={() => handleDelete(Events._id)}
                   className="font-semibold leading-tight text-xs  px-2 ml-2"
                 >
                   <svg
@@ -292,10 +265,10 @@ console.log(batchWiseCharityContentData)
       <div className="relative flex flex-col w-full min-w-0 mb-0 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
         <div className=" p-6 pb-0 mb-0 bg-white rounded-t-2xl">
         <h6 className="font-sans font-semibold">
-            Batch wise charities information.
+            Batch wise Events information.
             <span className="text-primary text-opacity-80">
               {" "}
-              In batch wise total charities are {batchWiseCharityContentData?.length}.
+              In batch wise total Events are {batchWiseEventContentData?.length}.
             </span>
           </h6>
         </div>
@@ -322,4 +295,4 @@ console.log(batchWiseCharityContentData)
   );
 };
 
-export default AllCharity;
+export default BatchWiseEvents;
