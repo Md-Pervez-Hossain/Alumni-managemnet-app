@@ -15,6 +15,7 @@ const AllEvents = () => {
     { name: "Location", id: 2 },
     { name: "Batch", id: 3 },
     { name: "Date", id: 5 },
+    { name: "Action", id: 5 },
   ];
 
   const {
@@ -59,6 +60,47 @@ const AllEvents = () => {
       deleteAlumni(_id);
     }
   };
+
+  const handleApprove = (_id) => {
+    const agree = window.confirm(
+      `Are you Sure . You want to Approve The Charity`
+    );
+    if (agree) {
+      fetch(`http://localhost:8000/approveEvents/${_id}`, {
+        method: "PUT",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.modifiedCount > 0) {
+            toast.success("Successfully Approved");
+          }
+        })
+        .catch((error) => {
+          toast.error(error.message);
+        });
+    }
+  };
+  const handleUnApprove = (_id) => {
+    const agree = window.confirm(
+      `Are you Sure . You want to unApprove The Charity`
+    );
+    if (agree) {
+      fetch(`http://localhost:8000/unApproveEvents/${_id}`, {
+        method: "PUT",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.modifiedCount > 0) {
+            toast.success("Successfully unApproved");
+          }
+        })
+        .catch((error) => {
+          toast.error(error.message);
+        });
+    }
+  };
   // re render components on status change
   useEffect(() => {
     if (isDeleteSuccess) {
@@ -97,7 +139,9 @@ const AllEvents = () => {
                 </div>
                 <div className="flex flex-col justify-center">
                   <Link to={`/events/${event._id}`}>
-                    <h6 className="mb-0 leading-normal text-sm">{event.event_title}</h6>
+                    <h6 className="mb-0 leading-normal text-sm">
+                      {event.event_title}
+                    </h6>
                   </Link>
                   <p className="mb-0 leading-tight text-xs text-slate-400">
                     {/* john@creative-tim.com */}
@@ -112,14 +156,58 @@ const AllEvents = () => {
               </p>
             </td>
             <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
-              <p className="mb-0 leading-tight text-xs text-slate-400">{event.batch}</p>
+              <p className="mb-0 leading-tight text-xs text-slate-400">
+                {event.batch}
+              </p>
             </td>
             <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               <span className="font-semibold leading-tight text-xs text-slate-400">
                 {formatDate(event.date)}
               </span>
             </td>
-
+            <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+              <div className="flex gap-2 font-semibold">
+                {event?.status === true ? (
+                  <>
+                    <button onClick={() => handleUnApprove(event?._id)}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="w-6 h-6 text-green-600"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button onClick={() => handleApprove(event?._id)}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="w-6 h-6 text-secondary"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                    </button>
+                  </>
+                )}
+              </div>
+            </td>
             {/* edit and delete function */}
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent ">
               <div className="flex">

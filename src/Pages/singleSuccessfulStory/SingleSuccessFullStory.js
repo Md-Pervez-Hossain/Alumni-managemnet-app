@@ -56,19 +56,51 @@ const SingleSuccessFullStory = () => {
             <div className="grid lg:grid-cols-3 gap-10 ">
               <div className="lg:col-span-2">
                 <div>
-                  <div
-                    style={{
-                      backgroundImage: `url(${image_url})`,
-                      backgroundPosition: "center",
-                      backgroundRepeat: "no-repeat",
-                      backgroundSize: "cover",
-                      height: "400px",
-                    }}
-                  ></div>
+                  {image_url ? (
+                    <>
+                      <div
+                        style={{
+                          backgroundImage: `url(${image_url})`,
+                          backgroundPosition: "center",
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: "cover",
+                          height: "400px",
+                        }}
+                      ></div>
+                    </>
+                  ) : (
+                    <>
+                      <div
+                        style={{
+                          backgroundImage: `url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyKpQUy8JP90MAZxFjU0P9bPqkUWL35fd8Ag&usqp=CAU')`,
+                          backgroundPosition: "center",
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: "cover",
+                          height: "400px",
+                        }}
+                      ></div>
+                    </>
+                  )}
 
                   <div>
-                    <h2 className="text-2xl my-5">{title}</h2>
-                    <p className="mb-5">{details}</p>
+                    <h2 className="text-2xl my-5">
+                      {title ? (
+                        <>{title}</>
+                      ) : (
+                        <>
+                          <h2>Title Missing</h2>
+                        </>
+                      )}
+                    </h2>
+                    <p className="mb-5">
+                      {details ? (
+                        <>{details}</>
+                      ) : (
+                        <>
+                          <p>Details Missing</p>
+                        </>
+                      )}
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center justify-between ">

@@ -38,11 +38,20 @@ const SuccessStoriesSection = () => {
   ) {
     successStoryContent = (
       <>
-        <div data-aos="fade-up"
-     data-aos-duration="3000" className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 items-center justify-between mb-4">
-          {successStory?.slice(previous, next).map((data) => (
-            <SuccessStoriesCard key={data._id} data={data}></SuccessStoriesCard>
-          ))}
+        <div
+          data-aos="fade-up"
+          data-aos-duration="3000"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 items-center justify-between mb-4"
+        >
+          {successStory
+            ?.filter((story) => story?.status === true)
+            .slice(previous, next)
+            .map((data) => (
+              <SuccessStoriesCard
+                key={data._id}
+                data={data}
+              ></SuccessStoriesCard>
+            ))}
         </div>
       </>
     );

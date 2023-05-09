@@ -12,7 +12,13 @@ const InnerPageHeader = ({ title, img, description }) => {
         <div className=" text-white py-10 px-20 md:py-28 md:px-40 lg:px-96 mx-auto text-center">
           <div>
             <h2 className="md:text-3xl text-2xl font-semibold md:mb-4 capitalize">
-              {title}
+              {title ? (
+                <>{title}</>
+              ) : (
+                <>
+                  <h2>Title Missing</h2>
+                </>
+              )}
             </h2>
           </div>
           <hr className="md:mb-3 my-5 w-24 mx-auto border-2 border-secondary " />
