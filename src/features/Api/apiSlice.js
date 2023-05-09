@@ -3,8 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://alumni-managemnet-app-server.vercel.app",
-    // baseUrl: "http://localhost:8000/",
+    // baseUrl: "https://alumni-managemnet-app-server.vercel.app",
+    baseUrl: "http://localhost:8000/",
   }),
   tagTypes: [
     "alumni",
@@ -176,10 +176,6 @@ export const apiSlice = createApi({
         method: "POST",
         body: data,
       }),
-      invalidatesTags: (result, error, arg) => [
-        { type: "person", id: arg.email },
-        "alumni",
-      ],
     }),
 
     // Alumni Edit

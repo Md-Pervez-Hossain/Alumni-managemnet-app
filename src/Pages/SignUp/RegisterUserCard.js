@@ -21,7 +21,8 @@ const RegisterUserCard = () => {
           {profilePhoto !== null ? (
             <img
               className="object-cover object-center h-32"
-              src={URL.createObjectURL(profilePhoto)}
+              // src={URL.createObjectURL(profilePhoto)}
+              src={profilePhoto}
               alt="user looking front"
             />
           ) : (
