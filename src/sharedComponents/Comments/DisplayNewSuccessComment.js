@@ -5,7 +5,7 @@ import { AuthContext } from "../UseContext/AuthProvider";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 
-const DisplayNewsComments = ({ comment, handleCommentsDelete }) => {
+const DisplayNewSuccessComments = ({ comment, handleCommentsDelete }) => {
   const { user } = useContext(AuthContext);
 
   // console.log(comment)
@@ -20,7 +20,7 @@ const DisplayNewsComments = ({ comment, handleCommentsDelete }) => {
     if (user?.email && id) {
       axios
         .get(
-          `https://alumni-managemnet-app-server.vercel.app/single-comment?email=${user?.email}&id=${id}`
+          `https://alumni-managemnet-app-server.vercel.app/single-successful-comment?email=${user?.email}&id=${id}`
         )
         .then((data) => setNewComment(data.data))
         .catch((error) => console.error(error));
@@ -41,7 +41,7 @@ const DisplayNewsComments = ({ comment, handleCommentsDelete }) => {
       time,
     };
     fetch(
-      `https://alumni-managemnet-app-server.vercel.app/update-comment/${id}`,
+      `https://alumni-managemnet-app-server.vercel.app/update-successful-comment/${id}`,
       {
         method: "PUT",
         headers: {
@@ -167,4 +167,4 @@ const DisplayNewsComments = ({ comment, handleCommentsDelete }) => {
   );
 };
 
-export default DisplayNewsComments;
+export default DisplayNewSuccessComments;

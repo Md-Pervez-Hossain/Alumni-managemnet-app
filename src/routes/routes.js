@@ -80,12 +80,12 @@ const routes = createBrowserRouter([
       },
 
       {
-        path: "/payment/success",
-        // loader: async ({ params }) => {
-        //   return fetch(
-        //     `https://alumni-managemnet-app-server.vercel.app/payment/success/${params.id}`
-        //   );
-        // },
+        path: "/payment/success/:id",
+        loader: async ({ params }) => {
+          return fetch(
+            `https://alumni-managemnet-app-server.vercel.app/payment/success/${params.id}`
+          );
+        },
         element: <PaymentSuccessful></PaymentSuccessful>,
       },
       {

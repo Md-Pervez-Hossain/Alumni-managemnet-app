@@ -13,7 +13,6 @@ const DisplaySingleCharity = () => {
   const { user } = useContext(AuthContext);
   const [showCharity, setShowCharity] = useState([]);
   const [singleDonation, setSingleDonation] = useState([]);
-  console.log(showCharity.length);
   const [previous, setPrevious] = useState(0);
   const [next, setNext] = useState(6);
 
@@ -60,6 +59,7 @@ const DisplaySingleCharity = () => {
     goal_amount,
     image_url,
     title,
+    status,
   } = data || {};
 
   useEffect(() => {
@@ -84,8 +84,9 @@ const DisplaySingleCharity = () => {
     const allDonation = parseInt(donation?.cus_donationAmount);
     totalDonation = totalDonation + allDonation;
   }
-  console.log(typeof totalDonation);
-  console.log(typeof goalAmount);
+  console.log(totalDonation);
+  console.log(goalAmount);
+  console.log(showCharity);
 
   let content;
 
@@ -103,6 +104,7 @@ const DisplaySingleCharity = () => {
           title={`${title}`}
         ></InnerPageHeader>
         <div className="w-9/12 mx-auto my-16">
+          {status === true ? <></> : <></>}
           {totalDonation >= goalAmount ? (
             <>
               <div className="grid lg:grid-cols-2 gap-10 items-center">
@@ -215,7 +217,7 @@ const DisplaySingleCharity = () => {
                   <p className="font-normal">
                     <span className="font-normal">
                       {goal_amount ? (
-                        <> Goal Amount : {goal_amount}</>
+                        <> Goal Amount : {goal_amount} BDT</>
                       ) : (
                         <>
                           <p>Goal Amount Missing</p>
@@ -225,7 +227,7 @@ const DisplaySingleCharity = () => {
                   </p>
                   <p className="font-normal">
                     Collected Amount :{" "}
-                    <span className="font-normal">{totalDonation}</span>
+                    <span className="font-normal">{totalDonation} BDT</span>
                   </p>
                   {city && state && country ? (
                     <>
@@ -271,7 +273,10 @@ const DisplaySingleCharity = () => {
                 <h2 className="mt-12 mb-8 text-2xl">Explore More Charity</h2>
                 <div className="grid lg:grid-cols-3 gap-5">
                   {showCharity
-                    ?.filter((charity) => charity._id !== _id)
+                    ?.filter(
+                      (charity) =>
+                        charity?._id !== _id && charity?.status === true
+                    )
                     .slice(previous, next)
                     .map((charity) => (
                       <MoreCharity
