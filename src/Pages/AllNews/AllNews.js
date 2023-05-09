@@ -29,9 +29,11 @@ const AllNewsPage = () => {
       <>
         {" "}
         <div className="grid lg:grid-cols-3 gap-10">
-          {newsData?.map((news) => (
-            <DisplayAllNews news={news} key={news._id}></DisplayAllNews>
-          ))}
+          {newsData
+            ?.filter((news) => news?.status === true)
+            .map((news) => (
+              <DisplayAllNews news={news} key={news._id}></DisplayAllNews>
+            ))}
         </div>{" "}
       </>
     );

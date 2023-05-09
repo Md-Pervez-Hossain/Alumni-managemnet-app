@@ -68,7 +68,6 @@ const SinglePerson = () => {
   if (!isLoading && isError) {
     content = <ErrorAlert text={error} />;
   }
-  
 
   // slide button previous and next
   const [previous, setPrevious] = useState(0);

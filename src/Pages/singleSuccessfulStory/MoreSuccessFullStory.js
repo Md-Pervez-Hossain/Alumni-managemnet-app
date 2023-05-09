@@ -36,11 +36,12 @@ const MoreSuccessFullStory = ({ _id }) => {
   return (
     <div>
       {stories
-        ?.slice(previous, next)
-        .filter((story) => story._id !== _id)
+        ?.filter((story) => story._id !== _id && story.status === true)
+        .slice(previous, next)
         .map((story) => {
           return (
             <>
+              <h2 className="mb-5 text-xl">Explore More SuccessFull Story</h2>
               <div
                 key={story?._id}
                 className="flex items-center gap-3 justify-between mb-5"
@@ -64,8 +65,8 @@ const MoreSuccessFullStory = ({ _id }) => {
                     )}
                   </h2>
                   <p className="text-[12px] mb-2">
-                    {story?.details?.length >= 70 ? (
-                      <>{`${story?.details?.slice(0, 70)} ...`}</>
+                    {story?.details?.length >= 40 ? (
+                      <>{`${story?.details?.slice(0, 40)} ...`}</>
                     ) : (
                       <>{`${story?.details}`}</>
                     )}
@@ -81,15 +82,23 @@ const MoreSuccessFullStory = ({ _id }) => {
             </>
           );
         })}
-
-      <div className="flex gap-2 justify-end">
-        <button onClick={() => handlePrevious()}>
-          <FaArrowLeft></FaArrowLeft>
-        </button>
-        <button disabled={next > stories?.length} onClick={() => handleNext()}>
-          <FaArrowRight></FaArrowRight>
-        </button>
-      </div>
+      {stories?.length < 1 ? (
+        <>
+          <div className="flex gap-2 justify-end">
+            <button onClick={() => handlePrevious()}>
+              <FaArrowLeft></FaArrowLeft>
+            </button>
+            <button
+              disabled={next > stories?.length}
+              onClick={() => handleNext()}
+            >
+              <FaArrowRight></FaArrowRight>
+            </button>
+          </div>
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

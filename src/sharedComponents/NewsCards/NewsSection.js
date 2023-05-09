@@ -59,7 +59,7 @@ const NewsSection = () => {
 
   return (
     <div
-      data-aos="fade-right"
+      data-aos="fade-up"
       data-aos-offset="900"
       data-aos-easing="ease-in-sine"
       className="mx-auto mt-[5.5rem]"
@@ -69,18 +69,22 @@ const NewsSection = () => {
       </h1>
       <>{newsContent}</>
 
-      {newsData?.length > 3 && (
-        <div className="flex gap-2 justify-end">
-          <button onClick={() => handlePrevious()}>
-            <FaArrowLeft></FaArrowLeft>
-          </button>
-          <button
-            disabled={next === newsData?.length || next > newsData?.length}
-            onClick={() => handleNext()}
-          >
-            <FaArrowRight></FaArrowRight>
-          </button>
-        </div>
+      {newsData?.filter((news) => news?.status === true).length > 3 ? (
+        <>
+          <div className="flex gap-2 justify-end">
+            <button onClick={() => handlePrevious()}>
+              <FaArrowLeft></FaArrowLeft>
+            </button>
+            <button
+              disabled={next === newsData?.length || next > newsData?.length}
+              onClick={() => handleNext()}
+            >
+              <FaArrowRight></FaArrowRight>
+            </button>
+          </div>
+        </>
+      ) : (
+        <></>
       )}
     </div>
   );

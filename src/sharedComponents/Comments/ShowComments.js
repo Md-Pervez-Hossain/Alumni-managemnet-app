@@ -62,9 +62,7 @@ const ShowComments = ({ _id }) => {
     }
   };
 
-  console.log(NewComment)
-
-  
+  console.log(NewComment);
 
   return (
     <div>
@@ -72,14 +70,11 @@ const ShowComments = ({ _id }) => {
         <>
           {" "}
           {comments?.map((comment) => (
-
             <DisplayNewSuccessComment
-            comment={comment}
+              comment={comment}
               keys={comment._id}
               handleCommentsDelete={handleCommentsDelete}
-            >
-
-            </DisplayNewSuccessComment>
+            ></DisplayNewSuccessComment>
 
             // return (
             //   <div className="mt-5">
@@ -100,14 +95,12 @@ const ShowComments = ({ _id }) => {
             //           <h2> {comment?.name ? <> {comment?.name}</> : <></>}</h2>
             //           <p className="opacity-50">
             //             {comment?.time ? <>{comment?.time}</> : <></>}
-                      
+
             //           </p>
             //         </div>
             //         <p>
             //           {comment?.comments ? <>{comment?.comments}</> : <></>}
 
-
-                      
             //         </p>
 
             //         <div className="flex gap-5 items-center cursor-pointer">

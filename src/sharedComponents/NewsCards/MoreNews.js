@@ -34,7 +34,6 @@ const MoreNews = ({ _id }) => {
     <div>
       {news?.length > 1 ? (
         <>
-          {" "}
           <h2 className="text-2xl mb-8">Explore More News</h2>
           <div className="grid lg:grid-cols-3 gap-5">
             {news
@@ -84,14 +83,23 @@ const MoreNews = ({ _id }) => {
                 );
               })}
           </div>
-          <div className="flex gap-2 justify-end">
-            <button onClick={() => handlePrevious()}>
-              <FaArrowLeft></FaArrowLeft>
-            </button>
-            <button disabled={next > news?.length} onClick={() => handleNext()}>
-              <FaArrowRight></FaArrowRight>
-            </button>
-          </div>
+          {news?.length > 6 ? (
+            <>
+              <div className="flex gap-2 justify-end">
+                <button onClick={() => handlePrevious()}>
+                  <FaArrowLeft></FaArrowLeft>
+                </button>
+                <button
+                  disabled={next > news?.length}
+                  onClick={() => handleNext()}
+                >
+                  <FaArrowRight></FaArrowRight>
+                </button>
+              </div>
+            </>
+          ) : (
+            <></>
+          )}
         </>
       ) : (
         <></>
