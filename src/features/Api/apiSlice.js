@@ -402,6 +402,9 @@ export const {
   useEditAlumniMutation,
   useDeleteAlumniMutation,
 
+  /// all donations
+  useGetAllCharityDonationQuery,
+
   // UTILS - EXTRAS
   useGetAllBatchesQuery,
   useGetAllUniversityNameQuery,
