@@ -13,30 +13,16 @@ import { toast } from "react-hot-toast";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import Loading from "../../../sharedComponents/Loading/Loading";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
+import useToken from "../../../customHooksReact/useToken";
 const MembershipForm = () => {
   const [
     editAlumni,
     { data: alumniData, isLoading, isError, error: editError, isSuccess },
   ] = useEditAlumniMutation();
   const navigate = useNavigate();
-
   const location = useLocation();
   const pathname = location.pathname.split("/dashboard/profile/")[1];
-
-  console.log(pathname);
-
-  const getUserToken = (email) => {
-    fetch(`https://alumni-managemnet-app-server.vercel.app/jwt?email=${email}`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.accessToken) {
-          localStorage.setItem("access_token", data.accessToken);
-        }
-      });
-  };
-
-  getUserToken(pathname);
-
+  const [token] = useToken(pathname);
   const { user } = useContext(AuthContext);
   const {
     data: singleAlumni,
@@ -152,14 +138,14 @@ const MembershipForm = () => {
   // error: isAlumniError,
 
   let content;
-
+  console.log(singleAlumni);
   if (isSingleAlumniLoading && !isSingleAlumniLoadingError) {
     content = <Loading />;
   }
   if (!isSingleAlumniLoading && isSingleAlumniLoadingError) {
     content = <ErrorAlert text={isAlumniError} />;
   }
-  if (!isLoading && !isError) {
+  if (!isLoading && !isError && singleAlumni !== undefined) {
     content = (
       <>
         {" "}
