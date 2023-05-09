@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Loading from "../../../sharedComponents/Loading/Loading";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
@@ -10,6 +10,7 @@ import {
 import { toast } from "react-hot-toast";
 
 const AllCharity = () => {
+  const [singleCharity, setSingleCharity] = useState({});
   const tableHeading = [
     { name: "Title", id: 1 },
     { name: "Location", id: 3 },
@@ -59,6 +60,20 @@ const AllCharity = () => {
       error: errorDelete,
     },
   ] = useDeleteCharityMutation();
+
+  useEffect(() => {
+    fetch(
+      `https://alumni-managemnet-app-server.vercel.app/charity/${data?._id}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setSingleCharity(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [data?._id]);
 
   // delete function handler
   const handleDelete = (_id) => {
@@ -150,13 +165,29 @@ const AllCharity = () => {
           <tr className="">
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               <div className="flex px-2 py-1">
-                <div>
-                  <img
-                    src={charity.image_url}
-                    className="!w-10 !h-10 inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm rounded-xl"
-                    alt="user1"
-                  />
-                </div>
+                {charity?.image_url ? (
+                  <>
+                    {" "}
+                    <div>
+                      <img
+                        src={charity?.image_url}
+                        className="!w-10 !h-10 inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm rounded-xl"
+                        alt="user1"
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div>
+                      <img
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyKpQUy8JP90MAZxFjU0P9bPqkUWL35fd8Ag&usqp=CAU"
+                        className="!w-10 !h-10 inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm rounded-xl"
+                        alt="user1"
+                      />
+                    </div>
+                  </>
+                )}
+
                 <div className="flex flex-col justify-center">
                   <Link to={`/charity/${charity?._id}`}>
                     <p className="mb-0 leading-normal text-sm break-normal">
@@ -172,7 +203,7 @@ const AllCharity = () => {
 
             <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
               <p className="mb-0 leading-tight text-xs text-slate-400">
-                {` ${charity.state}, ${charity.city}, ${charity.country}  `?.slice(
+                {` ${charity?.state}, ${charity?.city}, ${charity?.country}  `?.slice(
                   0,
                   20
                 )}
@@ -180,23 +211,41 @@ const AllCharity = () => {
             </td>
             <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
               <p className="mb-0 leading-tight text-xs text-slate-400">
-                {charity.batchNumber}
+                {charity?.batchNumber ? (
+                  <>{charity?.batchNumber}</>
+                ) : (
+                  <>
+                    <p>Batch Missing</p>
+                  </>
+                )}
               </p>
             </td>
             <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
               <p className="mb-0 leading-tight text-xs text-slate-400">
-                {charity.goal_amount?.slice(0, 14)}
+                {charity?.goal_amount?.slice(0, 14)}
               </p>
             </td>
             <td className="p-2 align-middle text-left bg-transparent border-b whitespace-nowrap shadow-transparent">
               {/* <p className="mb-0 font-semibold leading-tight text-xs">{event.location}</p> */}
               <p className="mb-0 leading-tight text-xs text-slate-400">
-                {charity.goal_amount?.slice(0, 14)}
+                {charity?.goal_amount ? (
+                  <>{charity?.goal_amount?.slice(0, 14)}</>
+                ) : (
+                  <>
+                    <p>Missing</p>
+                  </>
+                )}
               </p>
             </td>
             <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               <span className="font-semibold leading-tight text-xs text-slate-400">
-                {dateConvert(charity.deadline)}
+                {charity?.deadline ? (
+                  <>{dateConvert(charity?.deadline)}</>
+                ) : (
+                  <>
+                    <p>DeadLine Missing</p>
+                  </>
+                )}
               </span>
             </td>
             <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
@@ -247,7 +296,7 @@ const AllCharity = () => {
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent ">
               <div className="flex">
                 <Link
-                  to={`/dashboard/charity/edit/${charity._id}`}
+                  to={`/dashboard/charity/edit/${charity?._id}`}
                   className="font-semibold leading-tight text-xs text-slate-400 px-2 ml-2"
                 >
                   <svg
