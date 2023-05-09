@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import Loading from "../../../sharedComponents/Loading/Loading";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
 import {
-  useGetAllCharityDonationQuery,
+    useGetBatchWiseCharityQuery,
 } from "../../../features/Api/apiSlice";
 import { toast } from "react-hot-toast";
 
-const AllDonation = () => {
+const BatchWiseCharity = () => {
   const tableHeading = [
     { name: "Title", id: 1 },
     { name: "Donar Name", id: 3 },
@@ -20,13 +20,13 @@ const AllDonation = () => {
 
 
   const {
-    data: allDonationContentData,
+    data: batchWiseCharityContentData,
     isLoading: isCharityLoading,
     isError: isCharityError,
     error: charityError,
-  } = useGetAllCharityDonationQuery();
+  } = useGetBatchWiseCharityQuery(2020);
 
-  console.log(allDonationContentData);
+  console.log(batchWiseCharityContentData);
 
 
 
@@ -42,15 +42,15 @@ const AllDonation = () => {
   if (
     !isCharityLoading &&
     !isCharityError &&
-    allDonationContentData?.length === 0
+    batchWiseCharityContentData?.length === 0
   ) {
     charityContent = <ErrorAlert text="No Category Find" />;
   }
-  if (!isCharityLoading && !isCharityError && allDonationContentData?.length > 0) {
+  if (!isCharityLoading && !isCharityError && batchWiseCharityContentData?.length > 0) {
     charityContent = (
       <>
         {" "}
-        {allDonationContentData?.map((donation) => (
+        {batchWiseCharityContentData?.map((donation) => (
           <tr className="">
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               <div className="flex px-2 py-1">
@@ -110,7 +110,7 @@ const AllDonation = () => {
     <div className="w-full px-8">
       <div className="relative flex flex-col w-full min-w-0 mb-0 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
         <div className=" p-6 pb-0 mb-0 bg-white rounded-t-2xl">
-          <h6 className="font-sans font-semibold">All Donations.<span className="text-primary text-opacity-80"> The total donation number is {allDonationContentData?.length}.</span></h6>
+          <h6 className="font-sans font-semibold">All Donations.<span className="text-primary text-opacity-80"> The total donation number is {batchWiseCharityContentData?.length}.</span></h6>
         </div>
         <div className="flex-auto px-0 pt-0 pb-2">
           <div className="p-0 overflow-x-auto">
@@ -136,4 +136,4 @@ const AllDonation = () => {
   );
 };
 
-export default AllDonation;
+export default BatchWiseCharity;
