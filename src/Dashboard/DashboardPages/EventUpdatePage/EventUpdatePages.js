@@ -22,18 +22,26 @@ const EventUpdatePages = () => {
   }, [user?.email]);
 
   const handleDelete = (id) => {
-    fetch(
-      `https://alumni-managemnet-app-server.vercel.app/event/delete/${id}`,
-      {
-        method: "DELETE",
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.deletedCount > 0) {
-          toast.success(`Delete Successfully.`);
+
+    const agree = window.confirm(
+      `Are you want to Delete ?`
+    );
+
+    if(agree){
+      fetch(
+        `https://alumni-managemnet-app-server.vercel.app/event/delete/${id}`,
+        {
+          method: "DELETE",
         }
-      });
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount > 0) {
+            toast.success(`Delete Successfully.`);
+          }
+        });
+    }
+
   };
 
   return (

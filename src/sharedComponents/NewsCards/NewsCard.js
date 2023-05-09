@@ -8,7 +8,9 @@ const NewsCard = ({ data }) => {
   console.log(data);
   const [newsComments, setNewsComments] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:8000/newsComment/${data?._id}`)
+    fetch(
+      `http://https://alumni-managemnet-app-server.vercel.app/newsComment/${data?._id}`
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

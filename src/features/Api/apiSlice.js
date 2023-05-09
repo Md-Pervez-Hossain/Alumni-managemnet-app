@@ -111,7 +111,9 @@ export const apiSlice = createApi({
     getaLLNews: builder.query({
       query: () => ({
         url: `/news`,
-        headers: { authorization: `bearer ${localStorage.getItem("access_token")}` },
+        headers: {
+          authorization: `bearer ${localStorage.getItem("access_token")}`,
+        },
       }),
       providesTags: ["allNews"],
     }),
@@ -227,6 +229,12 @@ export const apiSlice = createApi({
       providesTags: (result, error, arg) => [{ type: "story", id: arg }],
     }),
 
+    //  single successful stories
+    getBatchWiseSuccessfulStories: builder.query({
+      query: (year) => `/successFullStory/batch/${year}`,
+      providesTags: (result, error, arg) => [{ type: "story", id: arg }],
+    }),
+
     // add a successful stories
     addSuccessfulStories: builder.mutation({
       query: (data) => ({
@@ -272,6 +280,12 @@ export const apiSlice = createApi({
     //  single charity
     getSingleCharity: builder.query({
       query: (id) => `/charity/${id}`,
+      providesTags: (result, error, arg) => [{ type: "charity", id: arg }],
+    }),
+
+    //  batchWise charity
+    getBatchWiseCharity: builder.query({
+      query: (batch) => `/charity/batch/${batch}`,
       providesTags: (result, error, arg) => [{ type: "charity", id: arg }],
     }),
 
@@ -358,11 +372,12 @@ export const {
   useAddSuccessfulStoriesMutation,
   useEditSuccessfulStoriesMutation,
   useDeleteSuccessfulStoriesMutation,
+  useGetBatchWiseSuccessfulStoriesQuery,
   //charity
   useGetAllCharityQuery,
   useGetSingleCharityQuery,
   useGetIndividualAllCharityQuery,
-
+  useGetBatchWiseCharityQuery,
   useAddCharityMutation,
   useEditCharityMutation,
   useDeleteCharityMutation,
