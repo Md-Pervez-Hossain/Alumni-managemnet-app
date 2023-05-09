@@ -65,8 +65,8 @@ const MoreSuccessFullStory = ({ _id }) => {
                     )}
                   </h2>
                   <p className="text-[12px] mb-2">
-                    {story?.details?.length >= 70 ? (
-                      <>{`${story?.details?.slice(0, 70)} ...`}</>
+                    {story?.details?.length >= 40 ? (
+                      <>{`${story?.details?.slice(0, 40)} ...`}</>
                     ) : (
                       <>{`${story?.details}`}</>
                     )}

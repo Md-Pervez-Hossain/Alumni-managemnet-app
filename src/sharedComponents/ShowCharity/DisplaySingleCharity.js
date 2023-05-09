@@ -110,36 +110,37 @@ const DisplaySingleCharity = () => {
           }
         ></InnerPageHeader>
         <div className="w-9/12 mx-auto my-16">
-          {status === true ? <></> : <></>}
           {totalDonation >= goalAmount ? (
             <>
               <div className="grid lg:grid-cols-2 gap-10 items-center">
-                {image_url ? (
-                  <>
-                    {" "}
-                    <div
-                      style={{
-                        backgroundImage: `url(${image_url})`,
-                        backgroundPosition: "center",
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "cover",
-                        height: "400px",
-                      }}
-                    ></div>
-                  </>
-                ) : (
-                  <>
-                    <div
-                      style={{
-                        backgroundImage: `url('https://ionicframework.com/docs/img/demos/avatar.svg')`,
-                        backgroundPosition: "center",
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "cover",
-                        height: "400px",
-                      }}
-                    ></div>
-                  </>
-                )}
+                <div>
+                  {image_url ? (
+                    <>
+                      {" "}
+                      <div
+                        style={{
+                          backgroundImage: `url(${image_url})`,
+                          backgroundPosition: "center",
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: "cover",
+                          height: "400px",
+                        }}
+                      ></div>
+                    </>
+                  ) : (
+                    <>
+                      <div
+                        style={{
+                          backgroundImage: `url('https://ionicframework.com/docs/img/demos/avatar.svg')`,
+                          backgroundPosition: "center",
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: "cover",
+                          height: "400px",
+                        }}
+                      ></div>
+                    </>
+                  )}
+                </div>
                 <div>
                   <h2 className="text-2xl font-semibold mb-3">
                     Thank you All{" "}
@@ -165,32 +166,34 @@ const DisplaySingleCharity = () => {
             <>
               {" "}
               <div className="grid lg:grid-cols-2 gap-10 items-center">
-                {image_url ? (
-                  <>
-                    {" "}
-                    <div
-                      style={{
-                        backgroundImage: `url(${image_url})`,
-                        backgroundPosition: "center",
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "cover",
-                        height: "400px",
-                      }}
-                    ></div>
-                  </>
-                ) : (
-                  <>
-                    <div
-                      style={{
-                        backgroundImage: `url('https://ionicframework.com/docs/img/demos/avatar.svg')`,
-                        backgroundPosition: "center",
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "cover",
-                        height: "400px",
-                      }}
-                    ></div>
-                  </>
-                )}
+                <div>
+                  {image_url ? (
+                    <>
+                      {" "}
+                      <div
+                        style={{
+                          backgroundImage: `url(${image_url})`,
+                          backgroundPosition: "center",
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: "cover",
+                          height: "400px",
+                        }}
+                      ></div>
+                    </>
+                  ) : (
+                    <>
+                      <div
+                        style={{
+                          backgroundImage: `url('https://ionicframework.com/docs/img/demos/avatar.svg')`,
+                          backgroundPosition: "center",
+                          backgroundRepeat: "no-repeat",
+                          backgroundSize: "cover",
+                          height: "400px",
+                        }}
+                      ></div>
+                    </>
+                  )}
+                </div>
                 <div>
                   <h2 className="mb-3 text-xl">
                     {title ? (

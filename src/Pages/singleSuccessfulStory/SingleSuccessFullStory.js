@@ -53,8 +53,8 @@ const SingleSuccessFullStory = () => {
             title={`${title}`}
           ></InnerPageHeader>
           <div className="w-9/12 mx-auto my-16">
-            <div className="grid lg:grid-cols-3 gap-10 ">
-              <div className="lg:col-span-2">
+            <div className="flex md:flex-row flex-col-reverse gap-10 ">
+              <div className="basis-9/12">
                 <div>
                   {image_url ? (
                     <>
@@ -165,8 +165,7 @@ const SingleSuccessFullStory = () => {
                   </>
                 )}
               </div>
-
-              <div className="lg:col-span-1">
+              <div className="basis-3/12">
                 <MoreSuccessFullStory _id={_id}></MoreSuccessFullStory>
               </div>
             </div>

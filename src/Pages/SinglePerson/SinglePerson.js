@@ -271,7 +271,10 @@ const SinglePerson = () => {
                         <td>
                           {personal_information?.languages ? (
                             <>
-                              <p> {personal_information?.languages.join(", ")}</p>
+                              <p>
+                                {" "}
+                                {personal_information?.languages.join(", ")}
+                              </p>
                             </>
                           ) : (
                             <></>
@@ -299,7 +302,9 @@ const SinglePerson = () => {
                   <tbody>
                     {
                       <tr>
-                        <th>{education?.degree ? <>{education?.degree}</> : <></>}</th>
+                        <th>
+                          {education?.degree ? <>{education?.degree}</> : <></>}
+                        </th>
                         <td>
                           {education?.institution ? (
                             <> {education?.institution}</>
@@ -307,7 +312,9 @@ const SinglePerson = () => {
                             <></>
                           )}
                         </td>
-                        <td>{education?.major ? <>{education?.major}</> : <></>}</td>
+                        <td>
+                          {education?.major ? <>{education?.major}</> : <></>}
+                        </td>
                         <td>
                           {education?.graduation_year ? (
                             <>{education?.graduation_year}</>
@@ -411,11 +418,11 @@ const SinglePerson = () => {
         </div>
       </div>
       <div className="w-9/12 mx-auto md:my-32 my-16">
-        <div className="grid md:grid-cols-3 gap-12">
+        <div className="grid md:grid-cols-3  gap-12">
           <>
-            <div className="lg:col-span-2">{content}</div>
+            <div className="lg:col-span-2 ">{content}</div>
           </>
-          <div className="bg-accent md:p-5 p-2 lg:col-span-1">
+          <div className="bg-accent md:p-5 p-2 lg:col-span-1 col-span-1">
             <h2 className="md:text-xl text-2xl md:mb-8 mb-5">
               Similar <br /> Batch Student
             </h2>
