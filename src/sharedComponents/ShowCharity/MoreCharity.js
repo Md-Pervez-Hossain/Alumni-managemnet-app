@@ -14,6 +14,7 @@ const MoreCharity = ({ charity }) => {
     goal_amount,
     image_url,
     title,
+    status,
   } = charity;
   return (
     <div>

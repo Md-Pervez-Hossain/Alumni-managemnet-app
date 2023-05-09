@@ -57,6 +57,7 @@ const CreateCharity = () => {
           img: user?.photoURL,
           status: false,
         };
+        console.log(charityInfo);
         addCharity(charityInfo);
         form.reset();
       })
