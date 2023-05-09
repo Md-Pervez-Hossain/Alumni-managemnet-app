@@ -37,7 +37,7 @@ const FundsForCause = () => {
         </div>
 
         <div className="flex justify-center mt-10">
-          <button className="bg-secondary font-semibold text-primary px-8 py-4">
+          <button className="text-secondary font-semibold bg-primary px-8 py-4">
             Donate
           </button>
         </div>

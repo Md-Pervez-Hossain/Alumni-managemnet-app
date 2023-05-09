@@ -47,7 +47,7 @@ const JoinedEventUpdatePage = () => {
       date: singleEvent.date,
     };
     fetch(
-      `https://alumni-managemnet-app-server.vercel.app/join-event/${singleEvent._id}`,
+      `https://alumni-managemnet-app-server.vercel.app/join-event/${singleEvent?._id}`,
       {
         method: "PUT",
         headers: {
