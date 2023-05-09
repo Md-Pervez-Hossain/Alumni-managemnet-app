@@ -14,6 +14,7 @@ const DisplayNewsComments = ({ comment, handleCommentsDelete }) => {
 
   console.log(NewComment);
   const id = NewComment._id;
+  console.log(id);
 
   const handleGetComment = (id) => {
     console.log(id);
