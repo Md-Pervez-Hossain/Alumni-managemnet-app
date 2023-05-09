@@ -20,9 +20,16 @@ import {
 } from "../../features/userCreate/userCreate";
 import { toast } from "react-hot-toast";
 import { useAddAImageMutation } from "../../features/Api/imgbbSlice";
+import useToken from "../../customHooksReact/useToken";
 
 const RegisterForm = () => {
   const [addAImage, { data }] = useAddAImageMutation();
+  const [loginUserEmail, setLoginUserEmail] = useState();
+  const [token] = useToken(loginUserEmail);
+  const navigate = useNavigate();
+  if (token) {
+    navigate("/");
+  }
 
   const { createUser, updateUserProfile, signInWithGoogle } = useContext(AuthContext);
   const { user } = useContext(AuthContext);
@@ -36,8 +43,6 @@ const RegisterForm = () => {
     useAddAlumniMutation();
 
   const [emailAddress, setEmailAddress] = useState();
-  // use navigate
-  const navigate = useNavigate();
 
   const {
     register,
@@ -160,6 +165,7 @@ const RegisterForm = () => {
     signInWithGoogle()
       .then((result) => {
         const user = result.user;
+        setLoginUserEmail(user.email);
         toast.success("SuccessFully Signup with Google Account");
       })
       .catch((error) => {
