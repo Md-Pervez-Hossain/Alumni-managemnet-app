@@ -49,6 +49,7 @@ import CharityPaymentFail from "../sharedComponents/PaymnetSuccessfull/CharityPa
 import TotalCharityDonation from "../sharedComponents/TotalCharityDonation/TotalCharityDonation";
 import CreateCharity from "../Dashboard/DashboardPages/Charity/CreateCharity";
 import AllCharity from "../Dashboard/DashboardPages/Charity/AllCharity";
+import AdminRoutes from "./adminRoute";
 
 const routes = createBrowserRouter([
   {
@@ -185,7 +186,14 @@ const routes = createBrowserRouter([
       { path: "/dashboard/", element: <DashboardMain /> },
 
       // Alumni //
-      { path: "/dashboard/alumni/", element: <AllAlumni /> },
+      {
+        path: "/dashboard/alumni/",
+        element: (
+          // <AdminRoutes>
+          <AllAlumni />
+          // </AdminRoutes>
+        ),
+      },
       { path: "/dashboard/profile/:email", element: <MembershipForm /> },
       // All News
       { path: "/dashboard/news/", element: <AllNews /> },
