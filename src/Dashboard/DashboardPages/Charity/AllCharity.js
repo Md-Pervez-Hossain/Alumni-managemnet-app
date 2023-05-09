@@ -10,7 +10,9 @@ import {
 import { toast } from "react-hot-toast";
 
 const AllCharity = () => {
-  const [singleCharity, setSingleCharity] = useState({});
+  const [singleCharity, setSingleCharity] = useState([]);
+  const [charityId, setCharityId] = useState("");
+  console.log(singleCharity);
   const tableHeading = [
     { name: "Title", id: 1 },
     { name: "Location", id: 3 },
@@ -62,9 +64,7 @@ const AllCharity = () => {
   ] = useDeleteCharityMutation();
 
   useEffect(() => {
-    fetch(
-      `https://alumni-managemnet-app-server.vercel.app/charity/${data?._id}`
-    )
+    fetch(`http://localhost:8000/charityDonations/${charityContentData?._id}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -73,7 +73,7 @@ const AllCharity = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [data?._id]);
+  }, [charityContentData?._id]);
 
   // delete function handler
   const handleDelete = (_id) => {
@@ -94,6 +94,7 @@ const AllCharity = () => {
 
   const handleApprove = (_id) => {
     console.log(_id);
+
     const agree = window.confirm(
       `Are you Sure . You want to Approve The Charity`
     );
