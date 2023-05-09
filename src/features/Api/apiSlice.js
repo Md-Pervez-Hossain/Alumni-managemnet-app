@@ -7,6 +7,7 @@ export const apiSlice = createApi({
     baseUrl: "http://localhost:8000/",
   }),
   tagTypes: [
+    "userRole",
     "alumni",
     "person",
     "events",
@@ -325,6 +326,17 @@ export const apiSlice = createApi({
       query: () => "/all-degree-programs",
     }),
 
+    // is the userAdmin
+    getIsAdmin: builder.query({
+      query: (email) => `/alumni/admin/${email}`,
+      providesTags: (result, error, arg) => [{ type: "userRole", id: arg }],
+    }),
+    // is the userAdmin
+    getIsBatchAdmin: builder.query({
+      query: (email) => `/alumni/BatchAdmin/${email}`,
+      providesTags: (result, error, arg) => [{ type: "userRole", id: arg }],
+    }),
+
     // /events/category/:id GET endpoint that returns event data based on category ID
     // /events/:id GET endpoint that returns a single event data based on the id parameter
   }),
@@ -355,19 +367,13 @@ export const {
   useEditNewsMutation,
   useDeleteNewsMutation,
 
-  // UTILS
-  useGetAllBatchesQuery,
-  useGetAllUniversityNameQuery,
-  useGetAllGraduationMajorQuery,
-  useGetAllDegreeProgramsQuery,
-
   // GALLERY
   useGetGalleriesQuery,
   useGetGalleryCategoriesQuery,
+  useGetCategoryWiseGalleryQuery,
   useGetGalleriesFeaturedQuery,
   useGetGalleriesTrendingQuery,
   useGetBatchWiseGalleryQuery,
-
   // EVENTS
   useGetEventsQuery,
   useGetBatchWiseEventsQuery,
@@ -387,4 +393,12 @@ export const {
   useAddAlumniMutation,
   useEditAlumniMutation,
   useDeleteAlumniMutation,
+
+  // UTILS - EXTRAS
+  useGetAllBatchesQuery,
+  useGetAllUniversityNameQuery,
+  useGetAllGraduationMajorQuery,
+  useGetAllDegreeProgramsQuery,
+  useGetIsAdminQuery,
+  useGetIsBatchAdminQuery,
 } = apiSlice;
