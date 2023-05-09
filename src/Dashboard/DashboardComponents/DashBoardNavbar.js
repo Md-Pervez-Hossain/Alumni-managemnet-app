@@ -13,7 +13,7 @@ const DashBoardNavbar = () => {
           <ol className="flex flex-wrap pt-1 mr-12 bg-transparent rounded-lg sm:mr-16">
             <li className="leading-normal text-sm breadcrumb-item">
               <a
-                className="text-slate-700 opacity-30 dark:text-white"
+                className="text-slate-700 opacity-30 "
                 href="javascript:;"
               >
                 <svg
@@ -58,20 +58,20 @@ const DashBoardNavbar = () => {
             </li>
             <li className="text-sm pl-2 leading-normal before:float-left before:pr-2 before:text-gray-600 before:content-['/']">
               <a
-                className="opacity-50 text-slate-700 dark:text-white"
+                className="opacity-50 text-slate-700 "
                 href="javascript:;"
               >
                 Pages
               </a>
             </li>
             <li
-              className="text-sm pl-2 capitalize leading-normal text-slate-700 before:float-left before:pr-2 before:text-gray-600 before:content-['/'] dark:text-white dark:before:text-white"
+              className="text-sm pl-2 capitalize leading-normal text-slate-700 before:float-left before:pr-2 before:text-gray-600 before:content-['/']  "
               aria-current="page"
             >
               Default
             </li>
           </ol>
-          <h6 className="mb-0 font-bold capitalize dark:text-white">Default</h6>
+          <h6 className="mb-0 font-bold capitalize ">Default</h6>
         </nav>
 
         <div className="flex items-center">
@@ -82,9 +82,9 @@ const DashBoardNavbar = () => {
             aria-expanded="false"
           >
             <div className="w-4.5 overflow-hidden">
-              <i className="ease-soft mb-0.75 relative block h-0.5 translate-x-[5px] rounded-sm bg-slate-500 transition-all dark:bg-white"></i>
-              <i className="ease-soft mb-0.75 relative block h-0.5 rounded-sm bg-slate-500 transition-all dark:bg-white"></i>
-              <i className="ease-soft relative block h-0.5 translate-x-[5px] rounded-sm bg-slate-500 transition-all dark:bg-white"></i>
+              <i className="ease-soft mb-0.75 relative block h-0.5 translate-x-[5px] rounded-sm bg-slate-500 transition-all "></i>
+              <i className="ease-soft mb-0.75 relative block h-0.5 rounded-sm bg-slate-500 transition-all "></i>
+              <i className="ease-soft relative block h-0.5 translate-x-[5px] rounded-sm bg-slate-500 transition-all "></i>
             </div>
           </a>
         </div>
@@ -100,7 +100,7 @@ const DashBoardNavbar = () => {
               </span>
               <input
                 type="text"
-                className="pl-9 text-sm focus:shadow-soft-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 ease-soft w-1/100 leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
+                className="pl-9 text-sm focus:shadow-soft-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 /80 ease-soft w-1/100 leading-5.6 relative -ml-px block min-w-0 flex-auto rounded-lg border border-solid border-gray-300 bg-white bg-clip-padding py-2 pr-3 text-gray-700 transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none focus:transition-shadow"
                 placeholder="Type here..."
               />
             </div> */}
@@ -109,7 +109,7 @@ const DashBoardNavbar = () => {
             <li className="flex items-center">
               <a
                 href="./pages/authentication/signin/illustration.html"
-                className="block px-0 py-2 font-semibold transition-all ease-nav-brand text-sm text-slate-500 dark:text-white"
+                className="block px-0 py-2 font-semibold transition-all ease-nav-brand text-sm text-slate-500 "
               >
                 <i className="fa fa-user sm:mr-1" aria-hidden="true"></i>
                 <span className="hidden sm:inline">Sign In</span>
@@ -118,21 +118,21 @@ const DashBoardNavbar = () => {
             <li className="flex items-center pl-4 xl:hidden">
               <a
                 sidenav-trigger=""
-                className="block p-0 transition-all ease-nav-brand text-sm text-slate-500 dark:text-white"
+                className="block p-0 transition-all ease-nav-brand text-sm text-slate-500 "
                 href="javascript:;"
                 aria-expanded="false"
               >
                 <div className="w-4.5 overflow-hidden">
-                  <i className="ease-soft mb-0.75 relative block h-0.5 rounded-sm bg-slate-500 transition-all dark:bg-white"></i>
-                  <i className="ease-soft mb-0.75 relative block h-0.5 rounded-sm bg-slate-500 transition-all dark:bg-white"></i>
-                  <i className="ease-soft relative block h-0.5 rounded-sm bg-slate-500 transition-all dark:bg-white"></i>
+                  <i className="ease-soft mb-0.75 relative block h-0.5 rounded-sm bg-slate-500 transition-all "></i>
+                  <i className="ease-soft mb-0.75 relative block h-0.5 rounded-sm bg-slate-500 transition-all "></i>
+                  <i className="ease-soft relative block h-0.5 rounded-sm bg-slate-500 transition-all "></i>
                 </div>
               </a>
             </li>
             <li className="flex items-center px-4">
               <a
                 href="javascript:;"
-                className="p-0 transition-all text-sm ease-nav-brand text-slate-500 dark:text-white"
+                className="p-0 transition-all text-sm ease-nav-brand text-slate-500 "
               >
                 <i
                   fixed-plugin-button-nav=""
@@ -150,7 +150,7 @@ const DashBoardNavbar = () => {
               <a
                 dropdown-trigger
                 href="javascript:;"
-                className="block p-0 transition-all text-sm ease-nav-brand text-slate-500 dark:text-white"
+                className="block p-0 transition-all text-sm ease-nav-brand text-slate-500 "
                 aria-expanded="false"
               >
                 <i className="cursor-pointer fa fa-bell" aria-hidden="true"></i>
@@ -170,14 +170,14 @@ const DashBoardNavbar = () => {
                       <div className="my-auto">
                         <img
                           src="./assets/img/team-2.jpg"
-                          className="inline-flex items-center justify-center mr-4 text-white text-sm h-9 w-9 max-w-none rounded-xl"
+                          className="inline-flex items-center justify-center mr-4  text-sm h-9 w-9 max-w-none rounded-xl"
                         />
                       </div>
                       <div className="flex flex-col justify-center">
-                        <h6 className="mb-1 font-normal leading-normal text-sm group-hover:text-slate-700 dark:text-white">
+                        <h6 className="mb-1 font-normal leading-normal text-sm group-hover:text-slate-700 ">
                           <span className="font-semibold">New message</span> from Laur
                         </h6>
-                        <p className="mb-0 leading-tight text-xs text-slate-400 group-hover:text-slate-700 dark:text-white dark:opacity-80">
+                        <p className="mb-0 leading-tight text-xs text-slate-400 group-hover:text-slate-700  dark:opacity-80">
                           <i className="mr-1 fa fa-clock" aria-hidden="true"></i>
                           13 minutes ago
                         </p>
@@ -199,10 +199,10 @@ const DashBoardNavbar = () => {
                         />
                       </div>
                       <div className="flex flex-col justify-center">
-                        <h6 className="mb-1 font-normal leading-normal text-sm group-hover:text-slate-700 dark:text-white">
+                        <h6 className="mb-1 font-normal leading-normal text-sm group-hover:text-slate-700 ">
                           <span className="font-semibold">New album</span> by Travis Scott
                         </h6>
-                        <p className="mb-0 leading-tight text-xs text-slate-400 group-hover:text-slate-700 dark:text-white dark:opacity-80">
+                        <p className="mb-0 leading-tight text-xs text-slate-400 group-hover:text-slate-700  dark:opacity-80">
                           <i className="mr-1 fa fa-clock" aria-hidden="true"></i>1 day
                         </p>
                       </div>
@@ -250,10 +250,10 @@ const DashBoardNavbar = () => {
                         </svg>
                       </div>
                       <div className="flex flex-col justify-center">
-                        <h6 className="mb-1 font-normal leading-normal text-sm group-hover:text-slate-700 dark:text-white">
+                        <h6 className="mb-1 font-normal leading-normal text-sm group-hover:text-slate-700 ">
                           Payment successfully completed
                         </h6>
-                        <p className="mb-0 leading-tight text-xs text-slate-400 group-hover:text-slate-700 dark:text-white dark:opacity-80">
+                        <p className="mb-0 leading-tight text-xs text-slate-400 group-hover:text-slate-700  dark:opacity-80">
                           <i className="mr-1 fa fa-clock" aria-hidden="true"></i>2 days
                         </p>
                       </div>
