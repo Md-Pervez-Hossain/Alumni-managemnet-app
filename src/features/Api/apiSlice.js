@@ -306,6 +306,14 @@ export const apiSlice = createApi({
       invalidatesTags: ["charities"],
     }),
 
+    // *
+
+    //  all Donation data
+    getAllCharityDonation: builder.query({
+      query: () => "/charityDonation",
+      providesTags: ["donations"],
+    }),
+
     // * extras
 
     //  all university names
