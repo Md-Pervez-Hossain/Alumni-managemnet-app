@@ -81,7 +81,7 @@ const RegisterForm = () => {
   };
 
   const getUserToken = (email) => {
-    fetch(`http://localhost:8000/jwt?email=${email}`)
+    fetch(`https://alumni-managemnet-app-server.vercel.app/jwt?email=${email}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.accessToken) {
@@ -170,6 +170,7 @@ const RegisterForm = () => {
   useEffect(() => {
     if (isSuccess) {
       toast.success("SuccessFully  Signup  from userEffect");
+      getUserToken(emailAddress);
       console.log("SuccessFully  Signup  from userEffect");
       reset();
     }
@@ -178,7 +179,7 @@ const RegisterForm = () => {
     }
 
     if (isLoading) {
-      getUserToken(emailAddress);
+      // getUserToken(emailAddress);
       console.log("admin is loading");
     }
   }, [emailAddress, getUserToken, isError, isLoading, isSuccess, reset]);
