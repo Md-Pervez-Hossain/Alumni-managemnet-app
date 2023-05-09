@@ -1,25 +1,22 @@
 import React, { useContext, useEffect, useRef } from "react";
 import DashBoardNavbar from "../Dashboard/DashboardComponents/DashBoardNavbar";
-import {
-  Link,
-  NavLink,
-  Outlet,
-  useLocation,
-  useParams,
-} from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import logo from "../../src/assets/logo/logo-black.png";
 import DashBoardNavItem from "../Dashboard/DashboardComponents/DashBoardNavItem/DashBoardNavItem";
 import ResizeObserver from "resize-observer-polyfill";
 import _ from "lodash";
 import { AuthContext } from "../sharedComponents/UseContext/AuthProvider";
 import { FaStream } from "react-icons/fa";
+import useAdmin from "../customHooksReact/useAdmin";
 const DashboardLayout = () => {
+  const { user, logout } = useContext(AuthContext);
   const location = useLocation();
   const isActive = location.pathname === "/dashboard";
   const elementRef = useRef(null);
   const pathname = location.pathname;
-  console.log(pathname);
 
+  const [isAdmin] = useAdmin(user?.email);
+  console.log(isAdmin);
   useEffect(() => {
     const resizeObserver = new ResizeObserver(
       _.debounce((entries) => {
@@ -32,7 +29,6 @@ const DashboardLayout = () => {
     // cleanup function to disconnect the observer when the component unmounts
     return () => resizeObserver.disconnect();
   }, []);
-  const { user, logout } = useContext(AuthContext);
 
   const handleLogout = () => {
     logout()
@@ -51,13 +47,11 @@ const DashboardLayout = () => {
             htmlFor="my-drawer-2"
             className="btn btn-primary drawer-button lg:hidden sticky top-1 z-10"
           >
-           
             <FaStream></FaStream>
           </label>
 
           <DashBoardNavbar />
           <Outlet />
-          
         </div>
         <div className="drawer-side bg-[#F8F9FA]">
           <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
@@ -68,7 +62,13 @@ const DashboardLayout = () => {
                 <img src={logo} alt="" className="mt-0.5 w-3/4 " />
               </Link>
             </li>
-            
+
+            <DashBoardNavItem
+              name="Dashboard"
+              fontAwesome="fa-solid fa-store"
+              url="/dashboard"
+            />
+
             <DashBoardNavItem
               name="Alumni"
               fontAwesome="fa-solid fa-graduation-cap"
@@ -129,8 +129,7 @@ const DashboardLayout = () => {
               url="/dashboard/successfulStory"
             />
             {(pathname === "/dashboard/successfulStory" ||
-              pathname ===
-                "/dashboard/successfulStory/add-a-successfulStory") && (
+              pathname === "/dashboard/successfulStory/add-a-successfulStory") && (
               <DashBoardNavItem
                 name="Add a Story"
                 fontAwesome="fa-regular fa-file-lines"
