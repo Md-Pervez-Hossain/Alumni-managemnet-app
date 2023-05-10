@@ -11,7 +11,7 @@ const DisplayNewsComments = ({ comment, handleCommentsDelete }) => {
 
   const [NewComment, setNewComment] = useState("");
 
-  const id = NewComment._id;
+  const id = NewComment?._id;
 
   const [commentID, setCommentID] = useState("");
 
@@ -23,15 +23,19 @@ const DisplayNewsComments = ({ comment, handleCommentsDelete }) => {
   const handleGetComment = (id) => {
     if (user?.email && id) {
       setCommentID(id);
-
-      axios
-        .get(
-          `https://alumni-managemnet-app-server.vercel.app/single-comment?email=${user?.email}&id=${id}`
-        )
-        .then((data) => setNewComment(data.data))
-        .catch((error) => console.error(error));
+      console.log(commentID);
+      // axios
+      //   .get(
+      //     `https://alumni-managemnet-app-server.vercel.app/single-comment?email=${user?.email}&id=${id}`
+      //   )
+      //   .then((data) => setNewComment(data.data))
+      //   .catch((error) => console.error(error));
     }
   };
+
+  // useEffect(() => {
+  //   setNewComment(myNewsComments);
+  // }, []);
 
   const handleCommentUpdate = (event) => {
     event.preventDefault();

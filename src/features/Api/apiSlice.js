@@ -79,7 +79,7 @@ export const apiSlice = createApi({
 
     //  single event
     getSingleEvent: builder.query({
-      query: (id) => `/events/${id}`,
+      query: (id) => `/event/${id}`,
       providesTags: (result, error, arg) => [{ type: "event", id: arg }],
     }),
 
