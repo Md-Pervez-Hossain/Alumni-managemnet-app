@@ -1,36 +1,39 @@
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  useDeleteSuccessfulStoriesMutation,
+  useGetAllSuccessfulStoriesOfAUserQuery,
+  useGetAllSuccessfulStoriesQuery,
+} from "../../../features/Api/apiSlice";
 import Loading from "../../../sharedComponents/Loading/Loading";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
-import {
-  useDeleteCharityMutation,
-  useDeleteEventMutation,
-  useGetBatchWiseEventsQuery,
- 
-} from "../../../features/Api/apiSlice";
 import { toast } from "react-hot-toast";
 
-const BatchWiseEvents = () => {
+const AllSuccessFulStoryOfUser = () => {
+  const { user } = useContext(AuthContext);
+
+  const handleSuccessStoryEdit = (story) => {
+    console.log(story);
+  };
   const tableHeading = [
     { name: "Title", id: 1 },
-    { name: "Location", id: 2 },
+    { name: "Author_name & email", id: 4 },
+    { name: "Batch", id: 2 },
     { name: "Date", id: 3 },
-    { name: "Action ", id: 4 },
-    
+    { name: "Action", id: 5 },
   ];
 
- const batch = 2023;
-
   const {
-    data: batchWiseEventContentData,
-    isLoading: isCharityLoading,
-    isError: isCharityError,
-    error: charityError,
-  } = useGetBatchWiseEventsQuery(batch);
+    data: userSuccessStoryContentData,
+    isLoading: isSuccessLoading,
+    isError: isSuccessError,
+    error: successError,
+  } = useGetAllSuccessfulStoriesOfAUserQuery(user?.email);
+  // } = useGetAllSuccessfulStoriesOfAUserQuery(user?.email);
 
-
-console.log(batchWiseEventContentData)
-  //
+  console.log(userSuccessStoryContentData)
 
   // mutation for deleting data
   const [
@@ -42,7 +45,7 @@ console.log(batchWiseEventContentData)
       isError: isDeleteError,
       error: errorDelete,
     },
-  ] = useDeleteEventMutation();
+  ] = useDeleteSuccessfulStoriesMutation();
 
   // delete function handler
   const handleDelete = (_id) => {
@@ -61,14 +64,16 @@ console.log(batchWiseEventContentData)
     }
   }, [errorDelete, isDeleteError, isDeleteSuccess]);
 
+  //handle approve
+
   const handleApprove = (_id) => {
     console.log(_id);
     const agree = window.confirm(
-      `Are you Sure . You want to Approve The Charity`
+      `Are you Sure . You want to Approve The SuccessStory`
     );
     if (agree) {
       fetch(
-        `https://alumni-managemnet-app-server.vercel.app/approveEvents/${_id}`,
+        `https://alumni-managemnet-app-server.vercel.app/approveSuccessStory/${_id}`,
         {
           method: "PUT",
         }
@@ -88,11 +93,11 @@ console.log(batchWiseEventContentData)
 
   const handleUnApprove = (_id) => {
     const agree = window.confirm(
-      `Are you Sure . You want to unApprove The Charity`
+      `Are you Sure . You want to unApprove The SuccessStory`
     );
     if (agree) {
       fetch(
-        `https://alumni-managemnet-app-server.vercel.app/unApproveEvents/${_id}`,
+        `https://alumni-managemnet-app-server.vercel.app/unApproveSuccessStory/${_id}`,
         {
           method: "PUT",
         }
@@ -110,67 +115,112 @@ console.log(batchWiseEventContentData)
     }
   };
 
-  //
-  let charityContent;
+  // render components conditionally
 
-  if (isCharityLoading && !isCharityError) {
-    charityContent = <Loading />;
+  let successContent;
+
+  if (isSuccessLoading && !isSuccessError) {
+    successContent = <Loading />;
   }
-  if (!isCharityLoading && isCharityError) {
-    charityContent = <ErrorAlert text={charityError} />;
+  if (!isSuccessLoading && isSuccessError) {
+    successContent = <ErrorAlert text={successError} />;
   }
   if (
-    !isCharityLoading &&
-    !isCharityError &&
-    batchWiseEventContentData?.length === 0
+    !isSuccessLoading &&
+    !isSuccessError &&
+    userSuccessStoryContentData?.length === 0
   ) {
-    charityContent = <ErrorAlert text="No Category Find" />;
+    successContent = <ErrorAlert text="No Data Found." />;
   }
-  if (!isCharityLoading && !isCharityError && batchWiseEventContentData?.length > 0) {
-    charityContent = (
+  if (!isSuccessLoading && !isSuccessError && userSuccessStoryContentData?.length > 0) {
+    successContent = (
       <>
         {" "}
-        {batchWiseEventContentData?.map((Events) => (
-          <tr className="">
+        {userSuccessStoryContentData?.map((story) => (
+          <tr>
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               <div className="flex px-2 py-1">
-                <div>
-                  <img
-                    src={Events.image_url}
-                    className="!w-10 !h-10 inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm rounded-xl"
-                    alt="user1"
-                  />
-                </div>
+                {story?.image_url ? (
+                  <>
+                    <div>
+                      <img
+                        src={story?.image_url}
+                        className="!w-10 !h-10 inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm rounded-xl"
+                        alt="user1"
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div>
+                      <img
+                        src="https://ionicframework.com/docs/img/demos/avatar.svg"
+                        className="!w-10 !h-10 inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm rounded-xl"
+                        alt="user1"
+                      />
+                    </div>
+                  </>
+                )}
+
                 <div className="flex flex-col justify-center">
-                  <Link to={`/events/${Events?._id}`}>
+                  <h6 className="mb-0 leading-normal text-sm">
+                    {story?.title ? (
+                      
+                      <Link to={`/successFullStory/${story?._id}`}>
                     <p className="mb-0 leading-normal text-sm break-normal">
-                      {Events.event_title?.slice(0, 50)}
+                      {story?.title?.slice(0, 50)}
                     </p>
                   </Link>
-                  <p className="mb-0 leading-tight text-xs text-slate-600">
-                    {/* john@creative-tim.com */}
-                  </p>
+                    ) : (
+                      <>
+                        <p>Title Missing</p>
+                      </>
+                    )}
+                  </h6>
+                  <p className="mb-0 leading-tight text-xs text-slate-400"></p>
                 </div>
               </div>
             </td>
 
-            <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
-              <p className="mb-0 leading-tight text-xs text-slate-600">
-                <p className="flex flex-col"><span>{Events.location}</span> </p>
+            <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+              <p className="mb-0 leading-tight text-xs text-slate-400">
+                {story?.name ? (
+                  <> {story?.name } <br /> {story?.email}</>
+                ) : (
+                  <>
+                    <p>Batch missing</p>
+                  </>
+                )}{" "}
               </p>
             </td>
-            <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
-              <p className="mb-0 leading-tight text-xs text-slate-600">
-              <span className="text-opacity-10">{Events.date?.slice(0, 10)}</span>
+
+            <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+              <p className="mb-0 leading-tight text-xs text-slate-400">
+                {story?.batchNumber ? (
+                  <> {story?.batchNumber}</>
+                ) : (
+                  <>
+                    <p>Batch missing</p>
+                  </>
+                )}{" "}
               </p>
             </td>
-            
-            
+
+            <td className="p-2 text-left align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+              <span className="font-semibold leading-tight text-xs text-slate-400">
+                {story?.time ? (
+                  <> {Date(story?.time)?.replace(/ GMT[+\-]\d{4}.*$/, "")}</>
+                ) : (
+                  <>Time Missing</>
+                )}{" "}
+              </span>
+            </td>
+
             <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               <div className="flex gap-2 font-semibold">
-                {Events?.status === true ? (
+                {story?.status === true ? (
                   <>
-                    <button onClick={() => handleUnApprove(Events?._id)}>
+                    <button onClick={() => handleUnApprove(story?._id)}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -189,7 +239,7 @@ console.log(batchWiseEventContentData)
                   </>
                 ) : (
                   <>
-                    <button onClick={() => handleApprove(Events?._id)}>
+                    <button onClick={() => handleApprove(story?._id)}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -214,8 +264,8 @@ console.log(batchWiseEventContentData)
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent ">
               <div className="flex">
                 <Link
-                  to={`/dashboard/events/edit/${Events._id}`}
-                  className="font-semibold leading-tight text-xs text-slate-600 px-2 ml-2"
+                  to={`/dashboard/successfulStory/edit/${story?._id}`}
+                  className="font-semibold leading-tight text-xs text-slate-400 px-2 ml-2"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -223,7 +273,7 @@ console.log(batchWiseEventContentData)
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
                     stroke="currentColor"
-                    className="w-6 h-6 text-slate-600 hover:text-secondary"
+                    className="w-6 h-6 text-slate-400 hover:text-secondary"
                   >
                     <path
                       strokeLinecap="round"
@@ -233,8 +283,8 @@ console.log(batchWiseEventContentData)
                   </svg>
                 </Link>
                 <Link
+                  onClick={() => handleDelete(story._id)}
                   to=""
-                  onClick={() => handleDelete(Events._id)}
                   className="font-semibold leading-tight text-xs  px-2 ml-2"
                 >
                   <svg
@@ -243,7 +293,7 @@ console.log(batchWiseEventContentData)
                     viewBox="0 0 24 24"
                     strokeWidth="1.5"
                     stroke="currentColor"
-                    className="w-6 h-6 text-slate-600 hover:text-red-500"
+                    className="w-6 h-6 text-slate-400 hover:text-red-500"
                   >
                     <path
                       strokeLinecap="round"
@@ -263,30 +313,31 @@ console.log(batchWiseEventContentData)
   return (
     <div className="w-full px-8">
       <div className="relative flex flex-col w-full min-w-0 mb-0 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
-        <div className=" p-6 pb-0 mb-0 bg-white rounded-t-2xl">
-        <h6 className="font-sans font-semibold">
-            Batch wise Events information.
-            <span className="text-primary text-opacity-80">
-              {" "}
-              In batch wise total Events are {batchWiseEventContentData?.length}.
-            </span>
-          </h6>
+        <div className="p-6 pb-0 mb-0 bg-white rounded-t-2xl">
+          <h6>Your Successful Stories. Total stories are {userSuccessStoryContentData?.length}.</h6>
         </div>
         <div className="flex-auto px-0 pt-0 pb-2">
           <div className="p-0 overflow-x-auto">
-            <table className="items-center table-zebra  w-full mb-0 align-top border-gray-200 text-slate-500">
+            <table className="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
               <thead className="align-bottom">
                 <tr>
-                  {tableHeading.map((th) => (
-                    <th className=" ps-2 pe-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-600 opacity-70">
-                      {th.name}
+                  {tableHeading?.map((th) => (
+                    <th className=" ps-2 pe-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
+                      {th?.name ? (
+                        <>{th?.name}</>
+                      ) : (
+                        <>
+                          {" "}
+                          <p>Missing</p>
+                        </>
+                      )}
                     </th>
                   ))}
                   {/* blank for edit tab */}
-                  <th className="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-600 opacity-70"></th>
+                  <th className="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-400 opacity-70"></th>
                 </tr>
               </thead>
-              <tbody>{charityContent}</tbody>
+              <tbody>{successContent}</tbody>
             </table>
           </div>
         </div>
@@ -294,5 +345,4 @@ console.log(batchWiseEventContentData)
     </div>
   );
 };
-
-export default BatchWiseEvents;
+export default AllSuccessFulStoryOfUser;

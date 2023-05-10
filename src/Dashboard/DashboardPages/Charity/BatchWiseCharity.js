@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Loading from "../../../sharedComponents/Loading/Loading";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
@@ -9,8 +9,13 @@ import {
   useGetIndividualAllCharityQuery,
 } from "../../../features/Api/apiSlice";
 import { toast } from "react-hot-toast";
+import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
+import { FaEye } from "react-icons/fa";
 
 const AllCharity = () => {
+
+  const {user} = useContext(AuthContext);
+
   const tableHeading = [
     { name: "Title", id: 1 },
     { name: "Name & Email", id: 1 },
@@ -32,7 +37,7 @@ const AllCharity = () => {
   } = useGetBatchWiseCharityQuery(batch);
 
 
-console.log(batchWiseCharityContentData)
+// console.log(batchWiseCharityContentData)
   //
 
   // mutation for deleting data
@@ -113,7 +118,36 @@ console.log(batchWiseCharityContentData)
     }
   };
 
-  //
+ // get donated amount
+const [amounts, setAmounts ] = useState([]); 
+const [id, setId] = useState("")
+const [eye, setEye] = useState(false);
+ 
+
+  const handleViewAmount = (id) =>{
+    setId(id);
+    setEye(true);
+  }
+
+  useEffect(()=>{
+    if(user?.email && id){
+      fetch(`http://localhost:8000/charityDonations/${id}`)
+      .then(res => res.json())
+      .then(data=> setAmounts(data))
+    }
+    
+  },[user?.email, id])
+
+  let totalDonation = 0;
+  for (const donation of amounts) {
+    console.log(donation);
+    const allDonation = parseInt(donation?.cus_donationAmount);
+    totalDonation = totalDonation + allDonation;
+  }
+ 
+  // console.log(totalDonation)
+
+  
   let charityContent;
 
   if (isCharityLoading && !isCharityError) {
@@ -172,22 +206,28 @@ console.log(batchWiseCharityContentData)
             </td>
             <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
               <p className="mb-0 leading-tight text-xs text-slate-600">
-                {charity.batchNumber}
+                {charity?.batchNumber}
               </p>
             </td>
             <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
               <p className="mb-0 leading-tight text-xs text-slate-600">
-                {charity.goal_amount?.slice(0, 14)}
+                {charity?.goal_amount?.slice(0, 14)}
               </p>
             </td>
             <td className="p-2 align-middle text-left bg-transparent border-b whitespace-nowrap shadow-transparent">
-              {/* <p className="mb-0 font-semibold leading-tight text-xs">{event.location}</p> */}
-              <p className="mb-0 leading-tight text-xs text-slate-600">
-                {charity.goal_amount?.slice(0, 14)}
+              
+              <p onClick={()=>handleViewAmount(charity?._id)} className="mb-0 cursor-pointer leading-tight text-xs text-slate-600">
+                {
+                  eye  ?             
+                    <p>{totalDonation}</p>
+                  :
+
+                  <FaEye className="text-xl"></FaEye>
+                }
               </p>
             </td>
             <td className="p-2 align-middle text-left bg-transparent border-b whitespace-nowrap shadow-transparent">
-              {/* <p className="mb-0 font-semibold leading-tight text-xs">{event.location}</p> */}
+              
               <p className="mb-0 leading-tight text-xs text-slate-600">
                 {charity.time}
               </p>
