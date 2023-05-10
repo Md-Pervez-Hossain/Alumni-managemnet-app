@@ -31,7 +31,11 @@ const DisplayNewsComments = ({ comment, handleCommentsDelete }) => {
 
   const [
     editNewsComment,
-    { isError: isEditError, isLoading: isEditLoading, isSuccess: isEditSuccess },
+    {
+      isError: isEditError,
+      isLoading: isEditLoading,
+      isSuccess: isEditSuccess,
+    },
   ] = useEditNewsCommentMutation();
 
   const handleCommentUpdate = (event) => {
@@ -52,7 +56,7 @@ const DisplayNewsComments = ({ comment, handleCommentsDelete }) => {
 
   useEffect(() => {
     if (isEditSuccess) {
-      toast.success("Edit Successfully.");
+      toast.success(" Successfully Edit Done");
       setEditMode(false);
     }
   }, [isEditSuccess]);
@@ -94,7 +98,8 @@ const DisplayNewsComments = ({ comment, handleCommentsDelete }) => {
                           handleGetComment(comment);
                         }}
                       >
-                        <FaEdit className="inline-block mb-1 "></FaEdit> <span>Edit</span>
+                        <FaEdit className="inline-block mb-1 "></FaEdit>{" "}
+                        <span>Edit</span>
                       </div>
                     </>
                   ) : (
