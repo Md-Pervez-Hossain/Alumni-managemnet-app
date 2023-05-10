@@ -1,8 +1,28 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AuthContext } from "../UseContext/AuthProvider";
+import { useAddNewsCommentMutation } from "../../features/Api/apiSlice";
+import { FaPumpMedical } from "react-icons/fa";
+import { toast } from "react-hot-toast";
 
 const NewsComments = ({ data }) => {
   const { user } = useContext(AuthContext);
+
+  const [
+    addNewsComment,
+    {
+      data: comments,
+      isLoading: isCommentsLoading,
+      isSuccess: isCommentsSuccess,
+      isError: isCommentsError,
+    },
+  ] = useAddNewsCommentMutation();
+
+  useEffect(() => {
+    if (isCommentsSuccess) {
+      toast.success("Comments added successfully");
+      // form.reset(); // * aikahne reset function ta add korben
+    }
+  }, [isCommentsSuccess]);
 
   const handleNewsComments = (event) => {
     event.preventDefault();
@@ -18,24 +38,7 @@ const NewsComments = ({ data }) => {
       commentsId: data?._id,
     };
 
-    fetch("https://alumni-managemnet-app-server.vercel.app/newsComments", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(commentsInfo),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.acknowledged) {
-          form.reset();
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-
-    console.log("submit");
+    addNewsComment(commentsInfo);
   };
   return (
     <div>

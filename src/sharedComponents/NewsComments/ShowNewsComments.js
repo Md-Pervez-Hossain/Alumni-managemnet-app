@@ -35,8 +35,6 @@ const ShowNewsComments = ({ data }) => {
     }
   };
 
-  //newsComments, data._id plese solve iuuse , its not provide real time update
-
   const handlePrevious = () => {
     console.log("previous");
     if (previous > 0) {
