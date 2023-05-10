@@ -58,7 +58,7 @@ const Comments = ({ data }) => {
         <textarea
           {...register("comments")}
           className=" border-2 p-5 w-full mt-5 "
-          placeholder="comments"
+          placeholder="Write Your comments Here"
           name="comments"
           required
         ></textarea>
