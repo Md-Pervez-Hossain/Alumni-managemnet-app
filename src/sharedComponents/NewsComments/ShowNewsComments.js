@@ -29,18 +29,6 @@ const ShowNewsComments = ({ data }) => {
     const agree = window.confirm(`Are You Sure You want To Delete ! ...`);
     if (agree) {
       deleteNewsComment(_id);
-
-      fetch(`https://alumni-managemnet-app-server.vercel.app/newsComments/${_id}`, {
-        method: "DELETE",
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          if (data.deletedCount > 0) {
-            const remaining = newsComments.filter((comments) => comments?._id !== _id);
-            setNewsComments(remaining);
-          }
-        });
     }
   };
 
