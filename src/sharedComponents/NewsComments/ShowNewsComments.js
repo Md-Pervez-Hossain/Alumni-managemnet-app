@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import DisplayNewsComments from "./DisplayNewsComments";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { useGetAllNewsCommentsQuery } from "../../features/Api/apiSlice";
+import {
+  useDeleteNewsCommentMutation,
+  useGetAllNewsCommentsQuery,
+} from "../../features/Api/apiSlice";
 import Loading from "../Loading/Loading";
 import ErrorAlert from "../Skeletion/ErrorAlert";
 
@@ -17,10 +20,16 @@ const ShowNewsComments = ({ data }) => {
     error: commentsError,
   } = useGetAllNewsCommentsQuery(data?._id);
 
+  const [
+    deleteNewsComment,
+    { isSuccess: isDeleteSuccess, isLoading: isDeleteLoading, isError: isDeleteError },
+  ] = useDeleteNewsCommentMutation();
+
   const handleCommentsDelete = (_id) => {
-    console.log(_id);
     const agree = window.confirm(`Are You Sure You want To Delete ! ...`);
     if (agree) {
+      deleteNewsComment(_id);
+
       fetch(`https://alumni-managemnet-app-server.vercel.app/newsComments/${_id}`, {
         method: "DELETE",
       })
@@ -36,14 +45,12 @@ const ShowNewsComments = ({ data }) => {
   };
 
   const handlePrevious = () => {
-    console.log("previous");
     if (previous > 0) {
       setNext(next - 10);
       setPrevious(previous - 10);
     }
   };
   const handleNext = () => {
-    console.log("next");
     setNext(next + 10);
     setPrevious(previous + 10);
   };

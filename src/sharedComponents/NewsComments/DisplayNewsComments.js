@@ -10,7 +10,6 @@ const DisplayNewsComments = ({ comment, handleCommentsDelete }) => {
 
   const [NewComment, setNewComment] = useState("");
 
-  console.log(NewComment);
   const id = NewComment._id;
 
   const handleGetComment = (id) => {
