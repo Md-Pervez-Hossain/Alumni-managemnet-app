@@ -79,7 +79,7 @@ export const apiSlice = createApi({
 
     //  single event
     getSingleEvent: builder.query({
-      query: (id) => `/events/${id}`,
+      query: (id) => `/event/${id}`,
       providesTags: (result, error, arg) => [{ type: "event", id: arg }],
     }),
 
@@ -106,7 +106,10 @@ export const apiSlice = createApi({
         body: data,
       }),
 
-      invalidatesTags: (result, error, arg) => ["events", { type: "event", id: arg.id }],
+      invalidatesTags: (result, error, arg) => [
+        "events",
+        { type: "event", id: arg.id },
+      ],
     }),
 
     /// delete a event
@@ -163,7 +166,10 @@ export const apiSlice = createApi({
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: (result, error, arg) => ["allNews", { type: "news", id: arg.id }],
+      invalidatesTags: (result, error, arg) => [
+        "allNews",
+        { type: "news", id: arg.id },
+      ],
     }),
 
     /// delete a news
@@ -298,7 +304,10 @@ export const apiSlice = createApi({
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: (result, error, arg) => ["stories", { type: "story", id: arg.id }],
+      invalidatesTags: (result, error, arg) => [
+        "stories",
+        { type: "story", id: arg.id },
+      ],
     }),
 
     // delete stroy
