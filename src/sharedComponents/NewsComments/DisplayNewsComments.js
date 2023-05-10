@@ -10,7 +10,7 @@ import {
 
 const DisplayNewsComments = ({ comment, handleCommentsDelete }) => {
   const { user } = useContext(AuthContext);
-
+  const [editMode, setEditMode] = useState(false);
   const [commentID, setCommentID] = useState("");
 
   const { data: myNewsComments } = useGetAllNewsCommentsOfaUserQuery({
@@ -25,6 +25,7 @@ const DisplayNewsComments = ({ comment, handleCommentsDelete }) => {
     if (user?.email && data._id) {
       setCommentID(id);
       setNewComment(data);
+      setEditMode(true);
     }
   };
 
@@ -52,6 +53,7 @@ const DisplayNewsComments = ({ comment, handleCommentsDelete }) => {
   useEffect(() => {
     if (isEditSuccess) {
       toast.success("Edit Successfully.");
+      setEditMode(false);
     }
   }, [isEditSuccess]);
 
@@ -128,7 +130,7 @@ const DisplayNewsComments = ({ comment, handleCommentsDelete }) => {
       </article>
       <div className="flex gap-5 items-center">
         <div>
-          {NewComment?._id ? (
+          {editMode && NewComment?._id ? (
             <div>
               <form onSubmit={(event) => handleCommentUpdate(event)}>
                 <textarea
