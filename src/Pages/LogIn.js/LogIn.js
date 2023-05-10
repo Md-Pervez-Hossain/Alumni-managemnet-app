@@ -12,7 +12,7 @@ const LogIn = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const from = location.state?.from?.pathname || "/dashboard/updateProfile";
+  const from = location.state?.from?.pathname || "/";
 
   if (token) {
     navigate(from, { replace: true });
@@ -52,12 +52,16 @@ const LogIn = () => {
   return (
     <div className=" flex justify-center items-center  bg-accent rounded-lg py-20">
       <div className=" lg:w-1/2">
-        <h2 className="text-4xl text-primary font-semibold text-center mb-5">Login</h2>
+        <h2 className="text-4xl text-primary font-semibold text-center mb-5">
+          Login
+        </h2>
         <form onSubmit={handleSubmit(handleLogIn)}>
           <div className="form-control lg:w-2/3 mx-auto">
             <label className="label">
               {" "}
-              <span className="label-text text-xl text-primary font-bold">Email</span>
+              <span className="label-text text-xl text-primary font-bold">
+                Email
+              </span>
             </label>
             <input
               type="email"
@@ -67,12 +71,16 @@ const LogIn = () => {
               className="input input-bordered rounded-none bg-accent py-2 pl-3 text-lg  w-full"
               placeholder="Email"
             />
-            {errors.email && <p className="text-red-600">{errors.email?.message}</p>}
+            {errors.email && (
+              <p className="text-red-600">{errors.email?.message}</p>
+            )}
           </div>
           <div className="form-control lg:w-2/3 mx-auto mt-5">
             <label className="label">
               {" "}
-              <span className="label-text text-xl text-primary font-bold">Password</span>
+              <span className="label-text text-xl text-primary font-bold">
+                Password
+              </span>
             </label>
             <input
               type="password"
