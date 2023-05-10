@@ -91,7 +91,7 @@ const SingleSuccessFullStory = () => {
                           <>{title}</>
                         ) : (
                           <>
-                            <h2>Title Missing</h2>
+                            <h2>Update Title</h2>
                           </>
                         )}
                       </h2>
@@ -100,7 +100,7 @@ const SingleSuccessFullStory = () => {
                           <>{details}</>
                         ) : (
                           <>
-                            <p>Details Missing</p>
+                            <p>Update Details</p>
                           </>
                         )}
                       </p>
