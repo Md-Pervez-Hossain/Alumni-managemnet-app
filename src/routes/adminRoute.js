@@ -6,6 +6,7 @@ import useAdmin from "../customHooksReact/useAdmin";
 
 const AdminRoutes = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
+
   const [isAdmin, isAdminLoading] = useAdmin(user?.email);
   const location = useLocation();
 

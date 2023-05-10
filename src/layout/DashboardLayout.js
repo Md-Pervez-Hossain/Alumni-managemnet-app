@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import DashBoardNavbar from "../Dashboard/DashboardComponents/DashBoardNavbar";
 import { Link, NavLink, Outlet, useLocation, useParams } from "react-router-dom";
 import logo from "../../src/assets/logo/logo-black.png";
@@ -9,14 +9,14 @@ import { AuthContext } from "../sharedComponents/UseContext/AuthProvider";
 import { FaStream } from "react-icons/fa";
 import useAdmin from "../customHooksReact/useAdmin";
 const DashboardLayout = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout, loading } = useContext(AuthContext);
   const location = useLocation();
   const isActive = location.pathname === "/dashboard";
   const elementRef = useRef(null);
   const pathname = location.pathname;
 
   const [isAdmin] = useAdmin(user?.email);
-  console.log(isAdmin);
+
   useEffect(() => {
     const resizeObserver = new ResizeObserver(
       _.debounce((entries) => {

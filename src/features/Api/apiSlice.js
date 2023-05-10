@@ -189,6 +189,12 @@ export const apiSlice = createApi({
       providesTags: ["newsComments"],
     }),
 
+    //  Get user based comments
+    getAllNewsCommentsOfaUser: builder.query({
+      query: ({ email, id }) => `/single-comment?email=${email}&id=${id}`,
+      providesTags: (result, error, arg) => [{ type: "newsComments", id: arg.id }],
+    }),
+
     // add a new News comment
     addNewsComment: builder.mutation({
       query: (data) => ({
@@ -206,6 +212,20 @@ export const apiSlice = createApi({
         method: "DELETE",
       }),
       invalidatesTags: ["newsComments"],
+    }),
+
+    //   Edit a  News comment
+    editNewsComment: builder.mutation({
+      query: ({ id, updatedData }) => ({
+        url: `/update-comment/${id}`,
+        method: "PUT",
+        body: updatedData,
+      }),
+
+      invalidatesTags: (result, error, arg) => [
+        "newsComments",
+        { type: "newsComment", id: arg.id },
+      ],
     }),
 
     // * Alumni * //
@@ -319,6 +339,60 @@ export const apiSlice = createApi({
       invalidatesTags: ["stories"],
     }),
 
+    /////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////
+
+    //   // * NEWS COMMENTS * //
+
+    // // All News Comments Data
+    // getAllNewsComments: builder.query({
+    //   query: (id) => `/newsComment/${id}`,
+    //   providesTags: ["newsComments"],
+    // }),
+
+    // //  Get user based comments
+    // getAllNewsCommentsOfaUser: builder.query({
+    //   query: ({ email, id }) => `/single-comment?email=${email}&id=${id}`,
+    //   providesTags: (result, error, arg) => [{ type: "newsComments", id: arg.id }],
+    // }),
+
+    // // add a new News comment
+    // addNewsComment: builder.mutation({
+    //   query: (data) => ({
+    //     url: "/newsComments",
+    //     method: "POST",
+    //     body: data,
+    //   }),
+    //   invalidatesTags: ["newsComments"],
+    // }),
+
+    // // delete a News comment
+    // deleteNewsComment: builder.mutation({
+    //   query: (id) => ({
+    //     url: `/newsComments/${id}`,
+    //     method: "DELETE",
+    //   }),
+    //   invalidatesTags: ["newsComments"],
+    // }),
+
+    // //   Edit a  News comment
+    // editNewsComment: builder.mutation({
+    //   query: ({ id, updatedData }) => ({
+    //     url: `/update-comment/${id}`,
+    //     method: "PUT",
+    //     body: updatedData,
+    //   }),
+
+    //   invalidatesTags: (result, error, arg) => [
+    //     "newsComments",
+    //     { type: "newsComment", id: arg.id },
+    //   ],
+    // }),
+
+    /////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////
+
     // *  CHARITY * //
 
     //  all charity
@@ -422,12 +496,12 @@ export const apiSlice = createApi({
     // is the userAdmin
     getIsAdmin: builder.query({
       query: (email) => `/alumni/admin/${email}`,
-      providesTags: (result, error, arg) => [{ type: "userRole", id: arg }],
+      // providesTags: (result, error, arg) => [{ type: "userRole", id: arg }],
     }),
     // is the userAdmin
     getIsBatchAdmin: builder.query({
       query: (email) => `/alumni/BatchAdmin/${email}`,
-      providesTags: (result, error, arg) => [{ type: "userRole", id: arg }],
+      // providesTags: (result, error, arg) => [{ type: "userRole", id: arg }],
     }),
 
     // /events/category/:id GET endpoint that returns event data based on category ID
@@ -471,6 +545,8 @@ export const {
   useGetAllNewsCommentsQuery,
   useAddNewsCommentMutation,
   useDeleteNewsCommentMutation,
+  useGetAllNewsCommentsOfaUserQuery,
+  useEditNewsCommentMutation,
   // GALLERY
   useGetGalleriesQuery,
   useGetGalleryCategoriesQuery,
