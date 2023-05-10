@@ -73,7 +73,7 @@ export const apiSlice = createApi({
 
     //  get my events based on email
     getMyEvents: builder.query({
-      query: (email) => `/events/myEvents${email}`,
+      query: (email) => `/events/myEvents/${email}`,
       providesTags: ["events"],
     }),
 
