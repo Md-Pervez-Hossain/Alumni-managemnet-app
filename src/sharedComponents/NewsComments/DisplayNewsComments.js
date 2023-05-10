@@ -4,6 +4,7 @@ import { FaEdit, FaTrash } from "react-icons/fa";
 import { AuthContext } from "../UseContext/AuthProvider";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { useGetAllNewsCommentsOfaUserQuery } from "../../features/Api/apiSlice";
 
 const DisplayNewsComments = ({ comment, handleCommentsDelete }) => {
   const { user } = useContext(AuthContext);
@@ -12,8 +13,17 @@ const DisplayNewsComments = ({ comment, handleCommentsDelete }) => {
 
   const id = NewComment._id;
 
+  const [commentID, setCommentID] = useState("");
+
+  const { data: myNewsComments } = useGetAllNewsCommentsOfaUserQuery({
+    email: user.email,
+    id: commentID,
+  });
+
   const handleGetComment = (id) => {
     if (user?.email && id) {
+      setCommentID(id);
+
       axios
         .get(
           `https://alumni-managemnet-app-server.vercel.app/single-comment?email=${user?.email}&id=${id}`

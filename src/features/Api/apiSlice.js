@@ -183,6 +183,12 @@ export const apiSlice = createApi({
       providesTags: ["newsComments"],
     }),
 
+    //  Get user based comments
+    getAllNewsCommentsOfaUser: builder.query({
+      query: ({ email, id }) => `/single-comment?email=${email}&id=${id}`,
+      providesTags: (result, error, arg) => [{ type: "newsComments", id: arg.id }],
+    }),
+
     // add a new News comment
     addNewsComment: builder.mutation({
       query: (data) => ({
@@ -462,6 +468,7 @@ export const {
   useGetAllNewsCommentsQuery,
   useAddNewsCommentMutation,
   useDeleteNewsCommentMutation,
+  useGetAllNewsCommentsOfaUserQuery,
   // GALLERY
   useGetGalleriesQuery,
   useGetGalleryCategoriesQuery,
