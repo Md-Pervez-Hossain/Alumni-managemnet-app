@@ -1,8 +1,28 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AuthContext } from "../UseContext/AuthProvider";
+import { useAddNewsCommentMutation } from "../../features/Api/apiSlice";
+import { FaPumpMedical } from "react-icons/fa";
+import { toast } from "react-hot-toast";
 
 const NewsComments = ({ data }) => {
   const { user } = useContext(AuthContext);
+
+  const [
+    addNewsComment,
+    {
+      data: comments,
+      isLoading: isCommentsLoading,
+      isSuccess: isCommentsSuccess,
+      isError: isCommentsError,
+    },
+  ] = useAddNewsCommentMutation();
+
+  useEffect(() => {
+    if (isCommentsSuccess) {
+      toast.success("Comments added successfully");
+      // form.reset(); // * aikahne reset function ta add korben
+    }
+  }, [isCommentsSuccess]);
 
   const handleNewsComments = (event) => {
     event.preventDefault();
@@ -17,26 +37,8 @@ const NewsComments = ({ data }) => {
       time,
       commentsId: data?._id,
     };
-    console.log(commentsInfo);
-    fetch("https://alumni-managemnet-app-server.vercel.app/newsComments", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(commentsInfo),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.acknowledged) {
-          form.reset();
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
 
-    console.log("submit");
+    addNewsComment(commentsInfo);
   };
   return (
     <div>
@@ -47,9 +49,7 @@ const NewsComments = ({ data }) => {
           name="comments"
           required
         ></textarea>
-        <button className=" mt-3 mb-8 px-6 py-2  bg-primary text-white">
-          Comment
-        </button>
+        <button className=" mt-3 mb-8 px-6 py-2  bg-primary text-white">Comment</button>
       </form>
       <div></div>
     </div>

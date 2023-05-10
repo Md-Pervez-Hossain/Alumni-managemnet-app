@@ -123,12 +123,13 @@ export const apiSlice = createApi({
     getaLLNews: builder.query({
       query: () => ({
         url: `/news`,
-        headers: {
-          authorization: `bearer ${localStorage.getItem("access_token")}`,
-        },
       }),
       providesTags: ["allNews"],
     }),
+
+    // headers: {
+    //   authorization: `bearer ${localStorage.getItem("access_token")}`,
+    // },
 
     getSingleNews: builder.query({
       query: (id) => `/news/${id}`,
@@ -172,6 +173,24 @@ export const apiSlice = createApi({
         method: "DELETE",
       }),
       invalidatesTags: ["allNews"],
+    }),
+
+    // * NEWS COMMENTS * //
+
+    // All News Comments Data
+    getAllNewsComments: builder.query({
+      query: (id) => `/newsComment/${id}`,
+      providesTags: ["newsComments"],
+    }),
+
+    // add a new News comment
+    addNewsComment: builder.mutation({
+      query: (data) => ({
+        url: "/newsComments",
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["newsComments"],
     }),
 
     // * Alumni * //
@@ -429,7 +448,8 @@ export const {
   useEditNewsMutation,
   useDeleteNewsMutation,
   useGetMyNewsQuery,
-
+  useGetAllNewsCommentsQuery,
+  useAddNewsCommentMutation,
   // GALLERY
   useGetGalleriesQuery,
   useGetGalleryCategoriesQuery,

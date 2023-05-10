@@ -8,15 +8,12 @@ import { toast } from "react-hot-toast";
 const DisplayNewsComments = ({ comment, handleCommentsDelete }) => {
   const { user } = useContext(AuthContext);
 
-  // console.log(comment)
-
   const [NewComment, setNewComment] = useState("");
 
   console.log(NewComment);
   const id = NewComment._id;
 
   const handleGetComment = (id) => {
-    console.log(id);
     if (user?.email && id) {
       axios
         .get(
@@ -40,16 +37,13 @@ const DisplayNewsComments = ({ comment, handleCommentsDelete }) => {
       comments: newComment,
       time,
     };
-    fetch(
-      `https://alumni-managemnet-app-server.vercel.app/update-comment/${id}`,
-      {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(updatedData),
-      }
-    )
+    fetch(`https://alumni-managemnet-app-server.vercel.app/update-comment/${id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(updatedData),
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -134,9 +128,7 @@ const DisplayNewsComments = ({ comment, handleCommentsDelete }) => {
                           handleGetComment(comment?._id);
                         }}
                       >
-                        {" "}
-                        <FaEdit className="inline-block mb-1 "></FaEdit>{" "}
-                        <span>Edit</span>
+                        <FaEdit className="inline-block mb-1 "></FaEdit> <span>Edit</span>
                       </div>
                     </>
                   ) : (
