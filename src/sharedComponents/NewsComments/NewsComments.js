@@ -17,7 +17,7 @@ const NewsComments = ({ data }) => {
       time,
       commentsId: data?._id,
     };
-    console.log(commentsInfo);
+
     fetch("https://alumni-managemnet-app-server.vercel.app/newsComments", {
       method: "POST",
       headers: {
@@ -27,7 +27,6 @@ const NewsComments = ({ data }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.acknowledged) {
           form.reset();
         }
@@ -47,9 +46,7 @@ const NewsComments = ({ data }) => {
           name="comments"
           required
         ></textarea>
-        <button className=" mt-3 mb-8 px-6 py-2  bg-primary text-white">
-          Comment
-        </button>
+        <button className=" mt-3 mb-8 px-6 py-2  bg-primary text-white">Comment</button>
       </form>
       <div></div>
     </div>

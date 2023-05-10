@@ -138,7 +138,6 @@ const MembershipForm = () => {
   // error: isAlumniError,
 
   let content;
-  console.log(singleAlumni);
   if (isSingleAlumniLoading && !isSingleAlumniLoadingError) {
     content = <Loading />;
   }
