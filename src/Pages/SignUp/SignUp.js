@@ -98,6 +98,8 @@ const SignUp = () => {
               },
             };
 
+            console.log(user);
+
             updateUserProfile({
               displayName: name,
               photoURL: photoURL,

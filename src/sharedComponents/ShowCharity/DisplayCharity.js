@@ -55,11 +55,17 @@ const DisplayCharity = ({ charity }) => {
             {title ? (
               <>
                 {" "}
-                {title?.length >= 20 ? (
-                  <>{`${title.slice(0, 20)} ...`}</>
-                ) : (
-                  <>{`${title}`}</>
-                )}
+                <Link to={`/charity/${charity?._id}`}>
+                  {title?.length >= 20 ? (
+                    <>
+                      <h2 className="text-xl">{`${title.slice(0, 20)} ...`}</h2>
+                    </>
+                  ) : (
+                    <>
+                      <h2 className="text-xl">{`${title}`}</h2>
+                    </>
+                  )}
+                </Link>
               </>
             ) : (
               <>

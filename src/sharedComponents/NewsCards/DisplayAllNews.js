@@ -6,7 +6,9 @@ import { Link } from "react-router-dom";
 const DisplayAllNews = ({ news }) => {
   const [newsComments, setNewsComments] = useState([]);
   useEffect(() => {
-    fetch(`http://localhost:8000/newsComment/${news?._id}`)
+    fetch(
+      `https://alumni-managemnet-app-server.vercel.app/newsComment/${news?._id}`
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);

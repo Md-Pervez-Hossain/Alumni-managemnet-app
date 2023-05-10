@@ -66,9 +66,12 @@ const AllEvents = () => {
       `Are you Sure . You want to Approve The Charity`
     );
     if (agree) {
-      fetch(`http://localhost:8000/approveEvents/${_id}`, {
-        method: "PUT",
-      })
+      fetch(
+        `https://alumni-managemnet-app-server.vercel.app/approveEvents/${_id}`,
+        {
+          method: "PUT",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
@@ -86,9 +89,12 @@ const AllEvents = () => {
       `Are you Sure . You want to unApprove The Charity`
     );
     if (agree) {
-      fetch(`http://localhost:8000/unApproveEvents/${_id}`, {
-        method: "PUT",
-      })
+      fetch(
+        `https://alumni-managemnet-app-server.vercel.app/unApproveEvents/${_id}`,
+        {
+          method: "PUT",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
@@ -130,17 +136,40 @@ const AllEvents = () => {
           <tr>
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               <div className="flex px-2 py-1">
-                <div>
-                  <img
-                    src={event.image_url}
-                    className="!w-10 !h-10 inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm rounded-xl"
-                    alt="user1"
-                  />
-                </div>
+                {event?.image_url ? (
+                  <>
+                    {" "}
+                    <div>
+                      <img
+                        src={event?.image_url}
+                        className="!w-10 !h-10 inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm rounded-xl"
+                        alt="user1"
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {" "}
+                    <div>
+                      <img
+                        src="https://ionicframework.com/docs/img/demos/avatar.svg"
+                        className="!w-10 !h-10 inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm rounded-xl"
+                        alt="user1"
+                      />
+                    </div>
+                  </>
+                )}
+
                 <div className="flex flex-col justify-center">
                   <Link to={`/events/${event._id}`}>
                     <h6 className="mb-0 leading-normal text-sm">
-                      {event.event_title}
+                      {event?.event_title ? (
+                        <> {event?.event_title}</>
+                      ) : (
+                        <>
+                          <h2>Title Missing</h2>
+                        </>
+                      )}
                     </h6>
                   </Link>
                   <p className="mb-0 leading-tight text-xs text-slate-400">
@@ -152,17 +181,30 @@ const AllEvents = () => {
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               {/* <p className="mb-0 font-semibold leading-tight text-xs">{event.location}</p> */}
               <p className="mb-0 leading-tight text-xs text-slate-400">
-                {event.location}
+                {event?.location ? (
+                  <>{event?.location}</>
+                ) : (
+                  <>
+                    <p>Location Missing</p>
+                  </>
+                )}
               </p>
             </td>
             <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
               <p className="mb-0 leading-tight text-xs text-slate-400">
-                {event.batch}
+                {event?.batch ? <> {event?.batch}</> : <></>}
               </p>
             </td>
             <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               <span className="font-semibold leading-tight text-xs text-slate-400">
-                {formatDate(event.date)}
+                {event?.date ? (
+                  <> {formatDate(event?.date)}</>
+                ) : (
+                  <>
+                    {" "}
+                    <p>Date Missing</p>
+                  </>
+                )}{" "}
               </span>
             </td>
             <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
@@ -212,7 +254,7 @@ const AllEvents = () => {
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent ">
               <div className="flex">
                 <Link
-                  to={`/dashboard/events/edit/${event._id}`}
+                  to={`/dashboard/events/edit/${event?._id}`}
                   className="font-semibold leading-tight text-xs text-slate-400 px-2 ml-2"
                 >
                   <svg
@@ -231,7 +273,7 @@ const AllEvents = () => {
                   </svg>
                 </Link>
                 <Link
-                  onClick={() => handleDelete(event._id)}
+                  onClick={() => handleDelete(event?._id)}
                   to=""
                   className="font-semibold leading-tight text-xs  px-2 ml-2"
                 >
@@ -269,7 +311,7 @@ const AllEvents = () => {
             <table className="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
               <thead className="align-bottom">
                 <tr>
-                  {tableHeading.map((th) => (
+                  {tableHeading?.map((th) => (
                     <th className=" ps-2 pe-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
                       {th.name}
                     </th>

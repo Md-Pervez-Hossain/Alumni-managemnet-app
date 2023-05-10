@@ -44,7 +44,9 @@ const SingleNewsSection = () => {
   } = data || {};
 
   useEffect(() => {
-    fetch(`http://localhost:8000/newsComment/${data?._id}`)
+    fetch(
+      `https://alumni-managemnet-app-server.vercel.app/newsComment/${data?._id}`
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
