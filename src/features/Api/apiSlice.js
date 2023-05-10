@@ -7,6 +7,7 @@ export const apiSlice = createApi({
     // baseUrl: "http://localhost:8000/",
   }),
   tagTypes: [
+    "userRoles",
     "userRole",
     "alumni",
     "person",
@@ -487,16 +488,37 @@ export const apiSlice = createApi({
     // is the userAdmin
     getIsAdmin: builder.query({
       query: (email) => `/alumni/admin/${email}`,
-      // providesTags: (result, error, arg) => [{ type: "userRole", id: arg }],
+      providesTags: (result, error, arg) => [{ type: "userRole", id: arg }],
     }),
     // is the userAdmin
     getIsBatchAdmin: builder.query({
       query: (email) => `/alumni/BatchAdmin/${email}`,
-      // providesTags: (result, error, arg) => [{ type: "userRole", id: arg }],
+      providesTags: (result, error, arg) => [{ type: "userRole", id: arg }],
     }),
 
-    // /events/category/:id GET endpoint that returns event data based on category ID
-    // /events/:id GET endpoint that returns a single event data based on the id parameter
+    // make user Admin
+    makeAdmin: builder.mutation({
+      query: (id) => ({
+        url: `/alumni/admin/${id}`,
+        method: "PUT",
+        headers: {
+          authorization: `bearer ${localStorage.getItem("access_token")}`,
+        },
+      }),
+      invalidatesTags: (result, error, arg) => [{ type: "alumni", id: arg.id }],
+    }),
+
+    // make user Admin
+    makeBatchAdmin: builder.mutation({
+      query: (id) => ({
+        url: `/alumni/BatchAdmin/${id}`,
+        method: "PUT",
+        headers: {
+          authorization: `bearer ${localStorage.getItem("access_token")}`,
+        },
+      }),
+      invalidatesTags: (result, error, arg) => [{ type: "alumni", id: arg.id }],
+    }),
   }),
 });
 
@@ -572,6 +594,10 @@ export const {
   useGetAllUniversityNameQuery,
   useGetAllGraduationMajorQuery,
   useGetAllDegreeProgramsQuery,
+
+  // admin related
   useGetIsAdminQuery,
   useGetIsBatchAdminQuery,
+  useMakeAdminMutation,
+  useMakeBatchAdminMutation,
 } = apiSlice;
