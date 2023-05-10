@@ -13,6 +13,10 @@ import AllDonation from "../../Dashboard/DashboardPages/Dontation/allDonation";
 import BatchWiseCharity from "../../Dashboard/DashboardPages/Charity/BatchWiseCharity";
 import BatchWiseSuccessfulStory from "../../Dashboard/DashboardPages/successFullStory/BatchWiseSuccessfulStory";
 import BatchWiseEvents from "../../Dashboard/DashboardPages/Events/BatchWiseEvents";
+import AllSuccessFulStoryOfUser from "../../Dashboard/DashboardPages/successFullStory/AllSucessfulStoryOfUser";
+import AllEventsOfUser from "../../Dashboard/DashboardPages/Events/AllEventsOfUser";
+import AllCharityOfUser from "../../Dashboard/DashboardPages/Charity/AllCharityOfUser";
+import AllNewsOfUser from "../../Dashboard/DashboardPages/News/AllNewsOfUser";
 
 const Uhai = () => {
   return (
@@ -30,6 +34,10 @@ const Uhai = () => {
       {/* <BatchWiseEvents></BatchWiseEvents> */}
 
       {/* <JoinedEventUpdatePage></JoinedEventUpdatePage> */}
+      <AllSuccessFulStoryOfUser></AllSuccessFulStoryOfUser>
+      {/* <AllEventsOfUser></AllEventsOfUser> */}
+      {/* <AllCharityOfUser></AllCharityOfUser> */}
+      {/* <AllNewsOfUser></AllNewsOfUser> */}
 
       {/* <AddAEvent></AddAEvent> */}
       {/* <NewsSection /> */}
