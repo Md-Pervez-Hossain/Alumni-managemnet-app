@@ -23,7 +23,6 @@ const AllAlumni = () => {
     isError: isAlumniError,
     error: alumniError,
   } = useGetAllAlumniQuery();
-  console.log(allAlumni);
 
   // mutation for deleting data
   const [
@@ -39,13 +38,15 @@ const AllAlumni = () => {
   // make batch Admin
 
   const handleBatchAdmin = (_id) => {
-    const agree = window.confirm(`Are you Sure . You want to Make BatchAdmin`);
+    const agree = window.confirm(
+      `Are you Sure You want to Make this person Batch Admin?`
+    );
     if (agree) {
       fetch(`http://localhost:8000/alumni/admin/${_id}`, {
         method: "PUT",
-        headers: {
-          authorization: `bearer ${localStorage.getItem("access_token")}`,
-        },
+        // headers: {
+        //   authorization: `bearer ${localStorage.getItem("access_token")}`,
+        // },
       })
         .then((res) => res.json())
         .then((data) => {

@@ -189,9 +189,9 @@ const routes = createBrowserRouter([
       {
         path: "/dashboard/alumni/",
         element: (
-          // <AdminRoutes>
-          <AllAlumni />
-          // </AdminRoutes>
+          <AdminRoutes>
+            <AllAlumni />
+          </AdminRoutes>
         ),
       },
       { path: "/dashboard/profile/:email", element: <MembershipForm /> },
