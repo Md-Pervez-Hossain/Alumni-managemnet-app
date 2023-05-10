@@ -1,76 +1,45 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
-import { FaEdit, FaTrash } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+//  AllNews
+import React, { useContext, useEffect } from "react";
+import DashboardTable from "../../DashboardComponents/DashboardTable";
+import { Link } from "react-router-dom";
 import {
-  useDeleteSuccessfulStoriesMutation,
-  useGetAllSuccessfulStoriesOfAUserQuery,
-  useGetAllSuccessfulStoriesQuery,
+  useDeleteNewsMutation,
+  useGetEventsQuery,
+  useGetMyNewsQuery,
+  useGetaLLNewsQuery,
 } from "../../../features/Api/apiSlice";
 import Loading from "../../../sharedComponents/Loading/Loading";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
 import { toast } from "react-hot-toast";
+import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
 
-const AllSuccessFullStory = () => {
-  const { user } = useContext(AuthContext);
+const AllNewsOfUser = () => {
 
-  const handleSuccessStoryEdit = (story) => {
-    console.log(story);
-  };
+    const {user} = useContext(AuthContext);
+
   const tableHeading = [
     { name: "Title", id: 1 },
-    { name: "Batch", id: 2 },
+    { name: "News Posted", id: 1 },
+    { name: "Category", id: 2 },
     { name: "Date", id: 3 },
     { name: "Action", id: 3 },
   ];
 
   const {
-    data: successContentData,
-    isLoading: isSuccessLoading,
-    isError: isSuccessError,
-    error: successError,
-  } = useGetAllSuccessfulStoriesQuery();
-  // } = useGetAllSuccessfulStoriesOfAUserQuery(user?.email);
+    data: newsOfUserContentData,
+    isLoading: isNewsLoading,
+    isError: isNewsError,
+    error: newsError,
+  } = useGetMyNewsQuery(user?.email);
 
-  // mutation for deleting data
-  const [
-    deleteAlumni,
-    {
-      data,
-      isSuccess: isDeleteSuccess,
-      isLoading: isDeleteLoading,
-      isError: isDeleteError,
-      error: errorDelete,
-    },
-  ] = useDeleteSuccessfulStoriesMutation();
-
-  // delete function handler
-  const handleDelete = (_id) => {
-    const confirmDelete = window.confirm("do you want to delete?");
-    if (confirmDelete) {
-      deleteAlumni(_id);
-    }
-  };
-  // re render components on status change
-  useEffect(() => {
-    if (isDeleteSuccess) {
-      toast.success("Successfully toasted!");
-    }
-    if (isDeleteError) {
-      toast.error(errorDelete.message);
-    }
-  }, [errorDelete, isDeleteError, isDeleteSuccess]);
-
-  //handle approve
+  console.log(newsOfUserContentData)
 
   const handleApprove = (_id) => {
     console.log(_id);
-    const agree = window.confirm(
-      `Are you Sure . You want to Approve The SuccessStory`
-    );
+    const agree = window.confirm(`Are you Sure . You want to Approve The News`);
     if (agree) {
       fetch(
-        `https://alumni-managemnet-app-server.vercel.app/approveSuccessStory/${_id}`,
+        `https://alumni-managemnet-app-server.vercel.app/approveNews/${_id}`,
         {
           method: "PUT",
         }
@@ -87,14 +56,14 @@ const AllSuccessFullStory = () => {
         });
     }
   };
-
   const handleUnApprove = (_id) => {
+    console.log(_id);
     const agree = window.confirm(
-      `Are you Sure . You want to unApprove The SuccessStory`
+      `Are you Sure . You want to unApprove The News`
     );
     if (agree) {
       fetch(
-        `https://alumni-managemnet-app-server.vercel.app/unApproveSuccessStory/${_id}`,
+        `https://alumni-managemnet-app-server.vercel.app/unApproveNews/${_id}`,
         {
           method: "PUT",
         }
@@ -112,36 +81,30 @@ const AllSuccessFullStory = () => {
     }
   };
 
-  // render components conditionally
+  let newsContent;
 
-  let successContent;
-
-  if (isSuccessLoading && !isSuccessError) {
-    successContent = <Loading />;
+  if (isNewsLoading && !isNewsError) {
+    newsContent = <Loading />;
   }
-  if (!isSuccessLoading && isSuccessError) {
-    successContent = <ErrorAlert text={successError} />;
+  if (!isNewsLoading && isNewsError) {
+    newsContent = <ErrorAlert text={newsError} />;
   }
-  if (
-    !isSuccessLoading &&
-    !isSuccessError &&
-    successContentData?.length === 0
-  ) {
-    successContent = <ErrorAlert text="No Category Find" />;
+  if (!isNewsLoading && !isNewsError && newsOfUserContentData?.length === 0) {
+    newsContent = <ErrorAlert text="No Data Find" />;
   }
-  if (!isSuccessLoading && !isSuccessError && successContentData?.length > 0) {
-    successContent = (
+  if (!isNewsLoading && !isNewsError && newsOfUserContentData?.length > 0) {
+    newsContent = (
       <>
         {" "}
-        {successContentData?.map((event) => (
+        {newsOfUserContentData?.map((news) => (
           <tr>
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               <div className="flex px-2 py-1">
-                {event?.image_url ? (
+                {news?.image ? (
                   <>
                     <div>
                       <img
-                        src={event?.image_url}
+                        src={news?.image}
                         className="!w-10 !h-10 inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm rounded-xl"
                         alt="user1"
                       />
@@ -161,89 +124,110 @@ const AllSuccessFullStory = () => {
 
                 <div className="flex flex-col justify-center">
                   <h6 className="mb-0 leading-normal text-sm">
-                    {event?.title ? (
-                      <>{event?.title}</>
+                    {news?.heading ? (
+                     
+                      <Link to={`/news/${news?._id}`}>
+                    <p className="mb-0 leading-normal text-sm break-normal">
+                      {news?.heading?.slice(0, 50)}
+                    </p>
+                  </Link>
                     ) : (
                       <>
-                        <p>Title Missing</p>
+                        <h2>Title Missing</h2>
                       </>
                     )}
                   </h6>
-                  <p className="mb-0 leading-tight text-xs text-slate-400"></p>
+                  <p className="mb-0 leading-tight text-xs text-slate-400">
+                    {/* john@creative-tim.com */}
+                  </p>
                 </div>
               </div>
             </td>
+
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+              {/* <p className="mb-0 font-semibold leading-tight text-xs">{event.location}</p> */}
               <p className="mb-0 leading-tight text-xs text-slate-400">
-                {event?.batchNumber ? (
-                  <> {event?.batchNumber}</>
+                {news?.email ? (
+                  <>{news?.author}<br /> {news?.email}</>
                 ) : (
                   <>
-                    <p>Batch missing</p>
+                    <h2>Author Information missing.</h2>
                   </>
-                )}{" "}
+                )}
               </p>
             </td>
 
-            <td className="p-2 text-left align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-              <span className="font-semibold leading-tight text-xs text-slate-400">
-                {event?.time ? (
-                  <> {Date(event?.time)?.replace(/ GMT[+\-]\d{4}.*$/, "")}</>
+            <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+              {/* <p className="mb-0 font-semibold leading-tight text-xs">{event.location}</p> */}
+              <p className="mb-0 leading-tight text-xs text-slate-400">
+                {news?.NewsCategory ? (
+                  <>{news?.NewsCategory}</>
                 ) : (
-                  <>Time Missing</>
-                )}{" "}
-              </span>
+                  <>
+                    <h2>News Category</h2>
+                  </>
+                )}
+              </p>
             </td>
 
             <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-              <div className="flex gap-2 font-semibold">
-                {event?.status === true ? (
-                  <>
-                    <button onClick={() => handleUnApprove(event?._id)}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="w-6 h-6 text-green-600"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                    </button>
-                  </>
+              <span className="font-semibold  leading-tight text-xs text-slate-400">
+                {news?.time ? (
+                  <>{Date(news?.time)?.replace(/ GMT[+\-]\d{4}.*$/, "")}</>
                 ) : (
                   <>
-                    <button onClick={() => handleApprove(event?._id)}>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        class="w-6 h-6 text-secondary"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                    </button>
+                    <p>Time Missing</p>
                   </>
-                )}
-              </div>
+                )}{" "}
+              </span>
+            </td>
+            <td className="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+              {news?.status === true ? (
+                <>
+                  <button onClick={() => handleUnApprove(news?._id)}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6 text-green-600"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button onClick={() => handleApprove(news?._id)}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6 text-secondary"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                  </button>
+                </>
+              )}
             </td>
 
             {/* edit and delete function */}
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent ">
               <div className="flex">
                 <Link
-                  to={`/dashboard/successfulStory/edit/${event?._id}`}
+                  to={`/dashboard/news/edit/${news?._id}`}
                   className="font-semibold leading-tight text-xs text-slate-400 px-2 ml-2"
                 >
                   <svg
@@ -262,7 +246,7 @@ const AllSuccessFullStory = () => {
                   </svg>
                 </Link>
                 <Link
-                  onClick={() => handleDelete(event._id)}
+                  onClick={() => handleDelete(news?._id)}
                   to=""
                   className="font-semibold leading-tight text-xs  px-2 ml-2"
                 >
@@ -289,11 +273,45 @@ const AllSuccessFullStory = () => {
     );
   }
 
+  // mutation for deleting data
+  const [
+    deleteAlumni,
+    {
+      data,
+      isSuccess: isDeleteSuccess,
+      isLoading: isDeleteLoading,
+      isError: isDeleteError,
+      error: errorDelete,
+    },
+  ] = useDeleteNewsMutation();
+
+  // delete function handler
+  const handleDelete = (_id) => {
+    const confirmDelete = window.confirm("do you want to delete?");
+    if (confirmDelete) {
+      deleteAlumni(_id);
+    }
+  };
+  // re render components on status change
+  useEffect(() => {
+    if (isDeleteSuccess) {
+      toast.success("Successfully toasted!");
+    }
+    if (isDeleteError) {
+      toast.error(errorDelete.message);
+    }
+  }, [errorDelete, isDeleteError, isDeleteSuccess]);
+
   return (
     <div className="w-full px-8">
       <div className="relative flex flex-col w-full min-w-0 mb-0 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
         <div className="p-6 pb-0 mb-0 bg-white rounded-t-2xl">
-          <h6>All SuccessFull Story.</h6>
+          <h6>All News which is you Posted. 
+          <span className="text-primary text-opacity-80">
+              {" "}
+              Total {newsOfUserContentData?.length} news you posted.
+            </span>
+          </h6>
         </div>
         <div className="flex-auto px-0 pt-0 pb-2">
           <div className="p-0 overflow-x-auto">
@@ -306,7 +324,6 @@ const AllSuccessFullStory = () => {
                         <>{th?.name}</>
                       ) : (
                         <>
-                          {" "}
                           <p>Missing</p>
                         </>
                       )}
@@ -316,7 +333,7 @@ const AllSuccessFullStory = () => {
                   <th className="px-6 py-3 font-semibold capitalize align-middle bg-transparent border-b border-gray-200 border-solid shadow-none tracking-none whitespace-nowrap text-slate-400 opacity-70"></th>
                 </tr>
               </thead>
-              <tbody>{successContent}</tbody>
+              <tbody>{newsContent}</tbody>
             </table>
           </div>
         </div>
@@ -324,4 +341,5 @@ const AllSuccessFullStory = () => {
     </div>
   );
 };
-export default AllSuccessFullStory;
+
+export default AllNewsOfUser;

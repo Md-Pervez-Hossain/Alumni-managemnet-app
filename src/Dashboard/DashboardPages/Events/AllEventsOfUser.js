@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Loading from "../../../sharedComponents/Loading/Loading";
 import ErrorAlert from "../../../sharedComponents/Skeletion/ErrorAlert";
@@ -6,30 +6,37 @@ import {
   useDeleteCharityMutation,
   useDeleteEventMutation,
   useGetBatchWiseEventsQuery,
+  useGetMyEventsQuery,
  
 } from "../../../features/Api/apiSlice";
 import { toast } from "react-hot-toast";
+import { AuthContext } from "../../../sharedComponents/UseContext/AuthProvider";
 
-const BatchWiseEvents = () => {
+const AllEventsOfUser = () => {
+
+    const {user} = useContext(AuthContext);
+
   const tableHeading = [
     { name: "Title", id: 1 },
+    { name: "Batch", id: 6 },
+    { name: "email", id: 5 },
     { name: "Location", id: 2 },
     { name: "Date", id: 3 },
     { name: "Action ", id: 4 },
     
   ];
 
- const batch = 2023;
+
 
   const {
-    data: batchWiseEventContentData,
+    data: UserEventContentData,
     isLoading: isCharityLoading,
     isError: isCharityError,
     error: charityError,
-  } = useGetBatchWiseEventsQuery(batch);
+  } = useGetMyEventsQuery(user?.email);
 
-
-console.log(batchWiseEventContentData)
+console.log(user?.email    )
+console.log(UserEventContentData)
   //
 
   // mutation for deleting data
@@ -122,15 +129,15 @@ console.log(batchWiseEventContentData)
   if (
     !isCharityLoading &&
     !isCharityError &&
-    batchWiseEventContentData?.length === 0
+    UserEventContentData?.length === 0
   ) {
-    charityContent = <ErrorAlert text="No Category Find" />;
+    charityContent = <ErrorAlert text="No Data Found." />;
   }
-  if (!isCharityLoading && !isCharityError && batchWiseEventContentData?.length > 0) {
+  if (!isCharityLoading && !isCharityError && UserEventContentData?.length > 0) {
     charityContent = (
       <>
         {" "}
-        {batchWiseEventContentData?.map((Events) => (
+        {UserEventContentData?.map((Events) => (
           <tr className="">
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               <div className="flex px-2 py-1">
@@ -152,6 +159,18 @@ console.log(batchWiseEventContentData)
                   </p>
                 </div>
               </div>
+            </td>
+
+            <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
+              <p className="mb-0 leading-tight text-xs text-slate-600">
+                <p className="flex flex-col"><span>{Events.batch}</span> </p>
+              </p>
+            </td>
+
+            <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
+              <p className="mb-0 leading-tight text-xs text-slate-600">
+                <p className="flex flex-col"><span>{Events.authorEmail}</span> </p>
+              </p>
             </td>
 
             <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
@@ -265,10 +284,10 @@ console.log(batchWiseEventContentData)
       <div className="relative flex flex-col w-full min-w-0 mb-0 break-words bg-white border-0 border-transparent border-solid shadow-soft-xl rounded-2xl bg-clip-border">
         <div className=" p-6 pb-0 mb-0 bg-white rounded-t-2xl">
         <h6 className="font-sans font-semibold">
-            Batch wise Events information.
+            Your Events information.
             <span className="text-primary text-opacity-80">
               {" "}
-              In batch wise total Events are {batchWiseEventContentData?.length}.
+              Your total posted events are {UserEventContentData?.length}.
             </span>
           </h6>
         </div>
@@ -295,4 +314,4 @@ console.log(batchWiseEventContentData)
   );
 };
 
-export default BatchWiseEvents;
+export default AllEventsOfUser;
