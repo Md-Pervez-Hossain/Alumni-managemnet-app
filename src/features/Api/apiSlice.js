@@ -193,6 +193,15 @@ export const apiSlice = createApi({
       invalidatesTags: ["newsComments"],
     }),
 
+    // delete a News comment
+    deleteNewsComment: builder.mutation({
+      query: (id) => ({
+        url: `/newsComments/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["newsComments"],
+    }),
+
     // * Alumni * //
 
     // All Alumni Data
@@ -448,8 +457,11 @@ export const {
   useEditNewsMutation,
   useDeleteNewsMutation,
   useGetMyNewsQuery,
+
+  // news comments
   useGetAllNewsCommentsQuery,
   useAddNewsCommentMutation,
+  useDeleteNewsCommentMutation,
   // GALLERY
   useGetGalleriesQuery,
   useGetGalleryCategoriesQuery,
