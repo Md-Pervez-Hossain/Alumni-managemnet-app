@@ -14,6 +14,7 @@ const AllAlumni = () => {
     { name: "Batch", id: 2 },
     { name: "Education", id: 3 },
     { name: "Blood", id: 4 },
+    { name: "Role", id: 4 },
   ];
 
   const {
@@ -22,6 +23,7 @@ const AllAlumni = () => {
     isError: isAlumniError,
     error: alumniError,
   } = useGetAllAlumniQuery();
+  console.log(allAlumni);
 
   // mutation for deleting data
   const [
@@ -34,6 +36,29 @@ const AllAlumni = () => {
       error: errorDelete,
     },
   ] = useDeleteAlumniMutation();
+  // make batch Admin
+
+  const handleBatchAdmin = (_id) => {
+    const agree = window.confirm(`Are you Sure . You want to Make BatchAdmin`);
+    if (agree) {
+      fetch(`http://localhost:8000/alumni/admin/${_id}`, {
+        method: "PUT",
+        headers: {
+          authorization: `bearer ${localStorage.getItem("access_token")}`,
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.modifiedCount > 0) {
+            toast.success("Successfully Done");
+          }
+        })
+        .catch((error) => {
+          toast.error(error.message);
+        });
+    }
+  };
 
   // delete function handler
   const handleDeleteAlumni = (_id) => {
@@ -123,6 +148,11 @@ const AllAlumni = () => {
               </p>
             </td>
 
+            <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
+              <button onClick={() => handleBatchAdmin(alumni._id)}>
+                BatchAdmin
+              </button>
+            </td>
             {/* edit and delete function */}
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent ">
               <div className="flex">

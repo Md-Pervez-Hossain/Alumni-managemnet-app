@@ -69,9 +69,12 @@ const AllSuccessFullStory = () => {
       `Are you Sure . You want to Approve The SuccessStory`
     );
     if (agree) {
-      fetch(`http://localhost:8000/approveSuccessStory/${_id}`, {
-        method: "PUT",
-      })
+      fetch(
+        `https://alumni-managemnet-app-server.vercel.app/approveSuccessStory/${_id}`,
+        {
+          method: "PUT",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
@@ -90,9 +93,12 @@ const AllSuccessFullStory = () => {
       `Are you Sure . You want to unApprove The SuccessStory`
     );
     if (agree) {
-      fetch(`http://localhost:8000/unApproveSuccessStory/${_id}`, {
-        method: "PUT",
-      })
+      fetch(
+        `https://alumni-managemnet-app-server.vercel.app/unApproveSuccessStory/${_id}`,
+        {
+          method: "PUT",
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
@@ -131,28 +137,61 @@ const AllSuccessFullStory = () => {
           <tr>
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               <div className="flex px-2 py-1">
-                <div>
-                  <img
-                    src={event.image_url}
-                    className="!w-10 !h-10 inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm rounded-xl"
-                    alt="user1"
-                  />
-                </div>
+                {event?.image_url ? (
+                  <>
+                    <div>
+                      <img
+                        src={event?.image_url}
+                        className="!w-10 !h-10 inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm rounded-xl"
+                        alt="user1"
+                      />
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div>
+                      <img
+                        src="https://ionicframework.com/docs/img/demos/avatar.svg"
+                        className="!w-10 !h-10 inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm rounded-xl"
+                        alt="user1"
+                      />
+                    </div>
+                  </>
+                )}
+
                 <div className="flex flex-col justify-center">
-                  <h6 className="mb-0 leading-normal text-sm">{event.title}</h6>
+                  <h6 className="mb-0 leading-normal text-sm">
+                    {event?.title ? (
+                      <>{event?.title}</>
+                    ) : (
+                      <>
+                        <p>Title Missing</p>
+                      </>
+                    )}
+                  </h6>
                   <p className="mb-0 leading-tight text-xs text-slate-400"></p>
                 </div>
               </div>
             </td>
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               <p className="mb-0 leading-tight text-xs text-slate-400">
-                {event.batchNumber}
+                {event?.batchNumber ? (
+                  <> {event?.batchNumber}</>
+                ) : (
+                  <>
+                    <p>Batch missing</p>
+                  </>
+                )}{" "}
               </p>
             </td>
 
             <td className="p-2 text-left align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               <span className="font-semibold leading-tight text-xs text-slate-400">
-                {Date(event.time)?.replace(/ GMT[+\-]\d{4}.*$/, "")}
+                {event?.time ? (
+                  <> {Date(event?.time)?.replace(/ GMT[+\-]\d{4}.*$/, "")}</>
+                ) : (
+                  <>Time Missing</>
+                )}{" "}
               </span>
             </td>
 
@@ -204,7 +243,7 @@ const AllSuccessFullStory = () => {
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent ">
               <div className="flex">
                 <Link
-                  to={`/dashboard/successfulStory/edit/${event._id}`}
+                  to={`/dashboard/successfulStory/edit/${event?._id}`}
                   className="font-semibold leading-tight text-xs text-slate-400 px-2 ml-2"
                 >
                   <svg
@@ -261,9 +300,16 @@ const AllSuccessFullStory = () => {
             <table className="items-center w-full mb-0 align-top border-gray-200 text-slate-500">
               <thead className="align-bottom">
                 <tr>
-                  {tableHeading.map((th) => (
+                  {tableHeading?.map((th) => (
                     <th className=" ps-2 pe-6 py-3 font-bold text-left uppercase align-middle bg-transparent border-b border-gray-200 shadow-none text-xxs border-b-solid tracking-none whitespace-nowrap text-slate-400 opacity-70">
-                      {th.name}
+                      {th?.name ? (
+                        <>{th?.name}</>
+                      ) : (
+                        <>
+                          {" "}
+                          <p>Missing</p>
+                        </>
+                      )}
                     </th>
                   ))}
                   {/* blank for edit tab */}

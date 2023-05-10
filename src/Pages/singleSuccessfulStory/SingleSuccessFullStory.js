@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import MoreSuccessFullStory from "./MoreSuccessFullStory";
 import { Link, useLocation } from "react-router-dom";
 import { useGetSingleSuccessfulStoriesQuery } from "../../features/Api/apiSlice";
@@ -8,9 +8,13 @@ import InnerPageHeader from "../../sharedComponents/InnerPageHeader/InnerPageHea
 import Comments from "../../sharedComponents/Comments/Comments";
 import ShowComments from "../../sharedComponents/Comments/ShowComments";
 import { AuthContext } from "../../sharedComponents/UseContext/AuthProvider";
+import { FaRegComment } from "react-icons/fa";
 
 const SingleSuccessFullStory = () => {
   const { user } = useContext(AuthContext);
+  const [newsComments, setNewsComments] = useState([]);
+  console.log(newsComments);
+
   //  get location using react-router-dom
   const location = useLocation();
   // get the current path
@@ -34,6 +38,18 @@ const SingleSuccessFullStory = () => {
     title,
     _id,
   } = data || {};
+
+  useEffect(() => {
+    fetch(`http://localhost:8000/newsComment/${data?._id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setNewsComments(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [data?._id]);
 
   let content;
 
@@ -83,24 +99,26 @@ const SingleSuccessFullStory = () => {
                   )}
 
                   <div>
-                    <h2 className="text-2xl my-5">
-                      {title ? (
-                        <>{title}</>
-                      ) : (
-                        <>
-                          <h2>Title Missing</h2>
-                        </>
-                      )}
-                    </h2>
-                    <p className="mb-5">
-                      {details ? (
-                        <>{details}</>
-                      ) : (
-                        <>
-                          <p>Details Missing</p>
-                        </>
-                      )}
-                    </p>
+                    <div>
+                      <h2 className="text-2xl my-5">
+                        {title ? (
+                          <>{title}</>
+                        ) : (
+                          <>
+                            <h2>Title Missing</h2>
+                          </>
+                        )}
+                      </h2>
+                      <p className="mb-5">
+                        {details ? (
+                          <>{details}</>
+                        ) : (
+                          <>
+                            <p>Details Missing</p>
+                          </>
+                        )}
+                      </p>
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-center justify-between ">
@@ -134,18 +152,39 @@ const SingleSuccessFullStory = () => {
                         ></div>
                       </>
                     )}
-                    <div>
-                      <p>
-                        {name ? (
-                          <>{name}</>
-                        ) : (
-                          <>
-                            <span>Author Name Missing</span>
-                          </>
-                        )}
-                      </p>
-                      <p>{time ? <>{time}</> : <></>}</p>
+                    <div className="flex justify-between items-center">
+                      <div>
+                        {" "}
+                        <p>
+                          {name ? (
+                            <>{name}</>
+                          ) : (
+                            <>
+                              <span>Author Name Missing</span>
+                            </>
+                          )}
+                        </p>
+                        <p>
+                          {time ? (
+                            <>{time}</>
+                          ) : (
+                            <>
+                              <p>Date is Missing</p>
+                            </>
+                          )}
+                        </p>
+                      </div>
                     </div>
+                  </div>
+                  <div>
+                    <button>
+                      <FaRegComment className="inline-block" />{" "}
+                      {newsComments?.length ? (
+                        <>{newsComments?.length}</>
+                      ) : (
+                        <></>
+                      )}
+                    </button>
                   </div>
                 </div>
                 {user?.email && user?.uid ? (
