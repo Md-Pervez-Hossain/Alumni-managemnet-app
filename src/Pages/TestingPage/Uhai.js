@@ -24,7 +24,7 @@ const Uhai = () => {
       {/* <NewsUpdatePage></NewsUpdatePage> */}
       {/* <EventUpdatePages></EventUpdatePages> */}
 
-      <AllDonation></AllDonation>
+      {/* <AllDonation></AllDonation> */}
       {/* <BatchWiseCharity></BatchWiseCharity> */}
       {/* <BatchWiseSuccessfulStory></BatchWiseSuccessfulStory> */}
       {/* <BatchWiseEvents></BatchWiseEvents> */}
