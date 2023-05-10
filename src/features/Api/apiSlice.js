@@ -208,6 +208,20 @@ export const apiSlice = createApi({
       invalidatesTags: ["newsComments"],
     }),
 
+    //   Edit a  News comment
+    editNewsComment: builder.mutation({
+      query: ({ id, updatedData }) => ({
+        url: `/update-comment/${id}`,
+        method: "PUT",
+        body: updatedData,
+      }),
+
+      invalidatesTags: (result, error, arg) => [
+        "newsComments",
+        { type: "newsComment", id: arg.id },
+      ],
+    }),
+
     // * Alumni * //
 
     // All Alumni Data
@@ -469,6 +483,7 @@ export const {
   useAddNewsCommentMutation,
   useDeleteNewsCommentMutation,
   useGetAllNewsCommentsOfaUserQuery,
+  useEditNewsCommentMutation,
   // GALLERY
   useGetGalleriesQuery,
   useGetGalleryCategoriesQuery,
