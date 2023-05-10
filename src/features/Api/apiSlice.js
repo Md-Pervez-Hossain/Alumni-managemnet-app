@@ -73,8 +73,8 @@ export const apiSlice = createApi({
 
     //  get my events based on email
     getMyEvents: builder.query({
-      query: (email) => `/events/myEvents${email}`,
-      providesTags: (result, error, arg) => [{ type: "events", id: arg }],
+      query: (email) => `/events/myEvents/${email}`,
+      providesTags: ["events"],
     }),
 
     //  single event
@@ -137,6 +137,12 @@ export const apiSlice = createApi({
 
     getNewsCategories: builder.query({
       query: () => "/alumniNewsCategories",
+    }),
+
+    //  get news based on email
+    getMyNews: builder.query({
+      query: (email) => `/news/mynews/${email}`,
+      providesTags: ["allNews"],
     }),
 
     // add a new News
@@ -301,6 +307,12 @@ export const apiSlice = createApi({
       providesTags: (result, error, arg) => [{ type: "charity", id: arg }],
     }),
 
+    //  get my charity based on email
+    getMyCharity: builder.query({
+      query: (email) => `/charity/myCharity/${email}`,
+      providesTags: ["charities"],
+    }),
+
     // add a new Charity
     addCharity: builder.mutation({
       query: (data) => ({
@@ -349,24 +361,6 @@ export const apiSlice = createApi({
     }),
 
     // * EMAIL WISE DATE GET * \\
-
-    //  get successful stories based on email
-    getMySuccessFullStory: builder.query({
-      query: (email) => `/successFullStory/email/${email}`,
-      providesTags: (result, error, arg) => [{ type: "stories", id: arg }],
-    }),
-
-    //  get news based on email
-    getMyNews: builder.query({
-      query: (email) => `/news/mynews/${email}`,
-      providesTags: (result, error, arg) => [{ type: "allNews", id: arg }],
-    }),
-
-    //  get my charity based on email
-    getMyCharity: builder.query({
-      query: (email) => `/charity/myCharity/${email}`,
-      providesTags: (result, error, arg) => [{ type: "charities", id: arg }],
-    }),
 
     // * extras
 
@@ -422,7 +416,7 @@ export const {
   useAddCharityMutation,
   useEditCharityMutation,
   useDeleteCharityMutation,
-
+  useGetMyCharityQuery,
   /// all donations
   useGetAllCharityDonationQuery,
   useGetMyDonationQuery,
@@ -434,6 +428,7 @@ export const {
   useAddNewsMutation,
   useEditNewsMutation,
   useDeleteNewsMutation,
+  useGetMyNewsQuery,
 
   // GALLERY
   useGetGalleriesQuery,
@@ -442,11 +437,13 @@ export const {
   useGetGalleriesFeaturedQuery,
   useGetGalleriesTrendingQuery,
   useGetBatchWiseGalleryQuery,
+
   // EVENTS
   useGetEventsQuery,
   useGetBatchWiseEventsQuery,
   useGetEventsCategoriesQuery, //event category
   useGetSingleEventQuery,
+  useGetMyEventsQuery,
 
   // mutations of events
   useAddEventsMutation,

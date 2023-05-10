@@ -98,66 +98,115 @@ const AllAlumni = () => {
               <div className="flex px-2 py-1">
                 <div>
                   <img
-                    src={alumni.profile_picture}
+                    src={alumni?.profile_picture}
                     className="w-14 h-14 inline-flex items-center justify-center mr-4 text-white transition-all duration-200 ease-soft-in-out text-sm rounded-xl"
                     alt="user1"
                   />
                 </div>
                 <div className="flex flex-col justify-center">
                   <Link
-                    to={`/alumni/${alumni.email}`}
+                    to={`/alumni/${alumni?.email}`}
                     className="mb-0 leading-normal text-sm text-primary"
                   >
-                    {alumni.name}
+                    {alumni?.name}
                   </Link>
+
+                  <p className=" mb-0 leading-tight text-xs text-slate-400 font-bold">
+                    {alumni?.role === "Admin" ? "Admin" : ""}
+                  </p>
+
                   <a
-                    href={`mailto:${alumni.email}`}
+                    href={`mailto:${alumni?.email}`}
                     className=" mb-0 leading-tight text-xs text-slate-400"
                   >
-                    {alumni.email}
+                    {alumni?.email}
                   </a>
                   <a
                     className="mb-0 leading-tight text-xs text-slate-400"
-                    href={`tel:${alumni.phone}`}
+                    href={`tel:${alumni?.phone}`}
                   >
-                    {alumni.phone}
+                    {alumni?.phone}
                   </a>
                 </div>
               </div>
             </td>
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               <Link
-                to={`/alumni/batch/${alumni.graduation_year}`}
+                to={`/alumni/batch/${alumni?.graduation_year}`}
                 className="mb-0 leading-tight text-xs text-slate-400"
               >
-                {alumni.graduation_year}
+                {alumni?.graduation_year}
               </Link>
             </td>
 
             <td className="p-2 text-left align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
               <p className="font-semibold leading-tight text-xs text-slate-400">
-                {alumni.major}
+                {alumni?.major}
               </p>
               <p className=" mb-0 leading-tight text-xs text-slate-400">
-                {alumni.degree}
+                {alumni?.degree}
               </p>
             </td>
             <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
               <p className="mb-0 leading-tight text-xs text-slate-400">
-                {alumni.personal_information.blood_group}
+                {alumni?.personal_information?.blood_group}
               </p>
             </td>
 
             <td className="p-2 leading-normal text-left align-middle bg-transparent border-b text-sm whitespace-nowrap shadow-transparent">
-              <button onClick={() => handleBatchAdmin(alumni._id)}>
-                BatchAdmin
-              </button>
+              {alumni?.role === "Admin" && (
+                <button
+                  // onClick={() => handleBatchAdmin(alumni?._id)}
+                  type="button"
+                  class="px-3 py-0.5 text-xs font-medium text-white bg-red-400 border border-gray-200 hover:bg-primary hover:text-white focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                >
+                  Remove Admin
+                </button>
+              )}
+
+              {alumni?.role === "Batch_Admin" && (
+                <div class="flex flex-col rounded-md shadow-sm" role="group">
+                  <button
+                    // onClick={() => handleBatchAdmin(alumni?._id)}
+                    type="button"
+                    class="px-3 py-0.5 text-xs font-medium text-white bg-red-400 border border-gray-200 hover:bg-primary hover:text-white focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                  >
+                    Remove Batch Admin
+                  </button>
+                  <button
+                    onClick={() => handleBatchAdmin(alumni?._id)}
+                    type="button"
+                    class="px-3 py-0.5 text-xs font-medium bg-white border border-gray-200 hover:bg-primary hover:text-white focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                  >
+                    Admin
+                  </button>
+                </div>
+              )}
+
+              {!alumni?.role && (
+                <div class="flex flex-col rounded-md shadow-sm" role="group">
+                  <button
+                    onClick={() => handleBatchAdmin(alumni?._id)}
+                    type="button"
+                    class="px-3 py-0.5 text-xs font-medium bg-white border border-gray-200 hover:bg-primary hover:text-white focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                  >
+                    Admin
+                  </button>
+
+                  <button
+                    type="button"
+                    class="px-3 py-0.5 text-xs font-medium bg-white border border-gray-200 hover:bg-primary hover:text-white focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white"
+                  >
+                    Batch Admin
+                  </button>
+                </div>
+              )}
             </td>
             {/* edit and delete function */}
             <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent ">
               <div className="flex">
                 <Link
-                  to={`/dashboard/profile/${alumni.email}`}
+                  to={`/dashboard/profile/${alumni?.email}`}
                   className="font-semibold leading-tight text-xs text-slate-400 px-2 ml-2"
                 >
                   <svg
@@ -178,7 +227,7 @@ const AllAlumni = () => {
                 <Link
                   to=""
                   onClick={() => {
-                    handleDeleteAlumni(alumni._id);
+                    handleDeleteAlumni(alumni?._id);
                   }}
                   className="font-semibold leading-tight text-xs  px-2 ml-2"
                 >
