@@ -3,8 +3,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    // baseUrl: "https://alumni-managemnet-app-server.vercel.app",
-    baseUrl: "http://localhost:8000/",
+    baseUrl: "https://alumni-managemnet-app-server.vercel.app",
+    // baseUrl: "http://localhost:8000/",
   }),
   tagTypes: [
     "userRole",
@@ -12,9 +12,15 @@ export const apiSlice = createApi({
     "person",
     "events",
     "event",
+    "eventComments",
+    "eventComment",
     "allNews",
+    "newsComments",
+    "newsComment",
     "news",
     "stories",
+    "storyComments",
+    "storyComment",
     "story",
     "galleries",
     "gallery",
@@ -63,6 +69,12 @@ export const apiSlice = createApi({
     getBatchWiseEvents: builder.query({
       query: (id) => `/events/batch/${id}`,
       providesTags: ["events"],
+    }),
+
+    //  get my events based on email
+    getMyEvents: builder.query({
+      query: (email) => `/events/myEvents${email}`,
+      providesTags: (result, error, arg) => [{ type: "events", id: arg }],
     }),
 
     //  single event
@@ -328,6 +340,34 @@ export const apiSlice = createApi({
       providesTags: ["donations"],
     }),
 
+    // /charityDonation/${user?.email}
+
+    //  my donation data
+    getMyDonation: builder.query({
+      query: (email) => `/charityDonation/${email}`,
+      providesTags: (result, error, arg) => [{ type: "charity", id: arg }],
+    }),
+
+    // * EMAIL WISE DATE GET * \\
+
+    //  get successful stories based on email
+    getMySuccessFullStory: builder.query({
+      query: (email) => `/successFullStory/email/${email}`,
+      providesTags: (result, error, arg) => [{ type: "stories", id: arg }],
+    }),
+
+    //  get news based on email
+    getMyNews: builder.query({
+      query: (email) => `/news/mynews/${email}`,
+      providesTags: (result, error, arg) => [{ type: "allNews", id: arg }],
+    }),
+
+    //  get my charity based on email
+    getMyCharity: builder.query({
+      query: (email) => `/charity/myCharity/${email}`,
+      providesTags: (result, error, arg) => [{ type: "charities", id: arg }],
+    }),
+
     // * extras
 
     //  all university names
@@ -373,6 +413,7 @@ export const {
   useEditSuccessfulStoriesMutation,
   useDeleteSuccessfulStoriesMutation,
   useGetBatchWiseSuccessfulStoriesQuery,
+
   //charity
   useGetAllCharityQuery,
   useGetSingleCharityQuery,
@@ -381,6 +422,10 @@ export const {
   useAddCharityMutation,
   useEditCharityMutation,
   useDeleteCharityMutation,
+
+  /// all donations
+  useGetAllCharityDonationQuery,
+  useGetMyDonationQuery,
 
   // NEWS
   useGetaLLNewsQuery,
@@ -416,9 +461,6 @@ export const {
   useAddAlumniMutation,
   useEditAlumniMutation,
   useDeleteAlumniMutation,
-
-  /// all donations
-  useGetAllCharityDonationQuery,
 
   // UTILS - EXTRAS
   useGetAllBatchesQuery,
